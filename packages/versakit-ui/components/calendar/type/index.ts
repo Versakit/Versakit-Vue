@@ -1,6 +1,19 @@
 export interface CalendarProps {
   modelValue?: Date // 选中的日期
   readonly?: boolean // 是否只读
+  unstyled?: boolean
+  pt?: CalendarPtProps
+}
+
+export interface CalendarPtProps {
+  /*基础类*/
+  root?: string | Record<string, any>
+  header?: string | Record<string, any>
+  title?: string | Record<string, any>
+  body?: string | Record<string, any>
+  weeks?: string | Record<string, any>
+  dates?: string | Record<string, any>
+  cell?: string | Record<string, any>
 }
 
 export interface CalendarEmits {

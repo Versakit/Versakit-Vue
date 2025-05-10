@@ -7,7 +7,7 @@ defineOptions({ name: 'VKAvatar' })
 const props = withDefaults(defineProps<AvatarProps>(), {
   size: 'default',
   shape: 'circle',
-  backgroundColor: '',
+  backgroundColor: '#cccccc',
   color: '',
   unstyled: false,
   pt: () => ({}),
@@ -66,7 +66,7 @@ const rootClass = computed(() => {
   const classes = []
   const ptRoot = getPtClasses('root')
   if (ptRoot) classes.push(ptRoot)
-  if (!props.unstyled) classes.push('ver-avatar')
+  if (!props.unstyled) classes.push('vk-avatar')
   return classes
 })
 
@@ -103,6 +103,7 @@ const textClass = computed(() => {
       color: !src ? color : undefined,
       fontSize: !src ? fontSize : undefined,
     }"
+    :aria-label="text ? `Avatar for ${text}` : 'User avatar with initials'"
   >
     <img
       v-if="src"
@@ -110,14 +111,13 @@ const textClass = computed(() => {
       :class="imageClass"
       alt="avatar"
       role="img"
-      aria-label="User avatar"
       @error="handleImgError"
     />
     <span
       v-else-if="text && firstLetter"
       :class="textClass"
       role="img"
-      aria-label="User avatar with initials"
+      aria-hidden="true"
     >
       {{ firstLetter }}
     </span>
@@ -126,29 +126,5 @@ const textClass = computed(() => {
 </template>
 
 <style scoped>
-.ver-avatar {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  white-space: nowrap;
-  user-select: none;
-  position: relative;
-  vertical-align: middle;
-}
-
-.ver-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.is-circle {
-  border-radius: 50%;
-}
-
-.is-square {
-  border-radius: 4px;
-}
+@import url('../style/index.css');
 </style>

@@ -1,7 +1,7 @@
 <template>
   <section class="demo-section">
     <div class="demo-row">
-      <VKAvatar src="https://randomuser.me/api/portraits/men/1.jpg" />
+      <VKAvatar src="https://pic1.imgdb.cn/item/681c17a558cb8da5c8e43969.png" />
       <VKAvatar text="User" />
       <VKAvatar backgroundColor="#f56a00">U</VKAvatar>
     </div>

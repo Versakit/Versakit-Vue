@@ -5,17 +5,17 @@
       <h3>基础色</h3>
       <div class="color-grid">
         <div class="color-item">
-          <div class="color-block" style="background: var(--ver-white)"></div>
+          <div class="color-block" style="background: var(--vk-white)"></div>
           <div class="color-info">
             <span>White</span>
-            <code>var(--ver-white)</code>
+            <code>var(--vk-white)</code>
           </div>
         </div>
         <div class="color-item">
-          <div class="color-block" style="background: var(--ver-black)"></div>
+          <div class="color-block" style="background: var(--vk-black)"></div>
           <div class="color-info">
             <span>Black</span>
-            <code>var(--ver-black)</code>
+            <code>var(--vk-black)</code>
           </div>
         </div>
       </div>
@@ -34,11 +34,11 @@
           <div v-for="shade in shades" :key="shade" class="color-item">
             <div
               class="color-block"
-              :style="`background: var(--ver-${series.name}-${shade})`"
+              :style="`background: var(--vk-${series.name}-${shade})`"
             ></div>
             <div class="color-info">
               <span>{{ shade }}</span>
-              <code>var(--ver-{{ series.name }}-{{ shade }})</code>
+              <code>var(--vk-{{ series.name }}-{{ shade }})</code>
             </div>
           </div>
         </div>
@@ -83,7 +83,7 @@ const colorSeries = [
 .color-item {
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--ver-neutral-200);
+  border: 1px solid var(--vk-neutral-200);
   border-radius: 4px;
   overflow: hidden;
 }
@@ -106,6 +106,6 @@ const colorSeries = [
 
 .color-info code {
   font-size: 0.875rem;
-  color: var(--ver-neutral-600);
+  color: var(--vk-neutral-600);
 }
 </style>

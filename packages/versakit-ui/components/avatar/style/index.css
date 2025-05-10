@@ -1,24 +1,25 @@
 .vk-avatar {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  box-sizing: border-box;
-  text-align: center;
-  overflow: hidden;
-  vertical-align: middle;
-  white-space: nowrap;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    white-space: nowrap;
+    user-select: none;
+    position: relative;
+    vertical-align: middle;
 }
 
 .vk-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
 }
 
-.vk-avatar.is-circle {
-  border-radius: 50%;
+.is-circle {
+    border-radius: 50%;
 }
 
-.vk-avatar.is-square {
-  border-radius: 4px;
+.is-square {
+    border-radius: 4px;
 }

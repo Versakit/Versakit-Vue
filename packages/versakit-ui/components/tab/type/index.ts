@@ -18,6 +18,7 @@ export interface TabPt {
   content?: string
   typeClass?: string
   activeClass?: string
+  pt?: Record<string, string>
 }
 
 export interface TabItemProps {

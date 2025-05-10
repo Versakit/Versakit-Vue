@@ -12,6 +12,8 @@ import '@versakit/ui/dist/esm/ui.css'
 import { VersakitDirectives } from '@versakit/directives'
 import { Element, Layui } from '@versakit/theme'
 
+import { A, B } from './cursor'
+
 export default {
   ...Theme,
   Layout: MyLayout,

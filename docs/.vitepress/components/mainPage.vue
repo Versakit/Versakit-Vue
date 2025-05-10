@@ -1,4 +1,8 @@
 <template>
+  <div v-if="showBanner" class="banner">
+    🎉0.4.x 很快到来 🚀
+    <button class="close-btn" @click="showBanner = false">X</button>
+  </div>
   <div class="theme-main-page">
     <div class="background-box">
       <template v-for="img in images" :key="img.src">
@@ -72,6 +76,8 @@
 </template>
 <script setup>
 import { ref } from 'vue'
+
+const showBanner = ref(true)
 
 let list = [
   {
@@ -652,5 +658,32 @@ body {
   100% {
     background-position: 180px;
   }
+}
+
+.banner {
+  background-color: #8b5cf6;
+  color: #fff;
+  text-align: center;
+  padding: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  user-select: none;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #ccc;
 }
 </style>

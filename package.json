@@ -26,10 +26,16 @@
     "lint:eslint": "eslint packages/**/*.{ts,vue} --cache --fix",
     "prepare": "husky install",
     "lint-staged": "lint-staged",
+    "commit": "git-cz",
     "commitlint": "commitlint --config commitlint.config.cjs -e -V",
     "changeset": "changeset",
     "version": "changeset version",
     "release": "changeset publish"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
   },
   "lint-staged": {
     "**/*.{js,jsx,ts,tsx,vue}": [
@@ -60,7 +66,9 @@
     "@vue/test-utils": "^2.4.6",
     "@vue/tsconfig": "^0.5.1",
     "autoprefixer": "^10.4.20",
+    "commitizen": "^4.3.1",
     "cssnano": "^7.0.6",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-node": "^11.1.0",

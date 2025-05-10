@@ -15,7 +15,6 @@
 | 属性名         | 类型   | 默认值 | 说明           |
 | -------------- | ------ | ------ | -------------- |
 | separator      | string | ' / '  | 分隔符字符     |
-| separatorClass | string | -      | 分隔符图标类名 |
 
 ### BreadcrumbItem Props
 

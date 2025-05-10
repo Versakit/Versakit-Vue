@@ -3,7 +3,7 @@ import { computed, useAttrs } from 'vue'
 import type { ButtonProps, PtProps } from '../type/index'
 import { VKIcon } from '@versakit/icons'
 
-defineOptions({ name: 'VkButton' }) // 修改组件名
+defineOptions({ name: 'VkButton' })
 
 // 按钮类型映射
 const TYPE_CLASS_MAP = {

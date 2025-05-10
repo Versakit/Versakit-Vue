@@ -2,9 +2,15 @@
 import { computed, ref, onMounted, nextTick } from 'vue'
 import type { SegmentedProps } from '../type/index.ts'
 
-defineOptions({ name: 'VerSegmented' })
+defineOptions({ name: 'VKSegmented' })
 
-const props = defineProps<SegmentedProps>()
+const props = withDefaults(defineProps<SegmentedProps>(), {
+  modelValue: '',
+  options: [],
+  unstyled: false,
+  pt: () => ({}),
+})
+
 const componentId = `segmented-${Math.random().toString(36).slice(2, 11)}`
 const labelRefs = ref<HTMLElement[]>([])
 
@@ -46,37 +52,64 @@ onMounted(async () => {
     document.querySelectorAll(`[data-segmented-id="${componentId}"]`),
   )
 })
+
+// 处理 unstyled 和 pt 选项
+const { unstyled, pt = {} } = props as any
+const rootClasses = computed(() => [
+  'segmented-control',
+  pt.root,
+  unstyled ? '' : 'default-root-styles',
+])
+const containerClasses = computed(() => [
+  'segmented-control-container',
+  pt.container,
+  unstyled ? '' : 'default-container-styles',
+])
+const highlightClasses = computed(() => [
+  'segmented-control-highlight',
+  pt.highlight,
+  unstyled ? '' : 'default-highlight-styles',
+])
+const itemClasses = computed(() => [
+  'segmented-control-item',
+  pt.item,
+  unstyled ? '' : 'default-item-styles',
+])
 </script>
 
 <template>
-  <div class="segmented-control">
-    <div class="segmented-control-container" role="radiogroup">
-      <div class="segmented-control-highlight" :style="highlightStyle" />
+  <div :class="rootClasses" role="group" aria-label="分段选择器">
+    <div :class="containerClasses" role="radiogroup">
+      <div :class="highlightClasses" :style="highlightStyle" />
       <div
-        v-for="(option, index) in options"
+        v-for="(option, index) in props.options"
         :key="option.value"
-        class="segmented-control-item"
+        :class="itemClasses"
       >
         <input
           type="radio"
           :id="`${componentId}-${index}`"
           :name="componentId"
           :value="option.value"
-          :checked="modelValue === option.value"
+          :checked="props.modelValue === option.value"
           @change="updateValue(option.value)"
+          aria-labelledby="`${componentId}-label-${index}`"
         />
         <label
           :for="`${componentId}-${index}`"
           :data-segmented-id="componentId"
+          :id="`${componentId}-label-${index}`"
           ref="labelRefs"
+          aria-describedby="segmented-description"
         >
           {{ option.label }}
         </label>
       </div>
     </div>
+    <div id="segmented-description" aria-hidden="true">
+      请从以下选项中选择一个
+    </div>
   </div>
 </template>
 
-<style scoped>
-@import '../style/index.css';
-</style>
+<style scoped src="../style/index.css"></style>

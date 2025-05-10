@@ -7,7 +7,7 @@ const props = defineProps<TabItemProps>()
 const { activeTab, registerTab, unregisterTab } = inject('tabs') as any
 
 // 组件无头化处理
-const getPtClass = (key: keyof NonNullable<TabItemPt['pt']>) => {
+const getPtClass = (key: keyof TabItemPt) => {
   const ptVal = props.pt?.[key]
   return typeof ptVal === 'string' ? ptVal : ''
 }

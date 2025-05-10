@@ -1,4 +1,3 @@
-// type/index.ts
 export interface TableColumns {
   title: string
   dataIndex: string

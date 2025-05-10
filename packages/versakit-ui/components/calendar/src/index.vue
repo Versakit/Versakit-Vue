@@ -1,6 +1,5 @@
 <template>
-  <div class="vk-calendar" role="grid" aria-label="日历">
-    <!-- 添加默认头部插槽 -->
+  <div :class="vkCalendarClass.root" role="grid" aria-label="日历">
     <slot
       name="header"
       :date="currentDate"
@@ -10,7 +9,7 @@
       :prev-year="prevYear"
       :next-year="nextYear"
     >
-      <div class="vk-calendar-header">
+      <div :class="vkCalendarClass.header">
         <VKButton
           type="primary"
           size="sm"
@@ -19,7 +18,7 @@
         >
           上个月
         </VKButton>
-        <span class="vk-calendar-title">
+        <span :class="vkCalendarClass.title">
           {{ currentYear }}年{{ currentMonth + 1 }}月
         </span>
         <VKButton
@@ -33,20 +32,20 @@
       </div>
     </slot>
 
-    <div class="vk-calendar-body">
-      <div class="vk-calendar-weeks" role="row">
+    <div :class="vkCalendarClass.body">
+      <div :class="vkCalendarClass.weeks" role="row">
         <span v-for="week in weeks" :key="week" role="columnheader">
           {{ week }}
         </span>
       </div>
 
-      <div class="vk-calendar-dates">
+      <div :class="vkCalendarClass.dates">
         <div
           v-for="cell in dates"
           :key="cell.date.toISOString()"
           :class="[
-            'vk-calendar-cell',
-            `vk-calendar-cell-${cell.type}`,
+            `${vkCalendarClass.cell}`,
+            `${vkCalendarClass.cell}-${cell.type}`,
             {
               'is-selected': isSelected(cell.date),
             },
@@ -71,6 +70,7 @@ import type {
   CalendarEmits,
   DateCell,
   DateCellData,
+  CalendarPtProps,
 } from '../type/index'
 import { VKButton } from '../../button/index'
 
@@ -79,6 +79,7 @@ defineOptions({ name: 'VerCalendar' })
 const props = withDefaults(defineProps<CalendarProps>(), {
   modelValue: () => new Date(),
   readonly: false,
+  unstyled: false,
 })
 
 const emit = defineEmits<CalendarEmits>()
@@ -199,6 +200,37 @@ const getCellData = (cell: DateCell): DateCellData => {
     day: formatDate(cell.date),
     date: cell.date,
   }
+}
+
+// 组件无头化处理
+const vkCalendarClass = computed(() => {
+  if (props.unstyled) {
+    return {
+      root: getPtClass('root'),
+      header: getPtClass('header'),
+      title: getPtClass('title'),
+      body: getPtClass('body'),
+      weeks: getPtClass('weeks'),
+      dates: getPtClass('dates'),
+      cell: getPtClass('cell'),
+    }
+  }
+
+  return {
+    root: 'vk-calendar',
+    header: 'vk-calendar-header',
+    title: 'vk-calendar-title',
+    body: 'vk-calendar-body',
+    weeks: 'vk-calendar-weeks',
+    dates: 'vk-calendar-dates',
+    cell: 'vk-calendar-cell',
+  }
+})
+
+const getPtClass = (key: keyof CalendarPtProps) => {
+  const ptValue = props.pt?.[key]
+  if (!ptValue) return ''
+  return ptValue
 }
 </script>
 

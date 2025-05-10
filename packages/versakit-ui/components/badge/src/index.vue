@@ -88,15 +88,15 @@ const valueClass = computed(() => {
   return TYPE_CLASS_MAP[props.type]
 })
 
-// 优化根元素属性
 const rootAttrs = computed(() => ({
   ...attrs,
   'aria-label':
     props.ariaLabel ||
+    (attrs['aria-label'] as string) ||
     (props.type === 'dot'
       ? 'Notification indicator'
-      : `Badge value is ${displayValue.value}`),
-  'aria-live': 'polite' as const,
+      : `Badge value: ${displayValue.value}`),
+  'aria-live': 'polite',
 }))
 </script>
 
