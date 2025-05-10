@@ -1,6 +1,5 @@
 import type { App, Component } from 'vue'
 import { installTheme } from './core/theme'
-import { version } from './package.json'
 
 // 基础组件
 import { VKButton } from './components/button/index'
@@ -219,8 +218,6 @@ type VersakitOptions = {
 }
 
 const Versakit = {
-  version,
-
   /**
    * 安装方法
    * @param app - Vue 应用实例
@@ -239,4 +236,4 @@ const Versakit = {
   },
 }
 
-export { Versakit, version }
+export { Versakit }
