@@ -27,7 +27,7 @@
 
 <script lang="ts" setup>
 import { ref, onMounted, computed } from 'vue'
-import { getLastBottomOffset } from './index'
+
 import { VKIcon } from '@versakit/icons'
 import type { NotifivationProps } from '../type/index'
 
@@ -46,13 +46,7 @@ const props = withDefaults(defineProps<NotifivationProps>(), {
 })
 
 const height = ref(0)
-// 上一个实例的最下面的坐标数字，第一个是 0
-const lastOffset = computed(() => getLastBottomOffset(props.id))
-// 这个元素应该使用的 top
-const topOffset = computed(() => props.offset + lastOffset.value)
-
-// 这个元素为下一个元素预留的 offset，也就是它最低端 bottom 的 值
-const bottomOffset = computed(() => height.value + topOffset.value)
+const bottomOffset = computed(() => height.value)
 
 // 根据传入的消息类型，计算对应的图标颜色
 const iconColor = computed(() => {
@@ -70,39 +64,7 @@ const iconColor = computed(() => {
 
 // 使用对象展开语法结合类型断言返回样式对象
 const positionStyle = computed(() => {
-  const baseStyle: Record<string, string> = {}
-  switch (props.position) {
-    case 'top-right':
-      return {
-        ...baseStyle,
-        position: 'fixed',
-        top: topOffset.value + 'px',
-        right: '20px',
-      } as unknown as Record<string, string>
-    case 'top-left':
-      return {
-        ...baseStyle,
-        position: 'fixed',
-        top: topOffset.value + 'px',
-        left: '20px',
-      } as unknown as Record<string, string>
-    case 'bottom-right':
-      return {
-        ...baseStyle,
-        position: 'fixed',
-        bottom: bottomOffset.value + 'px',
-        right: '20px',
-      } as unknown as Record<string, string>
-    case 'bottom-left':
-      return {
-        ...baseStyle,
-        position: 'fixed',
-        bottom: bottomOffset.value + 'px',
-        left: '20px',
-      } as unknown as Record<string, string>
-    default:
-      return baseStyle
-  }
+  return {} as Record<string, string>
 })
 
 const isVisable = ref(false)

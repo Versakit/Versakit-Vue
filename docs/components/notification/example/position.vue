@@ -14,7 +14,7 @@ const topleft = () => {
   VKNotification({
     title: 'title',
     content: 'content',
-    position: 'top-left',
+    position: 'topLeft',
     icon: 'ep:info-filled',
   })
 }
@@ -23,6 +23,7 @@ const topright = () => {
   VKNotification({
     title: 'title',
     content: 'content',
+    position: 'topRight',
     icon: 'ep:info-filled',
   })
 }
@@ -31,7 +32,7 @@ const bottomleft = () => {
   VKNotification({
     title: 'title',
     content: 'content',
-    position: 'bottom-left',
+    position: 'bottomLeft',
     icon: 'ep:info-filled',
   })
 }
@@ -40,7 +41,7 @@ const bottomright = () => {
   VKNotification({
     title: 'title',
     content: 'content',
-    position: 'bottom-right',
+    position: 'bottomRight',
     icon: 'ep:info-filled',
   })
 }

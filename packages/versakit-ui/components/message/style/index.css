@@ -2,34 +2,36 @@
   position: fixed;
   z-index: 9999;
   left: 50%;
+  top: 20px;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  align-items: center;
+  gap: 0; /* 移除间距，使用负margin实现堆叠 */
+  pointer-events: none;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  perspective: 1000px;
 }
 
 .vk-message {
-  position: fixed;
-  z-index: 9999;
-  left: 50%;
-  top: 25px;
+  position: relative; /* 改为相对定位 */
   display: inline-flex;
-  transform: translateX(-50%);
-  width: auto;
-  height: auto;
-  display: flex;
   align-items: center;
+  width: auto;
+  min-width: 300px;
   min-height: 45px;
-  padding: 10px;
-  border-radius: 4px;
+  padding: 10px 16px;
+  border-radius: 8px;
   user-select: none;
   background: #ffffff;
   color: var(--theme-neutral-600, var(--vk-neutral-600));
-  border-radius: 8px;
-  box-shadow:
-    0 6px 16px 0 rgba(0, 0, 0, 0.08),
-    0 3px 6px -4px rgba(0, 0, 0, 0.12),
-    0 9px 28px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transform-origin: center top;
+  pointer-events: auto;
+  margin-top: -35px; /* 负边距实现堆叠 */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 
   .text {
     margin-inline: 0.5rem;
@@ -39,23 +41,122 @@
   }
 }
 
-@each $item in primary, success, warn, info, error {
-  .vk-message-$(item) {
-    color: var(--theme-$(item)-500, var(--vk-$(item)-500));
-  }
-  .vk-message-$(item)-plain {
-    color: var(--theme-$(item)-500, var(--vk-$(item)-500));
-    background-color: var(--theme-$(item)-100, var(--vk-$(item)-100));
-  }
+/* Message types */
+.vk-message-primary {
+  color: var(--theme-primary-500, var(--vk-primary-500));
+}
+.vk-message-primary-plain {
+  color: var(--theme-primary-500, var(--vk-primary-500));
+  background-color: var(--theme-primary-100, var(--vk-primary-100));
+}
+
+.vk-message-success {
+  color: var(--theme-success-500, var(--vk-success-500));
+}
+.vk-message-success-plain {
+  color: var(--theme-success-500, var(--vk-success-500));
+  background-color: var(--theme-success-100, var(--vk-success-100));
+}
+
+.vk-message-warn {
+  color: var(--theme-warn-500, var(--vk-warn-500));
+}
+.vk-message-warn-plain {
+  color: var(--theme-warn-500, var(--vk-warn-500));
+  background-color: var(--theme-warn-100, var(--vk-warn-100));
+}
+
+.vk-message-info {
+  color: var(--theme-info-500, var(--vk-info-500));
+}
+.vk-message-info-plain {
+  color: var(--theme-info-500, var(--vk-info-500));
+  background-color: var(--theme-info-100, var(--vk-info-100));
+}
+
+.vk-message-error {
+  color: var(--theme-error-500, var(--vk-error-500));
+}
+.vk-message-error-plain {
+  color: var(--theme-error-500, var(--vk-error-500));
+  background-color: var(--theme-error-100, var(--vk-error-100));
 }
 
 .down-enter-active,
 .down-leave-active {
-  transition: all 0.5s;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.down-enter-from,
+.down-enter-from {
+  opacity: 0;
+  transform: translateY(-15px) scale(0.96);
+}
+
 .down-leave-to {
   opacity: 0;
-  transform: translate3d(-50%, -100px, 0);
+  transform: translateY(-15px) scale(0.96);
+}
+
+/* 堆叠效果 */
+.vk-message-container .vk-message:first-child {
+  margin-top: 0;
+  z-index: 5;
+}
+
+.vk-message-container .vk-message:nth-child(2) {
+  z-index: 4;
+  transform: scale(0.98);
+  filter: brightness(0.95);
+}
+
+.vk-message-container .vk-message:nth-child(3) {
+  z-index: 3;
+  transform: scale(0.96);
+  filter: brightness(0.9);
+}
+
+.vk-message-container .vk-message:nth-child(4) {
+  z-index: 2;
+  transform: scale(0.94);
+  filter: brightness(0.85);
+}
+
+.vk-message-container .vk-message:nth-child(5) {
+  z-index: 1;
+  transform: scale(0.92);
+  filter: brightness(0.8);
+}
+
+/* Hover展开效果 */
+.vk-message-container:hover .vk-message {
+  filter: brightness(1) !important;
+}
+
+.vk-message-container:hover .vk-message:nth-child(1) {
+  transform: translateY(0) scale(1);
+  margin-top: 0;
+}
+
+.vk-message-container:hover .vk-message:nth-child(2) {
+  transform: translateY(45px) scale(1);
+}
+
+.vk-message-container:hover .vk-message:nth-child(3) {
+  transform: translateY(90px) scale(1);
+}
+
+.vk-message-container:hover .vk-message:nth-child(4) {
+  transform: translateY(135px) scale(1);
+}
+
+.vk-message-container:hover .vk-message:nth-child(5) {
+  transform: translateY(180px) scale(1);
+}
+
+/* 单个卡片hover效果 */
+.vk-message-container .vk-message:hover {
+  z-index: 10;
+  filter: brightness(1.05) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transform: scale(1.02) !important;
 }

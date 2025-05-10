@@ -5,6 +5,20 @@ import type { MessageProps } from '../type/index'
 const instances: any = shallowReactive([])
 let seed = 1
 
+const getContainer = () => {
+  const containerId = 'vk-message-container'
+  let container = document.getElementById(containerId)
+
+  if (!container) {
+    container = document.createElement('div')
+    container.id = containerId
+    container.className = 'vk-message-container'
+    document.body.appendChild(container)
+  }
+
+  return container
+}
+
 export const Message = ({
   type,
   content,
@@ -13,14 +27,20 @@ export const Message = ({
   duration = 3000,
 }: MessageProps) => {
   const id = `message_${seed++}`
-  const container = document.createElement('div')
+  const wrapper = document.createElement('div')
+  const container = getContainer()
 
   // 删除数组中的实例 | 销毁
   const onDestroy = () => {
     const idx = instances.findIndex((instance: any) => instance.id === id)
     if (idx === -1) return
     instances.splice(idx, 1)
-    render(null, container)
+    render(null, wrapper)
+    wrapper.remove()
+    // Remove container if empty
+    if (container.children.length === 0) {
+      container.remove()
+    }
   }
 
   const newProps = {
@@ -34,10 +54,14 @@ export const Message = ({
   }
 
   const vnode = h(VKMessage, newProps)
+  render(vnode, wrapper)
 
-  render(vnode, container)
-
-  document.body.appendChild(container.firstElementChild!)
+  // Insert at the beginning to maintain stacking order
+  if (container.firstChild) {
+    container.insertBefore(wrapper.firstElementChild!, container.firstChild)
+  } else {
+    container.appendChild(wrapper.firstElementChild!)
+  }
 
   const vm = vnode.component!
 
@@ -52,12 +76,6 @@ export const Message = ({
   return instance
 }
 
-export const getLastBottomOffset = (id: string) => {
-  const idx = instances.findIndex((instance: any) => instance.id === id)
-  if (idx <= 0) {
-    return 0
-  } else {
-    const prev = instances[idx - 1]
-    return prev.vm.exposed!.bottomOffset.value + 50
-  }
+export const getLastBottomOffset = () => {
+  return 0 // No longer needed with new stacking approach
 }

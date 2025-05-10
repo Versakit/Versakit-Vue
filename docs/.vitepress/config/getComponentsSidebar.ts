@@ -57,7 +57,6 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
         { text: 'Carousel 走马灯', link: '/components/carousel/' },
         { text: 'Collapse 折叠面板', link: '/components/collapse/' },
         { text: 'Descriptions 描述列表', link: '/components/descriptions/' },
-        { text: 'GradientText 渐变文字', link: '/components/gradienttext/' },
         { text: 'Image 图片', link: '/components/image/' },
         { text: 'NoticeBar 通知栏', link: '/components/noticebar/' },
         { text: 'Pagination 分页', link: '/components/pagination/' },

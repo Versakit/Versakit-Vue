@@ -23,7 +23,6 @@ import { VKNotification } from './components/notification/index'
 import { VKBacktop } from './components/backtop/index'
 import { VKPanel } from './components/panel/index'
 import { VKSegmented } from './components/segmented/index'
-import { VKGradientText } from './components/gradienttext/index'
 import { VKFooter } from './components/footer/index'
 import { VKAside } from './components/aside/index'
 import { VKProgress } from './components/progress/index'
@@ -131,7 +130,6 @@ const components: Component[] = [
   VKTab,
   VKBacktop,
   VKSegmented,
-  VKGradientText,
   VKTable,
   VKColorPicker,
 ]
@@ -202,7 +200,6 @@ export {
   VKMain,
   VKTab,
   VKBacktop,
-  VKGradientText,
   VKTable,
   VKColorPicker,
 }

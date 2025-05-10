@@ -1,5 +1,13 @@
 import type { ComType } from '../../../utils/constant'
-type positionType = 'top-right' | 'top-left' | 'bottom-left' | 'bottom-right'
+type positionType =
+  | 'topRight'
+  | 'topLeft'
+  | 'bottomLeft'
+  | 'bottomRight'
+  | 'top-right'
+  | 'top-left'
+  | 'bottom-left'
+  | 'bottom-right'
 
 export interface NotifivationProps {
   id?: any
