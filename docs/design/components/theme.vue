@@ -56,10 +56,6 @@
             style="display: none"
             ref="fileInput"
           />
-          <button class="action-button import" @click="triggerImport">
-            <span class="icon">↑</span>
-            导入主题
-          </button>
         </div>
 
         <div class="theme-name-container">
@@ -170,10 +166,6 @@ const exportTheme = () => {
 }
 
 const fileInput = ref<HTMLInputElement | null>(null)
-
-const triggerImport = () => {
-  fileInput.value?.click()
-}
 
 // 导入主题
 const importTheme = (event: Event) => {
