@@ -1,6 +1,6 @@
 @use '../../../style/color/index.scss' as *;
 
-.ver-collapse {
+.vk-collapse {
   font-size: 13px;
   border-top: 1px solid var(--theme-neutral-300, var(--vk-neutral-300));
   border-bottom: 1px solid var(--theme-neutral-300, var(--vk-neutral-300));

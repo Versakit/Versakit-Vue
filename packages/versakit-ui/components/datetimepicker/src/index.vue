@@ -1,33 +1,17 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
+import type { DatetimepickerProps } from '../type'
+import { getPtClasses } from '@versakit/shared'
 
-defineOptions({ name: 'VerDateTimePicker' })
+defineOptions({ name: 'VKDateTimePicker' })
 
-const props = defineProps({
-  modelValue: {
-    type: [Date, String],
-    default: null,
-  },
-  placeholder: {
-    type: String,
-    default: 'Select date & time',
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  format: {
-    type: String,
-    default: 'YYYY-MM-DD HH:mm',
-  },
-  clearable: {
-    type: Boolean,
-    default: true,
-  },
-  hideSeconds: {
-    type: Boolean,
-    default: true,
-  },
+const props = withDefaults(defineProps<DatetimepickerProps>(), {
+  modelValue: null,
+  placeholder: 'Select date & time',
+  disabled: false,
+  format: 'YYYY-MM-DD HH:mm',
+  clearable: true,
+  hideSeconds: true,
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -251,14 +235,78 @@ const confirm = () => {
   updateDateTime()
   showPicker.value = false
 }
+
+// 无头化处理
+const ptClasses = computed(() => {
+  if (props.unstyled) {
+    return {
+      root: getPtClasses(props.pt, 'root'),
+      timeInput: getPtClasses(props.pt, 'timeInput'),
+      calendarIcon: getPtClasses(props.pt, 'calendarIcon'),
+      clearIcon: getPtClasses(props.pt, 'clearIcon'),
+      dateTimePanel: getPtClasses(props.pt, 'dateTimePanel'),
+      timePanel: getPtClasses(props.pt, 'timePanel'),
+      tabs: getPtClasses(props.pt, 'tabs'),
+      tab: getPtClasses(props.pt, 'tab'),
+      dataPanel: getPtClasses(props.pt, 'dataPanel'),
+      calendarHeader: getPtClasses(props.pt, 'calendarHeader'),
+      monthYear: getPtClasses(props.pt, 'monthYear'),
+      weekdays: getPtClasses(props.pt, 'weekdays'),
+      days: getPtClasses(props.pt, 'days'),
+      day: getPtClasses(props.pt, 'day'),
+      currentMonth: getPtClasses(props.pt, 'currentMonth'),
+      calendarFooter: getPtClasses(props.pt, 'calendarFooter'),
+      timeColumns: getPtClasses(props.pt, 'timeColumns'),
+      timeColumn: getPtClasses(props.pt, 'timeColumn'),
+      hours: getPtClasses(props.pt, 'hours'),
+      minutes: getPtClasses(props.pt, 'minutes'),
+      seconds: getPtClasses(props.pt, 'seconds'),
+      timeColumnHeader: getPtClasses(props.pt, 'timeColumnHeader'),
+      timeColumnContent: getPtClasses(props.pt, 'timeColumnContent'),
+      timeItem: getPtClasses(props.pt, 'timeItem'),
+      panelFooter: getPtClasses(props.pt, 'panelFooter'),
+      cancelBtn: getPtClasses(props.pt, 'cancelBtn'),
+      confirmBtn: getPtClasses(props.pt, 'confirmBtn'),
+    }
+  }
+
+  return {
+    root: 'date-time-picker',
+    timeInput: 'date-time-input',
+    calendarIcon: 'calendar-icon',
+    clearIcon: 'clear-icon',
+    dateTimePanel: 'date-time-panel',
+    tabs: 'panel-tabs',
+    tab: 'tab',
+    dataPanel: 'date-panel',
+    calendarHeader: 'calendar-header',
+    monthYear: 'month-year',
+    weekdays: 'weekdays',
+    days: 'days',
+    day: 'day',
+    currentMonth: 'current-month',
+    calendarFooter: 'calendar-footer',
+    timePanel: 'time-panel',
+    timeColumns: 'time-columns',
+    timeColumn: 'time-column',
+    hours: 'hours',
+    minutes: 'minutes',
+    seconds: 'seconds',
+    timeColumnHeader: 'time-column-header',
+    timeColumnContent: 'time-column-content',
+    timeItem: 'time-item',
+    panelFooter: 'panel-footer',
+    cancelBtn: 'cancel-btn',
+    confirmBtn: 'confirm-btn',
+  }
+})
 </script>
 
 <template>
-  <div class="date-time-picker">
+  <div :class="ptClasses.root">
     <div
-      class="date-time-input"
       @click="showPicker = !showPicker"
-      :class="{ disabled: disabled }"
+      :class="[ptClasses.timeInput, { disabled: disabled }]"
     >
       <input
         type="text"
@@ -267,28 +315,26 @@ const confirm = () => {
         readonly
         :disabled="disabled"
       />
-      <span class="calendar-icon">🗓️</span>
+      <span :class="ptClasses.calendarIcon">🗓️</span>
       <span
         v-if="clearable && formattedDateTime && !disabled"
-        class="clear-icon"
+        :class="ptClasses.clearIcon"
         @click.stop="clearValue"
       >
         ✕
       </span>
     </div>
 
-    <div class="date-time-panel" v-if="showPicker && !disabled">
-      <div class="panel-tabs">
+    <div :class="ptClasses.dateTimePanel" v-if="showPicker && !disabled">
+      <div :class="ptClasses.tabs">
         <div
-          class="tab"
-          :class="{ active: activeTab === 'date' }"
+          :class="[{ active: activeTab === 'date' }, ptClasses.tab]"
           @click="activeTab = 'date'"
         >
           日期
         </div>
         <div
-          class="tab"
-          :class="{ active: activeTab === 'time' }"
+          :class="[ptClasses.tab, { active: activeTab === 'time' }]"
           @click="activeTab = 'time'"
         >
           时间
@@ -296,14 +342,16 @@ const confirm = () => {
       </div>
 
       <!-- 日期面板 -->
-      <div class="date-panel" v-show="activeTab === 'date'">
-        <div class="calendar-header">
+      <div :class="ptClasses.dataPanel" v-show="activeTab === 'date'">
+        <div :class="ptClasses.calendarHeader">
           <button @click="prevMonth">&lt;</button>
-          <div class="month-year">{{ monthName }} {{ currentYear }}</div>
+          <div :class="ptClasses.monthYear">
+            {{ monthName }} {{ currentYear }}
+          </div>
           <button @click="nextMonth">&gt;</button>
         </div>
 
-        <div class="weekdays">
+        <div :class="ptClasses.weekdays">
           <div
             v-for="day in ['日', '一', '二', '三', '四', '五', '六']"
             :key="day"
@@ -312,42 +360,43 @@ const confirm = () => {
           </div>
         </div>
 
-        <div class="days">
+        <div :class="ptClasses.days">
           <div
             v-for="(day, index) in days"
             :key="index"
-            class="day"
-            :class="{
-              'current-month': day.currentMonth,
-              selected:
-                day.currentMonth &&
-                selectedDate &&
-                selectedDate.getDate() === day.day &&
-                selectedDate.getMonth() === currentMonth &&
-                selectedDate.getFullYear() === currentYear,
-            }"
+            :class="[
+              ptClasses.day,
+              {
+                [ptClasses.currentMonth]: day.currentMonth,
+                selected:
+                  day.currentMonth &&
+                  selectedDate &&
+                  selectedDate.getDate() === day.day &&
+                  selectedDate.getMonth() === currentMonth &&
+                  selectedDate.getFullYear() === currentYear,
+              },
+            ]"
             @click="selectDate(day.day, day.currentMonth)"
           >
             {{ day.day }}
           </div>
         </div>
 
-        <div class="calendar-footer">
+        <div :class="ptClasses.calendarFooter">
           <button @click="today">今天</button>
         </div>
       </div>
 
       <!-- 时间面板 -->
-      <div class="time-panel" v-show="activeTab === 'time'">
-        <div class="time-columns">
-          <div class="time-column hours">
-            <div class="time-column-header">时</div>
-            <div class="time-column-content">
+      <div :class="ptClasses.timePanel" v-show="activeTab === 'time'">
+        <div :class="ptClasses.timeColumns">
+          <div :class="[ptClasses.timeColumn, ptClasses.hours]">
+            <div :class="ptClasses.timeColumnHeader">时</div>
+            <div :class="ptClasses.timeColumnContent">
               <div
                 v-for="hour in hourOptions"
                 :key="hour"
-                class="time-item"
-                :class="{ selected: hours === hour }"
+                :class="[ptClasses.timeItem, { selected: hours === hour }]"
                 @click="setTime('hour', hour)"
               >
                 {{ String(hour).padStart(2, '0') }}
@@ -355,14 +404,13 @@ const confirm = () => {
             </div>
           </div>
 
-          <div class="time-column minutes">
-            <div class="time-column-header">分</div>
-            <div class="time-column-content">
+          <div :class="[ptClasses.timeColumn, ptClasses.minutes]">
+            <div :class="ptClasses.timeColumnHeader">分</div>
+            <div :class="ptClasses.timeColumnContent">
               <div
                 v-for="minute in minuteOptions"
                 :key="minute"
-                class="time-item"
-                :class="{ selected: minutes === minute }"
+                :class="[ptClasses.timeItem, { selected: minutes === minute }]"
                 @click="setTime('minute', minute)"
               >
                 {{ String(minute).padStart(2, '0') }}
@@ -370,14 +418,16 @@ const confirm = () => {
             </div>
           </div>
 
-          <div class="time-column seconds" v-if="!hideSeconds">
-            <div class="time-column-header">秒</div>
-            <div class="time-column-content">
+          <div
+            :class="[ptClasses.timeColumn, ptClasses.seconds]"
+            v-if="!hideSeconds"
+          >
+            <div :class="ptClasses.timeColumnHeader">秒</div>
+            <div :class="ptClasses.timeColumnContent">
               <div
                 v-for="second in secondOptions"
                 :key="second"
-                class="time-item"
-                :class="{ selected: seconds === second }"
+                :class="[ptClasses.timeItem, { selected: seconds === second }]"
                 @click="setTime('second', second)"
               >
                 {{ String(second).padStart(2, '0') }}
@@ -387,9 +437,11 @@ const confirm = () => {
         </div>
       </div>
 
-      <div class="panel-footer">
-        <button class="cancel-btn" @click="showPicker = false">取消</button>
-        <button class="confirm-btn" @click="confirm">确认</button>
+      <div :class="ptClasses.panelFooter">
+        <button :class="ptClasses.cancelBtn" @click="showPicker = false">
+          取消
+        </button>
+        <button :class="ptClasses.confirmBtn" @click="confirm">确认</button>
       </div>
     </div>
   </div>

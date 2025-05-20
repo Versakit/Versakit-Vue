@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { VKCheckbox, VKCheckboxGroup } from '@versakit/ui'
+import { VKCheckbox, VKCheckboxGroup } from '@versakit/ui/components/checkbox'
 
 const checked = ref(false)
 const groupValue = ref<string[]>([])

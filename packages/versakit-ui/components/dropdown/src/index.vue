@@ -1,20 +1,14 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { onClickOutside } from '@vueuse/core'
+import { getPtClasses } from '@versakit/shared'
+import type { DropdownProps } from '../type'
 
 defineOptions({
-  name: 'VerDropdownMenu',
+  name: 'VKDropdownMenu',
 })
 
-const props = defineProps<{
-  placement?:
-    | 'top'
-    | 'top-right'
-    | 'top-left'
-    | 'bottom'
-    | 'bottom-right'
-    | 'bottom-left'
-}>()
+const props = defineProps<DropdownProps>()
 
 defineEmits<{
   (e: 'select', value: any): void
@@ -52,18 +46,31 @@ onUnmounted(() => {
 const dropdownPositionClass = computed(() => {
   return props.placement || 'bottom'
 })
+
+// 无头化处理
+const ptClasses = computed(() => {
+  if (props.unstyled) {
+    return {
+      root: getPtClasses(props.pt, 'root'),
+      trigger: getPtClasses(props.pt, 'trigger'),
+      content: getPtClasses(props.pt, 'content'),
+    }
+  }
+
+  return {
+    root: 'dropdown-container',
+    trigger: 'dropdown-trigger',
+    content: 'dropdown-content',
+  }
+})
 </script>
 
 <template>
-  <div
-    ref="dropdownRef"
-    class="dropdown-container"
-    :class="{ 'is-open': isOpen }"
-  >
+  <div ref="dropdownRef" :class="[ptClasses.root, { 'is-open': isOpen }]">
     <!-- Trigger button -->
     <button
       @click="toggleDropdown"
-      class="dropdown-trigger"
+      :class="ptClasses.trigger"
       aria-haspopup="true"
       :aria-expanded="isOpen"
     >
@@ -73,8 +80,7 @@ const dropdownPositionClass = computed(() => {
     <!-- Dropdown content -->
     <div
       v-show="isOpen"
-      class="dropdown-content"
-      :class="[dropdownPositionClass]"
+      :class="[dropdownPositionClass, ptClasses.content]"
       role="menu"
       tabindex="-1"
     >

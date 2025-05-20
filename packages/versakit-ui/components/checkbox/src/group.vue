@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { provide } from 'vue'
-import type { CheckboxGroupProps, CheckboxGroupContext } from '../type'
+import { computed, provide, reactive, toRef } from 'vue'
+import type { CheckboxGroupProps } from '../type'
+import { getPtClasses } from '@versakit/shared'
 
 defineOptions({
   name: 'VerCheckboxGroup',
@@ -20,15 +21,30 @@ const onChange = (value: string[]) => {
   emit('change', value)
 }
 
-provide<CheckboxGroupContext>('checkboxGroup', {
-  modelValue: props.modelValue,
-  disabled: props.disabled,
-  onChange,
+// 组件无头化处理
+const ptClasses = computed(() => {
+  if (props.unstyled) {
+    return {
+      root: getPtClasses(props.pt, 'root'),
+    }
+  }
+  return {
+    root: 'vk-checkbox-group',
+  }
 })
+
+provide(
+  'checkboxGroup',
+  reactive({
+    modelValue: toRef(props, 'modelValue'),
+    disabled: toRef(props, 'disabled'),
+    onChange,
+  }),
+)
 </script>
 
 <template>
-  <div class="ver-checkbox-group">
+  <div :class="ptClasses.root">
     <slot></slot>
   </div>
 </template>

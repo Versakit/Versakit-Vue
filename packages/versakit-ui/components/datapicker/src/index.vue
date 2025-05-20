@@ -1,21 +1,14 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
+import type { DatapickerProps } from '../type'
+import { getPtClasses } from '@versakit/shared'
 
-defineOptions({ name: 'VerDatePicker' })
+defineOptions({ name: 'VKDatePicker' })
 
-const props = defineProps({
-  modelValue: {
-    type: [Date, String],
-    default: null,
-  },
-  placeholder: {
-    type: String,
-    default: 'Select date',
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
+const props = withDefaults(defineProps<DatapickerProps>(), {
+  modelValue: null,
+  placeholder: 'Select date',
+  disabled: false,
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -118,14 +111,43 @@ const today = () => {
   emit('update:modelValue', selectedDate.value)
   showCalendar.value = false
 }
+
+// 无头化处理
+const ptClasses = computed(() => {
+  if (props.unstyled) {
+    return {
+      root: getPtClasses(props.pt, 'root'),
+      input: getPtClasses(props.pt, 'input'),
+      icon: getPtClasses(props.pt, 'icon'),
+      calendar: getPtClasses(props.pt, 'calendar'),
+      header: getPtClasses(props.pt, 'header'),
+      monthYear: getPtClasses(props.pt, 'monthYear'),
+      weekdays: getPtClasses(props.pt, 'weekdays'),
+      days: getPtClasses(props.pt, 'days'),
+      day: getPtClasses(props.pt, 'day'),
+      footer: getPtClasses(props.pt, 'footer'),
+    }
+  }
+  return {
+    root: 'date-picker',
+    input: 'date-input',
+    icon: 'calendar-icon',
+    calendar: 'calendar',
+    header: 'calendar-header',
+    monthYear: 'month-year',
+    weekdays: 'weekdays',
+    days: 'days',
+    day: 'day',
+    footer: 'calendar-footer',
+  }
+})
 </script>
 
 <template>
-  <div class="date-picker">
+  <div :class="ptClasses.root">
     <div
-      class="date-input"
       @click="showCalendar = !showCalendar"
-      :class="{ disabled: disabled }"
+      :class="[{ disabled: disabled }, ptClasses.input]"
     >
       <input
         type="text"
@@ -134,17 +156,19 @@ const today = () => {
         readonly
         :disabled="disabled"
       />
-      <span class="calendar-icon">📅</span>
+      <span :class="ptClasses.icon">📅</span>
     </div>
 
-    <div class="calendar" v-if="showCalendar && !disabled">
-      <div class="calendar-header">
+    <div :class="ptClasses.calendar" v-if="showCalendar && !disabled">
+      <div :class="ptClasses.header">
         <button @click="nextMonth">&lt;</button>
-        <div class="month-year">{{ monthName }} {{ currentYear }}</div>
+        <div :class="ptClasses.monthYear">
+          {{ monthName }} {{ currentYear }}
+        </div>
         <button @click="prevMonth">&gt;</button>
       </div>
 
-      <div class="weekdays">
+      <div :class="ptClasses.weekdays">
         <div
           v-for="day in ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']"
           :key="day"
@@ -153,27 +177,29 @@ const today = () => {
         </div>
       </div>
 
-      <div class="days">
+      <div :class="ptClasses.days">
         <div
           v-for="(day, index) in days"
           :key="index"
-          class="day"
-          :class="{
-            'current-month': day.currentMonth,
-            selected:
-              day.currentMonth &&
-              selectedDate &&
-              selectedDate.getDate() === day.day &&
-              selectedDate.getMonth() === currentMonth &&
-              selectedDate.getFullYear() === currentYear,
-          }"
+          :class="[
+            ptClasses.day,
+            {
+              'current-month': day.currentMonth,
+              selected:
+                day.currentMonth &&
+                selectedDate &&
+                selectedDate.getDate() === day.day &&
+                selectedDate.getMonth() === currentMonth &&
+                selectedDate.getFullYear() === currentYear,
+            },
+          ]"
           @click="selectDate(day.day, day.currentMonth)"
         >
           {{ day.day }}
         </div>
       </div>
 
-      <div class="calendar-footer">
+      <div :class="ptClasses.footer">
         <button @click="today">Today</button>
       </div>
     </div>

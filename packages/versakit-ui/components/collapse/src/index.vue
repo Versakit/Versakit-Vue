@@ -1,12 +1,13 @@
 <template>
-  <div class="ver-collapse">
+  <div :class="ptClasses.root">
     <slot />
   </div>
 </template>
 <script setup lang="ts">
-import { ref, provide, watch } from 'vue'
+import { ref, provide, watch, computed } from 'vue'
 import type { NameType, CollapseProps, CollapseEmits } from '../type/index'
 import { collapseContextKey } from '../type/index'
+import { getPtClasses } from '@versakit/shared'
 
 defineOptions({
   name: 'VerCollapse',
@@ -46,6 +47,18 @@ const handleItemClick = (item: NameType) => {
   emits('update:modelValue', _activeNames)
   emits('change', _activeNames)
 }
+
+// 无头化处理
+const ptClasses = computed(() => {
+  if (props.unstyled) {
+    return {
+      root: getPtClasses(props.pt, 'root'),
+    }
+  }
+  return {
+    root: 'vk-collapse',
+  }
+})
 
 provide(collapseContextKey, {
   activeNames,

@@ -4,12 +4,27 @@ export type NameType = string | number
 export interface CollapseProps {
   modelValue: NameType[]
   accordion?: boolean
+  unstyled?: boolean
+  pt?: CollapsePtProps
+}
+
+export interface CollapsePtProps {
+  root?: string | Record<string, any>
 }
 export interface CollapseItemProps {
   name: NameType
   title?: string
   disabled?: boolean
   icon?: string
+  unstyled?: boolean
+  pt?: CollapseItemPtProps
+}
+
+export interface CollapseItemPtProps {
+  root?: string | Record<string, any>
+  header?: string | Record<string, any>
+  wrapper?: string | Record<string, any>
+  content?: string | Record<string, any>
 }
 
 export interface CollapseContext {

@@ -3,14 +3,19 @@
 ## 0.3.10
 
 - 🛠&nbsp;组件 bugs 修复
+- ✨&nbsp;Checkbox组件 无头化
+- ✨&nbsp;dropdown组件 无头化
+- ✨&nbsp;datetimepicker组件 无头化
+- ✨&nbsp;Collapse组件 无头化
+- ✨&nbsp;datepicker组件 无头化
 - ✨&nbsp;Segmented 分段器组件 无头化
 - ✨&nbsp;Notification 和 Message 消息组件 堆叠卡片效果
 - ✨&nbsp;Calendar组件 无头化
-- ✨&nbsp;Tabs 组件 无头化
-- ✨&nbsp;Breadcrumb组件无头化 支持传入自定义icon分割符
+- ✨&nbsp;Tabs组件 无头化
+- ✨&nbsp;Breadcrumb组件 无头化 支持传入自定义icon分割符
 - ✨&nbsp;Backtop组件 无头化
-- ✨&nbsp;Avatar 新增兜底背景色组件 无头化
-- ✨&nbsp; Icon组件 支持可旋转
+- ✨&nbsp;Avatar组件 新增兜底背景色 无头化
+- ✨&nbsp;Icon组件 支持可旋转
 - 🚫&nbsp;删除 GradientText 渐变文字组件
 
 ## 0.3.9

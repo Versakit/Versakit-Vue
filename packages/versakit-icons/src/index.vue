@@ -15,13 +15,6 @@ const props = withDefaults(defineProps<IconsProps>(), {
 })
 
 const size = computed(() => `${props.size}px`)
-
-const variantClass = computed(() => {
-  return props.variant
-    .split(' ')
-    .map((v) => `vk-icon-${v}`)
-    .join(' ')
-})
 </script>
 
 <template>
@@ -33,7 +26,9 @@ const variantClass = computed(() => {
       height: size,
       color: props.color,
     }"
-    :class="variantClass"
+    :class="{
+      'vk-icon-spin': props.spin,
+    }"
   />
 </template>
 

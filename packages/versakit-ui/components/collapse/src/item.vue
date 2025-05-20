@@ -1,28 +1,39 @@
 <template>
   <div
-    class="ver-collapse-item"
-    :class="{
-      'is-disabled': disabled,
-    }"
+    :class="[
+      {
+        'is-disabled': disabled,
+      },
+      ptClasses.root,
+    ]"
   >
     <div
-      class="ver-collapse-item__header"
-      :class="{
-        'is-disabled': disabled,
-        'is-active': isActive,
-      }"
+      :class="[
+        {
+          'is-disabled': disabled,
+          'is-active': isActive,
+        },
+        ptClasses.header,
+      ]"
       :id="`item-header-${name}`"
       @click="handleClick"
     >
       <slot name="title">{{ title }}</slot>
 
-      <div class="header-angle">
-        <VKIcon :name="icon" />
+      <div
+        :class="{
+          'header-angle': icon,
+        }"
+        v-if="icon || $slots.icon"
+      >
+        <slot name="icon" :is-active="isActive">
+          <VKIcon :name="icon" />
+        </slot>
       </div>
     </div>
     <Transition name="slide" v-on="transitionEvents">
-      <div class="ver-collapse-item__wrapper" v-show="isActive">
-        <div class="ver-collapse-item__content" :id="`item-content-${name}`">
+      <div :class="ptClasses.wrapper" v-show="isActive">
+        <div :class="ptClasses.content" :id="`item-content-${name}`">
           <slot />
         </div>
       </div>
@@ -34,6 +45,7 @@ import { inject, computed } from 'vue'
 import type { CollapseItemProps } from '../type/index'
 import { collapseContextKey } from '../type/index'
 import { VKIcon } from '@versakit/icons'
+import { getPtClasses } from '@versakit/shared'
 
 defineOptions({
   name: 'VerCollapseItem',
@@ -76,6 +88,24 @@ const transitionEvents: Record<string, (el: HTMLElement) => void> = {
     el.style.overflow = ''
   },
 }
+
+// 无头化处理
+const ptClasses = computed(() => {
+  if (props.unstyled) {
+    return {
+      root: getPtClasses(props.pt, 'root'),
+      header: getPtClasses(props.pt, 'header'),
+      wrapper: getPtClasses(props.pt, 'wrapper'),
+      content: getPtClasses(props.pt, 'content'),
+    }
+  }
+  return {
+    root: 'vk-collapse-item',
+    header: 'vk-collapse-item__header',
+    wrapper: 'vk-collapse-item__wrapper',
+    content: 'vk-collapse-item__content',
+  }
+})
 </script>
 
 <style scoped>

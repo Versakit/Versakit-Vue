@@ -1,4 +1,4 @@
-.ver-collapse-item__header {
+.vk-collapse-item__header {
   padding: 0.5rem;
   display: flex;
   align-items: center;
@@ -35,7 +35,7 @@
   }
 }
 
-.ver-collapse-item__content {
+.vk-collapse-item__content {
   will-change: height;
   overflow: hidden;
   box-sizing: border-box;

@@ -3,4 +3,5 @@ export interface IconsProps {
   size?: number | string
   color?: string
   variant?: string
+  spin?: boolean
 }

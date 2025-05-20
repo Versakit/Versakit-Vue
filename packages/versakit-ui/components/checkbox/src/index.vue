@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed, inject } from 'vue'
 import type { CheckboxProps, CheckboxGroupContext } from '../type'
+import { getPtClasses } from '@versakit/shared'
 
 defineOptions({
-  name: 'VerCheckbox',
+  name: 'VKCheckbox',
 })
 
 const props = withDefaults(defineProps<CheckboxProps>(), {
@@ -53,25 +54,52 @@ const handleChange = (e: Event) => {
       }
     }
 
+    // 更新 CheckboxGroup 的值
     checkboxGroup.onChange(groupValue)
   } else {
-    // 独立 Checkbox 的处理逻辑
+    // 单独 Checkbox 的处理逻辑
     emit('update:modelValue', target.checked)
     emit('change', target.checked)
   }
 }
+
+// 组件无头化
+const ptClasses = computed(() => {
+  if (props.unstyled) {
+    return {
+      root: getPtClasses(props.pt, 'root'),
+      input: getPtClasses(props.pt, 'input'),
+      inner: getPtClasses(props.pt, 'inner'),
+      label: getPtClasses(props.pt, 'label'),
+      checked: getPtClasses(props.pt, 'checked'),
+      disabled: getPtClasses(props.pt, 'disabled'),
+      indeterminate: getPtClasses(props.pt, 'indeterminate'),
+    }
+  }
+  return {
+    root: 'vk-checkbox',
+    input: 'vk-checkbox__input',
+    inner: 'vk-checkbox__inner',
+    label: 'vk-checkbox__label',
+    checked: 'is-checked',
+    disabled: 'is-disabled',
+    indeterminate: 'is-indeterminate',
+  }
+})
 </script>
 
 <template>
   <label
-    class="ver-checkbox"
-    :class="{
-      'is-checked': isChecked,
-      'is-disabled': isDisabled,
-      'is-indeterminate': indeterminate,
-    }"
+    :class="[
+      ptClasses.root,
+      {
+        [ptClasses.checked]: isChecked,
+        [ptClasses.disabled]: isDisabled,
+        [ptClasses.indeterminate]: props.indeterminate,
+      },
+    ]"
   >
-    <span class="ver-checkbox__input">
+    <span :class="ptClasses.input">
       <input
         type="checkbox"
         :checked="isChecked"
@@ -80,9 +108,9 @@ const handleChange = (e: Event) => {
         :value="value"
         @change="handleChange"
       />
-      <span class="ver-checkbox__inner"></span>
+      <span :class="ptClasses.inner"></span>
     </span>
-    <span v-if="label || $slots.default" class="ver-checkbox__label">
+    <span v-if="label || $slots.default" :class="ptClasses.label">
       <slot>{{ label }}</slot>
     </span>
   </label>
