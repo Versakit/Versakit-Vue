@@ -21,7 +21,6 @@
     "@iconify-json/ep": "^1.2.2",
     "@versakit/theme": "workspace:*",
     "@versakit/ui": "workspace:*",
-    "@versakit/directives": "workspace:*",
     "vitepress-plugin-group-icons": "^1.3.3"
   }
 }

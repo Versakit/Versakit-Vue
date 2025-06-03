@@ -8,7 +8,6 @@ import { getNav } from './config/nav'
 import { getComponentsSidebar } from './config/getComponentsSidebar'
 import { getGuideSidebar } from './config/getGuideSidebar'
 import { getDesignSidebar } from './config/getDesignSidebar'
-import { getDirectives } from './config/getDirectives'
 import { getHead } from './config/getHead'
 
 // https://vitepress.dev/reference/site-config
@@ -32,7 +31,6 @@ export default defineConfig({
       '/guide/': getGuideSidebar(),
       '/design/': getDesignSidebar(),
       '/components/': getComponentsSidebar(),
-      '/directives/': getDirectives(),
     } as any,
     socialLinks: [
       { icon: 'github', link: 'https://github.com/lenran659/Versakit' },
