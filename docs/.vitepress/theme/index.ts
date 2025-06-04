@@ -1,24 +1,23 @@
 import Theme from 'vitepress/theme'
-import Tool from '../components/tool.vue'
 import MyLayout from './Layout.vue'
-
+import {
+  AntDesignContainer,
+  ElementPlusContainer,
+  NaiveUIContainer,
+} from '@vitepress-demo-preview/component'
+import '@vitepress-demo-preview/component/dist/style.css'
 // 引入样式
-import './index.scss'
 import 'virtual:group-icons.css'
 
 // 引入组件库
-import { Versakit } from '@versakit/ui'
-import '@versakit/ui/dist/esm/ui.css'
-import { Element, Layui } from '@versakit/theme'
-
-import { A, B } from './cursor'
+import { Versakit } from '@versakit/vue'
+import '@versakit/vue/style'
 
 export default {
   ...Theme,
   Layout: MyLayout,
   enhanceApp({ app }) {
-    app.component('Tool', Tool)
-
+    app.component('demo-preview', AntDesignContainer)
     app.use(Versakit)
   },
 }

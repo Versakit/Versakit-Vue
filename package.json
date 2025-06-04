@@ -17,7 +17,7 @@
     "docs:build": "pnpm --filter docs docs:build",
     "docs:dev": "pnpm --filter docs docs:dev",
     "docs:preview": "turbo run preview --filter=docs",
-    "ui:build": "turbo run build --filter=@versakit/ui",
+    "ui:build": "turbo run build --filter=@versakit/vue",
     "ui-devops:build": "pnpm --filter ui build",
     "resolvers:build": "turbo run build --filter=resolvers",
     "test:ui": "vitest --ui",

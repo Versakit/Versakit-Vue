@@ -1,9 +1,12 @@
 import { defineConfig } from 'vitepress'
-import { vitepressDemoPlugin } from 'vitepress-demo-plugin'
 import {
   groupIconMdPlugin,
   groupIconVitePlugin,
 } from 'vitepress-plugin-group-icons'
+import {
+  containerPreview,
+  componentPreview,
+} from '@vitepress-demo-preview/plugin'
 import { getNav } from './config/nav'
 import { getComponentsSidebar } from './config/getComponentsSidebar'
 import { getGuideSidebar } from './config/getGuideSidebar'
@@ -39,7 +42,8 @@ export default defineConfig({
   },
   markdown: {
     config(md) {
-      md.use(vitepressDemoPlugin)
+      md.use(containerPreview)
+      md.use(componentPreview)
       md.use(groupIconMdPlugin)
     },
   },

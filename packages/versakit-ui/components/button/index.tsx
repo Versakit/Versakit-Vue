@@ -1,5 +1,3 @@
-// components/ui/Button.tsx
-
 import { defineComponent } from 'vue'
 import { tv, type VariantProps } from 'tailwind-variants'
 

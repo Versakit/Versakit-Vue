@@ -6,9 +6,22 @@
   "type": "module",
   "types": "./dist/index.d.ts",
   "main": "./dist/esm/index.esm.js",
-  "style": "./dist/esm/ui.css",
+  "style": "./dist/esm/vue.css",
   "unpkg": "./dist/umd/index.umd.js",
   "module": "./dist/esm/index.esm.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/esm/index.esm.js",
+      "require": "./dist/umd/index.umd.js",
+      "default": "./dist/esm/index.esm.js"
+    },
+    "./style": {
+      "import": "./dist/esm/vue.css",
+      "require": "./dist/esm/vue.css",
+      "default": "./dist/esm/vue.css"
+    }
+  },
   "homepage": "https://versakit.github.io/Versakit/",
   "repository": {
     "type": "git",
