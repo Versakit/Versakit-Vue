@@ -1,0 +1,29 @@
+{
+  "name": "docs",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "docs:dev": "storybook dev -p 6006",
+    "docs:build": "storybook build"
+  },
+  "dependencies": {
+    "@versakit/vue": "workspace:*",
+    "vue": "^3.5.12"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "^8.0.0",
+    "@storybook/addon-essentials": "^8.0.0",
+    "@storybook/addon-interactions": "^8.0.0",
+    "@storybook/addon-links": "^8.0.0",
+    "@storybook/blocks": "^8.0.0",
+    "@storybook/test": "^8.0.0",
+    "@storybook/vue3": "^8.0.0",
+    "@storybook/vue3-vite": "^8.0.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "storybook": "^8.0.0"
+  }
+}
