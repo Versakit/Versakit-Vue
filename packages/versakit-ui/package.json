@@ -1,5 +1,5 @@
 {
-  "name": "@versakit/ui",
+  "name": "@versakit/vue",
   "version": "0.3.9",
   "author": "Jannik",
   "private": false,
@@ -42,15 +42,11 @@
   },
   "devDependencies": {
     "@popperjs/core": "^2.11.8",
-    "@types/fs-extra": "^11.0.4",
-    "@types/postcss-mixins": "^9.0.6",
     "@versakit/icons": "workspace:*",
     "@versakit/shared": "workspace:*",
     "@vueuse/core": "^13.0.0",
-    "fs-extra": "^11.3.0",
-    "postcss-magic": "^0.0.2",
-    "postcss-mixins": "^11.0.3",
-    "postcss-nested": "^7.0.2",
-    "rollup-plugin-visualizer": "^5.14.0"
+    "rollup-plugin-visualizer": "^5.14.0",
+    "@vitejs/plugin-vue": "^5.1.4",
+    "@vitejs/plugin-vue-jsx": "^4.1.1"
   }
 }
