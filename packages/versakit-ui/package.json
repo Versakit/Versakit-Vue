@@ -44,9 +44,14 @@
     "@popperjs/core": "^2.11.8",
     "@versakit/icons": "workspace:*",
     "@versakit/shared": "workspace:*",
-    "@vueuse/core": "^13.0.0",
-    "rollup-plugin-visualizer": "^5.14.0",
     "@vitejs/plugin-vue": "^5.1.4",
-    "@vitejs/plugin-vue-jsx": "^4.1.1"
+    "@vitejs/plugin-vue-jsx": "^4.1.1",
+    "@vueuse/core": "^13.0.0",
+    "rollup-plugin-visualizer": "^5.14.0"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.8",
+    "tailwind-variants": "^1.0.0",
+    "tailwindcss": "^4.1.8"
   }
 }

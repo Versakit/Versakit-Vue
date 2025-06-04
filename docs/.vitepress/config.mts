@@ -44,7 +44,7 @@ export default defineConfig({
     },
   },
   vite: {
-    plugins: [groupIconVitePlugin()],
+    plugins: [groupIconVitePlugin() as any],
     css: {
       preprocessorOptions: {
         scss: {
