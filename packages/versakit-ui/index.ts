@@ -2,13 +2,16 @@ import type { App, Component } from 'vue'
 
 // 基础组件
 import { VKButton } from './components/button'
-
+import { VKBadge } from './components/badge'
+import { VKAlert } from './components/alert'
+import { VKChip } from './components/chip'
+import { VKCard } from './components/card'
 // 样式
 import './style/index.css'
 
-const components: Component[] = [VKButton]
+const components: Component[] = [VKButton, VKBadge, VKAlert, VKChip, VKCard]
 
-export { VKButton }
+export { VKButton, VKBadge, VKAlert, VKChip, VKCard }
 
 const Versakit = {
   install: (app: App) => {
