@@ -1,1 +1,15 @@
 @import 'tailwindcss';
+
+:root {
+  --vk-radius: 0.25rem;
+  --vk-container: 90rem;
+  --vk-bg: rgb(var(--vk-color-neutral-50) / 1);
+  --vk-text: rgb(var(--vk-color-neutral-900) / 1);
+  --vk-border: rgb(var(--vk-color-neutral-200) / 1);
+}
+
+.dark {
+  --vk-bg: rgb(var(--vk-color-neutral-950) / 1);
+  --vk-text: rgb(var(--vk-color-neutral-50) / 1);
+  --vk-border: rgb(var(--vk-color-neutral-800) / 1);
+}

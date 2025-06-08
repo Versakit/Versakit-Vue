@@ -1,4 +1,5 @@
 import type { App, Component } from 'vue'
+import { defineAppConfig, setThemeConfig, type ThemeConfig } from './theme'
 
 // 基础组件
 import { VKButton } from './components/button'
@@ -11,7 +12,6 @@ import { VKModal } from './components/modal'
 import { VKAvatar } from './components/avatar'
 import { VKAvatarGroup } from './components/avatar-group'
 import { VKSegmentedControl } from './components/segmented-control'
-
 // 样式
 import './style/index.css'
 
@@ -49,4 +49,5 @@ const Versakit = {
   },
 }
 
-export { Versakit }
+export { defineAppConfig, setThemeConfig, Versakit }
+export type { ThemeConfig }
