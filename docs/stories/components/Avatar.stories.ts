@@ -1,4 +1,5 @@
 import { VKAvatar } from '@versakit/vue'
+import { VKBadge } from '@versakit/vue'
 import type { Meta, StoryObj } from '@storybook/vue3'
 import '@versakit/vue/style'
 
@@ -152,12 +153,53 @@ export const WithImage: Story = {
 }
 
 export const WithStatus: Story = {
-  args: {
-    text: 'JS',
-    size: 'md',
-    status: 'online',
-    variant: 'primary',
-  },
+  render: () => ({
+    components: { VKAvatar, VKBadge },
+    template: `
+      <div class="flex space-x-8">
+        <VKBadge dot variant="success" position="bottom-right">
+          <VKAvatar text="ON" variant="primary" />
+        </VKBadge>
+        
+        <VKBadge dot variant="error" position="bottom-right">
+          <VKAvatar text="OFF" variant="default" />
+        </VKBadge>
+        
+        <VKBadge dot variant="warning" position="bottom-right">
+          <VKAvatar text="AFK" variant="warning" />
+        </VKBadge>
+        
+        <VKBadge dot variant="info" position="bottom-right">
+          <VKAvatar text="BUSY" variant="info" />
+        </VKBadge>
+      </div>
+    `,
+  }),
+}
+
+export const WithStatusPositions: Story = {
+  render: () => ({
+    components: { VKAvatar, VKBadge },
+    template: `
+      <div class="flex space-x-8">
+        <VKBadge dot variant="success" position="top-right">
+          <VKAvatar text="TR" variant="primary" />
+        </VKBadge>
+        
+        <VKBadge dot variant="success" position="top-left">
+          <VKAvatar text="TL" variant="primary" />
+        </VKBadge>
+        
+        <VKBadge dot variant="success" position="bottom-right">
+          <VKAvatar text="BR" variant="primary" />
+        </VKBadge>
+        
+        <VKBadge dot variant="success" position="bottom-left">
+          <VKAvatar text="BL" variant="primary" />
+        </VKBadge>
+      </div>
+    `,
+  }),
 }
 
 export const CustomSize: Story = {
