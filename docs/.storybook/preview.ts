@@ -1,7 +1,6 @@
 import type { Preview } from '@storybook/vue3'
 import { setup } from '@storybook/vue3'
 import { registerComponents } from './registerComponents'
-
 // 导入组件库样式（如果有）
 import '@versakit/vue/style'
 
@@ -24,6 +23,13 @@ const preview: Preview = {
     // 设置默认视图模式
     viewMode: 'docs',
   },
+  // 添加全局装饰器
+  decorators: [
+    (story) => ({
+      components: { story },
+      template: '<div class="versakit-theme"><story /></div>',
+    }),
+  ],
 }
 
 // 设置全局装饰器或插件

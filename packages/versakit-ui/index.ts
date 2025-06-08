@@ -8,6 +8,9 @@ import { VKChip } from './components/chip'
 import { VKCard } from './components/card'
 import { VKDrawer } from './components/drawer'
 import { VKModal } from './components/modal'
+import { VKAvatar } from './components/avatar'
+import { VKAvatarGroup } from './components/avatar-group'
+import { VKSegmentedControl } from './components/segmented-control'
 
 // 样式
 import './style/index.css'
@@ -20,9 +23,23 @@ const components: Component[] = [
   VKCard,
   VKDrawer,
   VKModal,
+  VKAvatar,
+  VKAvatarGroup,
+  VKSegmentedControl,
 ]
 
-export { VKButton, VKBadge, VKAlert, VKChip, VKCard, VKDrawer, VKModal }
+export {
+  VKButton,
+  VKBadge,
+  VKAlert,
+  VKChip,
+  VKCard,
+  VKDrawer,
+  VKModal,
+  VKAvatar,
+  VKAvatarGroup,
+  VKSegmentedControl,
+}
 
 const Versakit = {
   install: (app: App) => {
