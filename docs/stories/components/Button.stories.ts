@@ -65,11 +65,6 @@ const meta: Meta<typeof VKButton> = {
       description: '图标位置',
       defaultValue: 'left',
     },
-    ripple: {
-      control: 'boolean',
-      description: '是否启用涟漪效果',
-      defaultValue: true,
-    },
     color: {
       control: 'color',
       description: '自定义颜色',
@@ -262,22 +257,6 @@ export const Accessibility: Story = {
         <VKButton shape="circle" ariaLabel="添加新项目">
           <span style="display: inline-flex; width: 24px; height: 24px; align-items: center; justify-content: center;">+</span>
         </VKButton>
-      </div>
-    `,
-  }),
-}
-
-// 涟漪效果
-export const RippleEffect: Story = {
-  render: () => ({
-    components: { VKButton },
-    template: `
-      <div style="display: flex; gap: 12px; flex-wrap: wrap;">
-        <VKButton ripple>默认涟漪效果</VKButton>
-        <VKButton ripple variant="success">成功按钮涟漪</VKButton>
-        <VKButton ripple variant="error">错误按钮涟漪</VKButton>
-        <VKButton ripple variant="outline">轮廓按钮涟漪</VKButton>
-        <VKButton :ripple="false" variant="primary">禁用涟漪效果</VKButton>
       </div>
     `,
   }),

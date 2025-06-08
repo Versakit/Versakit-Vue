@@ -12,7 +12,6 @@ const props = withDefaults(defineProps<BtnProps>(), {
   type: 'button',
   block: false,
   iconPosition: 'left',
-  ripple: true,
 })
 
 const emit = defineEmits(['click'])
@@ -28,40 +27,6 @@ const classes = computed(() =>
     iconPosition: props.iconPosition,
   }),
 )
-
-// 用于实现涟漪效果
-const handleRippleEffect = (event: MouseEvent) => {
-  if (!props.ripple || props.disabled || props.loading) return
-
-  const button = event.currentTarget as HTMLButtonElement
-  const rect = button.getBoundingClientRect()
-
-  const x = event.clientX - rect.left
-  const y = event.clientY - rect.top
-
-  const ripple = document.createElement('span')
-  const diameter = Math.max(button.clientWidth, button.clientHeight)
-
-  ripple.style.width = ripple.style.height = `${diameter}px`
-  ripple.style.left = `${x - diameter / 2}px`
-  ripple.style.top = `${y - diameter / 2}px`
-  ripple.classList.add('ripple-effect')
-
-  // 清除已有的涟漪效果
-  const existingRipple = button.querySelector('.ripple-effect')
-  if (existingRipple) {
-    button.removeChild(existingRipple)
-  }
-
-  button.appendChild(ripple)
-
-  // 动画结束后移除涟漪元素
-  setTimeout(() => {
-    if (ripple && ripple.parentNode) {
-      ripple.parentNode.removeChild(ripple)
-    }
-  }, 600)
-}
 
 const handleClick = (event: MouseEvent) => {
   if (props.disabled || props.loading) return
@@ -79,7 +44,6 @@ const handleClick = (event: MouseEvent) => {
     :aria-busy="loading"
     :aria-label="ariaLabel"
     @click="handleClick"
-    @mousedown="handleRippleEffect"
     v-bind="$attrs"
   >
     <!-- 左侧图标 -->

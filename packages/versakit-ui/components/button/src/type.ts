@@ -34,8 +34,6 @@ export interface BtnProps {
   block?: boolean
   /** 图标位置 */
   iconPosition?: IconPosition
-  /** 是否启用涟漪效果 */
-  ripple?: boolean
   /** 自定义颜色（覆盖变体颜色） */
   color?: string
   /** 点击事件处理函数 */
