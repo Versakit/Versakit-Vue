@@ -1,7 +1,7 @@
 import type { App, Component } from 'vue'
-import VKButton from './components/button/index'
 
 // 基础组件
+import { VKButton } from './components/button'
 
 // 样式
 import './style/index.css'

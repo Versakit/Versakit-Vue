@@ -8,22 +8,16 @@ const meta: Meta<typeof VKButton> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['default', 'outline', 'ghost', 'destructive'],
+      options: ['primary', 'success', 'warning', 'info', 'error'],
       description: '按钮样式变体',
-      defaultValue: 'default',
+      defaultValue: 'primary',
     },
     size: {
       control: 'radio',
-      options: ['sm', 'md', 'lg'],
+      options: ['xs', 'sm', 'md', 'lg', 'xl'],
       description: '按钮尺寸',
       defaultValue: 'md',
     },
-    disabled: {
-      control: 'boolean',
-      description: '是否禁用按钮',
-      defaultValue: false,
-    },
-    onClick: { action: 'clicked' },
   },
 }
 
@@ -52,29 +46,6 @@ export const Outline: Story = {
   }),
 }
 
-// 幽灵按钮
-export const Ghost: Story = {
-  render: (args) => ({
-    components: { VKButton },
-    setup() {
-      return { args }
-    },
-    template: '<VKButton v-bind="args" variant="ghost">幽灵按钮</VKButton>',
-  }),
-}
-
-// 危险按钮
-export const Destructive: Story = {
-  render: (args) => ({
-    components: { VKButton },
-    setup() {
-      return { args }
-    },
-    template:
-      '<VKButton v-bind="args" variant="destructive">危险按钮</VKButton>',
-  }),
-}
-
 // 不同尺寸
 export const Sizes: Story = {
   render: (args) => ({
@@ -100,5 +71,49 @@ export const Disabled: Story = {
       return { args }
     },
     template: '<VKButton v-bind="args" disabled>禁用按钮</VKButton>',
+  }),
+}
+
+// 带图标的按钮
+export const WithIcon: Story = {
+  render: (args) => ({
+    components: { VKButton },
+    setup() {
+      return { args }
+    },
+    template: `
+      <VKButton v-bind="args">
+        <span style="margin-right: 8px;">&#10003;</span>
+        带图标按钮
+      </VKButton>
+    `,
+  }),
+}
+
+// 加载状态
+export const Loading: Story = {
+  render: (args) => ({
+    components: { VKButton },
+    setup() {
+      return { args }
+    },
+    template: `
+      <VKButton v-bind="args" disabled>
+        <span style="display: inline-block; width: 16px; height: 16px; border: 2px solid #fff; border-radius: 50%; border-top-color: transparent; margin-right: 8px; animation: spin 1s linear infinite;"></span>
+        加载中...
+      </VKButton>
+    `,
+  }),
+}
+
+// 全宽按钮
+export const FullWidth: Story = {
+  render: (args) => ({
+    components: { VKButton },
+    setup() {
+      return { args }
+    },
+    template:
+      '<VKButton v-bind="args" style="width: 100%;">全宽按钮</VKButton>',
   }),
 }
