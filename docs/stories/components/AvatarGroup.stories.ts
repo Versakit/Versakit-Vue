@@ -88,7 +88,6 @@ const meta: Meta<typeof VKAvatarGroup> = {
       },
     },
   },
-  tags: ['autodocs'],
 }
 
 export default meta

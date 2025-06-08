@@ -100,7 +100,6 @@ const meta: Meta<typeof VKSegmentedControl> = {
       },
     },
   },
-  tags: ['autodocs'],
 }
 
 export default meta
