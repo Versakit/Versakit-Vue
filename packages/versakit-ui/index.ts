@@ -16,6 +16,9 @@ import { VKInput } from './components/input'
 import { VKPinInput } from './components/pin-input'
 import { VKTagInput } from './components/tag-input'
 import { VKSlider } from './components/slider'
+import { VKSwitch } from './components/switch'
+import { VKTextarea } from './components/textarea'
+import { VKCheckbox } from './components/checkbox'
 // 样式
 import './style/index.css'
 
@@ -35,6 +38,9 @@ const components: Component[] = [
   VKPinInput,
   VKTagInput,
   VKSlider,
+  VKSwitch,
+  VKTextarea,
+  VKCheckbox,
 ]
 
 export {
@@ -53,6 +59,9 @@ export {
   VKPinInput,
   VKTagInput,
   VKSlider,
+  VKSwitch,
+  VKTextarea,
+  VKCheckbox,
 }
 
 const Versakit = {
