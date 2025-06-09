@@ -12,6 +12,10 @@ import { VKAvatar } from './components/avatar'
 import { VKAvatarGroup } from './components/avatar-group'
 import { VKSegmentedControl } from './components/segmented-control'
 import { VKDivider } from './components/divider'
+import { VKInput } from './components/input'
+import { VKPinInput } from './components/pin-input'
+import { VKTagInput } from './components/tag-input'
+import { VKSlider } from './components/slider'
 // 样式
 import './style/index.css'
 
@@ -27,6 +31,10 @@ const components: Component[] = [
   VKAvatarGroup,
   VKSegmentedControl,
   VKDivider,
+  VKInput,
+  VKPinInput,
+  VKTagInput,
+  VKSlider,
 ]
 
 export {
@@ -41,6 +49,10 @@ export {
   VKAvatarGroup,
   VKSegmentedControl,
   VKDivider,
+  VKInput,
+  VKPinInput,
+  VKTagInput,
+  VKSlider,
 }
 
 const Versakit = {
