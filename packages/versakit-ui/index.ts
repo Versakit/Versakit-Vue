@@ -20,13 +20,8 @@ import { VKSwitch } from './components/switch'
 import { VKTextarea } from './components/textarea'
 import { VKCheckbox } from './components/checkbox'
 import { VKButtonGroup } from './components/button-group'
-import {
-  VKTabs,
-  VKTabList,
-  VKTab,
-  VKTabPanels,
-  VKTabPanel,
-} from './components/tabs'
+import { VKTab, VKTabItem } from './components/tabs'
+import { VKProgress } from './components/progress'
 
 // 样式
 import './style/index.css'
@@ -51,12 +46,9 @@ const components: Component[] = [
   VKTextarea,
   VKCheckbox,
   VKButtonGroup,
-  VKTabs,
-  VKTabs,
-  VKTabList,
   VKTab,
-  VKTabPanels,
-  VKTabPanel,
+  VKTabItem,
+  VKProgress,
 ]
 
 export {
@@ -79,11 +71,9 @@ export {
   VKTextarea,
   VKCheckbox,
   VKButtonGroup,
-  VKTabs,
-  VKTabList,
   VKTab,
-  VKTabPanels,
-  VKTabPanel,
+  VKTabItem,
+  VKProgress,
 }
 
 const Versakit = {

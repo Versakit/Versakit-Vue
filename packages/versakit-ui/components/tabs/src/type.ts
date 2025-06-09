@@ -34,6 +34,21 @@ export interface TabProps {
   ariaLabel?: string
 }
 
+export interface TabItemProps {
+  /** 标签的值，用于标识 */
+  value: string | number
+  /** 是否禁用 */
+  disabled?: boolean
+  /** 是否可关闭 */
+  closable?: boolean
+  /** 图标位置 */
+  iconPosition?: 'left' | 'right'
+  /** 无障碍标签 */
+  ariaLabel?: string
+  /** 是否延迟渲染，只有在选中时才渲染内容 */
+  lazy?: boolean
+}
+
 export interface TabPanelProps {
   /** 面板的值，用于与标签匹配 */
   value: string | number
@@ -55,6 +70,14 @@ export type TabPassThroughAttributes = {
   icon?: Record<string, unknown>
   content?: Record<string, unknown>
   closeButton?: Record<string, unknown>
+}
+
+export type TabItemPassThroughAttributes = {
+  root?: Record<string, unknown>
+  icon?: Record<string, unknown>
+  content?: Record<string, unknown>
+  closeButton?: Record<string, unknown>
+  panel?: Record<string, unknown>
 }
 
 export type TabPanelsPassThroughAttributes = {
@@ -88,6 +111,13 @@ export interface TabListSlots {
 
 export interface TabSlots {
   default?: () => unknown
+  icon?: () => unknown
+  closeIcon?: () => unknown
+}
+
+export interface TabItemSlots {
+  default?: () => unknown
+  title?: () => unknown
   icon?: () => unknown
   closeIcon?: () => unknown
 }

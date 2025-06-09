@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, provide, ref, watch } from 'vue'
-import { tabs } from './index.variants'
+import { tabs, tabList } from './index.variants'
 import type { TabsProps, TabsPassThroughAttributes, TabsContext } from './type'
 
 const props = withDefaults(
@@ -29,6 +29,7 @@ watch(
       activeTab.value = newValue
     }
   },
+  { immediate: true },
 )
 
 // 设置激活标签页
@@ -46,18 +47,32 @@ const closeTab = (value: string | number) => {
 }
 
 // 提供给子组件的上下文
-provide<TabsContext>('vk-tabs', {
-  activeTab: activeTab.value,
+const tabsContext: TabsContext = {
+  get activeTab() {
+    return activeTab.value
+  },
   setActiveTab,
   closeTab: props.closable ? closeTab : undefined,
-  variant: props.variant,
-  size: props.size,
-  placement: props.placement,
-  disabled: props.disabled,
-  closable: props.closable,
-})
+  get variant() {
+    return props.variant
+  },
+  get size() {
+    return props.size
+  },
+  get placement() {
+    return props.placement
+  },
+  get disabled() {
+    return props.disabled
+  },
+  get closable() {
+    return props.closable
+  },
+}
 
-// 计算组件样式类
+provide('vk-tabs', tabsContext)
+
+// 计算样式类
 const classes = computed(() => {
   if (props.unstyled) {
     return {}
@@ -66,10 +81,40 @@ const classes = computed(() => {
     placement: props.placement,
   })
 })
+
+// 计算导航区域类
+const navClasses = computed(() => {
+  if (props.unstyled) {
+    return {}
+  }
+  return tabList({
+    placement: props.placement,
+    variant: props.variant,
+    size: props.size,
+  })
+})
+
+// 计算方向
+const orientation = computed(() =>
+  ['left', 'right'].includes(props.placement) ? 'vertical' : 'horizontal',
+)
 </script>
 
 <template>
-  <div :class="classes" v-bind="{ ...$attrs, ...props.pt?.root }">
-    <slot />
+  <div
+    class="vk-tabs"
+    :class="classes"
+    v-bind="{ ...$attrs, ...props.pt?.root }"
+  >
+    <div
+      class="vk-tabs-nav"
+      :class="navClasses"
+      role="tablist"
+      :aria-orientation="orientation"
+    >
+      <slot name="nav-start" />
+      <slot />
+      <slot name="nav-end" />
+    </div>
   </div>
 </template>

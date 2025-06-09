@@ -1,18 +1,12 @@
 import type { StoryObj } from '@storybook/vue3'
-import {
-  VKTabs,
-  VKTabList,
-  VKTab,
-  VKTabPanels,
-  VKTabPanel,
-} from '@versakit/vue'
+import { VKTab, VKTabItem } from '@versakit/vue'
 import '@versakit/vue/style'
 import { ref } from 'vue'
 
 // 避免使用类型注解和断言，让Storybook自己推断类型
 const meta = {
   title: 'Components/Tabs',
-  component: VKTabs,
+  component: VKTab,
   argTypes: {
     modelValue: {
       control: 'text',
@@ -59,35 +53,31 @@ const meta = {
 }
 
 export default meta
-type Story = StoryObj<typeof VKTabs>
+type Story = StoryObj<typeof VKTab>
 
 // 基础标签页
 export const Default: Story = {
   render: (args) => ({
-    components: { VKTabs, VKTabList, VKTab, VKTabPanels, VKTabPanel },
+    components: { VKTab, VKTabItem },
     setup() {
       const activeTab = ref('tab1')
       return { args, activeTab }
     },
     template: `
-      <VKTabs v-model="activeTab" v-bind="args">
-        <VKTabList>
-          <VKTab value="tab1">标签页 1</VKTab>
-          <VKTab value="tab2">标签页 2</VKTab>
-          <VKTab value="tab3">标签页 3</VKTab>
-        </VKTabList>
-        <VKTabPanels>
-          <VKTabPanel value="tab1">
-            <div class="p-4">标签页 1 的内容</div>
-          </VKTabPanel>
-          <VKTabPanel value="tab2">
-            <div class="p-4">标签页 2 的内容</div>
-          </VKTabPanel>
-          <VKTabPanel value="tab3">
-            <div class="p-4">标签页 3 的内容</div>
-          </VKTabPanel>
-        </VKTabPanels>
-      </VKTabs>
+      <VKTab v-model="activeTab" v-bind="args">
+        <VKTabItem value="tab1">
+          <template #title>标签页 1</template>
+          <div class="p-4">标签页 1 的内容</div>
+        </VKTabItem>
+        <VKTabItem value="tab2">
+          <template #title>标签页 2</template>
+          <div class="p-4">标签页 2 的内容</div>
+        </VKTabItem>
+        <VKTabItem value="tab3">
+          <template #title>标签页 3</template>
+          <div class="p-4">标签页 3 的内容</div>
+        </VKTabItem>
+      </VKTab>
     `,
   }),
 }
@@ -95,7 +85,7 @@ export const Default: Story = {
 // 不同变体
 export const Variants: Story = {
   render: () => ({
-    components: { VKTabs, VKTabList, VKTab, VKTabPanels, VKTabPanel },
+    components: { VKTab, VKTabItem },
     setup() {
       const lineTab = ref('tab1')
       const pillTab = ref('tab1')
@@ -108,90 +98,74 @@ export const Variants: Story = {
       <div class="space-y-8">
         <div>
           <h3 class="text-lg font-medium mb-2">线条风格 (Line)</h3>
-          <VKTabs v-model="lineTab" variant="line">
-            <VKTabList>
-              <VKTab value="tab1">标签页 1</VKTab>
-              <VKTab value="tab2">标签页 2</VKTab>
-              <VKTab value="tab3">标签页 3</VKTab>
-            </VKTabList>
-            <VKTabPanels>
-              <VKTabPanel value="tab1">
-                <div class="p-4">标签页 1 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab2">
-                <div class="p-4">标签页 2 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab3">
-                <div class="p-4">标签页 3 的内容</div>
-              </VKTabPanel>
-            </VKTabPanels>
-          </VKTabs>
+          <VKTab v-model="lineTab" variant="line">
+            <VKTabItem value="tab1">
+              <template #title>标签页 1</template>
+              <div class="p-4">标签页 1 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab2">
+              <template #title>标签页 2</template>
+              <div class="p-4">标签页 2 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab3">
+              <template #title>标签页 3</template>
+              <div class="p-4">标签页 3 的内容</div>
+            </VKTabItem>
+          </VKTab>
         </div>
 
         <div>
           <h3 class="text-lg font-medium mb-2">胶囊风格 (Pill)</h3>
-          <VKTabs v-model="pillTab" variant="pill">
-            <VKTabList>
-              <VKTab value="tab1">标签页 1</VKTab>
-              <VKTab value="tab2">标签页 2</VKTab>
-              <VKTab value="tab3">标签页 3</VKTab>
-            </VKTabList>
-            <VKTabPanels>
-              <VKTabPanel value="tab1">
-                <div class="p-4">标签页 1 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab2">
-                <div class="p-4">标签页 2 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab3">
-                <div class="p-4">标签页 3 的内容</div>
-              </VKTabPanel>
-            </VKTabPanels>
-          </VKTabs>
+          <VKTab v-model="pillTab" variant="pill">
+            <VKTabItem value="tab1">
+              <template #title>标签页 1</template>
+              <div class="p-4">标签页 1 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab2">
+              <template #title>标签页 2</template>
+              <div class="p-4">标签页 2 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab3">
+              <template #title>标签页 3</template>
+              <div class="p-4">标签页 3 的内容</div>
+            </VKTabItem>
+          </VKTab>
         </div>
 
         <div>
           <h3 class="text-lg font-medium mb-2">盒子风格 (Boxed)</h3>
-          <VKTabs v-model="boxedTab" variant="boxed">
-            <VKTabList>
-              <VKTab value="tab1">标签页 1</VKTab>
-              <VKTab value="tab2">标签页 2</VKTab>
-              <VKTab value="tab3">标签页 3</VKTab>
-            </VKTabList>
-            <VKTabPanels>
-              <VKTabPanel value="tab1">
-                <div class="p-4">标签页 1 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab2">
-                <div class="p-4">标签页 2 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab3">
-                <div class="p-4">标签页 3 的内容</div>
-              </VKTabPanel>
-            </VKTabPanels>
-          </VKTabs>
+          <VKTab v-model="boxedTab" variant="boxed">
+            <VKTabItem value="tab1">
+              <template #title>标签页 1</template>
+              <div class="p-4">标签页 1 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab2">
+              <template #title>标签页 2</template>
+              <div class="p-4">标签页 2 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab3">
+              <template #title>标签页 3</template>
+              <div class="p-4">标签页 3 的内容</div>
+            </VKTabItem>
+          </VKTab>
         </div>
 
         <div>
           <h3 class="text-lg font-medium mb-2">柔和风格 (Soft)</h3>
-          <VKTabs v-model="softTab" variant="soft">
-            <VKTabList>
-              <VKTab value="tab1">标签页 1</VKTab>
-              <VKTab value="tab2">标签页 2</VKTab>
-              <VKTab value="tab3">标签页 3</VKTab>
-            </VKTabList>
-            <VKTabPanels>
-              <VKTabPanel value="tab1">
-                <div class="p-4">标签页 1 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab2">
-                <div class="p-4">标签页 2 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab3">
-                <div class="p-4">标签页 3 的内容</div>
-              </VKTabPanel>
-            </VKTabPanels>
-          </VKTabs>
+          <VKTab v-model="softTab" variant="soft">
+            <VKTabItem value="tab1">
+              <template #title>标签页 1</template>
+              <div class="p-4">标签页 1 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab2">
+              <template #title>标签页 2</template>
+              <div class="p-4">标签页 2 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab3">
+              <template #title>标签页 3</template>
+              <div class="p-4">标签页 3 的内容</div>
+            </VKTabItem>
+          </VKTab>
         </div>
       </div>
     `,
@@ -201,7 +175,7 @@ export const Variants: Story = {
 // 不同尺寸
 export const Sizes: Story = {
   render: () => ({
-    components: { VKTabs, VKTabList, VKTab, VKTabPanels, VKTabPanel },
+    components: { VKTab, VKTabItem },
     setup() {
       const smallTab = ref('tab1')
       const mediumTab = ref('tab1')
@@ -213,68 +187,56 @@ export const Sizes: Story = {
       <div class="space-y-8">
         <div>
           <h3 class="text-lg font-medium mb-2">小尺寸 (Small)</h3>
-          <VKTabs v-model="smallTab" size="sm">
-            <VKTabList>
-              <VKTab value="tab1">标签页 1</VKTab>
-              <VKTab value="tab2">标签页 2</VKTab>
-              <VKTab value="tab3">标签页 3</VKTab>
-            </VKTabList>
-            <VKTabPanels>
-              <VKTabPanel value="tab1">
-                <div class="p-4">标签页 1 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab2">
-                <div class="p-4">标签页 2 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab3">
-                <div class="p-4">标签页 3 的内容</div>
-              </VKTabPanel>
-            </VKTabPanels>
-          </VKTabs>
+          <VKTab v-model="smallTab" size="sm">
+            <VKTabItem value="tab1">
+              <template #title>标签页 1</template>
+              <div class="p-4">标签页 1 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab2">
+              <template #title>标签页 2</template>
+              <div class="p-4">标签页 2 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab3">
+              <template #title>标签页 3</template>
+              <div class="p-4">标签页 3 的内容</div>
+            </VKTabItem>
+          </VKTab>
         </div>
 
         <div>
           <h3 class="text-lg font-medium mb-2">中尺寸 (Medium)</h3>
-          <VKTabs v-model="mediumTab" size="md">
-            <VKTabList>
-              <VKTab value="tab1">标签页 1</VKTab>
-              <VKTab value="tab2">标签页 2</VKTab>
-              <VKTab value="tab3">标签页 3</VKTab>
-            </VKTabList>
-            <VKTabPanels>
-              <VKTabPanel value="tab1">
-                <div class="p-4">标签页 1 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab2">
-                <div class="p-4">标签页 2 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab3">
-                <div class="p-4">标签页 3 的内容</div>
-              </VKTabPanel>
-            </VKTabPanels>
-          </VKTabs>
+          <VKTab v-model="mediumTab" size="md">
+            <VKTabItem value="tab1">
+              <template #title>标签页 1</template>
+              <div class="p-4">标签页 1 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab2">
+              <template #title>标签页 2</template>
+              <div class="p-4">标签页 2 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab3">
+              <template #title>标签页 3</template>
+              <div class="p-4">标签页 3 的内容</div>
+            </VKTabItem>
+          </VKTab>
         </div>
 
         <div>
           <h3 class="text-lg font-medium mb-2">大尺寸 (Large)</h3>
-          <VKTabs v-model="largeTab" size="lg">
-            <VKTabList>
-              <VKTab value="tab1">标签页 1</VKTab>
-              <VKTab value="tab2">标签页 2</VKTab>
-              <VKTab value="tab3">标签页 3</VKTab>
-            </VKTabList>
-            <VKTabPanels>
-              <VKTabPanel value="tab1">
-                <div class="p-4">标签页 1 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab2">
-                <div class="p-4">标签页 2 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab3">
-                <div class="p-4">标签页 3 的内容</div>
-              </VKTabPanel>
-            </VKTabPanels>
-          </VKTabs>
+          <VKTab v-model="largeTab" size="lg">
+            <VKTabItem value="tab1">
+              <template #title>标签页 1</template>
+              <div class="p-4">标签页 1 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab2">
+              <template #title>标签页 2</template>
+              <div class="p-4">标签页 2 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab3">
+              <template #title>标签页 3</template>
+              <div class="p-4">标签页 3 的内容</div>
+            </VKTabItem>
+          </VKTab>
         </div>
       </div>
     `,
@@ -284,7 +246,7 @@ export const Sizes: Story = {
 // 不同位置
 export const Placements: Story = {
   render: () => ({
-    components: { VKTabs, VKTabList, VKTab, VKTabPanels, VKTabPanel },
+    components: { VKTab, VKTabItem },
     setup() {
       const topTab = ref('tab1')
       const bottomTab = ref('tab1')
@@ -294,164 +256,93 @@ export const Placements: Story = {
       return { topTab, bottomTab, leftTab, rightTab }
     },
     template: `
-      <div class="space-y-12">
+      <div class="space-y-8">
         <div>
           <h3 class="text-lg font-medium mb-2">顶部位置 (Top)</h3>
-          <VKTabs v-model="topTab" placement="top">
-            <VKTabList>
-              <VKTab value="tab1">标签页 1</VKTab>
-              <VKTab value="tab2">标签页 2</VKTab>
-              <VKTab value="tab3">标签页 3</VKTab>
-            </VKTabList>
-            <VKTabPanels>
-              <VKTabPanel value="tab1">
-                <div class="p-4">标签页 1 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab2">
-                <div class="p-4">标签页 2 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab3">
-                <div class="p-4">标签页 3 的内容</div>
-              </VKTabPanel>
-            </VKTabPanels>
-          </VKTabs>
+          <VKTab v-model="topTab" placement="top">
+            <VKTabItem value="tab1">
+              <template #title>标签页 1</template>
+              <div class="p-4">标签页 1 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab2">
+              <template #title>标签页 2</template>
+              <div class="p-4">标签页 2 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab3">
+              <template #title>标签页 3</template>
+              <div class="p-4">标签页 3 的内容</div>
+            </VKTabItem>
+          </VKTab>
         </div>
 
         <div>
           <h3 class="text-lg font-medium mb-2">底部位置 (Bottom)</h3>
-          <VKTabs v-model="bottomTab" placement="bottom">
-            <VKTabList>
-              <VKTab value="tab1">标签页 1</VKTab>
-              <VKTab value="tab2">标签页 2</VKTab>
-              <VKTab value="tab3">标签页 3</VKTab>
-            </VKTabList>
-            <VKTabPanels>
-              <VKTabPanel value="tab1">
-                <div class="p-4">标签页 1 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab2">
-                <div class="p-4">标签页 2 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab3">
-                <div class="p-4">标签页 3 的内容</div>
-              </VKTabPanel>
-            </VKTabPanels>
-          </VKTabs>
+          <VKTab v-model="bottomTab" placement="bottom">
+            <VKTabItem value="tab1">
+              <template #title>标签页 1</template>
+              <div class="p-4">标签页 1 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab2">
+              <template #title>标签页 2</template>
+              <div class="p-4">标签页 2 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab3">
+              <template #title>标签页 3</template>
+              <div class="p-4">标签页 3 的内容</div>
+            </VKTabItem>
+          </VKTab>
         </div>
 
         <div>
           <h3 class="text-lg font-medium mb-2">左侧位置 (Left)</h3>
-          <VKTabs v-model="leftTab" placement="left">
-            <VKTabList>
-              <VKTab value="tab1">标签页 1</VKTab>
-              <VKTab value="tab2">标签页 2</VKTab>
-              <VKTab value="tab3">标签页 3</VKTab>
-            </VKTabList>
-            <VKTabPanels>
-              <VKTabPanel value="tab1">
-                <div class="p-4">标签页 1 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab2">
-                <div class="p-4">标签页 2 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab3">
-                <div class="p-4">标签页 3 的内容</div>
-              </VKTabPanel>
-            </VKTabPanels>
-          </VKTabs>
+          <VKTab v-model="leftTab" placement="left">
+            <VKTabItem value="tab1">
+              <template #title>标签页 1</template>
+              <div class="p-4">标签页 1 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab2">
+              <template #title>标签页 2</template>
+              <div class="p-4">标签页 2 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab3">
+              <template #title>标签页 3</template>
+              <div class="p-4">标签页 3 的内容</div>
+            </VKTabItem>
+          </VKTab>
         </div>
 
         <div>
           <h3 class="text-lg font-medium mb-2">右侧位置 (Right)</h3>
-          <VKTabs v-model="rightTab" placement="right">
-            <VKTabList>
-              <VKTab value="tab1">标签页 1</VKTab>
-              <VKTab value="tab2">标签页 2</VKTab>
-              <VKTab value="tab3">标签页 3</VKTab>
-            </VKTabList>
-            <VKTabPanels>
-              <VKTabPanel value="tab1">
-                <div class="p-4">标签页 1 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab2">
-                <div class="p-4">标签页 2 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab3">
-                <div class="p-4">标签页 3 的内容</div>
-              </VKTabPanel>
-            </VKTabPanels>
-          </VKTabs>
+          <VKTab v-model="rightTab" placement="right">
+            <VKTabItem value="tab1">
+              <template #title>标签页 1</template>
+              <div class="p-4">标签页 1 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab2">
+              <template #title>标签页 2</template>
+              <div class="p-4">标签页 2 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab3">
+              <template #title>标签页 3</template>
+              <div class="p-4">标签页 3 的内容</div>
+            </VKTabItem>
+          </VKTab>
         </div>
       </div>
     `,
   }),
 }
 
-// 带图标的标签页
-export const WithIcons: Story = {
-  render: () => ({
-    components: { VKTabs, VKTabList, VKTab, VKTabPanels, VKTabPanel },
-    setup() {
-      const activeTab = ref('tab1')
-
-      return { activeTab }
-    },
-    template: `
-      <VKTabs v-model="activeTab">
-        <VKTabList>
-          <VKTab value="tab1">
-            <template #icon>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3 12L5 10M5 10L12 3L19 10M5 10V20C5 20.5523 5.44772 21 6 21H9M19 10L21 12M19 10V20C19 20.5523 18.5523 21 18 21H15M9 21C9.55228 21 10 20.5523 10 20V16C10 15.4477 10.4477 15 11 15H13C13.5523 15 14 15.4477 14 16V20C14 20.5523 14.4477 21 15 21M9 21H15" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </template>
-            首页
-          </VKTab>
-          <VKTab value="tab2">
-            <template #icon>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M12 14C8.13401 14 5 17.134 5 21H19C19 17.134 15.866 14 12 14Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </template>
-            用户
-          </VKTab>
-          <VKTab value="tab3">
-            <template #icon>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10.3246 4.31731C10.751 2.5609 13.249 2.5609 13.6754 4.31731C13.9508 5.45193 15.2507 5.99038 16.2478 5.38285C17.7913 4.44239 19.5576 6.2087 18.6172 7.75218C18.0096 8.74925 18.5481 10.0492 19.6827 10.3246C21.4391 10.751 21.4391 13.249 19.6827 13.6754C18.5481 13.9508 18.0096 15.2507 18.6172 16.2478C19.5576 17.7913 17.7913 19.5576 16.2478 18.6172C15.2507 18.0096 13.9508 18.5481 13.6754 19.6827C13.249 21.4391 10.751 21.4391 10.3246 19.6827C10.0492 18.5481 8.74926 18.0096 7.75219 18.6172C6.2087 19.5576 4.44239 17.7913 5.38285 16.2478C5.99038 15.2507 5.45193 13.9508 4.31731 13.6754C2.5609 13.249 2.5609 10.751 4.31731 10.3246C5.45193 10.0492 5.99037 8.74926 5.38285 7.75218C4.44239 6.2087 6.2087 4.44239 7.75219 5.38285C8.74926 5.99037 10.0492 5.45193 10.3246 4.31731Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </template>
-            设置
-          </VKTab>
-        </VKTabList>
-        <VKTabPanels>
-          <VKTabPanel value="tab1">
-            <div class="p-4">首页内容</div>
-          </VKTabPanel>
-          <VKTabPanel value="tab2">
-            <div class="p-4">用户内容</div>
-          </VKTabPanel>
-          <VKTabPanel value="tab3">
-            <div class="p-4">设置内容</div>
-          </VKTabPanel>
-        </VKTabPanels>
-      </VKTabs>
-    `,
-  }),
-}
-
-// 可关闭的标签页
+// 可关闭标签页
 export const Closable: Story = {
   render: () => ({
-    components: { VKTabs, VKTabList, VKTab, VKTabPanels, VKTabPanel },
+    components: { VKTab, VKTabItem },
     setup() {
       const activeTab = ref('tab1')
       const tabs = ref([
-        { id: 'tab1', label: '标签页 1' },
-        { id: 'tab2', label: '标签页 2' },
-        { id: 'tab3', label: '标签页 3' },
+        { id: 'tab1', title: '标签页 1', content: '标签页 1 的内容' },
+        { id: 'tab2', title: '标签页 2', content: '标签页 2 的内容' },
+        { id: 'tab3', title: '标签页 3', content: '标签页 3 的内容' },
       ])
 
       const handleClose = (tabId) => {
@@ -462,8 +353,8 @@ export const Closable: Story = {
           // 如果关闭的是当前激活的标签页，则激活前一个或后一个标签页
           if (activeTab.value === tabId) {
             if (tabs.value.length > 0) {
-              const newIndex = Math.min(index, tabs.value.length - 1)
-              activeTab.value = tabs.value[newIndex].id
+              activeTab.value =
+                tabs.value[Math.min(index, tabs.value.length - 1)].id
             }
           }
         }
@@ -472,26 +363,23 @@ export const Closable: Story = {
       return { activeTab, tabs, handleClose }
     },
     template: `
-      <VKTabs v-model="activeTab" closable @close="handleClose">
-        <VKTabList>
-          <VKTab v-for="tab in tabs" :key="tab.id" :value="tab.id">
-            {{ tab.label }}
-          </VKTab>
-        </VKTabList>
-        <VKTabPanels>
-          <VKTabPanel v-for="tab in tabs" :key="tab.id" :value="tab.id">
-            <div class="p-4">{{ tab.label }} 的内容</div>
-          </VKTabPanel>
-        </VKTabPanels>
-      </VKTabs>
+      <div>
+        <h3 class="text-lg font-medium mb-2">可关闭标签页</h3>
+        <VKTab v-model="activeTab" closable @close="handleClose">
+          <VKTabItem v-for="tab in tabs" :key="tab.id" :value="tab.id">
+            <template #title>{{ tab.title }}</template>
+            <div class="p-4">{{ tab.content }}</div>
+          </VKTabItem>
+        </VKTab>
+      </div>
     `,
   }),
 }
 
-// 禁用状态
+// 禁用标签页
 export const Disabled: Story = {
   render: () => ({
-    components: { VKTabs, VKTabList, VKTab, VKTabPanels, VKTabPanel },
+    components: { VKTab, VKTabItem },
     setup() {
       const activeTab = ref('tab1')
 
@@ -500,81 +388,169 @@ export const Disabled: Story = {
     template: `
       <div class="space-y-8">
         <div>
-          <h3 class="text-lg font-medium mb-2">全部禁用</h3>
-          <VKTabs v-model="activeTab" disabled>
-            <VKTabList>
-              <VKTab value="tab1">标签页 1</VKTab>
-              <VKTab value="tab2">标签页 2</VKTab>
-              <VKTab value="tab3">标签页 3</VKTab>
-            </VKTabList>
-            <VKTabPanels>
-              <VKTabPanel value="tab1">
-                <div class="p-4">标签页 1 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab2">
-                <div class="p-4">标签页 2 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab3">
-                <div class="p-4">标签页 3 的内容</div>
-              </VKTabPanel>
-            </VKTabPanels>
-          </VKTabs>
+          <h3 class="text-lg font-medium mb-2">禁用单个标签页</h3>
+          <VKTab v-model="activeTab">
+            <VKTabItem value="tab1">
+              <template #title>标签页 1</template>
+              <div class="p-4">标签页 1 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab2" disabled>
+              <template #title>标签页 2 (禁用)</template>
+              <div class="p-4">标签页 2 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab3">
+              <template #title>标签页 3</template>
+              <div class="p-4">标签页 3 的内容</div>
+            </VKTabItem>
+          </VKTab>
         </div>
 
         <div>
-          <h3 class="text-lg font-medium mb-2">部分禁用</h3>
-          <VKTabs v-model="activeTab">
-            <VKTabList>
-              <VKTab value="tab1">标签页 1</VKTab>
-              <VKTab value="tab2" disabled>标签页 2 (禁用)</VKTab>
-              <VKTab value="tab3">标签页 3</VKTab>
-            </VKTabList>
-            <VKTabPanels>
-              <VKTabPanel value="tab1">
-                <div class="p-4">标签页 1 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab2">
-                <div class="p-4">标签页 2 的内容</div>
-              </VKTabPanel>
-              <VKTabPanel value="tab3">
-                <div class="p-4">标签页 3 的内容</div>
-              </VKTabPanel>
-            </VKTabPanels>
-          </VKTabs>
+          <h3 class="text-lg font-medium mb-2">禁用所有标签页</h3>
+          <VKTab v-model="activeTab" disabled>
+            <VKTabItem value="tab1">
+              <template #title>标签页 1</template>
+              <div class="p-4">标签页 1 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab2">
+              <template #title>标签页 2</template>
+              <div class="p-4">标签页 2 的内容</div>
+            </VKTabItem>
+            <VKTabItem value="tab3">
+              <template #title>标签页 3</template>
+              <div class="p-4">标签页 3 的内容</div>
+            </VKTabItem>
+          </VKTab>
         </div>
       </div>
     `,
   }),
 }
 
-// 延迟加载内容
-export const LazyLoading: Story = {
+// 带图标的标签页
+export const WithIcons: Story = {
   render: () => ({
-    components: { VKTabs, VKTabList, VKTab, VKTabPanels, VKTabPanel },
+    components: { VKTab, VKTabItem },
     setup() {
       const activeTab = ref('tab1')
 
       return { activeTab }
     },
     template: `
-      <VKTabs v-model="activeTab">
-        <VKTabList>
-          <VKTab value="tab1">标签页 1</VKTab>
-          <VKTab value="tab2">标签页 2</VKTab>
-          <VKTab value="tab3">标签页 3</VKTab>
-        </VKTabList>
-        <VKTabPanels>
-          <VKTabPanel value="tab1">
-            <div class="p-4">标签页 1 的内容 (总是渲染)</div>
-          </VKTabPanel>
-          <VKTabPanel value="tab2" lazy>
-            <div class="p-4">标签页 2 的内容 (延迟渲染)</div>
-          </VKTabPanel>
-          <VKTabPanel value="tab3" lazy>
-            <div class="p-4">标签页 3 的内容 (延迟渲染)</div>
-          </VKTabPanel>
-        </VKTabPanels>
-      </VKTabs>
+      <div>
+        <h3 class="text-lg font-medium mb-2">带图标的标签页</h3>
+        <VKTab v-model="activeTab">
+          <VKTabItem value="tab1">
+            <template #icon>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+            </template>
+            <template #title>首页</template>
+            <div class="p-4">首页内容</div>
+          </VKTabItem>
+          <VKTabItem value="tab2">
+            <template #icon>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </template>
+            <template #title>用户</template>
+            <div class="p-4">用户内容</div>
+          </VKTabItem>
+          <VKTabItem value="tab3">
+            <template #icon>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+            </template>
+            <template #title>设置</template>
+            <div class="p-4">设置内容</div>
+          </VKTabItem>
+        </VKTab>
+      </div>
+    `,
+  }),
+}
+
+// 懒加载标签页内容
+export const LazyLoading: Story = {
+  render: () => ({
+    components: { VKTab, VKTabItem },
+    setup() {
+      const activeTab = ref('tab1')
+      const loadTimes = ref({})
+
+      const getLoadTime = (tabId) => {
+        if (!loadTimes.value[tabId]) {
+          loadTimes.value[tabId] = new Date().toLocaleTimeString()
+        }
+        return loadTimes.value[tabId]
+      }
+
+      return { activeTab, getLoadTime }
+    },
+    template: `
+      <div class="space-y-8">
+        <div>
+          <h3 class="text-lg font-medium mb-2">默认加载 (非懒加载)</h3>
+          <p class="text-sm text-gray-500 mb-2">所有标签页内容在组件挂载时就会渲染</p>
+          <VKTab v-model="activeTab">
+            <VKTabItem value="tab1">
+              <template #title>标签页 1</template>
+              <div class="p-4">
+                <p>标签页 1 的内容</p>
+                <p class="text-sm text-gray-500">加载时间: {{ getLoadTime('tab1') }}</p>
+              </div>
+            </VKTabItem>
+            <VKTabItem value="tab2">
+              <template #title>标签页 2</template>
+              <div class="p-4">
+                <p>标签页 2 的内容</p>
+                <p class="text-sm text-gray-500">加载时间: {{ getLoadTime('tab2') }}</p>
+              </div>
+            </VKTabItem>
+            <VKTabItem value="tab3">
+              <template #title>标签页 3</template>
+              <div class="p-4">
+                <p>标签页 3 的内容</p>
+                <p class="text-sm text-gray-500">加载时间: {{ getLoadTime('tab3') }}</p>
+              </div>
+            </VKTabItem>
+          </VKTab>
+        </div>
+
+        <div>
+          <h3 class="text-lg font-medium mb-2">懒加载</h3>
+          <p class="text-sm text-gray-500 mb-2">标签页内容只有在激活时才会渲染</p>
+          <VKTab v-model="activeTab">
+            <VKTabItem value="tab4" lazy>
+              <template #title>标签页 4</template>
+              <div class="p-4">
+                <p>标签页 4 的内容 (懒加载)</p>
+                <p class="text-sm text-gray-500">加载时间: {{ getLoadTime('tab4') }}</p>
+              </div>
+            </VKTabItem>
+            <VKTabItem value="tab5" lazy>
+              <template #title>标签页 5</template>
+              <div class="p-4">
+                <p>标签页 5 的内容 (懒加载)</p>
+                <p class="text-sm text-gray-500">加载时间: {{ getLoadTime('tab5') }}</p>
+              </div>
+            </VKTabItem>
+            <VKTabItem value="tab6" lazy>
+              <template #title>标签页 6</template>
+              <div class="p-4">
+                <p>标签页 6 的内容 (懒加载)</p>
+                <p class="text-sm text-gray-500">加载时间: {{ getLoadTime('tab6') }}</p>
+              </div>
+            </VKTabItem>
+          </VKTab>
+        </div>
+      </div>
     `,
   }),
 }
