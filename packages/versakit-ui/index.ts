@@ -1,5 +1,4 @@
 import type { App, Component } from 'vue'
-import { defineAppConfig, setThemeConfig, type ThemeConfig } from './theme'
 
 // 基础组件
 import { VKButton } from './components/button'
@@ -49,5 +48,4 @@ const Versakit = {
   },
 }
 
-export { defineAppConfig, setThemeConfig, Versakit }
-export type { ThemeConfig }
+export { Versakit }
