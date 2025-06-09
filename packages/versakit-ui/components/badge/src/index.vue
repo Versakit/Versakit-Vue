@@ -3,25 +3,23 @@ import { computed } from 'vue'
 import { badge } from './index.variants'
 import type { BadgeProps, BadgePassThroughAttributes } from './type'
 
-interface Props extends BadgeProps {
-  pt?: BadgePassThroughAttributes
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  variant: 'primary',
-  size: 'md',
-  position: 'top-right',
-  dot: false,
-  max: 99,
-  hidden: false,
-  standalone: false,
-  unstyled: false,
-})
+const props = withDefaults(
+  defineProps<BadgeProps & { pt?: BadgePassThroughAttributes }>(),
+  {
+    variant: 'primary',
+    size: 'md',
+    position: 'top-right',
+    dot: false,
+    max: 99,
+    hidden: false,
+    standalone: false,
+    unstyled: false,
+  },
+)
 
 const displayContent = computed(() => {
   if (props.dot) return ''
   if (props.content === undefined || props.content === null) return ''
-
   if (
     typeof props.content === 'number' &&
     props.max !== undefined &&
@@ -29,7 +27,6 @@ const displayContent = computed(() => {
   ) {
     return `${props.max}+`
   }
-
   return String(props.content)
 })
 
@@ -37,7 +34,6 @@ const classes = computed(() => {
   if (props.unstyled) {
     return {}
   }
-
   return badge({
     variant: props.variant,
     size: props.size,

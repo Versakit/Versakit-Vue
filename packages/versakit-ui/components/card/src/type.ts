@@ -6,6 +6,17 @@ export type CardVariant =
   | 'info'
   | 'error'
 
+// PT (Pass Through) 类型定义
+export type CardPassThroughAttributes = {
+  root?: Record<string, unknown>
+  header?: Record<string, unknown>
+  title?: Record<string, unknown>
+  subtitle?: Record<string, unknown>
+  collapseButton?: Record<string, unknown>
+  body?: Record<string, unknown>
+  footer?: Record<string, unknown>
+}
+
 export interface CardProps {
   /** 卡片标题 */
   title?: string
@@ -31,18 +42,11 @@ export interface CardProps {
   withFooter?: boolean
   /** 是否使用无样式模式 */
   unstyled?: boolean
+  /** Pass Through 属性 */
+  pt?: CardPassThroughAttributes
 }
 
 // PT (Pass Through) 类型定义
-export type CardPassThroughAttributes = {
-  root?: Record<string, unknown>
-  header?: Record<string, unknown>
-  title?: Record<string, unknown>
-  subtitle?: Record<string, unknown>
-  collapseButton?: Record<string, unknown>
-  body?: Record<string, unknown>
-  footer?: Record<string, unknown>
-}
 
 export interface CardSlots {
   default?: () => unknown

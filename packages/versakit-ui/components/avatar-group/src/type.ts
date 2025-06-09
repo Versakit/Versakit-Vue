@@ -4,6 +4,12 @@ import type {
   AvatarVariant,
 } from '../../avatar/src/type'
 
+// PT (Pass Through) 类型定义
+export type AvatarGroupPassThroughAttributes = {
+  root?: Record<string, unknown>
+  overflow?: Record<string, unknown>
+}
+
 export interface AvatarGroupProps {
   /** 头像大小 */
   size?: AvatarSize | number
@@ -27,13 +33,11 @@ export interface AvatarGroupProps {
   borderColor?: string
   /** 是否使用无样式模式 */
   unstyled?: boolean
+  /** Pass Through 属性 */
+  pt?: AvatarGroupPassThroughAttributes
 }
 
 // PT (Pass Through) 类型定义
-export type AvatarGroupPassThroughAttributes = {
-  root?: Record<string, unknown>
-  overflow?: Record<string, unknown>
-}
 
 export interface AvatarGroupSlots {
   default?: () => unknown

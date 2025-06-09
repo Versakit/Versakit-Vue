@@ -11,6 +11,7 @@ import { VKModal } from './components/modal'
 import { VKAvatar } from './components/avatar'
 import { VKAvatarGroup } from './components/avatar-group'
 import { VKSegmentedControl } from './components/segmented-control'
+import { VKDivider } from './components/divider'
 // 样式
 import './style/index.css'
 
@@ -25,6 +26,7 @@ const components: Component[] = [
   VKAvatar,
   VKAvatarGroup,
   VKSegmentedControl,
+  VKDivider,
 ]
 
 export {
@@ -38,6 +40,7 @@ export {
   VKAvatar,
   VKAvatarGroup,
   VKSegmentedControl,
+  VKDivider,
 }
 
 const Versakit = {

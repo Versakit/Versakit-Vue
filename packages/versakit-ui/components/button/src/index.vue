@@ -2,30 +2,25 @@
 import { computed } from 'vue'
 import { button } from './index.variants'
 import type { BtnProps, ButtonPassThroughAttributes } from './type'
-
-interface Props extends BtnProps {
-  pt?: ButtonPassThroughAttributes
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  variant: 'primary',
-  size: 'md',
-  shape: 'default',
-  disabled: false,
-  loading: false,
-  type: 'button',
-  block: false,
-  iconPosition: 'left',
-  unstyled: false,
-})
-
+const props = withDefaults(
+  defineProps<BtnProps & { pt?: ButtonPassThroughAttributes }>(),
+  {
+    variant: 'primary',
+    size: 'md',
+    shape: 'default',
+    disabled: false,
+    loading: false,
+    type: 'button',
+    block: false,
+    iconPosition: 'left',
+    unstyled: false,
+  },
+)
 const emit = defineEmits(['click'])
-
 const classes = computed(() => {
   if (props.unstyled) {
     return {}
   }
-
   return button({
     variant: props.variant,
     size: props.size,
@@ -36,13 +31,11 @@ const classes = computed(() => {
     iconPosition: props.iconPosition,
   })
 })
-
 const handleClick = (event: MouseEvent) => {
   if (props.disabled || props.loading) return
   emit('click', event)
 }
 </script>
-
 <template>
   <button
     role="button"
@@ -63,7 +56,6 @@ const handleClick = (event: MouseEvent) => {
     >
       <slot name="icon" :iconPosition="iconPosition" />
     </span>
-
     <!-- 加载图标 -->
     <span
       v-if="loading"
@@ -98,7 +90,6 @@ const handleClick = (event: MouseEvent) => {
         ></path>
       </svg>
     </span>
-
     <!-- 内容 -->
     <span
       :class="{ 'opacity-0': loading && !unstyled }"
@@ -106,7 +97,6 @@ const handleClick = (event: MouseEvent) => {
     >
       <slot />
     </span>
-
     <!-- 右侧图标 -->
     <span
       v-if="$slots.icon && iconPosition === 'right' && !loading"
@@ -117,7 +107,6 @@ const handleClick = (event: MouseEvent) => {
     </span>
   </button>
 </template>
-
 <style scoped>
 .ripple-effect {
   position: absolute;
@@ -127,7 +116,6 @@ const handleClick = (event: MouseEvent) => {
   animation: ripple 0.6s linear;
   pointer-events: none;
 }
-
 @keyframes ripple {
   to {
     transform: scale(2.5);

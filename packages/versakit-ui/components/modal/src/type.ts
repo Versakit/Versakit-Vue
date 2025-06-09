@@ -1,5 +1,19 @@
 export type ModalSize = 'sm' | 'md' | 'lg' | 'xl' | 'full'
 
+// PT (Pass Through) 类型定义
+export type ModalPassThroughAttributes = {
+  root?: Record<string, unknown>
+  wrapper?: Record<string, unknown>
+  overlay?: Record<string, unknown>
+  header?: Record<string, unknown>
+  title?: Record<string, unknown>
+  closeButton?: Record<string, unknown>
+  body?: Record<string, unknown>
+  footer?: Record<string, unknown>
+  confirmButton?: Record<string, unknown>
+  cancelButton?: Record<string, unknown>
+}
+
 export interface ModalProps {
   /** 是否显示模态框 */
   modelValue?: boolean
@@ -65,21 +79,11 @@ export interface ModalProps {
   overlayOpacity?: number
   /** 是否使用无样式模式 */
   unstyled?: boolean
+  /** Pass Through 属性 */
+  pt?: ModalPassThroughAttributes
 }
 
 // PT (Pass Through) 类型定义
-export type ModalPassThroughAttributes = {
-  root?: Record<string, unknown>
-  wrapper?: Record<string, unknown>
-  overlay?: Record<string, unknown>
-  header?: Record<string, unknown>
-  title?: Record<string, unknown>
-  closeButton?: Record<string, unknown>
-  body?: Record<string, unknown>
-  footer?: Record<string, unknown>
-  confirmButton?: Record<string, unknown>
-  cancelButton?: Record<string, unknown>
-}
 
 export interface ModalSlots {
   default?: () => unknown

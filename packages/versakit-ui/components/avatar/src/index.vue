@@ -11,28 +11,24 @@ import type {
   AvatarSize,
   AvatarPassThroughAttributes,
 } from './type'
-
-interface Props extends AvatarProps {
-  pt?: AvatarPassThroughAttributes
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  size: 'md',
-  shape: 'circle',
-  variant: 'default',
-  status: 'none',
-  statusPosition: 'bottom-right',
-  customClass: '',
-  showFallback: true,
-  unstyled: false,
-})
-
+const props = withDefaults(
+  defineProps<AvatarProps & { pt?: AvatarPassThroughAttributes }>(),
+  {
+    size: 'md',
+    shape: 'circle',
+    variant: 'default',
+    status: 'none',
+    statusPosition: 'bottom-right',
+    customClass: '',
+    showFallback: true,
+    unstyled: false,
+  },
+)
 // 计算 Avatar 的样式
 const avatarClasses = computed(() => {
   if (props.unstyled) {
     return {}
   }
-
   return avatar({
     size:
       typeof props.size === 'string' ? (props.size as AvatarSize) : undefined,
@@ -42,17 +38,14 @@ const avatarClasses = computed(() => {
     class: props.customClass,
   })
 })
-
 // 计算 Avatar 的内联样式
 const avatarStyle = computed(() => {
   const styles: Record<string, string> = {}
-
   if (typeof props.size === 'number') {
     styles.width = `${props.size}px`
     styles.height = `${props.size}px`
     styles.fontSize = `${Math.floor(props.size / 2.5)}px`
   }
-
   if (props.borderWidth) {
     styles.borderWidth =
       typeof props.borderWidth === 'number'
@@ -61,42 +54,33 @@ const avatarStyle = computed(() => {
     styles.borderStyle = 'solid'
     styles.borderColor = props.borderColor || 'transparent'
   }
-
   return styles
 })
-
 // 计算状态指示器的样式
 const statusClasses = computed(() => {
   if (props.unstyled) {
     return {}
   }
-
   return avatarStatus({
     status: props.status,
     size: typeof props.size === 'string' ? (props.size as AvatarSize) : 'md',
     position: props.statusPosition,
   })
 })
-
 // 计算图片样式
 const imageClasses = computed(() => (props.unstyled ? {} : avatarImage()))
-
 // 计算回退UI样式
 const fallbackClasses = computed(() => (props.unstyled ? {} : avatarFallback()))
-
 // 获取头像显示文本的首字母或缩写
 const displayText = computed(() => {
   if (!props.text) return ''
-
   const words = props.text.split(' ')
   if (words.length === 1) {
     return props.text.charAt(0).toUpperCase()
   }
-
   return (words[0].charAt(0) + words[1].charAt(0)).toUpperCase()
 })
 </script>
-
 <template>
   <div
     :class="avatarClasses"
@@ -109,7 +93,6 @@ const displayText = computed(() => {
       :class="statusClasses"
       v-bind="props.pt?.status"
     ></span>
-
     <!-- 图片 -->
     <img
       v-if="src"
@@ -119,7 +102,6 @@ const displayText = computed(() => {
       @error="onError"
       v-bind="props.pt?.image"
     />
-
     <!-- 回退UI (文本或自定义内容) -->
     <div
       v-else-if="showFallback"

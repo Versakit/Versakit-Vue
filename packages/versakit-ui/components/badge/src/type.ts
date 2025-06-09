@@ -14,6 +14,14 @@ export type BadgePosition =
   | 'bottom-right'
   | 'bottom-left'
 
+// PT (Pass Through) 类型定义
+export type BadgePassThroughAttributes = {
+  root?: Record<string, unknown>
+  wrapper?: Record<string, unknown>
+  badge?: Record<string, unknown>
+  content?: Record<string, unknown>
+}
+
 export interface BadgeProps {
   /** 徽章内容 */
   content?: string | number
@@ -33,15 +41,11 @@ export interface BadgeProps {
   standalone?: boolean
   /** 是否使用无样式模式 */
   unstyled?: boolean
+  /** Pass Through 属性 */
+  pt?: BadgePassThroughAttributes
 }
 
 // PT (Pass Through) 类型定义
-export type BadgePassThroughAttributes = {
-  root?: Record<string, unknown>
-  wrapper?: Record<string, unknown>
-  badge?: Record<string, unknown>
-  content?: Record<string, unknown>
-}
 
 export interface BadgeSlots {
   default?: () => unknown

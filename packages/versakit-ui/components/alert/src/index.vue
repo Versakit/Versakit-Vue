@@ -2,30 +2,24 @@
 import { computed, ref, h } from 'vue'
 import { alert, alertTitle, alertIcon, alertClose } from './index.variants'
 import type { AlertProps, AlertPassThroughAttributes } from './type'
-
-interface Props extends AlertProps {
-  pt?: AlertPassThroughAttributes
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  variant: 'default',
-  showIcon: false,
-  closable: false,
-  bordered: false,
-  shadow: false,
-  fullWidth: true,
-  unstyled: false,
-})
-
+const props = withDefaults(
+  defineProps<AlertProps & { pt?: AlertPassThroughAttributes }>(),
+  {
+    variant: 'default',
+    showIcon: false,
+    closable: false,
+    bordered: false,
+    shadow: false,
+    fullWidth: true,
+    unstyled: false,
+  },
+)
 const emit = defineEmits(['close'])
-
 const visible = ref(true)
-
 const alertClasses = computed(() => {
   if (props.unstyled) {
     return {}
   }
-
   return alert({
     variant: props.variant,
     bordered: props.bordered,
@@ -33,34 +27,27 @@ const alertClasses = computed(() => {
     fullWidth: props.fullWidth,
   })
 })
-
 const iconClasses = computed(() => {
   if (props.unstyled) {
     return {}
   }
-
   return alertIcon({
     variant: props.variant,
   })
 })
-
 const closeClasses = computed(() => {
   if (props.unstyled) {
     return {}
   }
-
   return alertClose({
     variant: props.variant,
   })
 })
-
 const titleClasses = computed(() => (props.unstyled ? {} : alertTitle()))
-
 const handleClose = () => {
   visible.value = false
   emit('close')
 }
-
 // 根据 variant 类型展示对应的图标
 const renderIcon = () => {
   switch (props.variant) {
@@ -163,7 +150,6 @@ const renderIcon = () => {
   }
 }
 </script>
-
 <template>
   <div
     v-if="visible"
@@ -192,7 +178,6 @@ const renderIcon = () => {
         </div>
       </div>
     </div>
-
     <button
       v-if="closable"
       :class="closeClasses"

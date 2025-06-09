@@ -6,6 +6,17 @@ export type AlertVariant =
   | 'error'
   | 'default'
 
+// PT (Pass Through) 类型定义
+
+// PT (Pass Through) 类型定义
+export type AlertPassThroughAttributes = {
+  root?: Record<string, unknown>
+  icon?: Record<string, unknown>
+  title?: Record<string, unknown>
+  content?: Record<string, unknown>
+  closeButton?: Record<string, unknown>
+}
+
 export interface AlertProps {
   /** 提示类型 */
   variant?: AlertVariant
@@ -23,15 +34,8 @@ export interface AlertProps {
   fullWidth?: boolean
   /** 是否使用无样式模式 */
   unstyled?: boolean
-}
-
-// PT (Pass Through) 类型定义
-export type AlertPassThroughAttributes = {
-  root?: Record<string, unknown>
-  icon?: Record<string, unknown>
-  title?: Record<string, unknown>
-  content?: Record<string, unknown>
-  closeButton?: Record<string, unknown>
+  /** Pass Through 属性 */
+  pt?: AlertPassThroughAttributes
 }
 
 export interface AlertSlots {

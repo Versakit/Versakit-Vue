@@ -18,6 +18,14 @@ export interface SegmentedControlOption {
   disabled?: boolean
 }
 
+// PT (Pass Through) 类型定义
+export type SegmentedControlPassThroughAttributes = {
+  root?: Record<string, unknown>
+  thumb?: Record<string, unknown>
+  item?: Record<string, unknown>
+  icon?: Record<string, unknown>
+}
+
 export interface SegmentedControlProps {
   /** 当前值 */
   modelValue?: string | number
@@ -45,15 +53,11 @@ export interface SegmentedControlProps {
   allowDeselect?: boolean
   /** 是否使用无样式模式 */
   unstyled?: boolean
+  /** Pass Through 属性 */
+  pt?: SegmentedControlPassThroughAttributes
 }
 
 // PT (Pass Through) 类型定义
-export type SegmentedControlPassThroughAttributes = {
-  root?: Record<string, unknown>
-  thumb?: Record<string, unknown>
-  item?: Record<string, unknown>
-  icon?: Record<string, unknown>
-}
 
 export interface SegmentedControlSlots {
   default?: () => unknown

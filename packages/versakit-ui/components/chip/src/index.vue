@@ -2,29 +2,24 @@
 import { computed, h } from 'vue'
 import { chip, chipIcon, chipClose } from './index.variants'
 import type { ChipProps, ChipPassThroughAttributes } from './type'
-
-interface Props extends ChipProps {
-  pt?: ChipPassThroughAttributes
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  variant: 'default',
-  size: 'md',
-  closable: false,
-  outlined: false,
-  rounded: false,
-  disabled: false,
-  icon: false,
-  unstyled: false,
-})
-
+const props = withDefaults(
+  defineProps<ChipProps & { pt?: ChipPassThroughAttributes }>(),
+  {
+    variant: 'default',
+    size: 'md',
+    closable: false,
+    outlined: false,
+    rounded: false,
+    disabled: false,
+    icon: false,
+    unstyled: false,
+  },
+)
 const emit = defineEmits(['close'])
-
 const classes = computed(() => {
   if (props.unstyled) {
     return {}
   }
-
   return chip({
     variant: props.variant,
     size: props.size,
@@ -33,17 +28,13 @@ const classes = computed(() => {
     disabled: props.disabled,
   })
 })
-
 const iconClasses = computed(() => (props.unstyled ? {} : chipIcon()))
-
 const closeClasses = computed(() => (props.unstyled ? {} : chipClose()))
-
 const handleClose = (event: Event) => {
   event.stopPropagation()
   emit('close')
   props.onClose?.()
 }
-
 // 根据不同类型返回对应图标
 const renderIcon = () => {
   switch (props.variant) {
@@ -153,7 +144,6 @@ const renderIcon = () => {
   }
 }
 </script>
-
 <template>
   <div :class="classes" role="status" v-bind="{ ...$attrs, ...props.pt?.root }">
     <span

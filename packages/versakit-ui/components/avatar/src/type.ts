@@ -9,6 +9,15 @@ export type AvatarVariant =
   | 'error'
   | 'default'
 
+// PT (Pass Through) 类型定义
+export type AvatarPassThroughAttributes = {
+  root?: Record<string, unknown>
+  status?: Record<string, unknown>
+  image?: Record<string, unknown>
+  fallback?: Record<string, unknown>
+  icon?: Record<string, unknown>
+}
+
 export interface AvatarProps {
   /** 头像大小 */
   size?: AvatarSize | number
@@ -42,16 +51,11 @@ export interface AvatarProps {
   loading?: boolean
   /** 是否使用无样式模式 */
   unstyled?: boolean
+  /** Pass Through 属性 */
+  pt?: AvatarPassThroughAttributes
 }
 
 // PT (Pass Through) 类型定义
-export type AvatarPassThroughAttributes = {
-  root?: Record<string, unknown>
-  status?: Record<string, unknown>
-  image?: Record<string, unknown>
-  fallback?: Record<string, unknown>
-  icon?: Record<string, unknown>
-}
 
 export interface AvatarSlots {
   fallback?: () => unknown

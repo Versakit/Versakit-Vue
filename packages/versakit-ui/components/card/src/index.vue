@@ -10,40 +10,34 @@ import {
   cardCollapse,
 } from './index.variants'
 import type { CardProps, CardPassThroughAttributes } from './type'
-
-interface Props extends CardProps {
-  pt?: CardPassThroughAttributes
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  variant: 'default',
-  bordered: true,
-  shadow: false,
-  collapsible: false,
-  defaultCollapsed: false,
-  radius: 'md',
-  autoHeight: true,
-  hoverable: false,
-  withFooter: false,
-  unstyled: false,
-})
-
+const props = withDefaults(
+  defineProps<CardProps & { pt?: CardPassThroughAttributes }>(),
+  {
+    variant: 'default',
+    bordered: true,
+    shadow: false,
+    collapsible: false,
+    defaultCollapsed: false,
+    radius: 'md',
+    autoHeight: true,
+    hoverable: false,
+    withFooter: false,
+    unstyled: false,
+  },
+)
 // 折叠状态
 const isCollapsed = ref(props.defaultCollapsed)
-
 // 切换折叠状态
 const toggleCollapse = () => {
   if (props.collapsible) {
     isCollapsed.value = !isCollapsed.value
   }
 }
-
 // 卡片样式
 const cardClasses = computed(() => {
   if (props.unstyled) {
     return {}
   }
-
   return card({
     variant: props.variant,
     bordered: props.bordered,
@@ -53,42 +47,33 @@ const cardClasses = computed(() => {
     hoverable: props.hoverable,
   })
 })
-
 // 头部样式
 const headerClasses = computed(() => {
   if (props.unstyled) {
     return {}
   }
-
   return cardHeader({
     variant: props.variant,
   })
 })
-
 // 标题样式
 const titleClasses = computed(() => (props.unstyled ? {} : cardTitle()))
-
 // 副标题样式
 const subtitleClasses = computed(() => (props.unstyled ? {} : cardSubtitle()))
-
 // 内容样式
 const bodyClasses = computed(() => (props.unstyled ? {} : cardBody()))
-
 // 脚注样式
 const footerClasses = computed(() => (props.unstyled ? {} : cardFooter()))
-
 // 折叠按钮样式
 const collapseClasses = computed(() => {
   if (props.unstyled) {
     return {}
   }
-
   return cardCollapse({
     collapsed: isCollapsed.value,
   })
 })
 </script>
-
 <template>
   <div :class="cardClasses" v-bind="{ ...$attrs, ...props.pt?.root }">
     <div
@@ -129,11 +114,9 @@ const collapseClasses = computed(() => {
         </svg>
       </div>
     </div>
-
     <div v-show="!isCollapsed" :class="bodyClasses" v-bind="props.pt?.body">
       <slot />
     </div>
-
     <div
       v-if="withFooter && $slots.footer && !isCollapsed"
       :class="footerClasses"

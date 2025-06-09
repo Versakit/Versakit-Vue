@@ -8,6 +8,14 @@ export type ChipVariant =
 
 export type ChipSize = 'sm' | 'md' | 'lg'
 
+// PT (Pass Through) 类型定义
+export type ChipPassThroughAttributes = {
+  root?: Record<string, unknown>
+  icon?: Record<string, unknown>
+  content?: Record<string, unknown>
+  closeButton?: Record<string, unknown>
+}
+
 export interface ChipProps {
   /** 标签变体样式 */
   variant?: ChipVariant
@@ -27,15 +35,11 @@ export interface ChipProps {
   onClose?: () => void
   /** 是否使用无样式模式 */
   unstyled?: boolean
+  /** Pass Through 属性 */
+  pt?: ChipPassThroughAttributes
 }
 
 // PT (Pass Through) 类型定义
-export type ChipPassThroughAttributes = {
-  root?: Record<string, unknown>
-  icon?: Record<string, unknown>
-  content?: Record<string, unknown>
-  closeButton?: Record<string, unknown>
-}
 
 export interface ChipSlots {
   default?: () => unknown

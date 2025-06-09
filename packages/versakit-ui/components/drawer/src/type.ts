@@ -2,6 +2,17 @@ export type DrawerSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'full'
 
 export type DrawerPlacement = 'left' | 'right' | 'top' | 'bottom'
 
+// PT (Pass Through) 类型定义
+export type DrawerPassThroughAttributes = {
+  root?: Record<string, unknown>
+  overlay?: Record<string, unknown>
+  header?: Record<string, unknown>
+  title?: Record<string, unknown>
+  closeButton?: Record<string, unknown>
+  body?: Record<string, unknown>
+  footer?: Record<string, unknown>
+}
+
 export interface DrawerProps {
   /** 是否显示抽屉 */
   modelValue?: boolean
@@ -37,18 +48,11 @@ export interface DrawerProps {
   overlayOpacity?: number
   /** 是否使用无样式模式 */
   unstyled?: boolean
+  /** Pass Through 属性 */
+  pt?: DrawerPassThroughAttributes
 }
 
 // PT (Pass Through) 类型定义
-export type DrawerPassThroughAttributes = {
-  root?: Record<string, unknown>
-  overlay?: Record<string, unknown>
-  header?: Record<string, unknown>
-  title?: Record<string, unknown>
-  closeButton?: Record<string, unknown>
-  body?: Record<string, unknown>
-  footer?: Record<string, unknown>
-}
 
 export interface DrawerSlots {
   default?: () => unknown

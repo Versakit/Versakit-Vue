@@ -10,34 +10,31 @@ import type {
   SegmentedControlOption,
   SegmentedControlPassThroughAttributes,
 } from './type'
-
-interface Props extends SegmentedControlProps {
-  pt?: SegmentedControlPassThroughAttributes
-}
-
-const props = withDefaults(defineProps<Props>(), {
-  modelValue: undefined,
-  size: 'md',
-  variant: 'primary',
-  disabled: false,
-  fullWidth: false,
-  rounded: false,
-  showIcon: false,
-  customClass: '',
-  animated: true,
-  animationDuration: 200,
-  allowDeselect: false,
-  unstyled: false,
-})
-
+const props = withDefaults(
+  defineProps<
+    SegmentedControlProps & { pt?: SegmentedControlPassThroughAttributes }
+  >(),
+  {
+    modelValue: undefined,
+    size: 'md',
+    variant: 'primary',
+    disabled: false,
+    fullWidth: false,
+    rounded: false,
+    showIcon: false,
+    customClass: '',
+    animated: true,
+    animationDuration: 200,
+    allowDeselect: false,
+    unstyled: false,
+  },
+)
 const emit = defineEmits<{
   (e: 'update:modelValue', value: string | number | undefined): void
   (e: 'change', value: string | number | undefined): void
 }>()
-
 // 内部选中值
 const selectedValue = ref(props.modelValue)
-
 // 当外部modelValue变化时同步内部状态
 watch(
   () => props.modelValue,
@@ -45,13 +42,11 @@ watch(
     selectedValue.value = newValue
   },
 )
-
 // 计算容器样式
 const containerClasses = computed(() => {
   if (props.unstyled) {
     return {}
   }
-
   return segmentedControl({
     size: props.size,
     fullWidth: props.fullWidth,
@@ -60,12 +55,10 @@ const containerClasses = computed(() => {
     class: props.customClass,
   })
 })
-
 // 计算动画持续时间样式
 const animationStyle = computed(() => ({
   transitionDuration: props.animated ? `${props.animationDuration}ms` : '0ms',
 }))
-
 // 获取选中项索引
 const selectedIndex = computed(() => {
   if (selectedValue.value === undefined) return -1
@@ -73,7 +66,6 @@ const selectedIndex = computed(() => {
     (option) => option.value === selectedValue.value,
   )
 })
-
 // 计算选中指示器的位置和尺寸
 const thumbStyle = computed(() => {
   if (selectedIndex.value === -1) {
@@ -83,11 +75,9 @@ const thumbStyle = computed(() => {
       opacity: '0',
     }
   }
-
   const totalItems = props.options.length
   const itemWidth = `${100 / totalItems}%`
   const translateX = `translateX(${selectedIndex.value * 100}%)`
-
   return {
     width: itemWidth,
     transform: translateX,
@@ -95,40 +85,33 @@ const thumbStyle = computed(() => {
     ...animationStyle.value,
   }
 })
-
 // 计算thumb的样式类
 const thumbClasses = computed(() => {
   if (props.unstyled) {
     return {}
   }
-
   return segmentedControlThumb({
     variant: props.variant,
     rounded: props.rounded,
   })
 })
-
 // 选择选项
 const selectOption = (option: SegmentedControlOption) => {
   if (props.disabled || option.disabled) return
-
   // 如果允许取消选择且点击当前选中项，则取消选择
   if (props.allowDeselect && selectedValue.value === option.value) {
     selectedValue.value = undefined
   } else {
     selectedValue.value = option.value
   }
-
   emit('update:modelValue', selectedValue.value)
   emit('change', selectedValue.value)
 }
-
 // 计算选项样式
 const getItemClasses = (option: SegmentedControlOption) => {
   if (props.unstyled) {
     return {}
   }
-
   return segmentedControlItem({
     size: props.size,
     selected: selectedValue.value === option.value,
@@ -137,7 +120,6 @@ const getItemClasses = (option: SegmentedControlOption) => {
   })
 }
 </script>
-
 <template>
   <div :class="containerClasses" v-bind="{ ...$attrs, ...props.pt?.root }">
     <!-- 选中指示器 -->
@@ -148,7 +130,6 @@ const getItemClasses = (option: SegmentedControlOption) => {
       aria-hidden="true"
       v-bind="props.pt?.thumb"
     ></span>
-
     <!-- 选项 -->
     <button
       v-for="(option, index) in options"
