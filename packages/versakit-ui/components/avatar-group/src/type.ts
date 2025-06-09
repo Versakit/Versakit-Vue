@@ -25,4 +25,17 @@ export interface AvatarGroupProps {
   borderWidth?: number | string
   /** 头像边框颜色 */
   borderColor?: string
+  /** 是否使用无样式模式 */
+  unstyled?: boolean
+}
+
+// PT (Pass Through) 类型定义
+export type AvatarGroupPassThroughAttributes = {
+  root?: Record<string, unknown>
+  overflow?: Record<string, unknown>
+}
+
+export interface AvatarGroupSlots {
+  default?: () => unknown
+  overflow?: () => unknown
 }

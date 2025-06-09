@@ -11,9 +11,13 @@ import {
   modalFooter,
   modalButtonBase,
 } from './index.variants'
-import type { ModalProps } from './type'
+import type { ModalProps, ModalPassThroughAttributes } from './type'
 
-const props = withDefaults(defineProps<ModalProps>(), {
+interface Props extends ModalProps {
+  pt?: ModalPassThroughAttributes
+}
+
+const props = withDefaults(defineProps<Props>(), {
   modelValue: false,
   title: '',
   size: 'md',
@@ -37,6 +41,7 @@ const props = withDefaults(defineProps<ModalProps>(), {
   cancelButtonVariant: 'default',
   fullscreen: false,
   overlayOpacity: 0.5,
+  unstyled: false,
 })
 
 const emit = defineEmits([
@@ -68,24 +73,32 @@ const modalStyle = computed(() => {
 })
 
 // 计算样式类
-const modalClasses = computed(() =>
-  modal({
+const modalClasses = computed(() => {
+  if (props.unstyled) {
+    return {}
+  }
+
+  return modal({
     size: props.size,
     rounded: props.rounded,
     centered: props.centered,
     fullscreen: props.fullscreen,
     fixedHeight: props.fixedHeight,
     class: props.customClass,
-  }),
-)
+  })
+})
 
 // 包装器样式
-const wrapperClasses = computed(() =>
-  modalWrapper({
+const wrapperClasses = computed(() => {
+  if (props.unstyled) {
+    return {}
+  }
+
+  return modalWrapper({
     centered: props.centered,
     fullscreen: props.fullscreen,
-  }),
-)
+  })
+})
 
 const wrapperStyle = computed(() => ({
   zIndex: props.zIndex,
@@ -93,7 +106,7 @@ const wrapperStyle = computed(() => ({
 }))
 
 // 遮罩层样式
-const overlayClasses = computed(() => modalOverlay())
+const overlayClasses = computed(() => (props.unstyled ? {} : modalOverlay()))
 const overlayStyle = computed(() => ({
   opacity: visible.value ? props.overlayOpacity : 0,
   zIndex: props.zIndex,
@@ -101,28 +114,36 @@ const overlayStyle = computed(() => ({
 }))
 
 // 头部样式
-const headerClasses = computed(() => modalHeader())
-const titleClasses = computed(() => modalTitle())
-const closeClasses = computed(() => modalClose())
+const headerClasses = computed(() => (props.unstyled ? {} : modalHeader()))
+const titleClasses = computed(() => (props.unstyled ? {} : modalTitle()))
+const closeClasses = computed(() => (props.unstyled ? {} : modalClose()))
 
 // 内容样式
-const bodyClasses = computed(() => modalBody())
+const bodyClasses = computed(() => (props.unstyled ? {} : modalBody()))
 
 // 底部样式
-const footerClasses = computed(() => modalFooter())
+const footerClasses = computed(() => (props.unstyled ? {} : modalFooter()))
 
 // 按钮样式
-const confirmButtonClasses = computed(() =>
-  modalButtonBase({
-    variant: props.confirmButtonVariant,
-  }),
-)
+const confirmButtonClasses = computed(() => {
+  if (props.unstyled) {
+    return {}
+  }
 
-const cancelButtonClasses = computed(() =>
-  modalButtonBase({
+  return modalButtonBase({
+    variant: props.confirmButtonVariant,
+  })
+})
+
+const cancelButtonClasses = computed(() => {
+  if (props.unstyled) {
+    return {}
+  }
+
+  return modalButtonBase({
     variant: props.cancelButtonVariant,
-  }),
-)
+  })
+})
 
 // 监听modelValue变化
 watch(
@@ -213,6 +234,7 @@ const removeScrollLock = () => {
       :style="overlayStyle"
       @click="handleOverlayClick"
       aria-hidden="true"
+      v-bind="props.pt?.overlay"
     ></div>
 
     <!-- 模态框容器 -->
@@ -220,6 +242,7 @@ const removeScrollLock = () => {
       :class="wrapperClasses"
       :style="wrapperStyle"
       @click="handleOverlayClick"
+      v-bind="props.pt?.wrapper"
     >
       <!-- 模态框 -->
       <div
@@ -231,15 +254,18 @@ const removeScrollLock = () => {
         :aria-modal="a11y ? 'true' : undefined"
         :aria-labelledby="a11y && title ? 'modal-title' : undefined"
         @click="stopPropagation"
+        v-bind="{ ...$attrs, ...props.pt?.root }"
       >
         <!-- 模态框头部 -->
-        <div v-if="showHeader" :class="headerClasses">
+        <div v-if="showHeader" :class="headerClasses" v-bind="props.pt?.header">
           <h2
             v-if="title"
             :id="a11y ? 'modal-title' : undefined"
             :class="titleClasses"
+            v-bind="props.pt?.title"
           >
-            {{ title }}
+            <slot name="title" v-if="$slots.title" />
+            <template v-else>{{ title }}</template>
           </h2>
           <slot v-else name="title"></slot>
 
@@ -249,8 +275,11 @@ const removeScrollLock = () => {
             @click="close"
             :aria-label="a11y ? '关闭' : undefined"
             type="button"
+            v-bind="props.pt?.closeButton"
           >
+            <slot name="closeButton" v-if="$slots.closeButton" />
             <svg
+              v-else
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="none"
@@ -267,7 +296,7 @@ const removeScrollLock = () => {
         </div>
 
         <!-- 模态框内容 -->
-        <div :class="bodyClasses">
+        <div :class="bodyClasses" v-bind="props.pt?.body">
           <slot></slot>
         </div>
 
@@ -275,6 +304,7 @@ const removeScrollLock = () => {
         <div
           v-if="showFooter || showConfirmButton || showCancelButton"
           :class="footerClasses"
+          v-bind="props.pt?.footer"
         >
           <slot name="footer">
             <button
@@ -282,16 +312,20 @@ const removeScrollLock = () => {
               :class="cancelButtonClasses"
               @click="cancel"
               type="button"
+              v-bind="props.pt?.cancelButton"
             >
-              {{ cancelButtonText }}
+              <slot name="cancelButton" v-if="$slots.cancelButton" />
+              <template v-else>{{ cancelButtonText }}</template>
             </button>
             <button
               v-if="showConfirmButton"
               :class="confirmButtonClasses"
               @click="confirm"
               type="button"
+              v-bind="props.pt?.confirmButton"
             >
-              {{ confirmButtonText }}
+              <slot name="confirmButton" v-if="$slots.confirmButton" />
+              <template v-else>{{ confirmButtonText }}</template>
             </button>
           </slot>
         </div>

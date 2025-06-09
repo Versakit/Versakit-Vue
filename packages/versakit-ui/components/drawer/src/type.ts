@@ -35,4 +35,24 @@ export interface DrawerProps {
   bgColor?: string
   /** 遮罩层透明度 */
   overlayOpacity?: number
+  /** 是否使用无样式模式 */
+  unstyled?: boolean
+}
+
+// PT (Pass Through) 类型定义
+export type DrawerPassThroughAttributes = {
+  root?: Record<string, unknown>
+  overlay?: Record<string, unknown>
+  header?: Record<string, unknown>
+  title?: Record<string, unknown>
+  closeButton?: Record<string, unknown>
+  body?: Record<string, unknown>
+  footer?: Record<string, unknown>
+}
+
+export interface DrawerSlots {
+  default?: () => unknown
+  title?: () => unknown
+  closeButton?: () => unknown
+  footer?: () => unknown
 }

@@ -43,4 +43,19 @@ export interface SegmentedControlProps {
   animationDuration?: number
   /** 是否允许取消选择 */
   allowDeselect?: boolean
+  /** 是否使用无样式模式 */
+  unstyled?: boolean
+}
+
+// PT (Pass Through) 类型定义
+export type SegmentedControlPassThroughAttributes = {
+  root?: Record<string, unknown>
+  thumb?: Record<string, unknown>
+  item?: Record<string, unknown>
+  icon?: Record<string, unknown>
+}
+
+export interface SegmentedControlSlots {
+  default?: () => unknown
+  icon?: (props: { icon: string }) => unknown
 }

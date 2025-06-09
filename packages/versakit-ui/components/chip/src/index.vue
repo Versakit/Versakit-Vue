@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { computed, h } from 'vue'
 import { chip, chipIcon, chipClose } from './index.variants'
-import type { ChipProps } from './type'
+import type { ChipProps, ChipPassThroughAttributes } from './type'
 
-const props = withDefaults(defineProps<ChipProps>(), {
+interface Props extends ChipProps {
+  pt?: ChipPassThroughAttributes
+}
+
+const props = withDefaults(defineProps<Props>(), {
   variant: 'default',
   size: 'md',
   closable: false,
@@ -11,23 +15,28 @@ const props = withDefaults(defineProps<ChipProps>(), {
   rounded: false,
   disabled: false,
   icon: false,
+  unstyled: false,
 })
 
 const emit = defineEmits(['close'])
 
-const classes = computed(() =>
-  chip({
+const classes = computed(() => {
+  if (props.unstyled) {
+    return {}
+  }
+
+  return chip({
     variant: props.variant,
     size: props.size,
     rounded: props.rounded,
     outlined: props.outlined,
     disabled: props.disabled,
-  }),
-)
+  })
+})
 
-const iconClasses = computed(() => chipIcon())
+const iconClasses = computed(() => (props.unstyled ? {} : chipIcon()))
 
-const closeClasses = computed(() => chipClose())
+const closeClasses = computed(() => (props.unstyled ? {} : chipClose()))
 
 const handleClose = (event: Event) => {
   event.stopPropagation()
@@ -146,19 +155,30 @@ const renderIcon = () => {
 </script>
 
 <template>
-  <div :class="classes" role="status">
-    <span v-if="icon" :class="iconClasses" aria-hidden="true">
-      <component :is="renderIcon" />
+  <div :class="classes" role="status" v-bind="{ ...$attrs, ...props.pt?.root }">
+    <span
+      v-if="icon"
+      :class="iconClasses"
+      aria-hidden="true"
+      v-bind="props.pt?.icon"
+    >
+      <slot name="icon" v-if="$slots.icon" />
+      <component :is="renderIcon" v-else />
     </span>
-    <slot />
+    <span v-bind="props.pt?.content">
+      <slot />
+    </span>
     <button
       v-if="closable && !disabled"
       type="button"
       :class="closeClasses"
       @click="handleClose"
       aria-label="移除"
+      v-bind="props.pt?.closeButton"
     >
+      <slot name="closeButton" v-if="$slots.closeButton" />
       <svg
+        v-else
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
         fill="currentColor"

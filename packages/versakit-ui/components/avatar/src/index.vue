@@ -6,9 +6,17 @@ import {
   avatarImage,
   avatarFallback,
 } from './index.variants'
-import type { AvatarProps, AvatarSize } from './type'
+import type {
+  AvatarProps,
+  AvatarSize,
+  AvatarPassThroughAttributes,
+} from './type'
 
-const props = withDefaults(defineProps<AvatarProps>(), {
+interface Props extends AvatarProps {
+  pt?: AvatarPassThroughAttributes
+}
+
+const props = withDefaults(defineProps<Props>(), {
   size: 'md',
   shape: 'circle',
   variant: 'default',
@@ -16,19 +24,24 @@ const props = withDefaults(defineProps<AvatarProps>(), {
   statusPosition: 'bottom-right',
   customClass: '',
   showFallback: true,
+  unstyled: false,
 })
 
 // 计算 Avatar 的样式
-const avatarClasses = computed(() =>
-  avatar({
+const avatarClasses = computed(() => {
+  if (props.unstyled) {
+    return {}
+  }
+
+  return avatar({
     size:
       typeof props.size === 'string' ? (props.size as AvatarSize) : undefined,
     shape: props.shape,
     variant: props.variant,
     loading: props.loading,
     class: props.customClass,
-  }),
-)
+  })
+})
 
 // 计算 Avatar 的内联样式
 const avatarStyle = computed(() => {
@@ -53,19 +66,23 @@ const avatarStyle = computed(() => {
 })
 
 // 计算状态指示器的样式
-const statusClasses = computed(() =>
-  avatarStatus({
+const statusClasses = computed(() => {
+  if (props.unstyled) {
+    return {}
+  }
+
+  return avatarStatus({
     status: props.status,
     size: typeof props.size === 'string' ? (props.size as AvatarSize) : 'md',
     position: props.statusPosition,
-  }),
-)
+  })
+})
 
 // 计算图片样式
-const imageClasses = computed(() => avatarImage())
+const imageClasses = computed(() => (props.unstyled ? {} : avatarImage()))
 
 // 计算回退UI样式
-const fallbackClasses = computed(() => avatarFallback())
+const fallbackClasses = computed(() => (props.unstyled ? {} : avatarFallback()))
 
 // 获取头像显示文本的首字母或缩写
 const displayText = computed(() => {
@@ -81,9 +98,17 @@ const displayText = computed(() => {
 </script>
 
 <template>
-  <div :class="avatarClasses" :style="avatarStyle">
+  <div
+    :class="avatarClasses"
+    :style="avatarStyle"
+    v-bind="{ ...$attrs, ...props.pt?.root }"
+  >
     <!-- 状态指示器 -->
-    <span v-if="status !== 'none'" :class="statusClasses"></span>
+    <span
+      v-if="status !== 'none'"
+      :class="statusClasses"
+      v-bind="props.pt?.status"
+    ></span>
 
     <!-- 图片 -->
     <img
@@ -92,15 +117,20 @@ const displayText = computed(() => {
       :alt="text || 'avatar'"
       :class="imageClasses"
       @error="onError"
+      v-bind="props.pt?.image"
     />
 
     <!-- 回退UI (文本或自定义内容) -->
-    <div v-else-if="showFallback" :class="fallbackClasses">
+    <div
+      v-else-if="showFallback"
+      :class="fallbackClasses"
+      v-bind="props.pt?.fallback"
+    >
       <slot name="fallback">
         <template v-if="text">{{ displayText }}</template>
         <template v-else-if="fallback">{{ fallback }}</template>
         <template v-else-if="icon">
-          <span class="avatar-icon">
+          <span class="avatar-icon" v-bind="props.pt?.icon">
             <slot name="icon">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

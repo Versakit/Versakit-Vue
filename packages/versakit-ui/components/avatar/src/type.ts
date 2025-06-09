@@ -40,4 +40,20 @@ export interface AvatarProps {
   icon?: string
   /** 是否为加载状态 */
   loading?: boolean
+  /** 是否使用无样式模式 */
+  unstyled?: boolean
+}
+
+// PT (Pass Through) 类型定义
+export type AvatarPassThroughAttributes = {
+  root?: Record<string, unknown>
+  status?: Record<string, unknown>
+  image?: Record<string, unknown>
+  fallback?: Record<string, unknown>
+  icon?: Record<string, unknown>
+}
+
+export interface AvatarSlots {
+  fallback?: () => unknown
+  icon?: () => unknown
 }

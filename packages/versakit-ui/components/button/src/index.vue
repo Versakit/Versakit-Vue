@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { button } from './index.variants'
-import type { BtnProps } from './type'
+import type { BtnProps, ButtonPassThroughAttributes } from './type'
 
-const props = withDefaults(defineProps<BtnProps>(), {
+interface Props extends BtnProps {
+  pt?: ButtonPassThroughAttributes
+}
+
+const props = withDefaults(defineProps<Props>(), {
   variant: 'primary',
   size: 'md',
   shape: 'default',
@@ -12,12 +16,17 @@ const props = withDefaults(defineProps<BtnProps>(), {
   type: 'button',
   block: false,
   iconPosition: 'left',
+  unstyled: false,
 })
 
 const emit = defineEmits(['click'])
 
-const classes = computed(() =>
-  button({
+const classes = computed(() => {
+  if (props.unstyled) {
+    return {}
+  }
+
+  return button({
     variant: props.variant,
     size: props.size,
     shape: props.shape,
@@ -25,8 +34,8 @@ const classes = computed(() =>
     loading: props.loading,
     block: props.block,
     iconPosition: props.iconPosition,
-  }),
-)
+  })
+})
 
 const handleClick = (event: MouseEvent) => {
   if (props.disabled || props.loading) return
@@ -44,23 +53,31 @@ const handleClick = (event: MouseEvent) => {
     :aria-busy="loading"
     :aria-label="ariaLabel"
     @click="handleClick"
-    v-bind="$attrs"
+    v-bind="{ ...$attrs, ...props.pt?.root }"
   >
     <!-- 左侧图标 -->
     <span
       v-if="$slots.icon && iconPosition === 'left' && !loading"
       class="inline-flex mr-2"
+      v-bind="props.pt?.icon"
     >
-      <slot name="icon" />
+      <slot name="icon" :iconPosition="iconPosition" />
     </span>
 
     <!-- 加载图标 -->
     <span
       v-if="loading"
-      class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+      :class="
+        unstyled
+          ? ''
+          : 'absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'
+      "
       aria-hidden="true"
+      v-bind="props.pt?.loading"
     >
+      <slot name="loading" v-if="$slots.loading"></slot>
       <svg
+        v-else
         class="animate-spin h-4 w-4"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
@@ -83,7 +100,10 @@ const handleClick = (event: MouseEvent) => {
     </span>
 
     <!-- 内容 -->
-    <span :class="{ 'opacity-0': loading }">
+    <span
+      :class="{ 'opacity-0': loading && !unstyled }"
+      v-bind="props.pt?.content"
+    >
       <slot />
     </span>
 
@@ -91,8 +111,9 @@ const handleClick = (event: MouseEvent) => {
     <span
       v-if="$slots.icon && iconPosition === 'right' && !loading"
       class="inline-flex ml-2"
+      v-bind="props.pt?.icon"
     >
-      <slot name="icon" />
+      <slot name="icon" :iconPosition="iconPosition" />
     </span>
   </button>
 </template>

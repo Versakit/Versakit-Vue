@@ -9,9 +9,17 @@ import {
   drawerBody,
   drawerFooter,
 } from './index.variants'
-import type { DrawerProps, DrawerSize } from './type'
+import type {
+  DrawerProps,
+  DrawerSize,
+  DrawerPassThroughAttributes,
+} from './type'
 
-const props = withDefaults(defineProps<DrawerProps>(), {
+interface Props extends DrawerProps {
+  pt?: DrawerPassThroughAttributes
+}
+
+const props = withDefaults(defineProps<Props>(), {
   modelValue: false,
   title: '',
   size: 'md',
@@ -27,6 +35,7 @@ const props = withDefaults(defineProps<DrawerProps>(), {
   zIndex: 1000,
   customClass: '',
   overlayOpacity: 0.5,
+  unstyled: false,
 })
 
 const emit = defineEmits(['update:modelValue', 'open', 'close'])
@@ -82,8 +91,12 @@ const isPresetSize = (size: string): size is DrawerSize => {
 }
 
 // 计算样式类
-const drawerClasses = computed(() =>
-  drawer({
+const drawerClasses = computed(() => {
+  if (props.unstyled) {
+    return {}
+  }
+
+  return drawer({
     placement: props.placement,
     size:
       typeof props.size === 'string' && isPresetSize(props.size)
@@ -91,11 +104,11 @@ const drawerClasses = computed(() =>
         : undefined,
     rounded: props.rounded,
     class: props.customClass,
-  }),
-)
+  })
+})
 
 // 遮罩层样式
-const overlayClasses = computed(() => drawerOverlay())
+const overlayClasses = computed(() => (props.unstyled ? {} : drawerOverlay()))
 const overlayStyle = computed(() => ({
   opacity: visible.value ? props.overlayOpacity : 0,
   zIndex: props.zIndex - 1,
@@ -103,15 +116,15 @@ const overlayStyle = computed(() => ({
 }))
 
 // 头部样式
-const headerClasses = computed(() => drawerHeader())
-const titleClasses = computed(() => drawerTitle())
-const closeClasses = computed(() => drawerClose())
+const headerClasses = computed(() => (props.unstyled ? {} : drawerHeader()))
+const titleClasses = computed(() => (props.unstyled ? {} : drawerTitle()))
+const closeClasses = computed(() => (props.unstyled ? {} : drawerClose()))
 
 // 内容样式
-const bodyClasses = computed(() => drawerBody())
+const bodyClasses = computed(() => (props.unstyled ? {} : drawerBody()))
 
 // 底部样式
-const footerClasses = computed(() => drawerFooter())
+const footerClasses = computed(() => (props.unstyled ? {} : drawerFooter()))
 
 // 监听modelValue变化
 watch(
@@ -185,6 +198,7 @@ const removeScrollLock = () => {
       :style="overlayStyle"
       @click="handleOverlayClick"
       aria-hidden="true"
+      v-bind="props.pt?.overlay"
     ></div>
 
     <!-- 抽屉 -->
@@ -196,15 +210,18 @@ const removeScrollLock = () => {
       role="dialog"
       :aria-modal="a11y ? 'true' : undefined"
       :aria-labelledby="a11y && title ? 'drawer-title' : undefined"
+      v-bind="{ ...$attrs, ...props.pt?.root }"
     >
       <!-- 抽屉头部 -->
-      <div v-if="showHeader" :class="headerClasses">
+      <div v-if="showHeader" :class="headerClasses" v-bind="props.pt?.header">
         <h2
           v-if="title"
           :id="a11y ? 'drawer-title' : undefined"
           :class="titleClasses"
+          v-bind="props.pt?.title"
         >
-          {{ title }}
+          <slot name="title" v-if="$slots.title" />
+          <template v-else>{{ title }}</template>
         </h2>
         <slot v-else name="title"></slot>
 
@@ -214,8 +231,11 @@ const removeScrollLock = () => {
           @click="close"
           :aria-label="a11y ? '关闭抽屉' : undefined"
           type="button"
+          v-bind="props.pt?.closeButton"
         >
+          <slot name="closeButton" v-if="$slots.closeButton" />
           <svg
+            v-else
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="none"
@@ -232,12 +252,12 @@ const removeScrollLock = () => {
       </div>
 
       <!-- 抽屉内容 -->
-      <div :class="bodyClasses">
+      <div :class="bodyClasses" v-bind="props.pt?.body">
         <slot></slot>
       </div>
 
       <!-- 抽屉底部 -->
-      <div v-if="showFooter" :class="footerClasses">
+      <div v-if="showFooter" :class="footerClasses" v-bind="props.pt?.footer">
         <slot name="footer"></slot>
       </div>
     </div>

@@ -5,9 +5,17 @@ import {
   segmentedControlItem,
   segmentedControlThumb,
 } from './index.variants'
-import type { SegmentedControlProps, SegmentedControlOption } from './type'
+import type {
+  SegmentedControlProps,
+  SegmentedControlOption,
+  SegmentedControlPassThroughAttributes,
+} from './type'
 
-const props = withDefaults(defineProps<SegmentedControlProps>(), {
+interface Props extends SegmentedControlProps {
+  pt?: SegmentedControlPassThroughAttributes
+}
+
+const props = withDefaults(defineProps<Props>(), {
   modelValue: undefined,
   size: 'md',
   variant: 'primary',
@@ -19,6 +27,7 @@ const props = withDefaults(defineProps<SegmentedControlProps>(), {
   animated: true,
   animationDuration: 200,
   allowDeselect: false,
+  unstyled: false,
 })
 
 const emit = defineEmits<{
@@ -38,15 +47,19 @@ watch(
 )
 
 // 计算容器样式
-const containerClasses = computed(() =>
-  segmentedControl({
+const containerClasses = computed(() => {
+  if (props.unstyled) {
+    return {}
+  }
+
+  return segmentedControl({
     size: props.size,
     fullWidth: props.fullWidth,
     rounded: props.rounded,
     disabled: props.disabled,
     class: props.customClass,
-  }),
-)
+  })
+})
 
 // 计算动画持续时间样式
 const animationStyle = computed(() => ({
@@ -84,12 +97,16 @@ const thumbStyle = computed(() => {
 })
 
 // 计算thumb的样式类
-const thumbClasses = computed(() =>
-  segmentedControlThumb({
+const thumbClasses = computed(() => {
+  if (props.unstyled) {
+    return {}
+  }
+
+  return segmentedControlThumb({
     variant: props.variant,
     rounded: props.rounded,
-  }),
-)
+  })
+})
 
 // 选择选项
 const selectOption = (option: SegmentedControlOption) => {
@@ -108,6 +125,10 @@ const selectOption = (option: SegmentedControlOption) => {
 
 // 计算选项样式
 const getItemClasses = (option: SegmentedControlOption) => {
+  if (props.unstyled) {
+    return {}
+  }
+
   return segmentedControlItem({
     size: props.size,
     selected: selectedValue.value === option.value,
@@ -118,13 +139,14 @@ const getItemClasses = (option: SegmentedControlOption) => {
 </script>
 
 <template>
-  <div :class="containerClasses">
+  <div :class="containerClasses" v-bind="{ ...$attrs, ...props.pt?.root }">
     <!-- 选中指示器 -->
     <span
       v-if="selectedIndex !== -1"
       :class="thumbClasses"
       :style="thumbStyle"
       aria-hidden="true"
+      v-bind="props.pt?.thumb"
     ></span>
 
     <!-- 选项 -->
@@ -137,8 +159,9 @@ const getItemClasses = (option: SegmentedControlOption) => {
       @click="selectOption(option)"
       :aria-pressed="selectedValue === option.value"
       :style="animationStyle"
+      v-bind="props.pt?.item"
     >
-      <span v-if="showIcon && option.icon" class="mr-2">
+      <span v-if="showIcon && option.icon" class="mr-2" v-bind="props.pt?.icon">
         <slot name="icon" :icon="option.icon">
           {{ option.icon }}
         </slot>

@@ -1,43 +1,60 @@
 <script setup lang="ts">
 import { computed, ref, h } from 'vue'
 import { alert, alertTitle, alertIcon, alertClose } from './index.variants'
-import type { AlertProps } from './type'
+import type { AlertProps, AlertPassThroughAttributes } from './type'
 
-const props = withDefaults(defineProps<AlertProps>(), {
+interface Props extends AlertProps {
+  pt?: AlertPassThroughAttributes
+}
+
+const props = withDefaults(defineProps<Props>(), {
   variant: 'default',
   showIcon: false,
   closable: false,
   bordered: false,
   shadow: false,
   fullWidth: true,
+  unstyled: false,
 })
 
 const emit = defineEmits(['close'])
 
 const visible = ref(true)
 
-const alertClasses = computed(() =>
-  alert({
+const alertClasses = computed(() => {
+  if (props.unstyled) {
+    return {}
+  }
+
+  return alert({
     variant: props.variant,
     bordered: props.bordered,
     shadow: props.shadow,
     fullWidth: props.fullWidth,
-  }),
-)
+  })
+})
 
-const iconClasses = computed(() =>
-  alertIcon({
+const iconClasses = computed(() => {
+  if (props.unstyled) {
+    return {}
+  }
+
+  return alertIcon({
     variant: props.variant,
-  }),
-)
+  })
+})
 
-const closeClasses = computed(() =>
-  alertClose({
+const closeClasses = computed(() => {
+  if (props.unstyled) {
+    return {}
+  }
+
+  return alertClose({
     variant: props.variant,
-  }),
-)
+  })
+})
 
-const titleClasses = computed(() => alertTitle())
+const titleClasses = computed(() => (props.unstyled ? {} : alertTitle()))
 
 const handleClose = () => {
   visible.value = false
@@ -148,14 +165,29 @@ const renderIcon = () => {
 </script>
 
 <template>
-  <div v-if="visible" :class="alertClasses" role="alert" aria-live="polite">
+  <div
+    v-if="visible"
+    :class="alertClasses"
+    role="alert"
+    aria-live="polite"
+    v-bind="{ ...$attrs, ...props.pt?.root }"
+  >
     <div class="flex">
-      <div v-if="showIcon" :class="iconClasses" aria-hidden="true">
-        <component :is="renderIcon" />
+      <div
+        v-if="showIcon"
+        :class="iconClasses"
+        aria-hidden="true"
+        v-bind="props.pt?.icon"
+      >
+        <slot name="icon" v-if="$slots.icon" />
+        <component :is="renderIcon" v-else />
       </div>
       <div class="w-full">
-        <h5 v-if="title" :class="titleClasses">{{ title }}</h5>
-        <div class="text-sm">
+        <h5 v-if="title" :class="titleClasses" v-bind="props.pt?.title">
+          <slot name="title" v-if="$slots.title" />
+          <template v-else>{{ title }}</template>
+        </h5>
+        <div class="text-sm" v-bind="props.pt?.content">
           <slot />
         </div>
       </div>
@@ -166,8 +198,11 @@ const renderIcon = () => {
       :class="closeClasses"
       @click="handleClose"
       aria-label="关闭提示"
+      v-bind="props.pt?.closeButton"
     >
+      <slot name="closeButton" v-if="$slots.closeButton" />
       <svg
+        v-else
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 20 20"
         fill="currentColor"

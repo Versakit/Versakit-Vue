@@ -25,4 +25,20 @@ export interface ChipProps {
   icon?: boolean
   /** 点击关闭按钮的回调 */
   onClose?: () => void
+  /** 是否使用无样式模式 */
+  unstyled?: boolean
+}
+
+// PT (Pass Through) 类型定义
+export type ChipPassThroughAttributes = {
+  root?: Record<string, unknown>
+  icon?: Record<string, unknown>
+  content?: Record<string, unknown>
+  closeButton?: Record<string, unknown>
+}
+
+export interface ChipSlots {
+  default?: () => unknown
+  icon?: () => unknown
+  closeButton?: () => unknown
 }

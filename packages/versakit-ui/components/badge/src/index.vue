@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { badge } from './index.variants'
-import type { BadgeProps } from './type'
+import type { BadgeProps, BadgePassThroughAttributes } from './type'
 
-const props = withDefaults(defineProps<BadgeProps>(), {
+interface Props extends BadgeProps {
+  pt?: BadgePassThroughAttributes
+}
+
+const props = withDefaults(defineProps<Props>(), {
   variant: 'primary',
   size: 'md',
   position: 'top-right',
@@ -11,6 +15,7 @@ const props = withDefaults(defineProps<BadgeProps>(), {
   max: 99,
   hidden: false,
   standalone: false,
+  unstyled: false,
 })
 
 const displayContent = computed(() => {
@@ -28,15 +33,19 @@ const displayContent = computed(() => {
   return String(props.content)
 })
 
-const classes = computed(() =>
-  badge({
+const classes = computed(() => {
+  if (props.unstyled) {
+    return {}
+  }
+
+  return badge({
     variant: props.variant,
     size: props.size,
     position: props.position,
     dot: props.dot,
     standalone: props.standalone,
-  }),
-)
+  })
+})
 </script>
 
 <template>
@@ -46,18 +55,24 @@ const classes = computed(() =>
     role="status"
     aria-live="polite"
     v-show="!hidden"
+    v-bind="{ ...$attrs, ...props.pt?.root }"
   >
-    <span>{{ displayContent }}</span>
+    <span v-bind="props.pt?.content">
+      <slot name="content" v-if="$slots.content" />
+      <template v-else>{{ displayContent }}</template>
+    </span>
   </div>
-  <div v-else class="relative inline-block">
+  <div v-else class="relative inline-block" v-bind="props.pt?.wrapper">
     <slot />
     <span
       v-show="!hidden && (dot || content)"
       :class="classes"
       role="status"
       aria-live="polite"
+      v-bind="props.pt?.badge"
     >
-      {{ displayContent }}
+      <slot name="content" v-if="$slots.content" />
+      <template v-else>{{ displayContent }}</template>
     </span>
   </div>
 </template>

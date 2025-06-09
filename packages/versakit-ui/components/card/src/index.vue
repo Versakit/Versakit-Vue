@@ -9,9 +9,13 @@ import {
   cardFooter,
   cardCollapse,
 } from './index.variants'
-import type { CardProps } from './type'
+import type { CardProps, CardPassThroughAttributes } from './type'
 
-const props = withDefaults(defineProps<CardProps>(), {
+interface Props extends CardProps {
+  pt?: CardPassThroughAttributes
+}
+
+const props = withDefaults(defineProps<Props>(), {
   variant: 'default',
   bordered: true,
   shadow: false,
@@ -21,6 +25,7 @@ const props = withDefaults(defineProps<CardProps>(), {
   autoHeight: true,
   hoverable: false,
   withFooter: false,
+  unstyled: false,
 })
 
 // 折叠状态
@@ -34,50 +39,72 @@ const toggleCollapse = () => {
 }
 
 // 卡片样式
-const cardClasses = computed(() =>
-  card({
+const cardClasses = computed(() => {
+  if (props.unstyled) {
+    return {}
+  }
+
+  return card({
     variant: props.variant,
     bordered: props.bordered,
     shadow: props.shadow,
     radius: props.radius,
     autoHeight: props.autoHeight,
     hoverable: props.hoverable,
-  }),
-)
+  })
+})
 
 // 头部样式
-const headerClasses = computed(() =>
-  cardHeader({
+const headerClasses = computed(() => {
+  if (props.unstyled) {
+    return {}
+  }
+
+  return cardHeader({
     variant: props.variant,
-  }),
-)
+  })
+})
 
 // 标题样式
-const titleClasses = computed(() => cardTitle())
+const titleClasses = computed(() => (props.unstyled ? {} : cardTitle()))
 
 // 副标题样式
-const subtitleClasses = computed(() => cardSubtitle())
+const subtitleClasses = computed(() => (props.unstyled ? {} : cardSubtitle()))
 
 // 内容样式
-const bodyClasses = computed(() => cardBody())
+const bodyClasses = computed(() => (props.unstyled ? {} : cardBody()))
 
 // 脚注样式
-const footerClasses = computed(() => cardFooter())
+const footerClasses = computed(() => (props.unstyled ? {} : cardFooter()))
 
 // 折叠按钮样式
-const collapseClasses = computed(() =>
-  cardCollapse({
+const collapseClasses = computed(() => {
+  if (props.unstyled) {
+    return {}
+  }
+
+  return cardCollapse({
     collapsed: isCollapsed.value,
-  }),
-)
+  })
+})
 </script>
 
 <template>
-  <div :class="cardClasses">
-    <div v-if="title || $slots.header" :class="headerClasses">
+  <div :class="cardClasses" v-bind="{ ...$attrs, ...props.pt?.root }">
+    <div
+      v-if="title || $slots.header"
+      :class="headerClasses"
+      v-bind="props.pt?.header"
+    >
       <div>
-        <h3 v-if="title" :class="titleClasses">{{ title }}</h3>
-        <p v-if="subtitle" :class="subtitleClasses">{{ subtitle }}</p>
+        <h3 v-if="title" :class="titleClasses" v-bind="props.pt?.title">
+          <slot name="title" v-if="$slots.title" />
+          <template v-else>{{ title }}</template>
+        </h3>
+        <p v-if="subtitle" :class="subtitleClasses" v-bind="props.pt?.subtitle">
+          <slot name="subtitle" v-if="$slots.subtitle" />
+          <template v-else>{{ subtitle }}</template>
+        </p>
         <slot name="header" />
       </div>
       <div
@@ -85,8 +112,11 @@ const collapseClasses = computed(() =>
         @click="toggleCollapse"
         :class="collapseClasses"
         aria-label="折叠卡片"
+        v-bind="props.pt?.collapseButton"
       >
+        <slot name="collapseButton" v-if="$slots.collapseButton" />
         <svg
+          v-else
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 20 20"
           fill="currentColor"
@@ -100,13 +130,14 @@ const collapseClasses = computed(() =>
       </div>
     </div>
 
-    <div v-show="!isCollapsed" :class="bodyClasses">
+    <div v-show="!isCollapsed" :class="bodyClasses" v-bind="props.pt?.body">
       <slot />
     </div>
 
     <div
       v-if="withFooter && $slots.footer && !isCollapsed"
       :class="footerClasses"
+      v-bind="props.pt?.footer"
     >
       <slot name="footer" />
     </div>

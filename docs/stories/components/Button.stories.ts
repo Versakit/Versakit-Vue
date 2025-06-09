@@ -1,8 +1,9 @@
-import type { Meta, StoryObj } from '@storybook/vue3'
+import type { StoryObj } from '@storybook/vue3'
 import { VKButton } from '@versakit/vue'
 import '@versakit/vue/style'
 
-const meta: Meta<typeof VKButton> = {
+// 避免使用类型注解和断言，让Storybook自己推断类型
+const meta = {
   title: 'Components/Button',
   component: VKButton,
   argTypes: {
@@ -68,6 +69,15 @@ const meta: Meta<typeof VKButton> = {
     color: {
       control: 'color',
       description: '自定义颜色',
+    },
+    unstyled: {
+      control: 'boolean',
+      description: '是否使用无样式模式',
+      defaultValue: false,
+    },
+    pt: {
+      control: 'object',
+      description: 'Pass Through 属性，用于自定义组件内部元素的属性',
     },
   },
 }
@@ -280,6 +290,86 @@ export const DarkMode: Story = {
     docs: {
       description: {
         story: '暗黑模式下的按钮样式，需要在 Storybook 中启用暗黑模式查看。',
+      },
+    },
+  },
+}
+
+// 无样式和 PT 属性示例
+export const UnstyledAndPT: Story = {
+  render: () => ({
+    components: { VKButton },
+    template: `
+      <div style="display: flex; gap: 12px; flex-direction: column;">
+        <h3>无样式按钮</h3>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <VKButton unstyled style="padding: 10px 20px; background: linear-gradient(45deg, #FF6B6B, #FFE66D); border: none; border-radius: 10px; color: white; font-weight: bold;">
+            自定义样式按钮
+          </VKButton>
+          <VKButton unstyled style="padding: 10px 20px; background: #1a1a1a; color: #42b883; border: 2px solid #42b883; border-radius: 4px;">
+            Vue 风格按钮
+          </VKButton>
+        </div>
+        
+        <h3>使用 PT 自定义元素</h3>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <VKButton 
+            :pt="{
+              root: { style: 'box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);', class: 'custom-button' },
+              content: { style: 'font-weight: bold;' }
+            }"
+          >
+            带阴影的按钮
+          </VKButton>
+          
+          <VKButton 
+            variant="primary"
+            :pt="{
+              root: { class: 'hover:scale-105 transition-transform' }
+            }"
+          >
+            悬停缩放按钮
+          </VKButton>
+          
+          <VKButton 
+            :pt="{
+              icon: { class: 'text-green-500' }
+            }"
+          >
+            <template #icon>
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </template>
+            定制图标颜色
+          </VKButton>
+        </div>
+        
+        <h3>组合使用插槽和 PT</h3>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <VKButton
+            variant="success"
+            :pt="{
+              root: { style: 'border-radius: 999px; overflow: hidden;' }
+            }"
+          >
+            <template #icon>
+              <div style="display: flex; align-items: center;">
+                <img src="https://vue.dev/logo.svg" alt="Vue Logo" style="width: 18px; height: 18px; margin-right: 4px;" />
+              </div>
+            </template>
+            自定义图标
+          </VKButton>
+        </div>
+      </div>
+    `,
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '演示无样式模式和 Pass Through (PT) 属性的使用，允许完全自定义按钮的样式和行为。',
       },
     },
   },

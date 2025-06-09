@@ -63,4 +63,29 @@ export interface ModalProps {
   fullscreen?: boolean
   /** 遮罩层透明度 */
   overlayOpacity?: number
+  /** 是否使用无样式模式 */
+  unstyled?: boolean
+}
+
+// PT (Pass Through) 类型定义
+export type ModalPassThroughAttributes = {
+  root?: Record<string, unknown>
+  wrapper?: Record<string, unknown>
+  overlay?: Record<string, unknown>
+  header?: Record<string, unknown>
+  title?: Record<string, unknown>
+  closeButton?: Record<string, unknown>
+  body?: Record<string, unknown>
+  footer?: Record<string, unknown>
+  confirmButton?: Record<string, unknown>
+  cancelButton?: Record<string, unknown>
+}
+
+export interface ModalSlots {
+  default?: () => unknown
+  title?: () => unknown
+  closeButton?: () => unknown
+  footer?: () => unknown
+  confirmButton?: () => unknown
+  cancelButton?: () => unknown
 }

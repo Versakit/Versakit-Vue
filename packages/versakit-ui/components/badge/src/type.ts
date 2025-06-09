@@ -31,4 +31,19 @@ export interface BadgeProps {
   hidden?: boolean
   /** 是否显示为独立徽章，不附加到其他元素上 */
   standalone?: boolean
+  /** 是否使用无样式模式 */
+  unstyled?: boolean
+}
+
+// PT (Pass Through) 类型定义
+export type BadgePassThroughAttributes = {
+  root?: Record<string, unknown>
+  wrapper?: Record<string, unknown>
+  badge?: Record<string, unknown>
+  content?: Record<string, unknown>
+}
+
+export interface BadgeSlots {
+  default?: () => unknown
+  content?: () => unknown
 }

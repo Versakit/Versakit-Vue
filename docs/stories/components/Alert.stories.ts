@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/vue3'
+import type { StoryObj } from '@storybook/vue3'
 import { VKAlert } from '@versakit/vue'
 import '@versakit/vue/style'
 
-const meta: Meta<typeof VKAlert> = {
+const meta = {
   title: 'Components/Alert',
   component: VKAlert,
   argTypes: {
@@ -40,6 +40,15 @@ const meta: Meta<typeof VKAlert> = {
       control: 'boolean',
       description: '是否占满宽度',
       defaultValue: true,
+    },
+    unstyled: {
+      control: 'boolean',
+      description: '是否使用无样式模式',
+      defaultValue: false,
+    },
+    pt: {
+      control: 'object',
+      description: 'Pass Through 属性，用于自定义组件内部元素的属性',
     },
   },
 }
@@ -194,4 +203,83 @@ export const Combined: Story = {
       </div>
     `,
   }),
+}
+
+// 无样式和 PT 属性示例
+export const UnstyledAndPT: Story = {
+  render: () => ({
+    components: { VKAlert },
+    template: `
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <h3>无样式提示</h3>
+        <VKAlert
+          unstyled
+          style="background: linear-gradient(135deg, #f5f7fa, #c3cfe2); padding: 20px; border-radius: 12px; border-left: 5px solid #3b82f6; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);"
+          title="自定义样式提示"
+          showIcon
+        >
+          这是一个使用无样式模式的提示，可以完全自定义样式。
+        </VKAlert>
+
+        <h3>使用 PT 自定义元素</h3>
+        <VKAlert
+          variant="success"
+          title="自定义标题和图标"
+          showIcon
+          :pt="{
+            root: { class: 'rounded-xl overflow-hidden border-l-4 border-green-500' },
+            title: { style: 'font-size: 1.2rem; color: #10b981; font-weight: bold;' },
+            icon: { class: 'text-green-500' }
+          }"
+        >
+          使用 Pass Through 属性自定义提示组件的内部元素。
+        </VKAlert>
+
+        <VKAlert
+          variant="warning"
+          title="自定义关闭按钮"
+          closable
+          :pt="{
+            closeButton: { style: 'background-color: #fde68a; border-radius: 50%; width: 24px; height: 24px;' }
+          }"
+        >
+          此提示展示了如何自定义关闭按钮的样式。
+        </VKAlert>
+
+        <h3>使用插槽自定义内容</h3>
+        <VKAlert
+          variant="info"
+          :pt="{
+            content: { style: 'display: flex; justify-content: space-between; align-items: center;' }
+          }"
+        >
+          <template #title>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              <span>自定义标题插槽</span>
+            </div>
+          </template>
+          
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span>提示内容</span>
+            <button style="background: #3b82f6; color: white; border: none; padding: 4px 12px; border-radius: 4px;">
+              操作按钮
+            </button>
+          </div>
+        </VKAlert>
+      </div>
+    `,
+  }),
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '演示无样式模式和 Pass Through (PT) 属性的使用，允许完全自定义提示组件的样式和行为。',
+      },
+    },
+  },
 }

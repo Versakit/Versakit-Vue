@@ -29,4 +29,26 @@ export interface CardProps {
   hoverable?: boolean
   /** 是否有脚注 */
   withFooter?: boolean
+  /** 是否使用无样式模式 */
+  unstyled?: boolean
+}
+
+// PT (Pass Through) 类型定义
+export type CardPassThroughAttributes = {
+  root?: Record<string, unknown>
+  header?: Record<string, unknown>
+  title?: Record<string, unknown>
+  subtitle?: Record<string, unknown>
+  collapseButton?: Record<string, unknown>
+  body?: Record<string, unknown>
+  footer?: Record<string, unknown>
+}
+
+export interface CardSlots {
+  default?: () => unknown
+  header?: () => unknown
+  title?: () => unknown
+  subtitle?: () => unknown
+  collapseButton?: () => unknown
+  footer?: () => unknown
 }

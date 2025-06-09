@@ -1,11 +1,15 @@
 <script setup lang="ts">
 import { computed, provide } from 'vue'
 import { avatarGroup, avatarOverflow } from './index.variants'
-import type { AvatarGroupProps } from './type'
+import type { AvatarGroupProps, AvatarGroupPassThroughAttributes } from './type'
 import { avatar } from '../../avatar/src/index.variants'
 import type { AvatarSize } from '../../avatar/src/type'
 
-const props = withDefaults(defineProps<AvatarGroupProps>(), {
+interface Props extends AvatarGroupProps {
+  pt?: AvatarGroupPassThroughAttributes
+}
+
+const props = withDefaults(defineProps<Props>(), {
   size: 'md',
   shape: 'circle',
   variant: 'default',
@@ -16,15 +20,20 @@ const props = withDefaults(defineProps<AvatarGroupProps>(), {
   stack: false,
   borderWidth: '2px',
   borderColor: 'white',
+  unstyled: false,
 })
 
 // 计算组件样式
-const groupClasses = computed(() =>
-  avatarGroup({
+const groupClasses = computed(() => {
+  if (props.unstyled) {
+    return {}
+  }
+
+  return avatarGroup({
     stack: props.stack,
     class: props.customClass,
-  }),
-)
+  })
+})
 
 // 计算组内子头像的样式
 const getChildStyles = () => {
@@ -54,6 +63,10 @@ const getChildStyles = () => {
 
 // 溢出显示样式
 const overflowAvatarClasses = computed(() => {
+  if (props.unstyled) {
+    return {}
+  }
+
   return [
     avatarOverflow(),
     avatar({
@@ -85,12 +98,13 @@ provide('avatar-group-context', {
   size: props.size,
   shape: props.shape,
   variant: props.variant,
+  unstyled: props.unstyled,
   childStyles: getChildStyles(),
 })
 </script>
 
 <template>
-  <div :class="groupClasses">
+  <div :class="groupClasses" v-bind="{ ...$attrs, ...props.pt?.root }">
     <slot />
 
     <!-- 溢出头像 -->
@@ -98,8 +112,10 @@ provide('avatar-group-context', {
       v-if="$slots.default && max < Infinity"
       :class="overflowAvatarClasses"
       :style="overflowAvatarStyle"
+      v-bind="props.pt?.overflow"
     >
-      {{ overflowText }}
+      <slot name="overflow" v-if="$slots.overflow" />
+      <template v-else>{{ overflowText }}</template>
     </div>
   </div>
 </template>
