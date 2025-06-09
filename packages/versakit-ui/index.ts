@@ -19,6 +19,15 @@ import { VKSlider } from './components/slider'
 import { VKSwitch } from './components/switch'
 import { VKTextarea } from './components/textarea'
 import { VKCheckbox } from './components/checkbox'
+import { VKButtonGroup } from './components/button-group'
+import {
+  VKTabs,
+  VKTabList,
+  VKTab,
+  VKTabPanels,
+  VKTabPanel,
+} from './components/tabs'
+
 // 样式
 import './style/index.css'
 
@@ -41,6 +50,13 @@ const components: Component[] = [
   VKSwitch,
   VKTextarea,
   VKCheckbox,
+  VKButtonGroup,
+  VKTabs,
+  VKTabs,
+  VKTabList,
+  VKTab,
+  VKTabPanels,
+  VKTabPanel,
 ]
 
 export {
@@ -62,6 +78,12 @@ export {
   VKSwitch,
   VKTextarea,
   VKCheckbox,
+  VKButtonGroup,
+  VKTabs,
+  VKTabList,
+  VKTab,
+  VKTabPanels,
+  VKTabPanel,
 }
 
 const Versakit = {

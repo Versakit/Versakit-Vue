@@ -1,7 +1,25 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, inject } from 'vue'
 import { button } from './index.variants'
-import type { BtnProps, ButtonPassThroughAttributes } from './type'
+import type {
+  BtnProps,
+  ButtonPassThroughAttributes,
+  BtnVariant,
+  BtnSize,
+  BtnShape,
+} from './type'
+
+// 定义注入的按钮组上下文类型
+interface ButtonGroupContext {
+  variant?: BtnVariant
+  size?: BtnSize
+  shape?: BtnShape
+  disabled?: boolean
+}
+
+// 注入按钮组上下文
+const buttonGroup = inject<ButtonGroupContext | null>('vk-button-group', null)
+
 const props = withDefaults(
   defineProps<BtnProps & { pt?: ButtonPassThroughAttributes }>(),
   {
@@ -16,23 +34,32 @@ const props = withDefaults(
     unstyled: false,
   },
 )
+
 const emit = defineEmits(['click'])
+
+// 合并按钮组上下文和按钮自身的属性
+const finalVariant = computed(() => buttonGroup?.variant ?? props.variant)
+const finalSize = computed(() => buttonGroup?.size ?? props.size)
+const finalShape = computed(() => buttonGroup?.shape ?? props.shape)
+const finalDisabled = computed(() => buttonGroup?.disabled || props.disabled)
+
 const classes = computed(() => {
   if (props.unstyled) {
     return {}
   }
   return button({
-    variant: props.variant,
-    size: props.size,
-    shape: props.shape,
-    disabled: props.disabled,
+    variant: finalVariant.value,
+    size: finalSize.value,
+    shape: finalShape.value,
+    disabled: finalDisabled.value,
     loading: props.loading,
     block: props.block,
     iconPosition: props.iconPosition,
   })
 })
+
 const handleClick = (event: MouseEvent) => {
-  if (props.disabled || props.loading) return
+  if (finalDisabled.value || props.loading) return
   emit('click', event)
 }
 </script>
@@ -40,9 +67,9 @@ const handleClick = (event: MouseEvent) => {
   <button
     role="button"
     :class="classes"
-    :disabled="disabled || loading"
+    :disabled="finalDisabled || loading"
     :type="type"
-    :aria-disabled="disabled"
+    :aria-disabled="finalDisabled"
     :aria-busy="loading"
     :aria-label="ariaLabel"
     @click="handleClick"
