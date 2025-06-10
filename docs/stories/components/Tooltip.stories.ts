@@ -1,10 +1,9 @@
-import type { StoryObj } from '@storybook/vue3'
+import type { Meta, StoryObj } from '@storybook/vue3'
 import { ref } from 'vue'
 import { VKTooltip, VKButton } from '@versakit/vue'
 import '@versakit/vue/style'
 
-// 避免使用类型注解和断言，让Storybook自己推断类型
-const meta = {
+const meta: Meta<typeof VKTooltip> = {
   title: 'Components/Tooltip',
   component: VKTooltip,
   argTypes: {
@@ -127,7 +126,7 @@ export const Default: Story = {
       return { args }
     },
     template: `
-      <div style="padding: 50px; display: flex; justify-content: center;">
+      <div class="flex justify-center p-12">
         <VKTooltip v-bind="args">
           <VKButton>悬停查看提示</VKButton>
         </VKTooltip>
@@ -141,7 +140,7 @@ export const Variants: Story = {
   render: () => ({
     components: { VKTooltip, VKButton },
     template: `
-      <div style="padding: 50px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: center;">
+      <div class="flex flex-wrap justify-center gap-5 p-12">
         <VKTooltip content="主要提示" variant="primary">
           <VKButton variant="primary">Primary</VKButton>
         </VKTooltip>
@@ -182,7 +181,7 @@ export const Placements: Story = {
   render: () => ({
     components: { VKTooltip, VKButton },
     template: `
-      <div style="padding: 100px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; justify-items: center;">
+      <div class="grid grid-cols-3 gap-5 justify-items-center p-24">
         <VKTooltip content="左上方提示" placement="top-start">
           <VKButton>上左</VKButton>
         </VKTooltip>
@@ -226,7 +225,7 @@ export const Triggers: Story = {
   render: () => ({
     components: { VKTooltip, VKButton },
     template: `
-      <div style="display: flex; gap: 20px; padding: 50px; justify-content: center;">
+      <div class="flex justify-center gap-5 p-12">
         <VKTooltip content="悬停时显示" trigger="hover">
           <VKButton>悬停</VKButton>
         </VKTooltip>
@@ -248,7 +247,7 @@ export const Themes: Story = {
   render: () => ({
     components: { VKTooltip, VKButton },
     template: `
-      <div style="display: flex; gap: 20px; padding: 50px; justify-content: center;">
+      <div class="flex justify-center gap-5 p-12">
         <VKTooltip content="浅色主题" theme="light">
           <VKButton>浅色</VKButton>
         </VKTooltip>
@@ -270,7 +269,7 @@ export const Sizes: Story = {
   render: () => ({
     components: { VKTooltip, VKButton },
     template: `
-      <div style="display: flex; gap: 20px; padding: 50px; justify-content: center;">
+      <div class="flex justify-center gap-5 p-12">
         <VKTooltip content="超小提示" size="xs">
           <VKButton size="xs">XS</VKButton>
         </VKTooltip>
@@ -300,10 +299,10 @@ export const ThemeAndVariant: Story = {
   render: () => ({
     components: { VKTooltip, VKButton },
     template: `
-      <div style="display: flex; flex-direction: column; gap: 30px; padding: 50px;">
+      <div class="flex flex-col gap-8 p-12">
         <div>
-          <h3>浅色主题 + 不同变体</h3>
-          <div style="display: flex; gap: 20px; justify-content: center; margin-top: 20px;">
+          <h3 class="text-lg font-medium mb-4">浅色主题 + 不同变体</h3>
+          <div class="flex justify-center gap-5">
             <VKTooltip content="Primary" theme="light" variant="primary">
               <VKButton>Primary</VKButton>
             </VKTooltip>
@@ -319,8 +318,8 @@ export const ThemeAndVariant: Story = {
         </div>
         
         <div>
-          <h3>深色主题 + 不同变体</h3>
-          <div style="display: flex; gap: 20px; justify-content: center; margin-top: 20px;">
+          <h3 class="text-lg font-medium mb-4">深色主题 + 不同变体</h3>
+          <div class="flex justify-center gap-5">
             <VKTooltip content="Primary" theme="dark" variant="primary">
               <VKButton>Primary</VKButton>
             </VKTooltip>
@@ -351,7 +350,7 @@ export const WithoutArrow: Story = {
   render: () => ({
     components: { VKTooltip, VKButton },
     template: `
-      <div style="padding: 50px; display: flex; justify-content: center;">
+      <div class="flex justify-center p-12">
         <VKTooltip content="无箭头提示" :arrow="false">
           <VKButton>无箭头</VKButton>
         </VKTooltip>
@@ -365,15 +364,15 @@ export const Interactive: Story = {
   render: () => ({
     components: { VKTooltip, VKButton },
     template: `
-      <div style="padding: 50px; display: flex; justify-content: center;">
+      <div class="flex justify-center p-12">
         <VKTooltip :interactive="true">
           <template #default>
             <VKButton>可交互提示</VKButton>
           </template>
           
           <template #content>
-            <div style="padding: 5px;">
-              <p>这是一个可交互的提示</p>
+            <div class="p-2">
+              <p class="mb-2">这是一个可交互的提示</p>
               <VKButton size="sm">点击我</VKButton>
             </div>
           </template>
@@ -388,16 +387,16 @@ export const CustomContent: Story = {
   render: () => ({
     components: { VKTooltip, VKButton },
     template: `
-      <div style="padding: 50px; display: flex; justify-content: center;">
+      <div class="flex justify-center p-12">
         <VKTooltip>
           <template #default>
             <VKButton>自定义内容</VKButton>
           </template>
           
           <template #content>
-            <div style="padding: 5px;">
-              <h4 style="margin: 0 0 8px 0;">自定义标题</h4>
-              <p style="margin: 0;">这是自定义内容，可以包含<strong>富文本</strong>和<a href="#" style="color: inherit;">链接</a>。</p>
+            <div class="p-2">
+              <h4 class="text-base font-medium mb-2">自定义标题</h4>
+              <p class="text-sm">这是自定义内容，可以包含<strong>富文本</strong>和<a href="#" class="text-inherit underline">链接</a>。</p>
             </div>
           </template>
         </VKTooltip>
@@ -411,7 +410,7 @@ export const Disabled: Story = {
   render: () => ({
     components: { VKTooltip, VKButton },
     template: `
-      <div style="padding: 50px; display: flex; justify-content: center;">
+      <div class="flex justify-center p-12">
         <VKTooltip content="这个提示不会显示" :disabled="true">
           <VKButton>禁用提示</VKButton>
         </VKTooltip>
@@ -434,7 +433,7 @@ export const ManualControl: Story = {
       return { isOpen, toggleTooltip }
     },
     template: `
-      <div style="padding: 50px; display: flex; flex-direction: column; align-items: center; gap: 20px;">
+      <div class="flex flex-col items-center gap-5 p-12">
         <VKTooltip content="手动控制的提示" trigger="manual" v-model="isOpen">
           <VKButton>悬停无效</VKButton>
         </VKTooltip>
@@ -450,10 +449,10 @@ export const UnstyledAndPT: Story = {
   render: () => ({
     components: { VKTooltip, VKButton },
     template: `
-      <div style="display: flex; flex-direction: column; gap: 50px; padding: 50px;">
+      <div class="flex flex-col gap-12 p-12">
         <div>
-          <h3>无样式提示</h3>
-          <div style="display: flex; justify-content: center; padding-top: 20px;">
+          <h3 class="text-lg font-medium mb-4">无样式提示</h3>
+          <div class="flex justify-center">
             <VKTooltip 
               unstyled
               placement="top"
@@ -463,7 +462,7 @@ export const UnstyledAndPT: Story = {
               </template>
               
               <template #content>
-                <div style="background: linear-gradient(45deg, #42b883, #35495e); color: white; padding: 10px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                <div class="bg-gradient-to-r from-green-500 to-blue-600 text-white p-3 rounded-lg shadow-lg">
                   自定义样式提示
                 </div>
               </template>
@@ -472,8 +471,8 @@ export const UnstyledAndPT: Story = {
         </div>
         
         <div>
-          <h3>使用 PT 自定义元素</h3>
-          <div style="display: flex; justify-content: center; padding-top: 20px;">
+          <h3 class="text-lg font-medium mb-4">使用 PT 自定义元素</h3>
+          <div class="flex justify-center">
             <VKTooltip 
               content="自定义样式提示"
               :pt="{

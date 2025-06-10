@@ -3,152 +3,181 @@ import { tv } from 'tailwind-variants'
 export const tooltip = tv({
   slots: {
     root: 'relative inline-block',
-    content:
-      'absolute z-50 rounded-md px-3 py-1.5 text-sm font-medium shadow-md box-border transition-all duration-200 ease-in-out pointer-events-none will-change-transform data-[state=closed]:opacity-0 data-[state=closed]:scale-95 data-[state=open]:opacity-100 data-[state=open]:scale-100 data-[side=bottom]:origin-top data-[side=top]:origin-bottom data-[side=left]:origin-right data-[side=right]:origin-left data-[interactive=true]:pointer-events-auto',
-    arrow: 'absolute z-50 rotate-45 w-2 h-2 transition-all duration-200',
+    content: 'z-50 overflow-hidden rounded-md px-3 py-1.5 text-sm shadow-md',
+    arrow: 'absolute w-2 h-2 rotate-45',
   },
   variants: {
-    variant: {
-      primary: {
-        content:
-          'bg-blue-500 text-white border border-blue-600 shadow-blue-500/20',
-        arrow: 'bg-blue-500 border border-blue-600',
-      },
-      success: {
-        content:
-          'bg-green-500 text-white border border-green-600 shadow-green-500/20',
-        arrow: 'bg-green-500 border border-green-600',
-      },
-      warning: {
-        content:
-          'bg-yellow-500 text-white border border-yellow-600 shadow-yellow-500/20',
-        arrow: 'bg-yellow-500 border border-yellow-600',
-      },
-      error: {
-        content:
-          'bg-red-500 text-white border border-red-600 shadow-red-500/20',
-        arrow: 'bg-red-500 border border-red-600',
-      },
-      info: {
-        content:
-          'bg-cyan-500 text-white border border-cyan-600 shadow-cyan-500/20',
-        arrow: 'bg-cyan-500 border border-cyan-600',
-      },
-      default: {
-        content:
-          'bg-gray-700 text-white border border-gray-800 shadow-gray-700/20',
-        arrow: 'bg-gray-700 border border-gray-800',
-      },
-    },
     theme: {
       light: {
-        content: 'bg-white text-gray-900 border border-gray-200 shadow-lg',
+        content: 'bg-white text-gray-900 border border-gray-200',
         arrow: 'bg-white border border-gray-200',
       },
       dark: {
-        content:
-          'bg-gray-900 text-gray-100 border border-gray-700 shadow-gray-900/30',
-        arrow: 'bg-gray-900 border border-gray-700',
+        content: 'bg-gray-800 text-white',
+        arrow: 'bg-gray-800',
       },
       auto: {
         content:
-          'bg-white text-gray-900 border border-gray-200 shadow-lg dark:bg-gray-900 dark:text-gray-100 dark:border-gray-700 dark:shadow-gray-900/30',
+          'bg-white text-gray-900 border border-gray-200 dark:bg-gray-800 dark:text-white dark:border-gray-700',
         arrow:
-          'bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-700',
+          'bg-white border border-gray-200 dark:bg-gray-800 dark:border-gray-700',
       },
+    },
+    variant: {
+      primary: {},
+      success: {},
+      warning: {},
+      info: {},
+      error: {},
+      default: {},
     },
     size: {
-      xs: {
-        content: 'text-xs py-1 px-2 max-w-[200px]',
-        arrow: 'w-1.5 h-1.5',
-      },
-      sm: {
-        content: 'text-xs py-1 px-2.5 max-w-[250px]',
-        arrow: 'w-1.5 h-1.5',
-      },
-      md: {
-        content: 'text-sm py-1.5 px-3 max-w-[300px]',
-        arrow: 'w-2 h-2',
-      },
-      lg: {
-        content: 'text-base py-2 px-4 max-w-[350px]',
-        arrow: 'w-2.5 h-2.5',
-      },
-      xl: {
-        content: 'text-lg py-2.5 px-5 max-w-[400px]',
-        arrow: 'w-3 h-3',
-      },
+      xs: { content: 'text-xs px-2 py-1' },
+      sm: { content: 'text-sm px-2.5 py-1' },
+      md: { content: 'text-sm px-3 py-1.5' },
+      lg: { content: 'text-base px-4 py-2' },
+      xl: { content: 'text-lg px-5 py-2.5' },
+    },
+    placement: {
+      top: { arrow: 'bottom-[-4px] border-t-0 border-l-0' },
+      'top-start': { arrow: 'bottom-[-4px] border-t-0 border-l-0' },
+      'top-end': { arrow: 'bottom-[-4px] border-t-0 border-l-0' },
+      bottom: { arrow: 'top-[-4px] border-b-0 border-r-0' },
+      'bottom-start': { arrow: 'top-[-4px] border-b-0 border-r-0' },
+      'bottom-end': { arrow: 'top-[-4px] border-b-0 border-r-0' },
+      left: { arrow: 'right-[-4px] border-l-0 border-b-0' },
+      'left-start': { arrow: 'right-[-4px] border-l-0 border-b-0' },
+      'left-end': { arrow: 'right-[-4px] border-l-0 border-b-0' },
+      right: { arrow: 'left-[-4px] border-r-0 border-t-0' },
+      'right-start': { arrow: 'left-[-4px] border-r-0 border-t-0' },
+      'right-end': { arrow: 'left-[-4px] border-r-0 border-t-0' },
     },
     disabled: {
-      true: {
-        root: 'cursor-not-allowed',
-        content: 'opacity-50',
-      },
-    },
-    trigger: {
-      click: {
-        content: 'ring-2 ring-offset-2 ring-opacity-50',
-      },
-      hover: {},
-      focus: {},
-      manual: {},
+      true: { content: 'opacity-50 cursor-not-allowed' },
     },
   },
   compoundVariants: [
+    // 主题和变体组合
     {
-      theme: ['light', 'auto'],
-      variant: undefined,
-      class: {
-        content: 'drop-shadow-sm',
-      },
-    },
-    {
-      trigger: 'click',
+      theme: 'light',
       variant: 'primary',
       class: {
-        content: 'ring-blue-300',
+        content: 'border-blue-200 text-blue-700',
+        arrow: 'border-blue-200',
       },
     },
     {
-      trigger: 'click',
+      theme: 'light',
       variant: 'success',
       class: {
-        content: 'ring-green-300',
+        content: 'border-green-200 text-green-700',
+        arrow: 'border-green-200',
       },
     },
     {
-      trigger: 'click',
+      theme: 'light',
       variant: 'warning',
       class: {
-        content: 'ring-yellow-300',
+        content: 'border-yellow-200 text-yellow-700',
+        arrow: 'border-yellow-200',
       },
     },
     {
-      trigger: 'click',
-      variant: 'error',
-      class: {
-        content: 'ring-red-300',
-      },
-    },
-    {
-      trigger: 'click',
+      theme: 'light',
       variant: 'info',
       class: {
-        content: 'ring-cyan-300',
+        content: 'border-cyan-200 text-cyan-700',
+        arrow: 'border-cyan-200',
       },
     },
     {
-      trigger: 'click',
-      variant: 'default',
+      theme: 'light',
+      variant: 'error',
       class: {
-        content: 'ring-gray-300',
+        content: 'border-red-200 text-red-700',
+        arrow: 'border-red-200',
+      },
+    },
+    // 深色主题和变体组合
+    {
+      theme: 'dark',
+      variant: 'primary',
+      class: { content: 'bg-blue-900 text-blue-100', arrow: 'bg-blue-900' },
+    },
+    {
+      theme: 'dark',
+      variant: 'success',
+      class: { content: 'bg-green-900 text-green-100', arrow: 'bg-green-900' },
+    },
+    {
+      theme: 'dark',
+      variant: 'warning',
+      class: {
+        content: 'bg-yellow-900 text-yellow-100',
+        arrow: 'bg-yellow-900',
+      },
+    },
+    {
+      theme: 'dark',
+      variant: 'info',
+      class: { content: 'bg-cyan-900 text-cyan-100', arrow: 'bg-cyan-900' },
+    },
+    {
+      theme: 'dark',
+      variant: 'error',
+      class: { content: 'bg-red-900 text-red-100', arrow: 'bg-red-900' },
+    },
+    // 自动主题和变体组合
+    {
+      theme: 'auto',
+      variant: 'primary',
+      class: {
+        content:
+          'border-blue-200 text-blue-700 dark:bg-blue-900 dark:text-blue-100 dark:border-blue-800',
+        arrow: 'border-blue-200 dark:bg-blue-900 dark:border-blue-800',
+      },
+    },
+    {
+      theme: 'auto',
+      variant: 'success',
+      class: {
+        content:
+          'border-green-200 text-green-700 dark:bg-green-900 dark:text-green-100 dark:border-green-800',
+        arrow: 'border-green-200 dark:bg-green-900 dark:border-green-800',
+      },
+    },
+    {
+      theme: 'auto',
+      variant: 'warning',
+      class: {
+        content:
+          'border-yellow-200 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-100 dark:border-yellow-800',
+        arrow: 'border-yellow-200 dark:bg-yellow-900 dark:border-yellow-800',
+      },
+    },
+    {
+      theme: 'auto',
+      variant: 'info',
+      class: {
+        content:
+          'border-cyan-200 text-cyan-700 dark:bg-cyan-900 dark:text-cyan-100 dark:border-cyan-800',
+        arrow: 'border-cyan-200 dark:bg-cyan-900 dark:border-cyan-800',
+      },
+    },
+    {
+      theme: 'auto',
+      variant: 'error',
+      class: {
+        content:
+          'border-red-200 text-red-700 dark:bg-red-900 dark:text-red-100 dark:border-red-800',
+        arrow: 'border-red-200 dark:bg-red-900 dark:border-red-800',
       },
     },
   ],
   defaultVariants: {
     theme: 'auto',
-    size: 'md',
     variant: 'primary',
-    trigger: 'hover',
+    size: 'md',
+    placement: 'top',
   },
 })
