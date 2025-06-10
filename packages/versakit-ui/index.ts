@@ -36,6 +36,7 @@ import { VKTimePicker } from './components/time-picker'
 import { VKTimeSelect } from './components/time-select'
 import { VKRate } from './components/rate'
 import { VKInputNumber } from './components/input-number'
+import { VKSteps } from './components/steps'
 // 样式
 import './style/index.css'
 
@@ -79,6 +80,7 @@ const components: Component[] = [
   VKTimeSelect,
   VKRate,
   VKInputNumber,
+  VKSteps,
 ]
 
 export {
@@ -121,6 +123,7 @@ export {
   VKTimeSelect,
   VKRate,
   VKInputNumber,
+  VKSteps,
 }
 
 const Versakit = {
