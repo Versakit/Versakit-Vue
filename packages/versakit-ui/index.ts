@@ -25,6 +25,8 @@ import { VKProgress } from './components/progress'
 import { VKSelect } from './components/select'
 import { VKRadio, VKRadioGroup } from './components/radio'
 import { VKKbd } from './components/kbd'
+import { VKTooltip } from './components/tooltip'
+import { VKToast, VKToastProvider } from './components/toast'
 // 样式
 import './style/index.css'
 
@@ -55,6 +57,9 @@ const components: Component[] = [
   VKRadio,
   VKRadioGroup,
   VKKbd,
+  VKTooltip,
+  VKToast,
+  VKToastProvider,
 ]
 
 export {
@@ -84,6 +89,9 @@ export {
   VKRadio,
   VKRadioGroup,
   VKKbd,
+  VKTooltip,
+  VKToast,
+  VKToastProvider,
 }
 
 const Versakit = {
