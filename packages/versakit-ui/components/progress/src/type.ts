@@ -1,5 +1,5 @@
 export type ProgressVariant =
-  | 'default'
+  | 'primary'
   | 'success'
   | 'info'
   | 'warning'

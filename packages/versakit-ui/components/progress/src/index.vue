@@ -15,7 +15,7 @@ const props = withDefaults(
     value: 0,
     max: 100,
     min: 0,
-    variant: 'default',
+    variant: 'primary',
     size: 'md',
     type: 'line',
     showText: true,
@@ -145,14 +145,14 @@ const circlePathColor = computed(() => {
   if (props.color) return props.color
 
   const colors = {
-    default: 'rgb(79, 70, 229)', // primary-500
+    primary: 'rgb(79, 70, 229)', // primary-500
     success: 'rgb(34, 197, 94)', // success-500
     info: 'rgb(6, 182, 212)', // info-500
     warning: 'rgb(245, 158, 11)', // warning-500
     danger: 'rgb(239, 68, 68)', // danger-500
   }
 
-  return colors[props.variant] || colors.default
+  return colors[props.variant] || colors.primary
 })
 </script>
 
