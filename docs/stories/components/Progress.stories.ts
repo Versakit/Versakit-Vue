@@ -25,9 +25,9 @@ const meta = {
     },
     variant: {
       control: 'select',
-      options: ['default', 'success', 'info', 'warning', 'danger'],
+      options: ['primary', 'success', 'info', 'warning', 'danger'],
       description: '进度条样式变体',
-      defaultValue: 'default',
+      defaultValue: 'primary',
     },
     size: {
       control: 'select',
@@ -111,7 +111,7 @@ export const Variants: Story = {
       <div class="space-y-4">
         <div>
           <p class="text-sm font-medium mb-2">默认</p>
-          <VKProgress :value="50" variant="default" />
+          <VKProgress :value="50" variant="primary" />
         </div>
         <div>
           <p class="text-sm font-medium mb-2">成功</p>

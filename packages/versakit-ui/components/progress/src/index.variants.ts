@@ -53,7 +53,7 @@ export const progressBar = tv({
   base: 'h-full rounded-full flex items-center justify-center transition-all ease-in-out duration-300',
   variants: {
     variant: {
-      default: 'bg-blue-500',
+      primary: 'bg-blue-500',
       success: 'bg-green-500',
       info: 'bg-blue-500',
       warning: 'bg-yellow-500',
@@ -70,7 +70,7 @@ export const progressBar = tv({
     },
   },
   defaultVariants: {
-    variant: 'default',
+    variant: 'primary',
     striped: false,
     animated: false,
     indeterminate: false,
