@@ -27,6 +27,14 @@ import { VKRadio, VKRadioGroup } from './components/radio'
 import { VKKbd } from './components/kbd'
 import { VKTooltip } from './components/tooltip'
 import { VKToast, VKToastProvider } from './components/toast'
+import { VKBreadcrumb, VKBreadcrumbItem } from './components/breadcrumb'
+import { VKPopover } from './components/popover'
+import { VKCalendar } from './components/calendar'
+import { VKDatePicker } from './components/date-picker'
+import { VKDateTimePicker } from './components/datetime-picker'
+import { VKTimePicker } from './components/time-picker'
+import { VKTimeSelect } from './components/time-select'
+
 // 样式
 import './style/index.css'
 
@@ -60,6 +68,14 @@ const components: Component[] = [
   VKTooltip,
   VKToast,
   VKToastProvider,
+  VKBreadcrumb,
+  VKBreadcrumbItem,
+  VKPopover,
+  VKCalendar,
+  VKDatePicker,
+  VKDateTimePicker,
+  VKTimePicker,
+  VKTimeSelect,
 ]
 
 export {
@@ -92,6 +108,14 @@ export {
   VKTooltip,
   VKToast,
   VKToastProvider,
+  VKBreadcrumb,
+  VKBreadcrumbItem,
+  VKPopover,
+  VKCalendar,
+  VKDatePicker,
+  VKDateTimePicker,
+  VKTimePicker,
+  VKTimeSelect,
 }
 
 const Versakit = {
