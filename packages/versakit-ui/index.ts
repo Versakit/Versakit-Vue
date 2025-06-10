@@ -22,7 +22,9 @@ import { VKCheckbox } from './components/checkbox'
 import { VKButtonGroup } from './components/button-group'
 import { VKTab, VKTabItem } from './components/tabs'
 import { VKProgress } from './components/progress'
-
+import { VKSelect } from './components/select'
+import { VKRadio, VKRadioGroup } from './components/radio'
+import { VKKbd } from './components/kbd'
 // 样式
 import './style/index.css'
 
@@ -49,6 +51,10 @@ const components: Component[] = [
   VKTab,
   VKTabItem,
   VKProgress,
+  VKSelect,
+  VKRadio,
+  VKRadioGroup,
+  VKKbd,
 ]
 
 export {
@@ -74,6 +80,10 @@ export {
   VKTab,
   VKTabItem,
   VKProgress,
+  VKSelect,
+  VKRadio,
+  VKRadioGroup,
+  VKKbd,
 }
 
 const Versakit = {
