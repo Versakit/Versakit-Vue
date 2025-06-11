@@ -11,9 +11,11 @@ export interface StepItem {
   status?: 'wait' | 'process' | 'finish' | 'error'
   /** 是否禁用 */
   disabled?: boolean
+  /** 自定义内容 */
+  content?: string
 }
 
-export interface StepsProps {
+export interface StepperProps {
   /** 当前激活步骤 */
   active: number
   /** 步骤数据 */
@@ -35,22 +37,22 @@ export interface StepsProps {
   /** 是否使用无样式模式 */
   unstyled?: boolean
   /** 自定义步骤条类名 */
-  stepsClass?: string
+  stepperClass?: string
   /** 自定义步骤条样式 */
-  stepsStyle?: CSSProperties
+  stepperStyle?: CSSProperties
   /** Pass Through 属性 */
-  pt?: StepsPassThroughAttributes
+  pt?: StepperPassThroughAttributes
 }
 
-export interface StepsEmits {
+export interface StepperEmits {
   (e: 'update:active', index: number): void
   (e: 'change', index: number): void
   (e: 'click', index: number): void
 }
 
-export type StepsPassThroughAttributes = {
+export type StepperPassThroughAttributes = {
   root?: Record<string, unknown>
-  stepsContainer?: Record<string, unknown>
+  stepperContainer?: Record<string, unknown>
   step?: Record<string, unknown>
   stepIndex?: Record<string, unknown>
   stepIcon?: Record<string, unknown>

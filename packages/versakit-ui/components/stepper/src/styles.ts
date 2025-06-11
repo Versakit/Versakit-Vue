@@ -1,9 +1,9 @@
 import { tv } from 'tailwind-variants'
 
-export const stepsStyles = tv({
+export const stepperStyles = tv({
   slots: {
-    root: 'vk-steps w-full',
-    stepsContainer: 'flex',
+    root: 'vk-stepper w-full',
+    stepperContainer: 'flex',
     step: 'flex-1 relative',
     stepIndex:
       'flex items-center justify-center rounded-full text-sm font-medium',
@@ -16,12 +16,12 @@ export const stepsStyles = tv({
   variants: {
     direction: {
       horizontal: {
-        stepsContainer: 'flex-row items-center',
+        stepperContainer: 'flex-row items-center',
         step: 'flex flex-col',
         stepLine: 'right-0 w-full',
       },
       vertical: {
-        stepsContainer: 'flex-col',
+        stepperContainer: 'flex-col',
         step: 'flex flex-row pb-6',
         stepLine: 'left-[15px] top-[30px] w-px h-full -translate-y-0',
         stepContent: 'ml-4 mt-0',
@@ -84,7 +84,7 @@ export const stepsStyles = tv({
     },
     clickable: {
       true: {
-        step: 'cursor-pointer',
+        step: 'cursor-pointer hover:opacity-80',
       },
       false: {},
     },

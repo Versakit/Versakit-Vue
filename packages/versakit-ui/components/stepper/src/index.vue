@@ -1,10 +1,10 @@
 <template>
   <div
-    :class="[classes.root, stepsClass]"
-    :style="stepsStyle"
+    :class="[classes.root, stepperClass]"
+    :style="stepperStyle"
     v-bind="pt?.root"
   >
-    <div :class="classes.stepsContainer" v-bind="pt?.stepsContainer">
+    <div :class="classes.stepperContainer" v-bind="pt?.stepperContainer">
       <div
         v-for="(step, index) in steps"
         :key="index"
@@ -69,6 +69,9 @@
           >
             {{ step.description }}
           </div>
+          <div v-if="step.content" class="mt-2">
+            {{ step.content }}
+          </div>
         </div>
       </div>
     </div>
@@ -77,14 +80,14 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { stepsStyles } from './styles'
-import type { StepsProps, StepsEmits, StepItem } from './type'
+import { stepperStyles } from './styles'
+import type { StepperProps, StepperEmits, StepItem } from './type'
 
 defineOptions({
-  name: 'VKSteps',
+  name: 'VKStepper',
 })
 
-const props = withDefaults(defineProps<StepsProps>(), {
+const props = withDefaults(defineProps<StepperProps>(), {
   direction: 'horizontal',
   size: 'md',
   clickable: false,
@@ -95,12 +98,12 @@ const props = withDefaults(defineProps<StepsProps>(), {
   pt: () => ({}),
 })
 
-const emit = defineEmits<StepsEmits>()
+const emit = defineEmits<StepperEmits>()
 
 // 定义默认的空类名对象，用于unstyled模式
 const emptyClasses = {
   root: '',
-  stepsContainer: '',
+  stepperContainer: '',
   step: '',
   stepIndex: '',
   stepIcon: '',
@@ -115,7 +118,7 @@ const classes = computed(() => {
     return emptyClasses
   }
 
-  return stepsStyles({
+  return stepperStyles({
     direction: props.direction,
     size: props.size,
     status: props.status,
