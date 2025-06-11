@@ -1,4 +1,4 @@
-import type { StoryObj } from '@storybook/vue3'
+import type { StoryObj } from '@storybook/vue3-vite'
 import { VKBreadcrumb, VKBreadcrumbItem } from '@versakit/vue'
 import '@versakit/vue/style'
 

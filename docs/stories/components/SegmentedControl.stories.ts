@@ -1,6 +1,6 @@
 import { ref } from 'vue'
 import { VKSegmentedControl } from '@versakit/vue'
-import type { StoryObj } from '@storybook/vue3'
+import type { StoryObj } from '@storybook/vue3-vite'
 import '@versakit/vue/style'
 
 const meta = {

@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/vue3'
+import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import { VKModal, VKButton } from '@versakit/vue'
 import '@versakit/vue/style'
 import { ref } from 'vue'

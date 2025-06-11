@@ -1,5 +1,5 @@
-import type { Preview } from '@storybook/vue3'
-import { setup } from '@storybook/vue3'
+import type { Preview } from '@storybook/vue3-vite'
+import { setup } from '@storybook/vue3-vite'
 import { registerComponents } from './registerComponents'
 // 导入组件库样式（如果有）
 import '@versakit/vue/style'

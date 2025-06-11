@@ -1,4 +1,4 @@
-import type { StoryObj } from '@storybook/vue3'
+import type { StoryObj } from '@storybook/vue3-vite'
 import { VKCheckbox } from '@versakit/vue'
 import '@versakit/vue/style'
 import { ref } from 'vue'

@@ -1,6 +1,6 @@
 import { VKAvatar } from '@versakit/vue'
 import { VKBadge } from '@versakit/vue'
-import type { Meta, StoryObj } from '@storybook/vue3'
+import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import '@versakit/vue/style'
 
 const meta: Meta<typeof VKAvatar> = {
