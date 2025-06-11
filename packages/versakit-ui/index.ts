@@ -38,6 +38,9 @@ import { VKRate } from './components/rate'
 import { VKInputNumber } from './components/input-number'
 import { VKStepper } from './components/stepper'
 import { VKSkeleton } from './components/skeleton'
+import { VKPagination } from './components/pagination'
+import { VKColorPicker } from './components/color-picker'
+import { VKCollapsible } from './components/collapsible'
 // 样式
 import './style/index.css'
 
@@ -83,6 +86,9 @@ const components: Component[] = [
   VKInputNumber,
   VKStepper,
   VKSkeleton,
+  VKPagination,
+  VKColorPicker,
+  VKCollapsible,
 ]
 
 export {
@@ -127,6 +133,9 @@ export {
   VKInputNumber,
   VKStepper,
   VKSkeleton,
+  VKPagination,
+  VKColorPicker,
+  VKCollapsible,
 }
 
 const Versakit = {
