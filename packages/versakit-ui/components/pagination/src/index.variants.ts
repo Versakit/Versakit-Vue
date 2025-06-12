@@ -2,7 +2,7 @@ import { tv } from 'tailwind-variants'
 
 export const pagination = tv({
   slots: {
-    root: 'flex items-center gap-1',
+    root: 'flex items-center gap-1 select-none',
     pageButton:
       'relative inline-flex items-center justify-center min-w-[32px] h-8 px-2 text-sm transition-colors focus:outline-none',
     prevButton:
@@ -11,7 +11,7 @@ export const pagination = tv({
       'relative inline-flex items-center justify-center min-w-[32px] h-8 px-2 text-sm transition-colors focus:outline-none',
     ellipsis: 'inline-flex items-center justify-center min-w-[32px] h-8 px-2',
     jumperInput:
-      'h-8 px-2 text-sm border rounded focus:outline-none focus:ring-1',
+      'h-8 px-2 text-sm border rounded focus:outline-none focus:ring-1 w-12',
     sizeSelect:
       'h-8 px-2 text-sm border rounded focus:outline-none focus:ring-1',
     totalText: 'text-sm text-gray-500',
@@ -23,17 +23,25 @@ export const pagination = tv({
         prevButton: 'min-w-[28px] h-7 text-xs',
         nextButton: 'min-w-[28px] h-7 text-xs',
         ellipsis: 'min-w-[28px] h-7 text-xs',
-        jumperInput: 'h-7 text-xs',
+        jumperInput: 'h-7 text-xs w-10',
         sizeSelect: 'h-7 text-xs',
         totalText: 'text-xs',
       },
-      md: {},
+      md: {
+        pageButton: 'min-w-[32px] h-8 text-sm',
+        prevButton: 'min-w-[32px] h-8 text-sm',
+        nextButton: 'min-w-[32px] h-8 text-sm',
+        ellipsis: 'min-w-[32px] h-8 text-sm',
+        jumperInput: 'h-8 text-sm w-12',
+        sizeSelect: 'h-8 text-sm',
+        totalText: 'text-sm',
+      },
       lg: {
         pageButton: 'min-w-[36px] h-9 text-base',
         prevButton: 'min-w-[36px] h-9 text-base',
         nextButton: 'min-w-[36px] h-9 text-base',
         ellipsis: 'min-w-[36px] h-9 text-base',
-        jumperInput: 'h-9 text-base',
+        jumperInput: 'h-9 text-base w-14',
         sizeSelect: 'h-9 text-base',
         totalText: 'text-base',
       },
@@ -46,6 +54,10 @@ export const pagination = tv({
           'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 focus:ring-primary-500 focus:border-primary-500 disabled:opacity-50 disabled:cursor-not-allowed',
         nextButton:
           'text-gray-700 bg-white border border-gray-300 hover:bg-gray-50 focus:ring-primary-500 focus:border-primary-500 disabled:opacity-50 disabled:cursor-not-allowed',
+        jumperInput:
+          'border-gray-300 focus:ring-primary-500 focus:border-primary-500',
+        sizeSelect:
+          'border-gray-300 focus:ring-primary-500 focus:border-primary-500',
       },
       outline: {
         pageButton:
@@ -54,6 +66,10 @@ export const pagination = tv({
           'text-gray-700 bg-transparent border border-gray-300 hover:bg-gray-50 focus:ring-primary-500 focus:border-primary-500 disabled:opacity-50 disabled:cursor-not-allowed',
         nextButton:
           'text-gray-700 bg-transparent border border-gray-300 hover:bg-gray-50 focus:ring-primary-500 focus:border-primary-500 disabled:opacity-50 disabled:cursor-not-allowed',
+        jumperInput:
+          'border-gray-300 focus:ring-primary-500 focus:border-primary-500',
+        sizeSelect:
+          'border-gray-300 focus:ring-primary-500 focus:border-primary-500',
       },
       ghost: {
         pageButton:
@@ -62,6 +78,10 @@ export const pagination = tv({
           'text-gray-700 bg-transparent hover:bg-gray-100 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed',
         nextButton:
           'text-gray-700 bg-transparent hover:bg-gray-100 focus:ring-primary-500 disabled:opacity-50 disabled:cursor-not-allowed',
+        jumperInput:
+          'border-gray-300 focus:ring-primary-500 focus:border-primary-500',
+        sizeSelect:
+          'border-gray-300 focus:ring-primary-500 focus:border-primary-500',
       },
     },
     disabled: {
@@ -83,5 +103,7 @@ export const pagination = tv({
   defaultVariants: {
     size: 'md',
     variant: 'filled',
+    disabled: false,
+    simple: false,
   },
 })

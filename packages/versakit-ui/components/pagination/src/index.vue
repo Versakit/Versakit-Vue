@@ -21,12 +21,12 @@ const props = withDefaults(
   },
 )
 
-const emit = defineEmits([
-  'update:modelValue',
-  'update:pageSize',
-  'change',
-  'sizeChange',
-])
+const emit = defineEmits<{
+  'update:modelValue': [value: number]
+  'update:pageSize': [value: number]
+  change: [page: number, pageSize: number]
+  sizeChange: [pageSize: number, page: number]
+}>()
 
 // 当前页码
 const currentPage = ref(props.modelValue)
@@ -119,7 +119,7 @@ const pageRange = computed<[number, number]>(() => {
   return [start, end]
 })
 
-// 样式类
+// 获取样式类
 const classes = computed(() => {
   if (props.unstyled) {
     return {
@@ -133,12 +133,16 @@ const classes = computed(() => {
       totalText: '',
     }
   }
-  return pagination({
+
+  // 使用 tailwind-variants 生成样式类
+  const styles = pagination({
     size: props.size,
     variant: props.variant,
     disabled: props.disabled,
     simple: props.simple,
   })
+
+  return styles
 })
 
 // 跳转到指定页
@@ -209,13 +213,13 @@ const handleSizeChange = (e: Event) => {
     role="navigation"
     aria-label="分页"
     :class="classes.root"
-    v-bind="{ ...pt?.root }"
+    v-bind="pt?.root"
   >
     <!-- 总数显示 -->
     <span
       v-if="showTotal && !simple"
       :class="classes.totalText"
-      v-bind="{ ...pt?.total }"
+      v-bind="pt?.total"
     >
       <slot name="total" :total="total" :range="pageRange">
         {{ pageRange[0] }}-{{ pageRange[1] }} / {{ total }}
@@ -223,7 +227,7 @@ const handleSizeChange = (e: Event) => {
     </span>
 
     <!-- 每页条数选择器 -->
-    <div v-if="showSizeChanger && !simple" v-bind="{ ...pt?.sizeChanger }">
+    <div v-if="showSizeChanger && !simple" v-bind="pt?.sizeChanger">
       <slot name="sizeChanger">
         <select
           :class="classes.sizeSelect"
@@ -245,7 +249,7 @@ const handleSizeChange = (e: Event) => {
       :disabled="currentPage <= 1 || disabled"
       aria-label="上一页"
       @click="prevPage"
-      v-bind="{ ...pt?.prev }"
+      v-bind="pt?.prev"
     >
       <slot name="prev">
         <svg
@@ -279,7 +283,7 @@ const handleSizeChange = (e: Event) => {
           :data-active="currentPage === pager"
           :disabled="disabled"
           @click="goToPage(pager)"
-          v-bind="{ ...pt?.pageButtons }"
+          v-bind="pt?.pageButtons"
         >
           <slot name="pageItem" :page="pager" :active="currentPage === pager">
             {{ pager }}
@@ -347,7 +351,7 @@ const handleSizeChange = (e: Event) => {
       :disabled="currentPage >= totalPages || disabled"
       aria-label="下一页"
       @click="nextPage"
-      v-bind="{ ...pt?.next }"
+      v-bind="pt?.next"
     >
       <slot name="next">
         <svg
@@ -371,7 +375,7 @@ const handleSizeChange = (e: Event) => {
     <div
       v-if="showQuickJumper && !simple"
       class="flex items-center ml-2"
-      v-bind="{ ...pt?.quickJumper }"
+      v-bind="pt?.quickJumper"
     >
       <span class="text-sm mr-1">前往</span>
       <input
