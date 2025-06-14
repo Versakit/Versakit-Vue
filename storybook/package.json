@@ -1,13 +1,13 @@
 {
-  "name": "docs",
+  "name": "storybook",
   "private": true,
   "version": "0.0.1",
   "type": "module",
   "scripts": {
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "docs:dev": "storybook dev -p 6006",
-    "docs:build": "storybook build"
+    "storybook:dev": "storybook dev -p 6006",
+    "ued:build": "storybook build"
   },
   "dependencies": {
     "@versakit/vue": "workspace:*",
