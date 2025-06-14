@@ -1,0 +1,10 @@
+/* 使用Tailwind CSS 4的正确导入方式 */
+@import 'tailwindcss';
+
+/* 
+如果需要也可以这样配置主题:
+@theme {
+  --color-primary: #3b82f6;
+  --color-secondary: #10b981;
+}
+*/
