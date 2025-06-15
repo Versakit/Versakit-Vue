@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { VKButton } from '@versakit/vue'
 import MemberPage from './memberPage.vue'
 
 interface Feature {
@@ -113,19 +114,29 @@ const installCode =
 
         <!-- 操作按钮 -->
         <div class="mt-12 flex justify-center gap-6">
-          <a
-            href="/guide/getting-started"
-            class="px-8 py-4 text-lg rounded-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-500 hover:to-blue-500 transform hover:scale-105 transition-all duration-300 shadow-lg hover:shadow-purple-500/25"
-          >
-            开始使用
-          </a>
-          <a
-            href="https://github.com/Versakit/Versakit-Vue"
-            target="_blank"
-            class="px-8 py-4 text-lg rounded-full bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-white/20 transform hover:scale-105 transition-all duration-300"
-          >
-            GitHub
-          </a>
+          <VKButton variant="primary" size="lg">开始使用</VKButton>
+          <div class="flex items-center gap-2">
+            <VKButton variant="outline" size="lg">查看组件</VKButton>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              aria-hidden="true"
+              role="img"
+              width="1em"
+              height="1em"
+              viewBox="0 0 24 24"
+              class="iconify iconify--lucide"
+            >
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M5 12h14m-7-7l7 7l-7 7"
+              ></path>
+            </svg>
+          </div>
         </div>
       </div>
     </section>
