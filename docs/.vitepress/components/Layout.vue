@@ -64,6 +64,7 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
   --secondary-gradient: linear-gradient(135deg, #8ec5fc 0%, #e0c3fc 100%);
   --accent-color: #a18cd1;
   --accent-color-light: #fbc2eb;
+  scroll-behavior: smooth;
 }
 
 /* 暗色模式配置 */
@@ -92,6 +93,8 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
 .VPSidebar {
   border: none !important;
   background: transparent !important;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* 内容区域样式 */
@@ -108,6 +111,8 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
       transparent 50%
     );
   min-height: 100vh;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
 }
 
 .VPDoc {
@@ -136,25 +141,29 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
     transform 0.3s ease;
 }
 
-/* 滚动条美化 */
+/* 滚动条样式 */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 0;
+  height: 0;
+  background: transparent;
 }
 
 ::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 3px;
+  display: none;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--accent-color);
-  border-radius: 3px;
-  opacity: 0.5;
+  display: none;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  opacity: 0.8;
+  display: none;
+}
+
+/* 确保内容不会被隐藏的滚动条影响 */
+.VPDoc:not(.has-sidebar) .container {
+  max-width: 100%;
+  margin-right: 0;
 }
 
 /* 文本选择样式 */
@@ -209,5 +218,17 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
 
 .VPContent {
   animation: fadeIn 0.8s ease-out;
+}
+
+/* 优化滚动体验 */
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+body {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overflow-y: overlay;
 }
 </style>
