@@ -75,23 +75,23 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
   background: var(--vp-c-bg) !important;
 }
 
-/* 导航栏样式 */
-.VPNavBar.has-sidebar .content {
+.VPNavBar.top {
+  border: none !important;
   background: transparent !important;
 }
 
-.VPNavBar.top {
-  background: rgba(10, 10, 10, 0.8);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+.VPNavBar:not(.home.top) .content-body {
+  background: transparent !important;
+}
+
+.curtain {
+  background: transparent !important;
 }
 
 /* 侧边栏样式 */
 .VPSidebar {
-  background: rgba(10, 10, 10, 0.8) !important;
-  backdrop-filter: blur(20px);
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  border: none !important;
+  background: transparent !important;
 }
 
 /* 内容区域样式 */
@@ -111,19 +111,20 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
 }
 
 .VPDoc {
-  padding: 0 !important;
+  margin-top: 1rem !important;
+  padding: 1rem !important;
   overflow: visible !important;
   position: relative;
   transition: all 0.8s cubic-bezier(0.16, 0.85, 0.25, 1);
 }
 
+.vp-doc h2 {
+  border: none;
+}
+
 /* 布局调整 */
 .VPDoc.has-aside .container .content-container {
   max-width: 100%;
-}
-
-.VPDoc.has-aside .container .content {
-  padding: 0;
 }
 
 /* 全局动画过渡 */
@@ -188,6 +189,7 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
 .dark .vp-doc h3,
 .dark .vp-doc h4 {
   background: var(--primary-gradient);
+  background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   display: inline-block;
