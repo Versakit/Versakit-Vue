@@ -58,14 +58,11 @@ const { selectedIndex, select, registerTab, onKeyDown } = useTabs()
 }
 
 .tab-button-inactive {
+  color: #000;
   background-color: #f3f4f6;
 }
 
 .tabs-panels {
   margin-top: 1rem;
-}
-
-.tab-panel {
-  /* 可以在这里添加面板的样式 */
 }
 </style>
