@@ -1,7 +1,10 @@
 import { defineConfig } from 'vitepress'
+import { vitepressDemoPlugin } from 'vitepress-demo-plugin'
 import tailwindcss from '@tailwindcss/vite'
 import { getNav } from './config/nav.ts'
 import { getGuideSidebar } from './config/getGuideSidebar.ts'
+import { getComponentsSidebar } from './config/getComponentsSidebar.ts'
+
 import {
   groupIconMdPlugin,
   groupIconVitePlugin,
@@ -16,6 +19,7 @@ export default defineConfig({
     nav: getNav(),
     sidebar: {
       '/guide/': getGuideSidebar(),
+      '/components/': getComponentsSidebar(),
     } as any,
     socialLinks: [
       { icon: 'github', link: 'https://github.com/Versakit/Versakit-Vue' },
@@ -24,6 +28,7 @@ export default defineConfig({
   },
   markdown: {
     config(md) {
+      md.use(vitepressDemoPlugin)
       md.use(groupIconMdPlugin)
     },
   },

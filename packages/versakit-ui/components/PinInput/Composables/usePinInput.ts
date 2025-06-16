@@ -1,4 +1,3 @@
-// usePinInput.ts
 import { ref, nextTick } from 'vue'
 
 export function usePinInput(length = 4) {

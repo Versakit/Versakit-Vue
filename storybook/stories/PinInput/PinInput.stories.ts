@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
-import PinInputDemo from './PinInputDemo.vue'
+import PinInput from './PinInput.vue'
 
 const meta = {
   title: 'Components/PinInput',
-  component: PinInputDemo,
+  component: PinInput,
   tags: ['autodocs'],
   argTypes: {
     length: {
@@ -12,7 +12,7 @@ const meta = {
       defaultValue: 6,
     },
   },
-} satisfies Meta<typeof PinInputDemo>
+} satisfies Meta<typeof PinInput>
 
 export default meta
 type Story = StoryObj<typeof meta>

@@ -1,3 +1,3 @@
-import { usePinInput } from './Composables/usePinInput'
+import { usePinInput } from './composables/usePinInput'
 
 export { usePinInput }

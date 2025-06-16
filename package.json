@@ -8,7 +8,7 @@
     "packages/*"
   ],
   "scripts": {
-    "storybook": "pnpm --filter storybook storybook:dev",
+    "storybook": "pnpm --filter storybook storybook",
     "ui:build": "turbo run build --filter=@versakit/vue",
     "docs:dev": "pnpm --filter docs dev",
     "resolvers:build": "turbo run build --filter=resolvers",

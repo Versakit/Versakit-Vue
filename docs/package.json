@@ -17,8 +17,9 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.8",
+    "@versakit/vue": "workspace:*",
     "tailwindcss": "^4.1.8",
-    "vitepress-plugin-group-icons": "^1.6.0",
-    "@versakit/vue": "workspace:*"
+    "vitepress-demo-plugin": "^1.4.5",
+    "vitepress-plugin-group-icons": "^1.6.0"
   }
 }
