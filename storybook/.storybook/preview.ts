@@ -1,8 +1,5 @@
 import type { Preview } from '@storybook/vue3-vite'
 import { setup } from '@storybook/vue3-vite'
-import { registerComponents } from './registerComponents'
-// 导入组件库样式（如果有）
-import '@versakit/vue/style'
 
 const preview: Preview = {
   parameters: {
@@ -22,12 +19,20 @@ const preview: Preview = {
     },
     // 设置默认视图模式
     viewMode: 'docs',
+    // 添加暗黑模式支持
+    darkMode: {
+      current: 'light',
+      stylePreview: true,
+      classTarget: 'html',
+      darkClass: 'dark',
+      lightClass: 'light',
+    },
   },
   // 添加全局装饰器
   decorators: [
     (story) => ({
       components: { story },
-      template: '<div class="versakit-theme"><story /></div>',
+      template: '<div class="versakit-theme min-h-screen p-4"><story /></div>',
     }),
   ],
 }
@@ -35,7 +40,6 @@ const preview: Preview = {
 // 设置全局装饰器或插件
 setup((app) => {
   // 注册所有组件
-  registerComponents(app)
 })
 
 export default preview

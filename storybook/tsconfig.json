@@ -7,6 +7,6 @@
       "@versakit/vue": ["../packages/versakit-ui"]
     }
   },
-  "include": ["stories/**/*", ".storybook/**/*"],
+  "include": ["stories/**/*", ".storybook/**/*", "**/*.vue", "**/*.ts"],
   "exclude": ["node_modules", "dist"]
 }

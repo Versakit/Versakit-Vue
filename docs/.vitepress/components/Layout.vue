@@ -97,6 +97,11 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
   -webkit-overflow-scrolling: touch;
 }
 
+.VPDoc:not(.has-sidebar) .container {
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+
 /* 内容区域样式 */
 .VPContent {
   background:

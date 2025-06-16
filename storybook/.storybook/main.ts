@@ -1,6 +1,7 @@
 import { createRequire } from 'node:module'
 import { dirname, join } from 'node:path'
 import type { StorybookConfig } from '@storybook/vue3-vite'
+import vue from '@vitejs/plugin-vue'
 
 const require = createRequire(import.meta.url)
 
@@ -21,7 +22,10 @@ const config: StorybookConfig = {
   },
 
   viteFinal: async (config) => {
-    // Add custom Vite config if needed
+    // Add Vue plugin
+    config.plugins = config.plugins || []
+    config.plugins.push(vue())
+
     return config
   },
 }

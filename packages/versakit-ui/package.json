@@ -55,8 +55,6 @@
   },
   "devDependencies": {
     "@popperjs/core": "^2.11.8",
-    "@versakit/icons": "workspace:*",
-    "@versakit/shared": "workspace:*",
     "@vitejs/plugin-vue": "^5.1.4",
     "@vitejs/plugin-vue-jsx": "^4.1.1",
     "@vueuse/core": "^13.0.0",

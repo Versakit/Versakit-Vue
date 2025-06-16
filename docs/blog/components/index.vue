@@ -23,6 +23,9 @@ const posts = ref([
     <div class="relative overflow-hidden border-b border-neutral-800">
       <div class="relative container mx-auto px-6 py-20 text-center">
         <h1 class="text-5xl font-bold text-white mb-6">最新动态</h1>
+
+        <br />
+
         <p class="text-xl text-neutral-400">
           发现 Versakit 的最新动态、技术文章和使用教程
         </p>

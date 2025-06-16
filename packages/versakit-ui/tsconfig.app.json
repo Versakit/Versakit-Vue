@@ -5,7 +5,9 @@
     "components/**/*",
     "components/**/*.vue",
     "directives/**/*",
-    "utils/**/*"
+    "utils/**/*",
+    "../../storybook/stories/PinInput/PinInputDemo.vue",
+    "../../storybook/stories/PinInput/PinInput.stories.ts"
   ],
   "exclude": ["components/**/__tests__/*"],
   "compilerOptions": {

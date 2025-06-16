@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { VKButton } from '@versakit/vue'
 import MemberPage from './memberPage.vue'
 
 interface Feature {
@@ -56,11 +55,11 @@ const stats = ref<Stat[]>([
 
 const installCode =
   '# 使用 npm\n' +
-  'npm install @versakit/ui\n\n' +
+  'npm install @versakit/vue\n\n' +
   '# 使用 yarn\n' +
-  'yarn add @versakit/ui\n\n' +
+  'yarn add @versakit/vue\n\n' +
   '# 使用 pnpm\n' +
-  'pnpm add @versakit/ui'
+  'pnpm add @versakit/vue'
 </script>
 
 <template>
@@ -114,9 +113,13 @@ const installCode =
 
         <!-- 操作按钮 -->
         <div class="mt-12 flex justify-center gap-6">
-          <VKButton variant="primary" size="lg">开始使用</VKButton>
+          <button class="bg-purple-500 text-white px-6 py-3 rounded-lg">
+            开始使用
+          </button>
           <div class="flex items-center gap-2">
-            <VKButton variant="outline" size="lg">查看组件</VKButton>
+            <button class="bg-white text-purple-500 px-6 py-3 rounded-lg">
+              查看组件
+            </button>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"
