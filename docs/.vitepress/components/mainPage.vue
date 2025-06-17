@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import MemberPage from './memberPage.vue'
 
 interface Feature {
@@ -16,23 +16,30 @@ interface Stat {
 const features = ref<Feature[]>([
   {
     icon: '🚀',
-    title: '高质量组件',
-    description: '提供20+个精心设计的高质量通用组件，满足桌面端开发需求',
+    title: '函数驱动',
+    description:
+      '基于 Composition API 设计的函数式 API，提供灵活的逻辑复用能力',
   },
   {
-    icon: '💪',
-    title: '中国开发者',
-    description: '由中国开发者开发，提供完整的中英文文档和后勤支持',
+    icon: '🎨',
+    title: '无头组件',
+    description:
+      '提供纯逻辑组件，让开发者完全掌控 UI 渲染，实现最大的样式自由度',
   },
   {
     icon: '🛠️',
-    title: '丰富功能',
-    description: '支持按需引入、主题定制、国际化、TypeScript、暗黑模式等特性',
+    title: '类型友好',
+    description: '使用 TypeScript 构建，提供完整的类型定义，享受一流的开发体验',
   },
   {
-    icon: '♿',
-    title: '可访问性',
-    description: '遵循 WAI-ARIA 标准，持续改进无障碍访问支持',
+    icon: '📦',
+    title: '轻量高效',
+    description: '无样式依赖，支持按需引入，让您的应用保持轻量快速',
+  },
+  {
+    icon: '☃️',
+    title: '国人开发',
+    description: '由国人开发，提供完整的中英文文档和后勤支持',
   },
 ])
 
@@ -60,12 +67,34 @@ const installCode =
   'yarn add @versakit/vue\n\n' +
   '# 使用 pnpm\n' +
   'pnpm add @versakit/vue'
+
+// 添加滚动动画
+onMounted(() => {
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show')
+        }
+      })
+    },
+    {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px',
+    },
+  )
+
+  // 观察所有需要动画的元素
+  document.querySelectorAll('.fade-in').forEach((el) => {
+    observer.observe(el)
+  })
+})
 </script>
 
 <template>
-  <div class="min-h-screen">
+  <div class="min-h-screen smooth-scroll">
     <!-- Hero 区域 -->
-    <section class="relative py-32 overflow-hidden">
+    <section class="relative py-32 overflow-hidden fade-in">
       <div class="container mx-auto px-4 text-center">
         <!-- 版本徽章 -->
         <div class="flex justify-center mb-8">
@@ -104,42 +133,53 @@ const installCode =
           <p class="text-2xl text-gray-300 leading-relaxed">
             为 Vue3 打造的
             <span class="text-purple-400 font-semibold">现代化</span>
-            桌面端组件库
+            组件库
           </p>
           <p class="text-xl text-gray-400 leading-relaxed">
-            开源、高质量、可定制的组件库，助力开发者构建令人惊叹的用户界面
+            开源、函数驱动的无头组件库，提供纯逻辑复用能力，让开发者自由掌控UI渲染
           </p>
         </div>
 
         <!-- 操作按钮 -->
         <div class="mt-12 flex justify-center gap-6">
-          <button class="bg-purple-500 text-white px-6 py-3 rounded-lg">
-            开始使用
-          </button>
-          <div class="flex items-center gap-2">
-            <button class="bg-white text-purple-500 px-6 py-3 rounded-lg">
-              查看组件
-            </button>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-              aria-hidden="true"
-              role="img"
-              width="1em"
-              height="1em"
-              viewBox="0 0 24 24"
-              class="iconify iconify--lucide"
-            >
-              <path
+          <a href="/guide/getting-started" class="action-button primary">
+            <span class="button-content">
+              <span>开始使用</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M5 12h14m-7-7l7 7l-7 7"
-              ></path>
-            </svg>
-          </div>
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
+                />
+              </svg>
+            </span>
+          </a>
+          <a href="/components/" class="action-button secondary">
+            <span class="button-content">
+              <span>查看组件</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-5 w-5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </span>
+          </a>
         </div>
       </div>
     </section>
@@ -154,7 +194,7 @@ const installCode =
           <div
             v-for="stat in stats"
             :key="stat.label"
-            class="group p-8 rounded-2xl bg-gradient-to-br from-white/5 to-white/10 border border-white/10 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300 backdrop-blur-sm text-center transform hover:scale-105"
+            class="group p-8 rounded-2xl bg-gradient-to-br from-white/5 to-white/10 border border-white/10 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300 backdrop-blur-sm text-center transform hover:scale-105 fade-in slide-up"
           >
             <div class="relative">
               <div
@@ -172,7 +212,7 @@ const installCode =
           </div>
         </div>
 
-        <div class="text-center mb-16">
+        <div class="text-center mb-16 fade-in">
           <h2
             class="text-4xl font-bold inline-block bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500"
           >
@@ -185,9 +225,10 @@ const installCode =
 
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
           <div
-            v-for="feature in features"
+            v-for="(feature, index) in features"
             :key="feature.title"
-            class="group relative p-6 rounded-2xl bg-gradient-to-br from-white/5 to-white/10 border border-white/10 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300 backdrop-blur-sm"
+            class="group relative p-6 rounded-2xl bg-gradient-to-br from-white/5 to-white/10 border border-white/10 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300 backdrop-blur-sm fade-in slide-up"
+            :style="{ animationDelay: index * 100 + 'ms' }"
           >
             <div class="flex flex-col space-y-4">
               <div
@@ -216,7 +257,7 @@ const installCode =
     <!-- 安装指南 -->
     <section class="py-24 relative">
       <div class="container mx-auto px-6">
-        <div class="max-w-4xl mx-auto">
+        <div class="max-w-4xl mx-auto fade-in slide-up">
           <div class="text-center mb-16">
             <h2
               class="text-4xl font-bold inline-block bg-clip-text text-transparent bg-gradient-to-r from-purple-500 to-blue-500"
@@ -332,7 +373,7 @@ const installCode =
     </section>
 
     <!-- 团队展示 -->
-    <MemberPage />
+    <MemberPage class="fade-in" />
 
     <!-- 页脚 -->
     <footer class="py-12 text-center text-gray-500 border-t border-white/10">
@@ -416,18 +457,226 @@ pre::-webkit-scrollbar-thumb:hover {
   animation: gradient 10s linear infinite;
 }
 
-/* 卡片悬停效果 */
-.feature-card {
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+/* 特性卡片样式 */
+.grid {
+  --gap: 2rem;
+  display: grid;
+  gap: var(--gap);
 }
 
-.feature-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px -15px rgba(168, 85, 247, 0.25);
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}
+
+.group {
+  position: relative;
+  backdrop-filter: blur(20px);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.group::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(168, 85, 247, 0.1),
+    rgba(59, 130, 246, 0.1)
+  );
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.group:hover::before {
+  opacity: 1;
+}
+
+.group:hover {
+  transform: translateY(-5px);
+  border-color: rgba(168, 85, 247, 0.5);
+  box-shadow:
+    0 10px 30px -10px rgba(168, 85, 247, 0.3),
+    0 0 0 1px rgba(168, 85, 247, 0.2);
+}
+
+/* 图标容器样式 */
+.group .w-14 {
+  position: relative;
+  background: linear-gradient(
+    135deg,
+    rgba(168, 85, 247, 0.2),
+    rgba(59, 130, 246, 0.2)
+  );
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  transition: all 0.3s ease;
+}
+
+.group:hover .w-14 {
+  transform: scale(1.1);
+  background: linear-gradient(
+    135deg,
+    rgba(168, 85, 247, 0.3),
+    rgba(59, 130, 246, 0.3)
+  );
+  border-color: rgba(168, 85, 247, 0.5);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.2);
+}
+
+/* 标题样式 */
+.group h3 {
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.group:hover h3 {
+  transform: translateX(5px);
+}
+
+/* 描述文本样式 */
+.group p {
+  position: relative;
+  transition: all 0.3s ease;
+  line-height: 1.6;
+}
+
+.group:hover p {
+  color: rgba(255, 255, 255, 0.7);
 }
 
 /* 文字发光效果 */
 .hover-glow:hover {
   text-shadow: 0 0 20px rgba(168, 85, 247, 0.5);
+}
+
+/* 操作按钮样式 */
+.action-button {
+  position: relative;
+  padding: 0;
+  border-radius: 12px;
+  font-weight: 500;
+  font-size: 1.05rem;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.action-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(168, 85, 247, 0.5),
+    rgba(59, 130, 246, 0.5)
+  );
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.action-button:hover::before {
+  opacity: 1;
+}
+
+.button-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+}
+
+.action-button svg {
+  transition: transform 0.3s ease;
+}
+
+.action-button:hover svg {
+  transform: translateX(4px);
+}
+
+/* 主要按钮 */
+.action-button.primary {
+  background: linear-gradient(135deg, rgb(168, 85, 247), rgb(59, 130, 246));
+  color: white;
+  box-shadow:
+    0 4px 12px rgba(168, 85, 247, 0.25),
+    0 0 0 1px rgba(168, 85, 247, 0.1);
+}
+
+.action-button.primary:hover {
+  box-shadow:
+    0 8px 20px rgba(168, 85, 247, 0.35),
+    0 0 0 1px rgba(168, 85, 247, 0.2);
+  transform: translateY(-2px);
+}
+
+/* 次要按钮 */
+.action-button.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.action-button.secondary:hover {
+  border-color: rgba(168, 85, 247, 0.5);
+  color: white;
+  box-shadow:
+    0 8px 20px rgba(168, 85, 247, 0.2),
+    0 0 0 1px rgba(168, 85, 247, 0.1);
+  transform: translateY(-2px);
+}
+
+/* 平滑滚动 */
+.smooth-scroll {
+  scroll-behavior: smooth;
+}
+
+/* 基础动画类 */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.fade-in.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 向上滑动动画 */
+.slide-up {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: opacity, transform;
+}
+
+.slide-up.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* 特性卡片的交错动画 */
+.grid .group {
+  transition-delay: var(--animation-delay, 0ms);
+}
+
+/* 优化动画性能 */
+@media (prefers-reduced-motion: reduce) {
+  .smooth-scroll {
+    scroll-behavior: auto;
+  }
+
+  .fade-in,
+  .slide-up {
+    transition: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 </style>
