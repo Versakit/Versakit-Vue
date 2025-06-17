@@ -142,7 +142,7 @@ onMounted(() => {
 
         <!-- 操作按钮 -->
         <div class="mt-12 flex justify-center gap-6">
-          <a href="/guide/getting-started" class="action-button primary">
+          <a href="/Versakit-Vue/guide/versakit/" class="action-button primary">
             <span class="button-content">
               <span>开始使用</span>
               <svg
@@ -161,7 +161,10 @@ onMounted(() => {
               </svg>
             </span>
           </a>
-          <a href="/components/" class="action-button secondary">
+          <a
+            href="/Versakit-Vue/components/tabs/"
+            class="action-button secondary"
+          >
             <span class="button-content">
               <span>查看组件</span>
               <svg
