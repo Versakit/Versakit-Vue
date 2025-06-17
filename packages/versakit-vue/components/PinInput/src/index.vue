@@ -20,12 +20,13 @@
 <script setup lang="ts">
 import { usePinInput } from '@versakit/composables'
 import { pinInput } from './index.variants'
+import type { PinInputProps } from './type'
 
-const props = defineProps<{
-  length?: number
-  size?: 'sm' | 'md' | 'lg'
-  state?: 'default' | 'error' | 'success'
-}>()
+const props = withDefaults(defineProps<PinInputProps>(), {
+  length: 4,
+  size: 'md',
+  state: 'default',
+})
 
 const { values, setRef, onInput, onKeydown } = usePinInput(props.length ?? 4)
 
