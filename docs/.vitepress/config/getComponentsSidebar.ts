@@ -15,7 +15,10 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
     },
     {
       text: 'Form 表单组件',
-      items: [{ text: 'PinInput 验证码输入', link: '/components/pininput/' }],
+      items: [
+        { text: 'PinInput 验证码输入', link: '/components/pininput/' },
+        { text: 'Switch 开关', link: '/components/switch/' },
+      ],
     },
   ]
 }
