@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { useTooltip } from '@versakit/vue'
+import { useTooltip } from '@versakit/hooks'
 
 const {
   isOpen,

@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { usePopover } from '@versakit/vue'
+import { usePopover } from '@versakit/hooks'
 
 const { isOpen, close, toggle, triggerRef, popoverRef } = usePopover()
 </script>
