@@ -14,13 +14,13 @@
  *  useDateTimePicker
  */
 
-import { usePinInput } from './hooks/PinInput/index'
-import { useDialog } from './hooks/Dialog/index'
-import { useTabs } from './hooks/Tabs/index'
-import { useDrawer } from './hooks/Drawer/index'
-import { useTooltip } from './hooks/Tooltip/index'
-import { usePopover } from './hooks/Popover/index'
-import { useSwitch } from './hooks/Switch/index'
+import { usePinInput } from './composables/PinInput/index'
+import { useDialog } from './composables/Dialog/index'
+import { useTabs } from './composables/Tabs/index'
+import { useDrawer } from './composables/Drawer/index'
+import { useTooltip } from './composables/Tooltip/index'
+import { usePopover } from './composables/Popover/index'
+import { useSwitch } from './composables/Switch/index'
 
 export {
   usePinInput,

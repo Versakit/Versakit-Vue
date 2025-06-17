@@ -8,10 +8,9 @@
     "packages/*"
   ],
   "scripts": {
-    "storybook": "pnpm --filter storybook storybook",
-    "ui:build": "turbo run build --filter=@versakit/composables",
+    "composables:build": "turbo run build --filter=@versakit/composables",
     "docs:dev": "pnpm --filter docs dev",
-    "resolvers:build": "turbo run build --filter=resolvers",
+    "storybook": "pnpm --filter storybook storybook",
     "preinstall": "node ./scripts/preinstall.js",
     "lint": "turbo run lint",
     "format": "prettier --write \"./**/*.{html,vue,ts,js,json,md}\"",
