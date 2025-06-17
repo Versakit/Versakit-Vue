@@ -8,7 +8,10 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
     },
     {
       text: 'Feedback 反馈组件',
-      items: [{ text: 'Dialog 对话框', link: '/components/dialog/' }],
+      items: [
+        { text: 'Dialog 对话框', link: '/components/dialog/' },
+        { text: 'Drawer 抽屉', link: '/components/drawer/' },
+      ],
     },
     {
       text: 'Form 表单组件',
