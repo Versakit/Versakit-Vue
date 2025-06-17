@@ -23,7 +23,10 @@ export default defineConfig({
     } as any,
     socialLinks: [
       { icon: 'github', link: 'https://github.com/Versakit/Versakit-Vue' },
-      { icon: 'npm', link: 'https://www.npmjs.com/package/@versakit/vue' },
+      {
+        icon: 'npm',
+        link: 'https://www.npmjs.com/package/@versakit/composables',
+      },
     ],
   },
   markdown: {

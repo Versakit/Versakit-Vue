@@ -62,11 +62,11 @@ const stats = ref<Stat[]>([
 
 const installCode =
   '# 使用 npm\n' +
-  'npm install @versakit/vue\n\n' +
+  'npm install @versakit/composables\n\n' +
   '# 使用 yarn\n' +
-  'yarn add @versakit/vue\n\n' +
+  'yarn add @versakit/composables\n\n' +
   '# 使用 pnpm\n' +
-  'pnpm add @versakit/vue'
+  'pnpm add @versakit/composables'
 
 // 添加滚动动画
 onMounted(() => {

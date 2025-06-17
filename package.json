@@ -9,7 +9,7 @@
   ],
   "scripts": {
     "storybook": "pnpm --filter storybook storybook",
-    "ui:build": "turbo run build --filter=@versakit/vue",
+    "ui:build": "turbo run build --filter=@versakit/composables",
     "docs:dev": "pnpm --filter docs dev",
     "resolvers:build": "turbo run build --filter=resolvers",
     "preinstall": "node ./scripts/preinstall.js",

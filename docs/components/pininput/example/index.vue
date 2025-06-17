@@ -18,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { usePinInput } from '@versakit/vue'
+import { usePinInput } from '@versakit/composables'
 
 interface Props {
   length?: number

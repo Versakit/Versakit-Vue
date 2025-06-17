@@ -4,7 +4,7 @@
     "outDir": "dist",
     "types": ["node", "vite/client"],
     "paths": {
-      "@versakit/vue": ["../packages/versakit-ui"]
+      "@versakit/composables": ["../packages/versakit-ui"]
     }
   },
   "include": ["stories/**/*", ".storybook/**/*", "**/*.vue", "**/*.ts"],

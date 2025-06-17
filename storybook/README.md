@@ -37,7 +37,7 @@ pnpm build-storybook
 ```typescript
 // MyComponent.stories.ts
 import type { Meta, StoryObj } from '@storybook/vue3'
-import { MyComponent } from '@versakit/vue'
+import { MyComponent } from '@versakit/composables'
 
 const meta: Meta<typeof MyComponent> = {
 	title: 'Components/MyComponent',

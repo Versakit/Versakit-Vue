@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { useSwitch } from '@versakit/vue'
+import { useSwitch } from '@versakit/composables'
 
 const { checked, toggle, onKeyDown, disabled } = useSwitch()
 </script>

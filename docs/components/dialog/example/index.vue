@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { useDialog } from '@versakit/vue'
+import { useDialog } from '@versakit/composables'
 
 const { isOpen, open, close, dialogRef, overlayRef, onOverlayClick } =
   useDialog()
