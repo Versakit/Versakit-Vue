@@ -20,5 +20,14 @@ import { useTabs } from './components/Tabs/index'
 import { useDrawer } from './components/Drawer/index'
 import { useTooltip } from './components/Tooltip/index'
 import { usePopover } from './components/Popover/index'
+import { useSwitch } from './components/Switch/index'
 
-export { usePinInput, useDialog, useTabs, useDrawer, useTooltip, usePopover }
+export {
+  usePinInput,
+  useDialog,
+  useTabs,
+  useDrawer,
+  useTooltip,
+  usePopover,
+  useSwitch,
+}
