@@ -1,3 +1,7 @@
+---
+layout: page
+---
+
 <Bolg />
 
 <script setup>

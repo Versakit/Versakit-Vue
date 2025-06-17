@@ -5,7 +5,6 @@ export default {
   content: [
     './.vitepress/**/*.{js,ts,vue}',
     './components/**/*.{js,ts,vue}',
-    '../components/**/*.{js,ts,vue}',
     './**/*.md',
   ],
   theme: {

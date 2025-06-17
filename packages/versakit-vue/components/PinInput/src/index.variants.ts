@@ -4,9 +4,9 @@ export const pinInput = tv({
   base: 'w-10 h-10 text-center border rounded outline-none transition-colors',
   variants: {
     state: {
-      default: 'border-gray-300 focus:border-blue-500',
-      error: 'border-red-500 focus:border-red-600',
-      success: 'border-green-500 focus:border-green-600',
+      default: 'border-gray-300 focus:border-blue-500 border-2 border-solid',
+      error: 'border-red-500 focus:border-red-600 border-2 border-solid',
+      success: 'border-green-500 focus:border-green-600 border-2 border-solid',
     },
     size: {
       sm: 'w-8 h-8 text-sm',

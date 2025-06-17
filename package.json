@@ -8,6 +8,7 @@
     "packages/*"
   ],
   "scripts": {
+    "ui:build": "pnpm --filter @versakit/vue build",
     "composables:build": "turbo run build --filter=@versakit/composables",
     "docs:dev": "pnpm --filter docs dev",
     "storybook": "pnpm --filter storybook storybook",
