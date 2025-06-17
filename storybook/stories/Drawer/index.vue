@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { useDrawer } from '@versakit/hooks'
+import { useDrawer } from '@versakit/composables'
 
 const { isOpen, open, close, drawerRef, overlayRef, onOverlayClick } =
   useDrawer()

@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { useTabs } from '@versakit/hooks'
+import { useTabs } from '@versakit/composables'
 
 const tabs = ['选项一', '选项二', '选项三']
 const panels = ['内容一', '内容二', '内容三']
