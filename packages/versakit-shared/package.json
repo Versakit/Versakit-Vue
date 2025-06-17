@@ -1,0 +1,19 @@
+{
+  "name": "@versakit/shared",
+  "version": "1.0.0",
+  "description": "Shared utilities for VersaKit",
+  "main": "index.ts",
+  "types": "index.ts",
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "echo \"No build step needed for shared package\"",
+    "lint": "eslint --ext .ts .",
+    "lint:fix": "eslint --ext .ts . --fix",
+    "clean": "echo \"No clean step needed\""
+  },
+  "peerDependencies": {
+    "vue": "^3.0.0"
+  }
+}
