@@ -7,5 +7,9 @@ export const getNav = (): DefaultTheme.NavItem[] => {
     { text: '组件', link: '/components/tabs/' },
     { text: '函数', link: '/composables/tabs/' },
     { text: '博客', link: '/blog/' },
+    {
+      text: '生态',
+      items: [{ text: 'Pilot', link: 'https://versakit.github.io/Pilot/' }],
+    },
   ]
 }
