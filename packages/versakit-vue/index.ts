@@ -5,6 +5,7 @@ import { VKDialog } from './components/Dialog'
 import { VKAvatar } from './components/Avatar'
 import { VKBadge } from './components/Badge'
 import { VKSwitch } from './components/Switch'
+import { VKDrawer } from './components/Drawer'
 
 // 引入样式
 import './style/index.css'
@@ -16,9 +17,10 @@ const components: Component[] = [
   VKAvatar,
   VKBadge,
   VKSwitch,
+  VKDrawer,
 ]
 
-export { VKPinInput, VKTabs, VKDialog, VKAvatar, VKBadge, VKSwitch }
+export { VKPinInput, VKTabs, VKDialog, VKAvatar, VKBadge, VKSwitch, VKDrawer }
 
 const Versakit = {
   install: (app: App) => {

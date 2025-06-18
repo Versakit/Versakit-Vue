@@ -1,77 +1,184 @@
-<template>
-  <button @click="open" class="open-button">打开 Drawer</button>
-
-  <teleport to="body">
-    <div v-if="isOpen" ref="overlayRef" class="overlay" @click="onOverlayClick">
-      <aside ref="drawerRef" class="drawer" role="dialog" aria-modal="true">
-        <h2 class="drawer-title">抽屉内容</h2>
-        <p class="drawer-content">你可以在这里放置任意内容。</p>
-        <button @click="close" class="close-button">关闭</button>
-      </aside>
-    </div>
-  </teleport>
-</template>
-
 <script setup lang="ts">
-import { useDrawer } from '@versakit/composables'
+import { ref } from 'vue'
+import { VKDrawer } from '@versakit/vue'
+import '@versakit/vue/style'
 
-const { isOpen, open, close, drawerRef, overlayRef, onOverlayClick } =
-  useDrawer()
+const isDrawerOpen = ref(false)
+const isLeftDrawerOpen = ref(false)
+const isTopDrawerOpen = ref(false)
+const isBottomDrawerOpen = ref(false)
+const isNoOverlayDrawerOpen = ref(false)
+const isCustomSizeDrawerOpen = ref(false)
+
+const openDrawer = () => {
+  isDrawerOpen.value = true
+}
+
+const openLeftDrawer = () => {
+  isLeftDrawerOpen.value = true
+}
+
+const openTopDrawer = () => {
+  isTopDrawerOpen.value = true
+}
+
+const openBottomDrawer = () => {
+  isBottomDrawerOpen.value = true
+}
+
+const openNoOverlayDrawer = () => {
+  isNoOverlayDrawerOpen.value = true
+}
+
+const openCustomSizeDrawer = () => {
+  isCustomSizeDrawerOpen.value = true
+}
 </script>
 
-<style scoped>
-.open-button {
-  background-color: #2563eb;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  border: none;
-  cursor: pointer;
-}
+<template>
+  <div class="space-y-8">
+    <section>
+      <h2 class="text-lg font-medium mb-4">基础用法</h2>
+      <div class="flex gap-4">
+        <button
+          @click="openDrawer"
+          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+        >
+          打开右侧抽屉
+        </button>
 
-.overlay {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 40;
-}
+        <VKDrawer v-model="isDrawerOpen" title="右侧抽屉">
+          <div class="p-4">
+            <p>这是一个基础的右侧抽屉示例</p>
+          </div>
+        </VKDrawer>
+      </div>
+    </section>
 
-.drawer {
-  position: fixed;
-  right: 0;
-  top: 0;
-  height: 100%;
-  width: 20rem;
-  background-color: rgb(59, 59, 59);
-  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
-  padding: 1.5rem;
-  z-index: 50;
-  transition: transform 0.3s ease-in-out;
-}
+    <section>
+      <h2 class="text-lg font-medium mb-4">不同位置</h2>
+      <div class="flex gap-4">
+        <button
+          @click="openLeftDrawer"
+          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+        >
+          左侧抽屉
+        </button>
 
-.drawer-title {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
+        <button
+          @click="openTopDrawer"
+          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+        >
+          顶部抽屉
+        </button>
 
-.drawer-content {
-  margin-bottom: 1rem;
-}
+        <button
+          @click="openBottomDrawer"
+          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+        >
+          底部抽屉
+        </button>
 
-.close-button {
-  background-color: #383838;
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.25rem;
-  border: none;
-  cursor: pointer;
-}
+        <VKDrawer v-model="isLeftDrawerOpen" placement="left" title="左侧抽屉">
+          <div class="p-4">
+            <p>这是一个左侧抽屉示例</p>
+          </div>
+        </VKDrawer>
 
-.close-button:hover {
-  background-color: #9ca3af;
-}
+        <VKDrawer v-model="isTopDrawerOpen" placement="top" title="顶部抽屉">
+          <div class="p-4">
+            <p>这是一个顶部抽屉示例</p>
+          </div>
+        </VKDrawer>
 
-.open-button:hover {
-  background-color: #1d4ed8;
-}
-</style>
+        <VKDrawer
+          v-model="isBottomDrawerOpen"
+          placement="bottom"
+          title="底部抽屉"
+        >
+          <div class="p-4">
+            <p>这是一个底部抽屉示例</p>
+          </div>
+        </VKDrawer>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-lg font-medium mb-4">无遮罩层</h2>
+      <div class="flex gap-4">
+        <button
+          @click="openNoOverlayDrawer"
+          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+        >
+          无遮罩层抽屉
+        </button>
+
+        <VKDrawer
+          v-model="isNoOverlayDrawerOpen"
+          :showOverlay="false"
+          title="无遮罩层"
+        >
+          <div class="p-4">
+            <p>这是一个无遮罩层的抽屉示例</p>
+            <p>点击关闭按钮关闭抽屉</p>
+          </div>
+        </VKDrawer>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-lg font-medium mb-4">自定义大小</h2>
+      <div class="flex gap-4">
+        <button
+          @click="openCustomSizeDrawer"
+          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+        >
+          自定义大小抽屉
+        </button>
+
+        <VKDrawer
+          v-model="isCustomSizeDrawerOpen"
+          size="500px"
+          title="自定义大小"
+        >
+          <div class="p-4">
+            <p>这是一个自定义大小的抽屉示例，宽度为500px</p>
+          </div>
+        </VKDrawer>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-lg font-medium mb-4">自定义页脚</h2>
+      <div class="flex gap-4">
+        <button
+          @click="isDrawerOpen = true"
+          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+        >
+          带页脚的抽屉
+        </button>
+
+        <VKDrawer v-model="isDrawerOpen" title="自定义页脚">
+          <div class="p-4">
+            <p>这是一个带有自定义页脚的抽屉示例</p>
+          </div>
+
+          <template #footer>
+            <button
+              @click="isDrawerOpen = false"
+              class="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+            >
+              取消
+            </button>
+            <button
+              @click="isDrawerOpen = false"
+              class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+            >
+              确认
+            </button>
+          </template>
+        </VKDrawer>
+      </div>
+    </section>
+  </div>
+</template>
