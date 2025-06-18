@@ -3,9 +3,16 @@ import { ref, onUnmounted, watch } from 'vue'
 export function useDialog(options?: { onClose?: () => void }) {
   const isOpen = ref(false)
 
-  const open = () => (isOpen.value = true)
+  const open = () => {
+    console.log('Dialog opening...')
+    isOpen.value = true
+    console.log('isOpen after open:', isOpen.value)
+  }
+
   const close = () => {
+    console.log('Dialog closing...')
     isOpen.value = false
+    console.log('isOpen after close:', isOpen.value)
     options?.onClose?.()
   }
 
@@ -19,6 +26,7 @@ export function useDialog(options?: { onClose?: () => void }) {
   }
 
   watch(isOpen, (val) => {
+    console.log('isOpen changed to:', val)
     if (val) document.addEventListener('keydown', onKeyDown)
     else document.removeEventListener('keydown', onKeyDown)
   })

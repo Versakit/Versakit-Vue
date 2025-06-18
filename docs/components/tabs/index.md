@@ -4,8 +4,7 @@ Tabs（标签页）组件是一种常见的界面模式，用于在有限空间�
 
 ```Typescript
 // 使用
-import { useTabs } from '@versakit/composables'
-const { selectedIndex, select, registerTab, onKeyDown } = useTabs()
+import { VKTabs } from '@versakit/vue'
 ```
 
 ## 使用
