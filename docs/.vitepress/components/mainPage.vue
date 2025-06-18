@@ -197,7 +197,7 @@ onMounted(() => {
           <div
             v-for="stat in stats"
             :key="stat.label"
-            class="group p-8 rounded-2xl bg-gradient-to-br from-white/5 to-white/10 border border-white/10 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300 backdrop-blur-sm text-center transform hover:scale-105 fade-in slide-up"
+            class="group stat-card p-8 rounded-2xl border hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300 backdrop-blur-sm text-center transform hover:scale-105 fade-in slide-up"
           >
             <div class="relative">
               <div
@@ -230,7 +230,7 @@ onMounted(() => {
           <div
             v-for="(feature, index) in features"
             :key="feature.title"
-            class="group relative p-6 rounded-2xl bg-gradient-to-br from-white/5 to-white/10 border border-white/10 hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300 backdrop-blur-sm fade-in slide-up"
+            class="group feature-card relative p-6 rounded-2xl border hover:border-purple-500/50 hover:shadow-lg hover:shadow-purple-500/10 transition-all duration-300 backdrop-blur-sm fade-in slide-up"
             :style="{ animationDelay: index * 100 + 'ms' }"
           >
             <div class="flex flex-col space-y-4">
@@ -395,6 +395,30 @@ onMounted(() => {
 </template>
 
 <style scoped>
+:root {
+  --vk-bg-card: rgba(255, 255, 255, 0.05);
+  --vk-border-color: rgba(255, 255, 255, 0.1);
+  --vk-text-primary: rgba(255, 255, 255, 0.9);
+  --vk-text-secondary: rgba(255, 255, 255, 0.7);
+  --vk-text-tertiary: rgba(255, 255, 255, 0.4);
+}
+
+html.dark {
+  --vk-bg-card: rgba(255, 255, 255, 0.05);
+  --vk-border-color: rgba(255, 255, 255, 0.1);
+  --vk-text-primary: rgba(255, 255, 255, 0.9);
+  --vk-text-secondary: rgba(255, 255, 255, 0.7);
+  --vk-text-tertiary: rgba(255, 255, 255, 0.4);
+}
+
+html.light {
+  --vk-bg-card: rgba(255, 255, 255, 0.9);
+  --vk-border-color: rgba(0, 0, 0, 0.1);
+  --vk-text-primary: rgba(0, 0, 0, 0.9);
+  --vk-text-secondary: rgba(0, 0, 0, 0.7);
+  --vk-text-tertiary: rgba(0, 0, 0, 0.4);
+}
+
 .language-vue,
 .language-bash {
   background: transparent !important;
@@ -405,7 +429,7 @@ onMounted(() => {
 
 .language-vue code,
 .language-bash code {
-  color: #a18cd1 !important;
+  color: var(--vk-text-primary) !important;
   font-size: 0.9rem !important;
   line-height: 1.5 !important;
 }
@@ -478,6 +502,9 @@ pre::-webkit-scrollbar-thumb:hover {
   backdrop-filter: blur(20px);
   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   overflow: hidden;
+  background: var(--vk-bg-card);
+  border: 1px solid var(--vk-border-color);
+  color: var(--vk-text-primary);
 }
 
 .group::before {
@@ -618,10 +645,10 @@ pre::-webkit-scrollbar-thumb:hover {
 
 /* 次要按钮 */
 .action-button.secondary {
-  background: rgba(255, 255, 255, 0.1);
-  color: rgba(255, 255, 255, 0.9);
+  background: var(--vk-bg-card);
+  color: var(--vk-text-primary);
   backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--vk-border-color);
 }
 
 .action-button.secondary:hover {
@@ -681,5 +708,32 @@ pre::-webkit-scrollbar-thumb:hover {
     opacity: 1;
     transform: none;
   }
+}
+
+/* 修改文字颜色 */
+.text-gray-400 {
+  color: var(--vk-text-secondary);
+}
+
+.text-gray-300 {
+  color: var(--vk-text-primary);
+}
+
+/* 修改安装指南区域 */
+.relative.rounded-xl {
+  background: var(--vk-bg-card);
+  border-color: var(--vk-border-color);
+}
+
+/* 修改统计卡片 */
+.stat-card {
+  background: var(--vk-bg-card);
+  border-color: var(--vk-border-color);
+}
+
+/* 修改特性卡片 */
+.feature-card {
+  background: var(--vk-bg-card);
+  border-color: var(--vk-border-color);
 }
 </style>
