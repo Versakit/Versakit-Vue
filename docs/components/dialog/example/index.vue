@@ -1,73 +1,25 @@
-<template>
-  <button @click="open" class="open-button">打开 Dialog</button>
-
-  <Teleport to="body">
-    <div
-      v-if="isOpen"
-      ref="overlayRef"
-      class="dialog-overlay"
-      @click="onOverlayClick"
-    >
-      <div
-        ref="dialogRef"
-        class="dialog-content"
-        role="dialog"
-        aria-modal="true"
-      >
-        <h2 class="dialog-title">对话框</h2>
-        <p class="dialog-text">这是一个无头组件驱动的 Dialog。</p>
-        <button @click="close" class="close-button">关闭</button>
-      </div>
-    </div>
-  </Teleport>
-</template>
-
 <script setup lang="ts">
-import { useDialog } from '@versakit/composables'
+import { VKDialog } from '@versakit/vue'
+import { ref } from 'vue'
 
-const { isOpen, open, close, dialogRef, overlayRef, onOverlayClick } =
-  useDialog()
+const showDialog = ref(false)
 </script>
 
-<style scoped>
-.open-button {
-  background-color: #2563eb;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-}
+<template>
+  <button
+    @click="showDialog = true"
+    class="px-4 py-2 bg-blue-600 text-white rounded"
+  >
+    打开 Dialog
+  </button>
 
-.dialog-overlay {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 50;
-}
-
-.dialog-content {
-  background-color: rgb(44, 44, 44);
-  border-radius: 0.5rem;
-  padding: 1.5rem;
-  width: 400px;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
-
-.dialog-title {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-
-.dialog-text {
-  margin-bottom: 1rem;
-}
-
-.close-button {
-  background-color: #666666;
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.25rem;
-}
-</style>
+  <VKDialog v-model="showDialog" @close="console.log('关闭了')">
+    <h2 class="text-lg font-semibold mb-2">这是 Dialog</h2>
+    <p class="text-gray-600">你可以放任何内容。</p>
+    <div class="mt-4 text-right">
+      <button class="text-sm text-blue-500" @click="showDialog = false">
+        关闭
+      </button>
+    </div>
+  </VKDialog>
+</template>

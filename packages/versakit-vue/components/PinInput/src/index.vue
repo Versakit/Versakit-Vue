@@ -1,4 +1,26 @@
-<!-- components/PinInput.vue -->
+<script setup lang="ts">
+import { usePinInput } from '@versakit/composables'
+import { pinInput } from './index.variants'
+import type { PinInputProps } from './type'
+
+defineOptions({
+  name: 'VKPinInput',
+})
+
+const props = withDefaults(defineProps<PinInputProps>(), {
+  length: 4,
+  size: 'md',
+  state: 'default',
+})
+
+const { values, setRef, onInput, onKeydown } = usePinInput(props.length ?? 4)
+
+const pinInputClass = pinInput({
+  state: props.state,
+  size: props.size,
+})
+</script>
+
 <template>
   <div class="flex gap-2">
     <input
@@ -16,22 +38,3 @@
     />
   </div>
 </template>
-
-<script setup lang="ts">
-import { usePinInput } from '@versakit/composables'
-import { pinInput } from './index.variants'
-import type { PinInputProps } from './type'
-
-const props = withDefaults(defineProps<PinInputProps>(), {
-  length: 4,
-  size: 'md',
-  state: 'default',
-})
-
-const { values, setRef, onInput, onKeydown } = usePinInput(props.length ?? 4)
-
-const pinInputClass = pinInput({
-  state: props.state,
-  size: props.size,
-})
-</script>
