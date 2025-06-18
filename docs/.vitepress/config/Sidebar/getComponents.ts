@@ -7,6 +7,7 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
       items: [
         { text: 'Avatar 头像', link: '/components/avatar/' },
         { text: 'Badge 徽章', link: '/components/badge/' },
+        { text: 'Segmented 分段器', link: '/components/segmented/' },
       ],
     },
     {
@@ -18,6 +19,8 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
       items: [
         { text: 'Dialog 对话框', link: '/components/dialog/' },
         { text: 'Drawer 抽屉', link: '/components/drawer/' },
+        { text: 'Popover 气泡框', link: '/components/popover/' },
+        { text: 'Tooltip 提示', link: '/components/tooltip/' },
       ],
     },
     {
@@ -25,6 +28,7 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
       items: [
         { text: 'PinInput 验证码输入', link: '/components/pininput/' },
         { text: 'Switch 开关', link: '/components/switch/' },
+        { text: 'Slider 滑块', link: '/components/slider/' },
       ],
     },
   ]

@@ -67,7 +67,7 @@
     <!-- 带标签 -->
     <section>
       <h2 class="text-lg font-medium mb-4">带标签</h2>
-      <div class="flex gap-6 items-center flex-col space-y-4 items-start">
+      <div class="flex gap-6 flex-col space-y-4">
         <VKSwitch v-model="checked">开启自动保存</VKSwitch>
         <VKSwitch v-model="checked">接收通知</VKSwitch>
         <VKSwitch v-model="checked">深色模式</VKSwitch>
