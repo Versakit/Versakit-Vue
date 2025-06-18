@@ -5,13 +5,17 @@ export const getComposables = (): DefaultTheme.Sidebar => {
     {
       text: 'Composables',
       items: [
-        { text: 'useTabs', link: '/composables/tabs/' },
+        { text: 'useAvatar', link: '/composables/avatar/' },
+        { text: 'useBadge', link: '/composables/badge/' },
         { text: 'useDialog', link: '/composables/dialog/' },
         { text: 'useDrawer', link: '/composables/drawer/' },
         { text: 'usePinInput', link: '/composables/pininput/' },
-        { text: 'useSwitch', link: '/composables/switch/' },
-        { text: 'useSlider', link: '/composables/slider/' },
+        { text: 'usePopover', link: '/composables/popover/' },
         { text: 'useSegmented', link: '/composables/segmented/' },
+        { text: 'useSlider', link: '/composables/slider/' },
+        { text: 'useSwitch', link: '/composables/switch/' },
+        { text: 'useTabs', link: '/composables/tabs/' },
+        { text: 'useTooltip', link: '/composables/tooltip/' },
       ],
     },
   ]
