@@ -5,7 +5,7 @@ PinInput（密码输入框）组件是一种专为输入短序列密码（如 PI
 ```TypeScript
 import { usePinInput } from '@versakit/composables'
 
-const { values, setRef, onInput, onKeydown } = usePinInput(props.length)
+const { values, setRef, onInput, onKeydown } = usePinInput()
 ```
 
 ## 使用

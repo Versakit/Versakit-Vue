@@ -22,6 +22,7 @@ import { useTooltip } from './composables/Tooltip/index'
 import { usePopover } from './composables/Popover/index'
 import { useSwitch } from './composables/Switch/index'
 import { useSlider } from './composables/Slider/index'
+import { useSegmented } from './composables/Segmented/index'
 
 export {
   usePinInput,
@@ -32,4 +33,5 @@ export {
   usePopover,
   useSwitch,
   useSlider,
+  useSegmented,
 }
