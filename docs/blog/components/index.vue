@@ -75,14 +75,41 @@ const posts = ref([
 </template>
 
 <style scoped>
+:root {
+  /* 深色模式变量 */
+  --bg-color: #000;
+  --text-color: #fff;
+  --text-secondary: rgb(163, 163, 163);
+  --text-tertiary: rgb(212, 212, 212);
+  --border-color: rgb(38, 38, 38);
+  --accent-color: rgb(192, 132, 252);
+  --accent-hover: rgb(216, 180, 254);
+  --dot-color: rgb(64, 64, 64);
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    /* 浅色模式变量 */
+    --bg-color: #fff;
+    --text-color: #333;
+    --text-secondary: rgb(75, 85, 99);
+    --text-tertiary: rgb(55, 65, 81);
+    --border-color: rgb(229, 231, 235);
+    --accent-color: rgb(124, 58, 237);
+    --accent-hover: rgb(109, 40, 217);
+    --dot-color: rgb(209, 213, 219);
+  }
+}
+
 .blog-container {
   min-height: 100vh;
+  background-color: var(--bg-color);
 }
 
 .blog-header {
   position: relative;
   overflow: hidden;
-  border-bottom: 1px solid rgb(38, 38, 38);
+  border-bottom: 1px solid var(--border-color);
 }
 
 .header-content {
@@ -96,13 +123,13 @@ const posts = ref([
 .header-content h1 {
   font-size: 3rem;
   font-weight: 700;
-  color: white;
+  color: var(--text-color);
   margin-bottom: 1.5rem;
 }
 
 .header-content p {
   font-size: 1.25rem;
-  color: rgb(163, 163, 163);
+  color: var(--text-secondary);
 }
 
 .blog-list {
@@ -120,20 +147,19 @@ const posts = ref([
 
 .post-item {
   position: relative;
-  group: hover;
 }
 
 .post-title h2 {
   font-size: 1.875rem;
   font-weight: 700;
   line-height: 1.4;
-  color: white;
+  color: var(--text-color);
   margin-bottom: 0.75rem;
   transition: color 0.2s;
 }
 
 .post-title:hover h2 {
-  color: rgb(192, 132, 252);
+  color: var(--accent-color);
 }
 
 .post-meta {
@@ -147,32 +173,33 @@ const posts = ref([
   width: 2rem;
   height: 2rem;
   border-radius: 9999px;
-  border: 1px solid rgb(38, 38, 38);
+  border: 1px solid var(--border-color);
 }
 
 .author-name {
   font-size: 0.875rem;
   font-weight: 500;
-  color: rgb(212, 212, 212);
+  color: var(--text-tertiary);
 }
 
 .meta-dot {
   height: 0.25rem;
   width: 0.25rem;
   border-radius: 9999px;
-  background-color: rgb(64, 64, 64);
+  background-color: var(--dot-color);
 }
 
 .post-date {
   font-size: 0.875rem;
-  color: rgb(163, 163, 163);
+  color: var(--text-secondary);
 }
 
 .post-description {
   font-size: 1.125rem;
-  color: rgb(163, 163, 163);
+  color: var(--text-secondary);
   margin-bottom: 1.5rem;
   display: -webkit-box;
+  line-clamp: 2;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
@@ -183,12 +210,12 @@ const posts = ref([
   align-items: center;
   font-size: 0.875rem;
   font-weight: 500;
-  color: rgb(192, 132, 252);
+  color: var(--accent-color);
   transition: color 0.2s;
 }
 
 .post-item:hover .read-more {
-  color: rgb(216, 180, 254);
+  color: var(--accent-hover);
 }
 
 .arrow-icon {
@@ -208,6 +235,6 @@ const posts = ref([
   left: 0;
   right: 0;
   height: 1px;
-  background-color: rgb(38, 38, 38);
+  background-color: var(--border-color);
 }
 </style>
