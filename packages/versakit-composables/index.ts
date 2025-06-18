@@ -21,6 +21,7 @@ import { useDrawer } from './composables/Drawer/index'
 import { useTooltip } from './composables/Tooltip/index'
 import { usePopover } from './composables/Popover/index'
 import { useSwitch } from './composables/Switch/index'
+import { useSlider } from './composables/Slider/index'
 
 export {
   usePinInput,
@@ -30,4 +31,5 @@ export {
   useTooltip,
   usePopover,
   useSwitch,
+  useSlider,
 }
