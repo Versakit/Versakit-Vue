@@ -60,10 +60,8 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
 
 /* 全局主题配置 */
 :root {
-  --primary-gradient: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
-  --secondary-gradient: linear-gradient(135deg, #8ec5fc 0%, #e0c3fc 100%);
-  --accent-color: #a18cd1;
-  --accent-color-light: #fbc2eb;
+  --accent-color: #333333;
+  --accent-color-light: #666666;
   scroll-behavior: smooth;
 }
 
@@ -104,17 +102,7 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
 
 /* 内容区域样式 */
 .VPContent {
-  background:
-    radial-gradient(
-      circle at top right,
-      rgba(161, 140, 209, 0.15),
-      transparent 50%
-    ),
-    radial-gradient(
-      circle at bottom left,
-      rgba(251, 194, 235, 0.15),
-      transparent 50%
-    );
+  background: transparent;
   min-height: 100vh;
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
@@ -125,7 +113,7 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
   padding: 1rem !important;
   overflow: visible !important;
   position: relative;
-  transition: all 0.8s cubic-bezier(0.16, 0.85, 0.25, 1);
+  transition: all 0.5s ease;
 }
 
 .vp-doc h2 {
@@ -140,29 +128,30 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
 /* 全局动画过渡 */
 * {
   transition:
-    background-color 0.8s cubic-bezier(0.16, 0.85, 0.25, 1),
-    color 0.8s cubic-bezier(0.16, 0.85, 0.25, 1),
+    background-color 0.5s ease,
+    color 0.5s ease,
     border-color 0.3s ease,
     transform 0.3s ease;
 }
 
 /* 滚动条样式 */
 ::-webkit-scrollbar {
-  width: 0;
-  height: 0;
+  width: 4px;
+  height: 4px;
   background: transparent;
 }
 
 ::-webkit-scrollbar-track {
-  display: none;
+  background: rgba(0, 0, 0, 0.05);
 }
 
 ::-webkit-scrollbar-thumb {
-  display: none;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 2px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  display: none;
+  background: rgba(0, 0, 0, 0.3);
 }
 
 /* 确保内容不会被隐藏的滚动条影响 */
@@ -173,28 +162,26 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
 
 /* 文本选择样式 */
 ::selection {
-  background: var(--accent-color);
+  background: #333;
   color: white;
-  opacity: 0.7;
 }
 
 /* 链接样式 */
 .dark .vp-doc a {
-  color: var(--accent-color-light);
+  color: #aaaaaa;
   text-decoration: none;
   transition: all 0.3s ease;
 }
 
 .dark .vp-doc a:hover {
-  color: var(--accent-color);
-  text-shadow: 0 0 8px rgba(161, 140, 209, 0.5);
+  color: #ffffff;
 }
 
 /* 代码块样式 */
 .dark .vp-doc div[class*='language-'] {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  border-radius: 4px;
 }
 
 /* 标题样式 */
@@ -202,18 +189,14 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
 .dark .vp-doc h2,
 .dark .vp-doc h3,
 .dark .vp-doc h4 {
-  background: var(--primary-gradient);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
+  color: #ffffff;
 }
 
 /* 页面加载动画 */
 @keyframes fadeIn {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -222,7 +205,7 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
 }
 
 .VPContent {
-  animation: fadeIn 0.8s ease-out;
+  animation: fadeIn 0.5s ease-out;
 }
 
 /* 优化滚动体验 */
