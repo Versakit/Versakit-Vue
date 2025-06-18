@@ -23,6 +23,8 @@ import { usePopover } from './composables/Popover/index'
 import { useSwitch } from './composables/Switch/index'
 import { useSlider } from './composables/Slider/index'
 import { useSegmented } from './composables/Segmented/index'
+import { useBadge } from './composables/Badge/index'
+import { useAvatar } from './composables/Avatar/index'
 
 export {
   usePinInput,
@@ -34,4 +36,6 @@ export {
   useSwitch,
   useSlider,
   useSegmented,
+  useBadge,
+  useAvatar,
 }
