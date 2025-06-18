@@ -46,7 +46,7 @@ const {
   step: props.step,
   orientation: props.orientation,
   modelValue: props.modelValue,
-  onChange: (val) => {
+  onChange: (val: any) => {
     emit('update:modelValue', val)
     emit('change', val)
   },

@@ -1,3 +1,1 @@
-import { usePopover } from './composables/usePopover'
-
-export { usePopover }
+export * from './composables/usePopover'

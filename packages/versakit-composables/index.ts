@@ -39,3 +39,6 @@ export {
   useBadge,
   useAvatar,
 }
+
+export * from './composables/Popover'
+export * from './composables/Tooltip'

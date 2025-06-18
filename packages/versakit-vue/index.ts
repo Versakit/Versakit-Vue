@@ -8,6 +8,8 @@ import { VKSwitch } from './components/Switch'
 import { VKDrawer } from './components/Drawer'
 import { VKSegmented } from './components/Segmented'
 import { VKSlider } from './components/Slider'
+import { VKPopover } from './components/Popover'
+import { VKTooltip } from './components/Tooltip'
 // 引入样式
 import './style/index.css'
 
@@ -21,6 +23,8 @@ const components: Component[] = [
   VKDrawer,
   VKSegmented,
   VKSlider,
+  VKPopover,
+  VKTooltip,
 ]
 
 export {
@@ -33,6 +37,8 @@ export {
   VKDrawer,
   VKSegmented,
   VKSlider,
+  VKPopover,
+  VKTooltip,
 }
 
 const Versakit = {
