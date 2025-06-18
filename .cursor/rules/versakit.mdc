@@ -9,7 +9,5 @@ alwaysApply: false
 支持无障碍访问,
 禁止使用 any 类型,
 创建的文件必须是.ts
-所有组件支持unstyled 和PT(Pass Through)
-同时为PT定义类型
 样式工程必须是index.variants.ts
 vue里面禁止写scoped css

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { VKTabs } from '@versakit/vue'
+import '@versakit/vue/style'
 
 const items = [
   { label: '首页', content: '这里是首页内容' },
