@@ -11,6 +11,7 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
       items: [
         { text: 'Avatar 头像', link: '/components/avatar/' },
         { text: 'Badge 徽章', link: '/components/badge/' },
+        { text: 'Chip 芯片', link: '/components/chip/' },
         { text: 'Segmented 分段器', link: '/components/segmented/' },
       ],
     },

@@ -33,7 +33,7 @@ import { computed } from 'vue'
 const componentsData = [
   {
     name: 'Avatar',
-    path: '/docs/components/avatar',
+    path: '/Versakit-Vue/components/avatar/',
     description:
       '表示用户或对象身份的图形化标识，通常显示为圆形或方形的图片、图标或字母组合。',
     letter: 'A',
@@ -41,15 +41,23 @@ const componentsData = [
   },
   {
     name: 'Badge',
-    path: '/docs/components/badge',
+    path: '/Versakit-Vue/components/badge/',
     description:
       '用于显示状态标记或通知计数的小型视觉指示器，通常以圆形或椭圆形徽章形式出现。',
     letter: 'B',
     color: 'rgba(231, 76, 60, 0.2)',
   },
   {
+    name: 'Chip',
+    path: '/Versakit-Vue/components/chip/',
+    description:
+      '用于显示状态标记或通知计数的小型视觉指示器，通常以圆形或椭圆形徽章形式出现。',
+    letter: 'C',
+    color: 'rgba(231, 76, 60, 0.2)',
+  },
+  {
     name: 'Dialog',
-    path: '/docs/components/dialog',
+    path: '/Versakit-Vue/components/dialog/',
     description:
       '模态窗口，用于在当前页面层级之上展示重要信息、请求用户确认或执行关键操作。',
     letter: 'D',
@@ -57,7 +65,7 @@ const componentsData = [
   },
   {
     name: 'Drawer',
-    path: '/docs/components/drawer',
+    path: '/Versakit-Vue/components/drawer/',
     description:
       '常见的移动端和桌面端交互组件，通常以侧边滑出或底部弹出的形式呈现。',
     letter: 'D',
@@ -65,14 +73,14 @@ const componentsData = [
   },
   {
     name: 'PinInput',
-    path: '/docs/components/pininput',
+    path: '/Versakit-Vue/components/pininput/',
     description: '专为输入短序列密码（如 PIN 码、验证码）设计的交互组件。',
     letter: 'P',
     color: 'rgba(142, 68, 173, 0.2)',
   },
   {
     name: 'Popover',
-    path: '/docs/components/popover',
+    path: '/Versakit-Vue/components/popover/',
     description:
       '轻量级的浮动层组件，用于在触发元素附近显示额外信息或操作选项。',
     letter: 'P',
@@ -80,21 +88,21 @@ const componentsData = [
   },
   {
     name: 'Segmented',
-    path: '/docs/components/segmented',
+    path: '/Versakit-Vue/components/segmented/',
     description: '水平排列的选项卡控件，用于在多个互斥选项之间进行快速切换。',
     letter: 'S',
     color: 'rgba(155, 89, 182, 0.2)',
   },
   {
     name: 'Slider',
-    path: '/docs/components/slider',
+    path: '/Versakit-Vue/components/slider/',
     description: '允许用户通过拖动滑块在指定范围内选择连续或离散值的交互控件。',
     letter: 'S',
     color: 'rgba(46, 204, 113, 0.2)',
   },
   {
     name: 'Switch',
-    path: '/docs/components/switch',
+    path: '/Versakit-Vue/components/switch/',
     description:
       '二元状态选择器，用于在两种状态间快速切换（如 "开 / 关"、"启用 / 禁用"）。',
     letter: 'S',
@@ -102,14 +110,14 @@ const componentsData = [
   },
   {
     name: 'Tabs',
-    path: '/docs/components/tabs',
+    path: '/Versakit-Vue/components/tabs/',
     description: '常见的界面模式，用于在有限空间内组织和切换多个内容面板。',
     letter: 'T',
     color: 'rgba(39, 174, 96, 0.2)',
   },
   {
     name: 'Tooltip',
-    path: '/docs/components/tooltip',
+    path: '/Versakit-Vue/components/tooltip/',
     description:
       '轻量级信息提示组件，当用户悬停、聚焦或点击元素时，会在其附近显示简短说明文本。',
     letter: 'T',

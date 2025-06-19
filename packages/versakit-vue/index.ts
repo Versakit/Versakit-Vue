@@ -10,6 +10,7 @@ import { Segmented } from './components/Segmented'
 import { Slider } from './components/Slider'
 import { Popover } from './components/Popover'
 import { Tooltip } from './components/Tooltip'
+import { Chip } from './components/Chip'
 // 引入样式
 import './style/index.css'
 
@@ -25,6 +26,7 @@ const components: Component[] = [
   Slider,
   Popover,
   Tooltip,
+  Chip,
 ]
 
 export {
@@ -39,6 +41,7 @@ export {
   Slider,
   Popover,
   Tooltip,
+  Chip,
 }
 
 const Versakit = {

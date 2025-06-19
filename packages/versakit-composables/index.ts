@@ -25,6 +25,7 @@ import { useSlider } from './composables/Slider/index'
 import { useSegmented } from './composables/Segmented/index'
 import { useBadge } from './composables/Badge/index'
 import { useAvatar } from './composables/Avatar/index'
+import { useChip } from './composables/Chip/index'
 
 export {
   usePinInput,
@@ -38,4 +39,5 @@ export {
   useSegmented,
   useBadge,
   useAvatar,
+  useChip,
 }
