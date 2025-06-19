@@ -4,6 +4,9 @@ import { useSwitch } from '@versakit/composables'
 import { switchRoot, switchTrack, switchThumb } from './index.variants'
 import type { SwitchProps, SwitchEmits } from './type'
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+
 defineOptions({
   // eslint-disable-next-line vue/no-reserved-component-names
   name: 'Switch',
@@ -19,17 +22,21 @@ const props = withDefaults(defineProps<SwitchProps>(), {
 
 const emit = defineEmits<SwitchEmits>()
 
-// 使用useSwitch钩子处理所有逻辑
+// 使用useSwitch钩子处理所有逻辑，使用类型断言解决类型问题
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const { checked, toggle, onKeyDown } = useSwitch({
   modelValue: props.modelValue,
   disabled: props.disabled || props.loading,
-  locked: props.locked, // 传递locked参数控制开关是否可切换
+  locked: props.locked,
   onChange: (value: boolean) => {
     emit('update:modelValue', value)
     emit('change', value)
   },
-} as any) as any
+}) as {
+  checked: { value: boolean }
+  toggle: () => void
+  onKeyDown: (e: KeyboardEvent) => void
+}
 
 // 计算是否禁用（组件禁用或加载中）
 const isDisabledState = computed(() => props.disabled || props.loading)

@@ -39,8 +39,8 @@ export function useSwitch(options?: UseSwitchOptions): UseSwitchReturn {
   // 内部状态
   const internalChecked = ref(options?.modelValue ?? false)
 
-  // 锁定状态，默认为 true，表示开关无法切换
-  const isLocked = ref(options?.locked !== undefined ? options.locked : true)
+  // 锁定状态，默认为 false，表示开关可以切换
+  const isLocked = ref(options?.locked !== undefined ? options.locked : false)
 
   // 是否处于受控模式（由外部modelValue控制）
   const isControlled = computed(() => options?.modelValue !== undefined)
