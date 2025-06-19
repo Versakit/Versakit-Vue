@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 
 interface UseSwitchOptions {
   modelValue?: boolean
@@ -10,6 +10,16 @@ export function useSwitch(options?: UseSwitchOptions) {
   const internalChecked = ref(options?.modelValue ?? false)
   const isControlled = computed(() => options?.modelValue !== undefined)
 
+  // 当外部 modelValue 变化时更新内部状态
+  watch(
+    () => options?.modelValue,
+    (newVal) => {
+      if (newVal !== undefined && newVal !== internalChecked.value) {
+        internalChecked.value = newVal
+      }
+    },
+  )
+
   const checked = computed({
     get: () =>
       isControlled.value ? options!.modelValue! : internalChecked.value,
@@ -20,6 +30,16 @@ export function useSwitch(options?: UseSwitchOptions) {
   })
 
   const disabled = ref(!!options?.disabled)
+
+  // 监听外部 disabled 变化
+  watch(
+    () => options?.disabled,
+    (newVal) => {
+      if (newVal !== undefined) {
+        disabled.value = newVal
+      }
+    },
+  )
 
   const toggle = () => {
     if (disabled.value) return

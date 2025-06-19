@@ -21,9 +21,9 @@ const emit = defineEmits<{
   (e: 'change', value: boolean): void
 }>()
 
-const { checked, onKeyDown } = useSwitch({
+const { checked, toggle, onKeyDown } = useSwitch({
   modelValue: props.modelValue,
-  disabled: props.disabled,
+  disabled: props.disabled || props.loading,
   onChange: (value: boolean) => {
     emit('update:modelValue', value)
     emit('change', value)
@@ -54,16 +54,16 @@ const thumbClass = computed(() => {
   })
 })
 
-const toggle = () => {
+const handleToggle = () => {
   if (props.disabled || props.loading) return
-  checked.value = !checked.value
+  toggle()
 }
 </script>
 
 <template>
   <label
     :class="rootClass"
-    @click="toggle"
+    @click="handleToggle"
     @keydown="onKeyDown"
     :tabindex="disabled ? -1 : 0"
     role="switch"
