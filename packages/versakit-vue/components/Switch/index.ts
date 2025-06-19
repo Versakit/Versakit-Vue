@@ -1,6 +1,4 @@
 import { withInstall } from '@versakit/shared'
-import Switch from './src/index.vue'
+import SwitchComponent from './src/index.vue'
 
-const VKSwitch = withInstall(Switch)
-
-export { VKSwitch }
+export const Switch = withInstall(SwitchComponent)

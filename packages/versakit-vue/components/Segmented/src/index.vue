@@ -5,7 +5,7 @@ import { segmentedContainer, segmentedOption } from './index.variants'
 import type { SegmentedProps } from './type'
 
 defineOptions({
-  name: 'VKSegmented',
+  name: 'Segmented',
 })
 
 const props = withDefaults(defineProps<SegmentedProps<T>>(), {

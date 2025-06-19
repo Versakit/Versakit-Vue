@@ -1,7 +1,7 @@
 import { tv } from 'tailwind-variants'
 
 export const segmentedContainer = tv({
-  base: 'inline-flex rounded-md p-1 bg-gray-100 dark:bg-gray-800',
+  base: 'inline-flex rounded-md p-1 bg-gray-100 dark:bg-gray-800 outline-none border-none',
   variants: {
     size: {
       sm: 'text-xs',
@@ -25,7 +25,7 @@ export const segmentedContainer = tv({
 })
 
 export const segmentedOption = tv({
-  base: 'relative flex-1 flex items-center justify-center px-3 py-1.5 rounded transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 dark:focus:ring-gray-400',
+  base: 'relative flex-1 flex items-center max-w-max justify-center px-3 py-1.5 rounded transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 dark:focus:ring-gray-400',
   variants: {
     selected: {
       true: 'bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm',

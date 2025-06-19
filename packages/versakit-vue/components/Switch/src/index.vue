@@ -5,7 +5,8 @@ import { switchRoot, switchTrack, switchThumb } from './index.variants'
 import type { SwitchProps } from './type'
 
 defineOptions({
-  name: 'VKSwitch',
+  // eslint-disable-next-line vue/no-reserved-component-names
+  name: 'Switch',
 })
 
 const props = withDefaults(defineProps<SwitchProps>(), {

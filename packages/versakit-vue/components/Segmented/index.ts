@@ -1,6 +1,4 @@
 import { withInstall } from '@versakit/shared'
-import Segmented from './src/index.vue'
+import SegmentedComponent from './src/index.vue'
 
-const VKSegmented = withInstall(Segmented)
-
-export { VKSegmented }
+export const Segmented = withInstall(SegmentedComponent)

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { VKSlider } from '@versakit/vue'
+import { Slider } from '@versakit/vue'
 import '@versakit/vue/style'
 
 // 基础用法示例
@@ -45,7 +45,7 @@ const marks = {
     <section>
       <h2 class="text-lg font-medium mb-4">基础用法</h2>
       <div class="w-full max-w-md">
-        <VKSlider v-model="basicValue" />
+        <Slider v-model="basicValue" />
         <div class="mt-2 text-sm text-gray-500">当前值: {{ basicValue }}</div>
       </div>
     </section>
@@ -54,7 +54,7 @@ const marks = {
     <section>
       <h2 class="text-lg font-medium mb-4">设置最小值最大值</h2>
       <div class="w-full max-w-md">
-        <VKSlider v-model="rangeValue" :min="20" :max="80" />
+        <Slider v-model="rangeValue" :min="20" :max="80" />
         <div class="mt-2 text-sm text-gray-500">
           当前值: {{ rangeValue }} (范围: 20-80)
         </div>
@@ -65,7 +65,7 @@ const marks = {
     <section>
       <h2 class="text-lg font-medium mb-4">设置步长</h2>
       <div class="w-full max-w-md">
-        <VKSlider v-model="stepValue" :step="25" />
+        <Slider v-model="stepValue" :step="25" />
         <div class="mt-2 text-sm text-gray-500">
           当前值: {{ stepValue }} (步长: 25)
         </div>
@@ -76,7 +76,7 @@ const marks = {
     <section>
       <h2 class="text-lg font-medium mb-4">垂直方向</h2>
       <div class="h-64">
-        <VKSlider v-model="verticalValue" orientation="vertical" />
+        <Slider v-model="verticalValue" orientation="vertical" />
         <div class="mt-2 text-sm text-gray-500">
           当前值: {{ verticalValue }}
         </div>
@@ -87,7 +87,7 @@ const marks = {
     <section>
       <h2 class="text-lg font-medium mb-4">禁用状态</h2>
       <div class="w-full max-w-md">
-        <VKSlider v-model="disabledValue" disabled />
+        <Slider v-model="disabledValue" disabled />
         <div class="mt-2 text-sm text-gray-500">
           当前值: {{ disabledValue }}
         </div>
@@ -98,7 +98,7 @@ const marks = {
     <section>
       <h2 class="text-lg font-medium mb-4">显示提示</h2>
       <div class="w-full max-w-md">
-        <VKSlider v-model="tooltipValue" show-tooltip />
+        <Slider v-model="tooltipValue" show-tooltip />
         <div class="mt-2 text-sm text-gray-500">当前值: {{ tooltipValue }}</div>
       </div>
     </section>
@@ -107,7 +107,7 @@ const marks = {
     <section>
       <h2 class="text-lg font-medium mb-4">自定义提示</h2>
       <div class="w-full max-w-md">
-        <VKSlider
+        <Slider
           v-model="customTooltipValue"
           show-tooltip
           :format-tooltip="formatTooltip"
@@ -122,7 +122,7 @@ const marks = {
     <section>
       <h2 class="text-lg font-medium mb-4">显示刻度</h2>
       <div class="w-full max-w-md">
-        <VKSlider v-model="marksValue" show-marks />
+        <Slider v-model="marksValue" show-marks />
         <div class="mt-2 text-sm text-gray-500">当前值: {{ marksValue }}</div>
       </div>
     </section>
@@ -131,7 +131,7 @@ const marks = {
     <section>
       <h2 class="text-lg font-medium mb-4">自定义刻度</h2>
       <div class="w-full max-w-md">
-        <VKSlider v-model="customMarksValue" show-marks :marks="marks" />
+        <Slider v-model="customMarksValue" show-marks :marks="marks" />
         <div class="mt-2 text-sm text-gray-500">
           当前值: {{ customMarksValue }}
         </div>

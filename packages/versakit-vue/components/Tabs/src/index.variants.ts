@@ -1,28 +1,53 @@
 // components/tabs/styles.ts
 import { tv } from 'tailwind-variants'
 
-export const tabList = tv({
-  base: 'flex rounded-full bg-gray-100 dark:bg-zinc-600 p-1 shadow-sm',
-})
-
-export const tabTrigger = tv({
-  base: 'px-4 py-2 text-sm transition-all rounded-full',
+export const tabsContainer = tv({
+  base: 'inline-flex rounded-md p-1 bg-white dark:bg-gray-800 outline-none border-none',
   variants: {
-    active: {
-      true: 'bg-black dark:text-white shadow-sm font-medium',
-      false: 'text-gray-600 hover:text-gray-900',
+    size: {
+      sm: 'text-xs',
+      md: 'text-sm',
+      lg: 'text-base',
     },
     disabled: {
       true: 'opacity-50 cursor-not-allowed',
+      false: '',
+    },
+    block: {
+      true: 'w-full',
+      false: '',
     },
   },
-  compoundVariants: [
-    {
-      active: true,
-      disabled: true,
-      class: 'pointer-events-none text-gray-300',
+  defaultVariants: {
+    size: 'md',
+    disabled: false,
+    block: false,
+  },
+})
+
+export const tabTrigger = tv({
+  base: 'relative flex-1 flex items-center max-w-max justify-center px-3 py-1.5 rounded transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 dark:focus:ring-gray-400',
+  variants: {
+    selected: {
+      true: 'bg-white dark:bg-gray-700 text-gray-900 dark:text-gray-100 shadow-sm',
+      false:
+        'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200',
     },
-  ],
+    disabled: {
+      true: 'opacity-50 cursor-not-allowed',
+      false: 'cursor-pointer',
+    },
+    size: {
+      sm: 'h-6',
+      md: 'h-8',
+      lg: 'h-10',
+    },
+  },
+  defaultVariants: {
+    selected: false,
+    disabled: false,
+    size: 'md',
+  },
 })
 
 export const tabPanel = tv({

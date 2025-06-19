@@ -1,44 +1,44 @@
 import type { App, Component } from 'vue'
-import { VKPinInput } from './components/PinInput'
-import { VKTabs } from './components/Tabs'
-import { VKDialog } from './components/Dialog'
-import { VKAvatar } from './components/Avatar'
-import { VKBadge } from './components/Badge'
-import { VKSwitch } from './components/Switch'
-import { VKDrawer } from './components/Drawer'
-import { VKSegmented } from './components/Segmented'
-import { VKSlider } from './components/Slider'
-import { VKPopover } from './components/Popover'
-import { VKTooltip } from './components/Tooltip'
+import { PinInput } from './components/PinInput'
+import { Tabs } from './components/Tabs'
+import { Dialog } from './components/Dialog'
+import { Avatar } from './components/Avatar'
+import { Badge } from './components/Badge'
+import { Switch } from './components/Switch'
+import { Drawer } from './components/Drawer'
+import { Segmented } from './components/Segmented'
+import { Slider } from './components/Slider'
+import { Popover } from './components/Popover'
+import { Tooltip } from './components/Tooltip'
 // 引入样式
 import './style/index.css'
 
 const components: Component[] = [
-  VKPinInput,
-  VKTabs,
-  VKDialog,
-  VKAvatar,
-  VKBadge,
-  VKSwitch,
-  VKDrawer,
-  VKSegmented,
-  VKSlider,
-  VKPopover,
-  VKTooltip,
+  PinInput,
+  Tabs,
+  Dialog,
+  Avatar,
+  Badge,
+  Switch,
+  Drawer,
+  Segmented,
+  Slider,
+  Popover,
+  Tooltip,
 ]
 
 export {
-  VKPinInput,
-  VKTabs,
-  VKDialog,
-  VKAvatar,
-  VKBadge,
-  VKSwitch,
-  VKDrawer,
-  VKSegmented,
-  VKSlider,
-  VKPopover,
-  VKTooltip,
+  PinInput,
+  Tabs,
+  Dialog,
+  Avatar,
+  Badge,
+  Switch,
+  Drawer,
+  Segmented,
+  Slider,
+  Popover,
+  Tooltip,
 }
 
 const Versakit = {

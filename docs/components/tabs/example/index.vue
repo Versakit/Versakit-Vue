@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { VKTabs } from '@versakit/vue'
+import { Tabs } from '@versakit/vue'
 import '@versakit/vue/style'
 
 const items = [
@@ -10,5 +10,5 @@ const items = [
 </script>
 
 <template>
-  <VKTabs :items="items" :initialIndex="0" />
+  <Tabs :items="items" :initialIndex="0" />
 </template>

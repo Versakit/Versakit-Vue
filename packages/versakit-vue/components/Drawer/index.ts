@@ -1,6 +1,4 @@
 import { withInstall } from '@versakit/shared'
-import Drawer from './src/index.vue'
+import DrawerComponent from './src/index.vue'
 
-const VKDrawer = withInstall(Drawer)
-
-export { VKDrawer }
+export const Drawer = withInstall(DrawerComponent)

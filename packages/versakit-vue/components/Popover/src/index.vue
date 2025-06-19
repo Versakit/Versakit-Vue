@@ -11,7 +11,7 @@ import {
 import type { PopoverProps } from './type'
 
 defineOptions({
-  name: 'VKPopover',
+  name: 'Popover',
 })
 
 const props = withDefaults(defineProps<PopoverProps>(), {
@@ -29,9 +29,13 @@ const emit = defineEmits<{
   (e: 'update:modelValue', value: boolean): void
 }>()
 
-const { isOpen, open, close, toggle, triggerRef, popoverRef } = usePopover({
-  onClose: () => emit('update:modelValue', false),
-})
+// 使用usePopover并传递placement和offset
+const { isOpen, open, close, toggle, triggerRef, popoverRef, updatePosition } =
+  usePopover({
+    placement: props.placement,
+    offset: props.offset,
+    onClose: () => emit('update:modelValue', false),
+  })
 
 // 同步外部和内部状态
 watch(
@@ -50,6 +54,16 @@ watch(
 watch(isOpen, (val) => {
   emit('update:modelValue', val)
 })
+
+// 当placement或offset变化时，更新位置
+watch(
+  () => [props.placement, props.offset],
+  () => {
+    if (isOpen.value) {
+      nextTick(updatePosition)
+    }
+  },
+)
 
 // 初始状态同步
 onMounted(() => {

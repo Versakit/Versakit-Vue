@@ -1,6 +1,4 @@
 import { withInstall } from '@versakit/shared'
-import PinInput from './src/index.vue'
+import PinInputComponent from './src/index.vue'
 
-const VKPinInput = withInstall(PinInput)
-
-export { VKPinInput }
+export const PinInput = withInstall(PinInputComponent)

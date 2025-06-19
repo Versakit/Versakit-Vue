@@ -9,7 +9,7 @@ import {
 import type { TooltipProps } from './type'
 
 defineOptions({
-  name: 'VKTooltip',
+  name: 'Tooltip',
 })
 
 const props = withDefaults(defineProps<TooltipProps>(), {

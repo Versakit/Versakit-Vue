@@ -5,7 +5,7 @@ import { avatar } from './index.variants'
 import type { AvatarProps } from './type'
 
 defineOptions({
-  name: 'VKAvatar',
+  name: 'Avatar',
 })
 
 const props = withDefaults(defineProps<AvatarProps>(), {

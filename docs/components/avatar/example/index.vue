@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { VKAvatar } from '@versakit/vue'
+import { Avatar } from '@versakit/vue'
 import '@versakit/vue/style'
 
 const imageError = ref(false)
@@ -15,16 +15,16 @@ const toggleError = () => {
     <section>
       <h2 class="text-lg font-medium mb-4">基础用法</h2>
       <div class="flex gap-6 items-center">
-        <VKAvatar
+        <Avatar
           src="https://randomuser.me/api/portraits/men/1.jpg"
           alt="用户头像"
         />
-        <VKAvatar
+        <Avatar
           src="https://randomuser.me/api/portraits/women/1.jpg"
           alt="用户头像"
         />
-        <VKAvatar alt="张三" />
-        <VKAvatar />
+        <Avatar alt="张三" />
+        <Avatar />
       </div>
     </section>
 
@@ -32,27 +32,27 @@ const toggleError = () => {
     <section>
       <h2 class="text-lg font-medium mb-4">不同大小</h2>
       <div class="flex gap-6 items-end">
-        <VKAvatar
+        <Avatar
           src="https://randomuser.me/api/portraits/men/2.jpg"
           alt="用户头像"
           size="xs"
         />
-        <VKAvatar
+        <Avatar
           src="https://randomuser.me/api/portraits/men/3.jpg"
           alt="用户头像"
           size="sm"
         />
-        <VKAvatar
+        <Avatar
           src="https://randomuser.me/api/portraits/men/4.jpg"
           alt="用户头像"
           size="md"
         />
-        <VKAvatar
+        <Avatar
           src="https://randomuser.me/api/portraits/men/5.jpg"
           alt="用户头像"
           size="lg"
         />
-        <VKAvatar
+        <Avatar
           src="https://randomuser.me/api/portraits/men/6.jpg"
           alt="用户头像"
           size="xl"
@@ -64,12 +64,12 @@ const toggleError = () => {
     <section>
       <h2 class="text-lg font-medium mb-4">不同形状</h2>
       <div class="flex gap-6 items-center">
-        <VKAvatar
+        <Avatar
           src="https://randomuser.me/api/portraits/men/7.jpg"
           alt="用户头像"
           shape="circle"
         />
-        <VKAvatar
+        <Avatar
           src="https://randomuser.me/api/portraits/men/8.jpg"
           alt="用户头像"
           shape="square"
@@ -81,22 +81,22 @@ const toggleError = () => {
     <section>
       <h2 class="text-lg font-medium mb-4">状态指示器</h2>
       <div class="flex gap-6 items-center">
-        <VKAvatar
+        <Avatar
           src="https://randomuser.me/api/portraits/women/2.jpg"
           alt="用户头像"
           status="online"
         />
-        <VKAvatar
+        <Avatar
           src="https://randomuser.me/api/portraits/women/3.jpg"
           alt="用户头像"
           status="offline"
         />
-        <VKAvatar
+        <Avatar
           src="https://randomuser.me/api/portraits/women/4.jpg"
           alt="用户头像"
           status="away"
         />
-        <VKAvatar
+        <Avatar
           src="https://randomuser.me/api/portraits/women/5.jpg"
           alt="用户头像"
           status="busy"
@@ -110,7 +110,7 @@ const toggleError = () => {
       <div class="flex gap-6 items-center">
         <div>
           <p class="mb-2">图片加载失败时显示文字缩写：</p>
-          <VKAvatar
+          <Avatar
             :src="
               imageError
                 ? 'invalid-url.jpg'
@@ -122,7 +122,7 @@ const toggleError = () => {
 
         <div>
           <p class="mb-2">图片加载失败时显示备用图片：</p>
-          <VKAvatar
+          <Avatar
             :src="
               imageError
                 ? 'invalid-url.jpg'
@@ -135,7 +135,7 @@ const toggleError = () => {
 
         <div>
           <p class="mb-2">图片加载失败时显示默认图标：</p>
-          <VKAvatar
+          <Avatar
             :src="
               imageError
                 ? 'invalid-url.jpg'
@@ -157,13 +157,13 @@ const toggleError = () => {
     <section>
       <h2 class="text-lg font-medium mb-4">组合使用</h2>
       <div class="flex gap-6 items-center">
-        <VKAvatar
+        <Avatar
           src="https://randomuser.me/api/portraits/men/12.jpg"
           alt="用户头像"
           size="lg"
           status="online"
         />
-        <VKAvatar alt="赵六" size="lg" shape="square" status="busy" />
+        <Avatar alt="赵六" size="lg" shape="square" status="busy" />
       </div>
     </section>
   </div>

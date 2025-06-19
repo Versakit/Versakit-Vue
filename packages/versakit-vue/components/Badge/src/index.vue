@@ -5,7 +5,7 @@ import { badge } from './index.variants'
 import type { BadgeProps } from './type'
 
 defineOptions({
-  name: 'VKBadge',
+  name: 'Badge',
 })
 
 const props = withDefaults(defineProps<BadgeProps>(), {

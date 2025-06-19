@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { VKDrawer } from '@versakit/vue'
+import { Drawer } from '@versakit/vue'
 import '@versakit/vue/style'
 
 const isDrawerOpen = ref(false)
@@ -47,11 +47,11 @@ const openCustomSizeDrawer = () => {
           打开右侧抽屉
         </button>
 
-        <VKDrawer v-model="isDrawerOpen" title="右侧抽屉">
+        <Drawer v-model="isDrawerOpen" title="右侧抽屉">
           <div class="p-4">
             <p>这是一个基础的右侧抽屉示例</p>
           </div>
-        </VKDrawer>
+        </Drawer>
       </div>
     </section>
 
@@ -79,19 +79,19 @@ const openCustomSizeDrawer = () => {
           底部抽屉
         </button>
 
-        <VKDrawer v-model="isLeftDrawerOpen" placement="left" title="左侧抽屉">
+        <Drawer v-model="isLeftDrawerOpen" placement="left" title="左侧抽屉">
           <div class="p-4">
             <p>这是一个左侧抽屉示例</p>
           </div>
-        </VKDrawer>
+        </Drawer>
 
-        <VKDrawer v-model="isTopDrawerOpen" placement="top" title="顶部抽屉">
+        <Drawer v-model="isTopDrawerOpen" placement="top" title="顶部抽屉">
           <div class="p-4">
             <p>这是一个顶部抽屉示例</p>
           </div>
-        </VKDrawer>
+        </Drawer>
 
-        <VKDrawer
+        <Drawer
           v-model="isBottomDrawerOpen"
           placement="bottom"
           title="底部抽屉"
@@ -99,7 +99,7 @@ const openCustomSizeDrawer = () => {
           <div class="p-4">
             <p>这是一个底部抽屉示例</p>
           </div>
-        </VKDrawer>
+        </Drawer>
       </div>
     </section>
 
@@ -113,7 +113,7 @@ const openCustomSizeDrawer = () => {
           无遮罩层抽屉
         </button>
 
-        <VKDrawer
+        <Drawer
           v-model="isNoOverlayDrawerOpen"
           :showOverlay="false"
           title="无遮罩层"
@@ -122,7 +122,7 @@ const openCustomSizeDrawer = () => {
             <p>这是一个无遮罩层的抽屉示例</p>
             <p>点击关闭按钮关闭抽屉</p>
           </div>
-        </VKDrawer>
+        </Drawer>
       </div>
     </section>
 
@@ -136,7 +136,7 @@ const openCustomSizeDrawer = () => {
           自定义大小抽屉
         </button>
 
-        <VKDrawer
+        <Drawer
           v-model="isCustomSizeDrawerOpen"
           size="500px"
           title="自定义大小"
@@ -144,7 +144,7 @@ const openCustomSizeDrawer = () => {
           <div class="p-4">
             <p>这是一个自定义大小的抽屉示例，宽度为500px</p>
           </div>
-        </VKDrawer>
+        </Drawer>
       </div>
     </section>
 
@@ -158,7 +158,7 @@ const openCustomSizeDrawer = () => {
           带页脚的抽屉
         </button>
 
-        <VKDrawer v-model="isDrawerOpen" title="自定义页脚">
+        <Drawer v-model="isDrawerOpen" title="自定义页脚">
           <div class="p-4">
             <p>这是一个带有自定义页脚的抽屉示例</p>
           </div>
@@ -177,7 +177,7 @@ const openCustomSizeDrawer = () => {
               确认
             </button>
           </template>
-        </VKDrawer>
+        </Drawer>
       </div>
     </section>
   </div>

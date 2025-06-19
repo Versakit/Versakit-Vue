@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { VKPopover } from '@versakit/vue'
+import { Popover } from '@versakit/vue'
 import '@versakit/vue/style'
 
 // 基础用法示例
@@ -45,7 +45,7 @@ const isDisabledOpen = ref(false)
     <section>
       <h2 class="text-lg font-medium mb-4">基础用法</h2>
       <div class="flex items-center space-x-4">
-        <VKPopover v-model="isBasicOpen">
+        <Popover v-model="isBasicOpen">
           <template #trigger>
             <div
               class="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
@@ -54,7 +54,7 @@ const isDisabledOpen = ref(false)
             </div>
           </template>
           这是一个基础的弹出框内容
-        </VKPopover>
+        </Popover>
       </div>
     </section>
 
@@ -67,7 +67,7 @@ const isDisabledOpen = ref(false)
           :key="position"
           class="flex justify-center"
         >
-          <VKPopover :placement="position">
+          <Popover :placement="position">
             <template #trigger>
               <div
                 class="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
@@ -76,7 +76,7 @@ const isDisabledOpen = ref(false)
               </div>
             </template>
             弹出位置: {{ position }}
-          </VKPopover>
+          </Popover>
         </div>
       </div>
     </section>
@@ -85,7 +85,7 @@ const isDisabledOpen = ref(false)
     <section>
       <h2 class="text-lg font-medium mb-4">不同触发方式</h2>
       <div class="flex items-center space-x-4">
-        <VKPopover trigger="click">
+        <Popover trigger="click">
           <template #trigger>
             <div
               class="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
@@ -94,9 +94,9 @@ const isDisabledOpen = ref(false)
             </div>
           </template>
           点击触发的弹出框
-        </VKPopover>
+        </Popover>
 
-        <VKPopover trigger="hover">
+        <Popover trigger="hover">
           <template #trigger>
             <div
               class="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
@@ -105,9 +105,9 @@ const isDisabledOpen = ref(false)
             </div>
           </template>
           悬停触发的弹出框
-        </VKPopover>
+        </Popover>
 
-        <VKPopover v-model="isManualOpen" trigger="manual">
+        <Popover v-model="isManualOpen" trigger="manual">
           <template #trigger>
             <div
               class="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
@@ -117,7 +117,7 @@ const isDisabledOpen = ref(false)
             </div>
           </template>
           手动控制的弹出框
-        </VKPopover>
+        </Popover>
       </div>
     </section>
 
@@ -125,7 +125,7 @@ const isDisabledOpen = ref(false)
     <section>
       <h2 class="text-lg font-medium mb-4">带标题</h2>
       <div class="flex items-center space-x-4">
-        <VKPopover v-model="isWithTitleOpen" title="弹出框标题">
+        <Popover v-model="isWithTitleOpen" title="弹出框标题">
           <template #trigger>
             <div
               class="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
@@ -134,7 +134,7 @@ const isDisabledOpen = ref(false)
             </div>
           </template>
           这是带有标题的弹出框内容
-        </VKPopover>
+        </Popover>
       </div>
     </section>
 
@@ -142,7 +142,7 @@ const isDisabledOpen = ref(false)
     <section>
       <h2 class="text-lg font-medium mb-4">自定义宽度</h2>
       <div class="flex items-center space-x-4">
-        <VKPopover v-model="isCustomWidthOpen" :width="300">
+        <Popover v-model="isCustomWidthOpen" :width="300">
           <template #trigger>
             <div
               class="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
@@ -151,7 +151,7 @@ const isDisabledOpen = ref(false)
             </div>
           </template>
           这是一个宽度为300px的弹出框，可以显示更多的内容。你可以根据需要自定义弹出框的宽度，以适应不同的内容展示需求。
-        </VKPopover>
+        </Popover>
       </div>
     </section>
 
@@ -159,7 +159,7 @@ const isDisabledOpen = ref(false)
     <section>
       <h2 class="text-lg font-medium mb-4">禁用状态</h2>
       <div class="flex items-center space-x-4">
-        <VKPopover v-model="isDisabledOpen" disabled>
+        <Popover v-model="isDisabledOpen" disabled>
           <template #trigger>
             <div
               class="px-4 py-2 bg-gray-400 text-white rounded cursor-not-allowed"
@@ -168,7 +168,7 @@ const isDisabledOpen = ref(false)
             </div>
           </template>
           这个弹出框被禁用了，无法显示
-        </VKPopover>
+        </Popover>
       </div>
     </section>
   </div>

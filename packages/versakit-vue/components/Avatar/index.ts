@@ -1,6 +1,4 @@
 import { withInstall } from '@versakit/shared'
-import Avatar from './src/index.vue'
+import AvatarComponent from './src/index.vue'
 
-const VKAvatar = withInstall(Avatar)
-
-export { VKAvatar }
+export const Avatar = withInstall(AvatarComponent)

@@ -13,7 +13,7 @@ import {
 import type { DrawerProps } from './type'
 
 defineOptions({
-  name: 'VKDrawer',
+  name: 'Drawer',
 })
 
 const props = withDefaults(defineProps<DrawerProps>(), {

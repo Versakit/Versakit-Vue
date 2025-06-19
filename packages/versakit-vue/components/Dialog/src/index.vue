@@ -6,7 +6,8 @@ import { dialogOverlay, dialogContent } from './index.variants'
 import { watch, onMounted, nextTick } from 'vue'
 
 defineOptions({
-  name: 'VKDialog',
+  // eslint-disable-next-line vue/no-reserved-component-names
+  name: 'Dialog',
 })
 
 const props = withDefaults(defineProps<DialogProps>(), {

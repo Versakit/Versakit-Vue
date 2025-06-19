@@ -4,7 +4,7 @@ import { pinInput } from './index.variants'
 import type { PinInputProps } from './type'
 
 defineOptions({
-  name: 'VKPinInput',
+  name: 'PinInput',
 })
 
 const props = withDefaults(defineProps<PinInputProps>(), {

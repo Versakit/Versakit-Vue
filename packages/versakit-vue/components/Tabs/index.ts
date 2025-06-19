@@ -1,6 +1,4 @@
 import { withInstall } from '@versakit/shared'
-import Tabs from './src/index.vue'
+import TabsComponent from './src/index.vue'
 
-const VKTabs = withInstall(Tabs)
-
-export { VKTabs }
+export const Tabs = withInstall(TabsComponent)

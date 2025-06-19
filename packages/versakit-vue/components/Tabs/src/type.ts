@@ -10,5 +10,7 @@ export interface TabItem {
 export interface TabsProps {
   items: TabItem[]
   initialIndex?: number
-  mode?: 'default' | 'card' | 'underline' | 'pills' // 标签页显示模式
+  size?: 'sm' | 'md' | 'lg'
+  disabled?: boolean
+  block?: boolean
 }

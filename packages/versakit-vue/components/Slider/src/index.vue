@@ -14,7 +14,7 @@ import {
 import type { SliderProps } from './type'
 
 defineOptions({
-  name: 'VKSlider',
+  name: 'Slider',
 })
 
 const props = withDefaults(defineProps<SliderProps>(), {

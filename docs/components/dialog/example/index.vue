@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { VKDialog } from '@versakit/vue'
+import { Dialog } from '@versakit/vue'
 import { ref } from 'vue'
 
 const showDialog = ref(false)
@@ -13,7 +13,7 @@ const showDialog = ref(false)
     打开 Dialog
   </button>
 
-  <VKDialog v-model="showDialog" @close="console.log('关闭了')">
+  <Dialog v-model="showDialog" @close="console.log('关闭了')">
     <h2 class="text-lg font-semibold mb-2">这是 Dialog</h2>
     <p class="text-gray-600">你可以放任何内容。</p>
     <div class="mt-4 text-right">
@@ -21,5 +21,5 @@ const showDialog = ref(false)
         关闭
       </button>
     </div>
-  </VKDialog>
+  </Dialog>
 </template>
