@@ -133,12 +133,12 @@ const sortedComponents = computed(() => {
   font-size: 32px;
   font-weight: 700;
   margin-bottom: 16px;
-  color: #222;
+  color: var(--vk-text-primary, #222);
 }
 
 .overview-description {
   font-size: 16px;
-  color: #666;
+  color: var(--vk-text-secondary, #666);
   margin-bottom: 48px;
   max-width: 700px;
   line-height: 1.6;
@@ -155,20 +155,25 @@ const sortedComponents = computed(() => {
   flex-direction: column;
   padding: 24px;
   border-radius: 12px;
-  background-color: #fff;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  background-color: var(--vk-card-bg, #fff);
+  box-shadow: 0 4px 12px var(--vk-shadow-color, rgba(0, 0, 0, 0.05));
   transition: all 0.3s ease;
   cursor: pointer;
   text-decoration: none;
   color: inherit;
   height: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--vk-border-color, rgba(0, 0, 0, 0.05));
+
+  .dark & {
+    background-color: var(--vk-card-bg, #2a2a2a);
+    border-color: var(--vk-border-color, rgba(255, 255, 255, 0.08));
+  }
 }
 
 .component-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-  border-color: rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 20px var(--vk-shadow-hover, rgba(0, 0, 0, 0.1));
+  border-color: var(--vk-border-hover, rgba(0, 0, 0, 0.1));
 }
 
 .component-header {
@@ -188,22 +193,34 @@ const sortedComponents = computed(() => {
   font-weight: 600;
   font-size: 18px;
   margin-right: 16px;
-  color: rgba(0, 0, 0, 0.75);
+  color: var(--vk-icon-text, rgba(0, 0, 0, 0.75));
+
+  .dark & {
+    color: var(--vk-icon-text, rgba(255, 255, 255, 0.85));
+  }
 }
 
 .component-name {
   font-size: 20px;
   font-weight: 600;
-  color: #333;
+  color: var(--vk-text-primary, #333);
   margin: 0;
+
+  .dark & {
+    color: var(--vk-text-primary, #e0e0e0);
+  }
 }
 
 .component-desc {
   font-size: 15px;
-  color: #666;
+  color: var(--vk-text-secondary, #666);
   line-height: 1.6;
   margin: 0;
   flex-grow: 1;
+
+  .dark & {
+    color: var(--vk-text-secondary, #a0a0a0);
+  }
 }
 
 @media (max-width: 768px) {
@@ -214,5 +231,27 @@ const sortedComponents = computed(() => {
   .component-grid {
     grid-template-columns: 1fr;
   }
+}
+
+:root {
+  --vk-text-primary: #222;
+  --vk-text-secondary: #666;
+  --vk-card-bg: #fff;
+  --vk-shadow-color: rgba(0, 0, 0, 0.05);
+  --vk-shadow-hover: rgba(0, 0, 0, 0.1);
+  --vk-border-color: rgba(0, 0, 0, 0.05);
+  --vk-border-hover: rgba(0, 0, 0, 0.1);
+  --vk-icon-text: rgba(0, 0, 0, 0.75);
+}
+
+.dark {
+  --vk-text-primary: #e0e0e0;
+  --vk-text-secondary: #a0a0a0;
+  --vk-card-bg: #2a2a2a;
+  --vk-shadow-color: rgba(0, 0, 0, 0.2);
+  --vk-shadow-hover: rgba(0, 0, 0, 0.3);
+  --vk-border-color: rgba(255, 255, 255, 0.08);
+  --vk-border-hover: rgba(255, 255, 255, 0.15);
+  --vk-icon-text: rgba(255, 255, 255, 0.85);
 }
 </style>
