@@ -20,6 +20,7 @@ const props = withDefaults(defineProps<TooltipProps>(), {
   trigger: 'hover',
   color: 'default',
   arrow: true,
+  offset: 8,
 })
 
 const {
@@ -27,6 +28,7 @@ const {
   triggerRef,
   tooltipRef,
   tooltipId,
+  updatePosition,
   onMouseEnter,
   onFocus,
   onMouseLeave,
@@ -34,6 +36,8 @@ const {
 } = useTooltip({
   openDelay: props.openDelay,
   closeDelay: props.closeDelay,
+  placement: props.placement,
+  offset: props.offset,
 })
 
 // 计算样式
@@ -58,7 +62,12 @@ const arrowClass = computed(() => {
 
 // 计算内容样式
 const contentStyle = computed(() => {
-  const style: Record<string, string> = {}
+  const style: Record<string, string> = {
+    position: 'absolute',
+    zIndex: '9999',
+    top: '0',
+    left: '0',
+  }
 
   if (props.maxWidth) {
     style.maxWidth =
@@ -101,7 +110,10 @@ const handleBlur = () => {
 </script>
 
 <template>
-  <div :class="containerClass">
+  <div
+    :class="containerClass"
+    style="display: inline-block; position: relative"
+  >
     <!-- 触发元素 -->
     <div
       ref="triggerRef"
@@ -116,7 +128,7 @@ const handleBlur = () => {
 
     <!-- 提示内容 -->
     <teleport to="body">
-      <transition name="tooltip-fade">
+      <transition name="tooltip-fade" @after-enter="updatePosition">
         <div
           v-show="isOpen && !props.disabled"
           ref="tooltipRef"
@@ -125,7 +137,7 @@ const handleBlur = () => {
           :id="tooltipId"
           role="tooltip"
         >
-          {{ props.content }}
+          <slot name="content">{{ props.content }}</slot>
           <div v-if="props.arrow" :class="arrowClass"></div>
         </div>
       </transition>
@@ -139,5 +151,11 @@ const handleBlur = () => {
   transition:
     opacity 0.15s,
     transform 0.15s;
+}
+
+.tooltip-fade-enter-from,
+.tooltip-fade-leave-to {
+  opacity: 0;
+  transform: scale(0.95);
 }
 </style>

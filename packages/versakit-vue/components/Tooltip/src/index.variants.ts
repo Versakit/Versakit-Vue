@@ -1,11 +1,17 @@
 import { tv } from 'tailwind-variants'
 
+/**
+ * Tooltip 容器样式
+ */
 export const tooltipContainer = tv({
   base: 'inline-block',
 })
 
+/**
+ * Tooltip 内容样式
+ */
 export const tooltipContent = tv({
-  base: 'absolute z-50 px-2 py-1 text-xs font-medium rounded shadow-md pointer-events-none max-w-xs',
+  base: 'px-2 py-1 text-xs font-medium rounded shadow-md pointer-events-none max-w-xs',
   variants: {
     color: {
       default: 'bg-gray-800 text-white dark:bg-gray-700',
@@ -15,14 +21,14 @@ export const tooltipContent = tv({
       danger: 'bg-red-600 text-white',
     },
     placement: {
-      top: 'bottom-full mb-1',
-      right: 'left-full ml-1',
-      bottom: 'top-full mt-1',
-      left: 'right-full mr-1',
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
     },
     visible: {
-      true: 'opacity-100 scale-100',
-      false: 'opacity-0 scale-95',
+      true: 'opacity-100',
+      false: 'opacity-0',
     },
   },
   defaultVariants: {
@@ -32,6 +38,9 @@ export const tooltipContent = tv({
   },
 })
 
+/**
+ * Tooltip 箭头样式
+ */
 export const tooltipArrow = tv({
   base: 'absolute w-2 h-2 rotate-45',
   variants: {
