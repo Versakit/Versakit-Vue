@@ -20,6 +20,12 @@ export interface SwitchProps {
   loading?: boolean
 
   /**
+   * 是否锁定状态（不允许切换）
+   * @default true
+   */
+  locked?: boolean
+
+  /**
    * 开关大小
    * @default 'md'
    */
@@ -50,4 +56,12 @@ export interface SwitchProps {
    * 无障碍访问标签
    */
   ariaLabel?: string
+}
+
+/**
+ * Switch 事件类型
+ */
+export interface SwitchEmits {
+  (e: 'update:modelValue', value: boolean): void
+  (e: 'change', value: boolean): void
 }

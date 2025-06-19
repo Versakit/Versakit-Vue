@@ -1,10 +1,10 @@
 import { tv } from 'tailwind-variants'
 
 export const switchRoot = tv({
-  base: 'relative inline-flex items-center cursor-pointer',
+  base: 'relative inline-flex items-center cursor-pointer focus-visible:outline-none',
   variants: {
     disabled: {
-      true: 'opacity-50 cursor-not-allowed',
+      true: 'opacity-50 cursor-not-allowed pointer-events-none',
       false: '',
     },
     size: {
@@ -20,7 +20,7 @@ export const switchRoot = tv({
 })
 
 export const switchTrack = tv({
-  base: 'relative rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-gray-900',
+  base: 'relative rounded-full transition-colors duration-200 ease-in-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900',
   variants: {
     size: {
       sm: 'w-7 h-4',
@@ -28,12 +28,12 @@ export const switchTrack = tv({
       lg: 'w-14 h-7',
     },
     color: {
-      primary: 'bg-gray-200 dark:bg-gray-700 focus:ring-blue-500',
-      secondary: 'bg-gray-200 dark:bg-gray-700 focus:ring-gray-500',
-      success: 'bg-gray-200 dark:bg-gray-700 focus:ring-green-500',
-      warning: 'bg-gray-200 dark:bg-gray-700 focus:ring-yellow-500',
-      danger: 'bg-gray-200 dark:bg-gray-700 focus:ring-red-500',
-      info: 'bg-gray-200 dark:bg-gray-700 focus:ring-sky-500',
+      primary: 'bg-gray-200 dark:bg-gray-700 focus-visible:ring-blue-500',
+      secondary: 'bg-gray-200 dark:bg-gray-700 focus-visible:ring-gray-500',
+      success: 'bg-gray-200 dark:bg-gray-700 focus-visible:ring-green-500',
+      warning: 'bg-gray-200 dark:bg-gray-700 focus-visible:ring-yellow-500',
+      danger: 'bg-gray-200 dark:bg-gray-700 focus-visible:ring-red-500',
+      info: 'bg-gray-200 dark:bg-gray-700 focus-visible:ring-sky-500',
     },
     checked: {
       true: '',
@@ -96,7 +96,7 @@ export const switchTrack = tv({
 })
 
 export const switchThumb = tv({
-  base: 'absolute transform transition-transform bg-white dark:bg-gray-200 rounded-full shadow-sm flex items-center justify-center',
+  base: 'absolute transform transition-transform duration-200 ease-in-out bg-white dark:bg-gray-200 rounded-full shadow-sm flex items-center justify-center',
   variants: {
     size: {
       sm: 'w-3 h-3 left-0.5 top-0.5',
