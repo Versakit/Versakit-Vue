@@ -3,6 +3,10 @@ import { DefaultTheme } from 'vitepress'
 export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
   return [
     {
+      text: 'Overview 组件总览',
+      link: '/components/overview/',
+    },
+    {
       text: 'Data 数据展示',
       items: [
         { text: 'Avatar 头像', link: '/components/avatar/' },

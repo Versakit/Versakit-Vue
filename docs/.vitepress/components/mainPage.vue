@@ -162,7 +162,7 @@ onMounted(() => {
             </span>
           </a>
           <a
-            href="/Versakit-Vue/components/tabs/"
+            href="/Versakit-Vue/components/overview/"
             class="action-button secondary"
           >
             <span class="button-content">
