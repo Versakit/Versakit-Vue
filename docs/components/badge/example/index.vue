@@ -17,9 +17,9 @@ import '@versakit/vue/style'
           <div class="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
         </Badge>
 
-        <dge dot>
+        <Badge dot>
           <div class="w-10 h-10 bg-gray-200 dark:bg-gray-700 rounded"></div>
-        </dge>
+        </Badge>
       </div>
     </section>
 
