@@ -14,7 +14,7 @@ export const popoverTrigger = tv({
 })
 
 export const popoverContent = tv({
-  base: 'absolute z-10 bg-white dark:bg-gray-800 rounded-md shadow-lg border border-gray-200 dark:border-gray-700 p-4 max-w-sm',
+  base: 'absolute z-10 rounded-md shadow-lg border p-4 max-w-sm',
   variants: {
     placement: {
       top: 'bottom-full mb-2',
@@ -34,15 +34,23 @@ export const popoverContent = tv({
       true: 'opacity-100 scale-100',
       false: 'opacity-0 scale-95 pointer-events-none',
     },
+    color: {
+      default: 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700',
+      primary: 'bg-blue-600 border-blue-700 text-white',
+      success: 'bg-green-600 border-green-700 text-white',
+      warning: 'bg-yellow-600 border-yellow-700 text-white',
+      danger: 'bg-red-600 border-red-700 text-white',
+    },
   },
   defaultVariants: {
     placement: 'bottom',
     visible: false,
+    color: 'default',
   },
 })
 
 export const popoverArrow = tv({
-  base: 'absolute w-3 h-3 bg-white dark:bg-gray-800 transform rotate-45 border border-gray-200 dark:border-gray-700',
+  base: 'absolute w-3 h-3 transform rotate-45 border',
   variants: {
     placement: {
       top: 'bottom-[-6px] left-1/2 -translate-x-1/2 border-t-0 border-l-0',
@@ -58,16 +66,49 @@ export const popoverArrow = tv({
       'left-start': 'right-[-6px] top-4 border-l-0 border-b-0',
       'left-end': 'right-[-6px] bottom-4 border-l-0 border-b-0',
     },
+    color: {
+      default: 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700',
+      primary: 'bg-blue-600 border-blue-700',
+      success: 'bg-green-600 border-green-700',
+      warning: 'bg-yellow-600 border-yellow-700',
+      danger: 'bg-red-600 border-red-700',
+    },
   },
   defaultVariants: {
     placement: 'bottom',
+    color: 'default',
   },
 })
 
 export const popoverTitle = tv({
-  base: 'text-sm font-medium text-gray-900 dark:text-gray-100 mb-2 pb-2 border-b border-gray-200 dark:border-gray-700',
+  base: 'text-sm font-medium mb-2 pb-2 border-b',
+  variants: {
+    color: {
+      default:
+        'text-gray-900 dark:text-gray-100 border-gray-200 dark:border-gray-700',
+      primary: 'text-white border-blue-700',
+      success: 'text-white border-green-700',
+      warning: 'text-white border-yellow-700',
+      danger: 'text-white border-red-700',
+    },
+  },
+  defaultVariants: {
+    color: 'default',
+  },
 })
 
 export const popoverBody = tv({
-  base: 'text-sm text-gray-700 dark:text-gray-300',
+  base: 'text-sm',
+  variants: {
+    color: {
+      default: 'text-gray-700 dark:text-gray-300',
+      primary: 'text-white',
+      success: 'text-white',
+      warning: 'text-white',
+      danger: 'text-white',
+    },
+  },
+  defaultVariants: {
+    color: 'default',
+  },
 })

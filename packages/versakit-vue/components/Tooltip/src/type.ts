@@ -59,4 +59,24 @@ export interface TooltipProps {
    * @default 8
    */
   offset?: number
+
+  /**
+   * 是否跟随鼠标
+   * @default false
+   */
+  followCursor?: boolean
+
+  /**
+   * 是否不与元素绑定，仅通过API控制显示
+   * 当为true时，将不渲染触发元素包装器
+   * @default false
+   */
+  unbound?: boolean
+
+  /**
+   * 初始打开状态
+   * 仅在unbound=true时有效
+   * @default false
+   */
+  modelValue?: boolean
 }

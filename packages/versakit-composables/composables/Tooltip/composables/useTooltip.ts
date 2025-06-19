@@ -1,11 +1,13 @@
 // useTooltip.ts
-import { ref, onUnmounted, watch } from 'vue'
+import { ref, onUnmounted, watch, onMounted } from 'vue'
 
 export interface UseTooltipOptions {
   openDelay?: number
   closeDelay?: number
   placement?: 'top' | 'right' | 'bottom' | 'left'
   offset?: number
+  followCursor?: boolean
+  unbound?: boolean
 }
 
 export function useTooltip(options?: UseTooltipOptions) {
@@ -15,6 +17,8 @@ export function useTooltip(options?: UseTooltipOptions) {
 
   let openTimer: ReturnType<typeof setTimeout> | null = null
   let closeTimer: ReturnType<typeof setTimeout> | null = null
+  let mousePosX = 0
+  let mousePosY = 0
 
   // 默认配置
   const defaultOptions: Required<UseTooltipOptions> = {
@@ -22,6 +26,8 @@ export function useTooltip(options?: UseTooltipOptions) {
     closeDelay: 100,
     placement: 'top',
     offset: 8,
+    followCursor: false,
+    unbound: false,
   }
 
   // 合并配置
@@ -30,13 +36,22 @@ export function useTooltip(options?: UseTooltipOptions) {
     ...options,
   }
 
+  // 跟踪鼠标位置
+  const trackMouse = (e: MouseEvent) => {
+    mousePosX = e.clientX
+    mousePosY = e.clientY
+    if ((config.followCursor || config.unbound) && isOpen.value) {
+      updatePosition()
+    }
+  }
+
   // 打开提示
   const open = () => {
     if (closeTimer) clearTimeout(closeTimer)
     openTimer = setTimeout(() => {
       isOpen.value = true
       // 在下一帧更新位置
-      setTimeout(updatePosition, 0)
+      requestAnimationFrame(updatePosition)
     }, config.openDelay)
   }
 
@@ -48,14 +63,25 @@ export function useTooltip(options?: UseTooltipOptions) {
     }, config.closeDelay)
   }
 
+  // 手动设置打开状态
+  const setIsOpen = (value: boolean) => {
+    if (value) {
+      open()
+    } else {
+      close()
+    }
+  }
+
   // 计算并更新提示框位置
   const updatePosition = () => {
-    if (!isOpen.value || !triggerRef.value || !tooltipRef.value) return
+    if (!isOpen.value || !tooltipRef.value) return
 
-    const trigger = triggerRef.value
+    // 如果没有绑定元素或需要跟随鼠标，则忽略triggerRef检查
+    if (!config.unbound && !config.followCursor && !triggerRef.value) return
+
     const tooltip = tooltipRef.value
 
-    const triggerRect = trigger.getBoundingClientRect()
+    // 获取触发元素和提示框的尺寸和位置
     const tooltipRect = tooltip.getBoundingClientRect()
 
     // 根据placement计算位置
@@ -63,23 +89,53 @@ export function useTooltip(options?: UseTooltipOptions) {
     let left = 0
     const offset = config.offset
 
-    switch (config.placement) {
-      case 'top':
-        top = triggerRect.top - tooltipRect.height - offset
-        left = triggerRect.left + triggerRect.width / 2 - tooltipRect.width / 2
-        break
-      case 'right':
-        top = triggerRect.top + triggerRect.height / 2 - tooltipRect.height / 2
-        left = triggerRect.right + offset
-        break
-      case 'bottom':
-        top = triggerRect.bottom + offset
-        left = triggerRect.left + triggerRect.width / 2 - tooltipRect.width / 2
-        break
-      case 'left':
-        top = triggerRect.top + triggerRect.height / 2 - tooltipRect.height / 2
-        left = triggerRect.left - tooltipRect.width - offset
-        break
+    if (config.followCursor || config.unbound) {
+      // 跟随鼠标模式或未绑定模式
+      switch (config.placement) {
+        case 'top':
+          top = mousePosY - tooltipRect.height - offset
+          left = mousePosX - tooltipRect.width / 2
+          break
+        case 'right':
+          top = mousePosY - tooltipRect.height / 2
+          left = mousePosX + offset
+          break
+        case 'bottom':
+          top = mousePosY + offset
+          left = mousePosX - tooltipRect.width / 2
+          break
+        case 'left':
+          top = mousePosY - tooltipRect.height / 2
+          left = mousePosX - tooltipRect.width - offset
+          break
+      }
+    } else {
+      // 固定在元素位置模式
+      const trigger = triggerRef.value!
+      const triggerRect = trigger.getBoundingClientRect()
+
+      switch (config.placement) {
+        case 'top':
+          top = triggerRect.top - tooltipRect.height - offset
+          left =
+            triggerRect.left + triggerRect.width / 2 - tooltipRect.width / 2
+          break
+        case 'right':
+          top =
+            triggerRect.top + triggerRect.height / 2 - tooltipRect.height / 2
+          left = triggerRect.right + offset
+          break
+        case 'bottom':
+          top = triggerRect.bottom + offset
+          left =
+            triggerRect.left + triggerRect.width / 2 - tooltipRect.width / 2
+          break
+        case 'left':
+          top =
+            triggerRect.top + triggerRect.height / 2 - tooltipRect.height / 2
+          left = triggerRect.left - tooltipRect.width - offset
+          break
+      }
     }
 
     // 调整位置避免超出视口
@@ -92,9 +148,12 @@ export function useTooltip(options?: UseTooltipOptions) {
     // 确保不超出底部
     top = Math.min(top, window.innerHeight - tooltipRect.height - 8)
 
-    // 设置位置
-    tooltip.style.top = `${top + window.scrollY}px`
-    tooltip.style.left = `${left + window.scrollX}px`
+    // 设置位置 (使用transform可提高性能)
+    tooltip.style.position = 'fixed'
+    tooltip.style.top = '0'
+    tooltip.style.left = '0'
+    tooltip.style.transform = `translate3d(${left}px, ${top}px, 0)`
+    tooltip.style.zIndex = '9999'
   }
 
   // 监听窗口大小变化，更新位置
@@ -116,14 +175,38 @@ export function useTooltip(options?: UseTooltipOptions) {
     if (value) {
       window.addEventListener('resize', onResize)
       window.addEventListener('scroll', onScroll, true)
+      if (config.followCursor || config.unbound) {
+        window.addEventListener('mousemove', trackMouse)
+      }
     } else {
       window.removeEventListener('resize', onResize)
       window.removeEventListener('scroll', onScroll, true)
+      if (config.followCursor || config.unbound) {
+        window.removeEventListener('mousemove', trackMouse)
+      }
+    }
+  })
+
+  // 如果triggerRef变化，重新计算位置
+  watch(triggerRef, (newTrigger) => {
+    if (newTrigger && isOpen.value && !config.unbound) {
+      updatePosition()
+    }
+  })
+
+  // 初始化事件监听
+  onMounted(() => {
+    if (config.followCursor || config.unbound) {
+      window.addEventListener('mousemove', trackMouse)
     }
   })
 
   // 事件处理函数
-  const onMouseEnter = () => open()
+  const onMouseEnter = (e: MouseEvent) => {
+    mousePosX = e.clientX
+    mousePosY = e.clientY
+    open()
+  }
   const onFocus = () => open()
   const onMouseLeave = () => close()
   const onBlur = () => close()
@@ -134,6 +217,9 @@ export function useTooltip(options?: UseTooltipOptions) {
     if (closeTimer) clearTimeout(closeTimer)
     window.removeEventListener('resize', onResize)
     window.removeEventListener('scroll', onScroll, true)
+    if (config.followCursor || config.unbound) {
+      window.removeEventListener('mousemove', trackMouse)
+    }
   })
 
   // 生成唯一ID
@@ -149,5 +235,6 @@ export function useTooltip(options?: UseTooltipOptions) {
     onFocus,
     onMouseLeave,
     onBlur,
+    setIsOpen,
   }
 }

@@ -1,4 +1,4 @@
-import { ref, onUnmounted, watch, nextTick } from 'vue'
+import { ref, onUnmounted, watch, nextTick, onMounted } from 'vue'
 
 // 位置类型定义
 export type Placement =
@@ -17,31 +17,87 @@ export type Placement =
 
 // 配置选项
 export interface PopoverOptions {
+  openDelay?: number
+  closeDelay?: number
   placement?: Placement
   offset?: number
   onClose?: () => void
+  followCursor?: boolean
+  unbound?: boolean
 }
 
-export function usePopover(options?: PopoverOptions) {
+// 定义usePopover的返回类型
+export interface PopoverReturn {
+  isOpen: import('vue').Ref<boolean>
+  open: () => Promise<void>
+  close: () => void
+  toggle: () => Promise<void>
+  triggerRef: import('vue').Ref<HTMLElement | null>
+  popoverRef: import('vue').Ref<HTMLElement | null>
+  popoverId: string
+  updatePosition: () => void
+  onMouseEnter: (e: MouseEvent) => void
+  onFocus: () => void
+  onMouseLeave: () => void
+  onBlur: () => void
+  setIsOpen: (value: boolean) => void
+}
+
+export function usePopover(options?: PopoverOptions): PopoverReturn {
   const isOpen = ref(false)
   const triggerRef = ref<HTMLElement | null>(null)
   const popoverRef = ref<HTMLElement | null>(null)
 
-  const placement = options?.placement || 'bottom'
-  const offset = options?.offset || 8
+  let openTimer: ReturnType<typeof setTimeout> | null = null
+  let closeTimer: ReturnType<typeof setTimeout> | null = null
+  let mousePosX = 0
+  let mousePosY = 0
 
-  // 打开Popover
-  const open = async () => {
-    isOpen.value = true
-    // 等待DOM更新后再计算位置
-    await nextTick()
-    updatePosition()
+  // 默认配置
+  const defaultOptions: Required<Omit<PopoverOptions, 'onClose'>> = {
+    openDelay: 0,
+    closeDelay: 0,
+    placement: 'bottom',
+    offset: 8,
+    followCursor: false,
+    unbound: false,
   }
 
-  // 关闭Popover
+  // 合并配置
+  const config = {
+    ...defaultOptions,
+    ...options,
+  }
+
+  // 跟踪鼠标位置
+  const trackMouse = (e: MouseEvent) => {
+    mousePosX = e.clientX
+    mousePosY = e.clientY
+    if ((config.followCursor || config.unbound) && isOpen.value) {
+      updatePosition()
+    }
+  }
+
+  // 打开Popover，添加延时
+  const open = async () => {
+    if (closeTimer) clearTimeout(closeTimer)
+
+    openTimer = setTimeout(async () => {
+      isOpen.value = true
+      // 等待DOM更新后再计算位置
+      await nextTick()
+      updatePosition()
+    }, config.openDelay)
+  }
+
+  // 关闭Popover，添加延时
   const close = () => {
-    isOpen.value = false
-    options?.onClose?.()
+    if (openTimer) clearTimeout(openTimer)
+
+    closeTimer = setTimeout(() => {
+      isOpen.value = false
+      config.onClose?.()
+    }, config.closeDelay)
   }
 
   // 切换Popover状态
@@ -53,15 +109,24 @@ export function usePopover(options?: PopoverOptions) {
     }
   }
 
+  // 手动设置打开状态
+  const setIsOpen = (value: boolean) => {
+    if (value) {
+      open()
+    } else {
+      close()
+    }
+  }
+
   // 计算和更新位置
   const updatePosition = () => {
-    const trigger = triggerRef.value
     const popover = popoverRef.value
+    if (!popover || !isOpen.value) return
 
-    if (!trigger || !popover || !isOpen.value) return
+    // 如果没有绑定元素或需要跟随鼠标，则忽略triggerRef检查
+    if (!config.unbound && !config.followCursor && !triggerRef.value) return
 
-    // 获取触发元素和弹出框的位置信息
-    const triggerRect = trigger.getBoundingClientRect()
+    // 获取弹出框的位置信息
     const popoverRect = popover.getBoundingClientRect()
 
     // 获取视窗尺寸
@@ -72,83 +137,120 @@ export function usePopover(options?: PopoverOptions) {
     let top = 0
     let left = 0
 
-    // 根据不同位置计算坐标
-    switch (placement) {
-      case 'top':
-        top = triggerRect.top - popoverRect.height - offset
-        left = triggerRect.left + (triggerRect.width - popoverRect.width) / 2
-        break
-      case 'top-start':
-        top = triggerRect.top - popoverRect.height - offset
-        left = triggerRect.left
-        break
-      case 'top-end':
-        top = triggerRect.top - popoverRect.height - offset
-        left = triggerRect.right - popoverRect.width
-        break
-      case 'bottom':
-        top = triggerRect.bottom + offset
-        left = triggerRect.left + (triggerRect.width - popoverRect.width) / 2
-        break
-      case 'bottom-start':
-        top = triggerRect.bottom + offset
-        left = triggerRect.left
-        break
-      case 'bottom-end':
-        top = triggerRect.bottom + offset
-        left = triggerRect.right - popoverRect.width
-        break
-      case 'left':
-        top = triggerRect.top + (triggerRect.height - popoverRect.height) / 2
-        left = triggerRect.left - popoverRect.width - offset
-        break
-      case 'left-start':
-        top = triggerRect.top
-        left = triggerRect.left - popoverRect.width - offset
-        break
-      case 'left-end':
-        top = triggerRect.bottom - popoverRect.height
-        left = triggerRect.left - popoverRect.width - offset
-        break
-      case 'right':
-        top = triggerRect.top + (triggerRect.height - popoverRect.height) / 2
-        left = triggerRect.right + offset
-        break
-      case 'right-start':
-        top = triggerRect.top
-        left = triggerRect.right + offset
-        break
-      case 'right-end':
-        top = triggerRect.bottom - popoverRect.height
-        left = triggerRect.right + offset
-        break
+    if (config.followCursor || config.unbound) {
+      // 跟随鼠标模式或未绑定模式
+      const placement = config.placement.split('-')[0] as
+        | 'top'
+        | 'right'
+        | 'bottom'
+        | 'left'
+
+      switch (placement) {
+        case 'top':
+          top = mousePosY - popoverRect.height - config.offset
+          left = mousePosX - popoverRect.width / 2
+          break
+        case 'right':
+          top = mousePosY - popoverRect.height / 2
+          left = mousePosX + config.offset
+          break
+        case 'bottom':
+          top = mousePosY + config.offset
+          left = mousePosX - popoverRect.width / 2
+          break
+        case 'left':
+          top = mousePosY - popoverRect.height / 2
+          left = mousePosX - popoverRect.width - config.offset
+          break
+      }
+
+      // 应用修饰符 (start/end)
+      if (config.placement.includes('-start')) {
+        if (placement === 'top' || placement === 'bottom') {
+          left = mousePosX
+        } else {
+          top = mousePosY
+        }
+      } else if (config.placement.includes('-end')) {
+        if (placement === 'top' || placement === 'bottom') {
+          left = mousePosX - popoverRect.width
+        } else {
+          top = mousePosY - popoverRect.height
+        }
+      }
+    } else {
+      // 固定在元素位置模式
+      const trigger = triggerRef.value!
+      const triggerRect = trigger.getBoundingClientRect()
+
+      // 根据不同位置计算坐标
+      switch (config.placement) {
+        case 'top':
+          top = triggerRect.top - popoverRect.height - config.offset
+          left = triggerRect.left + (triggerRect.width - popoverRect.width) / 2
+          break
+        case 'top-start':
+          top = triggerRect.top - popoverRect.height - config.offset
+          left = triggerRect.left
+          break
+        case 'top-end':
+          top = triggerRect.top - popoverRect.height - config.offset
+          left = triggerRect.right - popoverRect.width
+          break
+        case 'bottom':
+          top = triggerRect.bottom + config.offset
+          left = triggerRect.left + (triggerRect.width - popoverRect.width) / 2
+          break
+        case 'bottom-start':
+          top = triggerRect.bottom + config.offset
+          left = triggerRect.left
+          break
+        case 'bottom-end':
+          top = triggerRect.bottom + config.offset
+          left = triggerRect.right - popoverRect.width
+          break
+        case 'left':
+          top = triggerRect.top + (triggerRect.height - popoverRect.height) / 2
+          left = triggerRect.left - popoverRect.width - config.offset
+          break
+        case 'left-start':
+          top = triggerRect.top
+          left = triggerRect.left - popoverRect.width - config.offset
+          break
+        case 'left-end':
+          top = triggerRect.bottom - popoverRect.height
+          left = triggerRect.left - popoverRect.width - config.offset
+          break
+        case 'right':
+          top = triggerRect.top + (triggerRect.height - popoverRect.height) / 2
+          left = triggerRect.right + config.offset
+          break
+        case 'right-start':
+          top = triggerRect.top
+          left = triggerRect.right + config.offset
+          break
+        case 'right-end':
+          top = triggerRect.bottom - popoverRect.height
+          left = triggerRect.right + config.offset
+          break
+      }
     }
 
     // 防止超出视窗
     // 水平方向
-    if (left < 0) {
-      left = Math.min(triggerRect.left, 4)
-    } else if (left + popoverRect.width > viewportWidth) {
-      left = Math.max(
-        viewportWidth - popoverRect.width - 4,
-        triggerRect.right - popoverRect.width,
-      )
-    }
+    left = Math.max(8, left)
+    left = Math.min(left, viewportWidth - popoverRect.width - 8)
 
     // 垂直方向
-    if (top < 0) {
-      top = Math.min(triggerRect.bottom + offset, 4)
-    } else if (top + popoverRect.height > viewportHeight) {
-      top = Math.max(
-        viewportHeight - popoverRect.height - 4,
-        triggerRect.top - popoverRect.height - offset,
-      )
-    }
+    top = Math.max(8, top)
+    top = Math.min(top, viewportHeight - popoverRect.height - 8)
 
-    // 应用位置
+    // 应用位置 (使用transform可提高性能)
     popover.style.position = 'fixed'
-    popover.style.top = `${top}px`
-    popover.style.left = `${left}px`
+    popover.style.top = '0'
+    popover.style.left = '0'
+    popover.style.transform = `translate3d(${left}px, ${top}px, 0)`
+    popover.style.zIndex = '9999'
   }
 
   // 点击外部关闭
@@ -180,6 +282,17 @@ export function usePopover(options?: PopoverOptions) {
     }
   }
 
+  // 事件处理函数
+  const onMouseEnter = (e: MouseEvent) => {
+    mousePosX = e.clientX
+    mousePosY = e.clientY
+    open()
+  }
+
+  const onFocus = () => open()
+  const onMouseLeave = () => close()
+  const onBlur = () => close()
+
   // 监听状态变化添加/移除事件监听
   watch(isOpen, (val) => {
     if (val) {
@@ -187,21 +300,49 @@ export function usePopover(options?: PopoverOptions) {
       document.addEventListener('keydown', onKeyDown)
       window.addEventListener('resize', onResize)
       window.addEventListener('scroll', onScroll, true)
+      if (config.followCursor || config.unbound) {
+        window.addEventListener('mousemove', trackMouse)
+      }
     } else {
       document.removeEventListener('click', onClickOutside)
       document.removeEventListener('keydown', onKeyDown)
       window.removeEventListener('resize', onResize)
       window.removeEventListener('scroll', onScroll, true)
+      if (config.followCursor || config.unbound) {
+        window.removeEventListener('mousemove', trackMouse)
+      }
+    }
+  })
+
+  // 如果triggerRef变化，重新计算位置
+  watch(triggerRef, (newTrigger) => {
+    if (newTrigger && isOpen.value && !config.unbound) {
+      updatePosition()
+    }
+  })
+
+  // 初始化事件监听
+  onMounted(() => {
+    if (config.followCursor || config.unbound) {
+      window.addEventListener('mousemove', trackMouse)
     }
   })
 
   // 组件卸载时清理事件监听
   onUnmounted(() => {
+    if (openTimer) clearTimeout(openTimer)
+    if (closeTimer) clearTimeout(closeTimer)
     document.removeEventListener('click', onClickOutside)
     document.removeEventListener('keydown', onKeyDown)
     window.removeEventListener('resize', onResize)
     window.removeEventListener('scroll', onScroll, true)
+    if (config.followCursor || config.unbound) {
+      window.removeEventListener('mousemove', trackMouse)
+    }
   })
+
+  // 生成唯一ID
+  const popoverId = `popover-${Math.random().toString(36).slice(2, 9)}`
 
   return {
     isOpen,
@@ -210,6 +351,12 @@ export function usePopover(options?: PopoverOptions) {
     toggle,
     triggerRef,
     popoverRef,
+    popoverId,
     updatePosition,
+    onMouseEnter,
+    onFocus,
+    onMouseLeave,
+    onBlur,
+    setIsOpen,
   }
 }

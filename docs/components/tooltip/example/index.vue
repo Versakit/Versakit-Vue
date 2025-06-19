@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// 直接从包根目录导入
 import { Tooltip } from '@versakit/vue'
 import '@versakit/vue/style'
 
@@ -23,7 +24,7 @@ const longText =
 
     <!-- 不同位置 -->
     <section>
-      <h2 class="text-lg font-medium mb-4">不同位置</h2>
+      <h2 class="text-lg font-medium mb-4">提示位置</h2>
       <div class="grid grid-cols-2 gap-6 max-w-md">
         <Tooltip content="顶部提示" placement="top">
           <div
@@ -61,7 +62,7 @@ const longText =
 
     <!-- 不同颜色 -->
     <section>
-      <h2 class="text-lg font-medium mb-4">不同颜色</h2>
+      <h2 class="text-lg font-medium mb-4">提示颜色</h2>
       <div class="flex flex-wrap gap-4">
         <Tooltip content="默认提示" color="default">
           <div class="px-4 py-2 bg-gray-500 text-white rounded cursor-pointer">
@@ -99,7 +100,7 @@ const longText =
 
     <!-- 不同触发方式 -->
     <section>
-      <h2 class="text-lg font-medium mb-4">不同触发方式</h2>
+      <h2 class="text-lg font-medium mb-4">触发方式</h2>
       <div class="flex items-center space-x-4">
         <Tooltip content="鼠标悬停触发" trigger="hover">
           <div class="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer">
@@ -109,15 +110,15 @@ const longText =
 
         <Tooltip content="获取焦点触发" trigger="focus">
           <button
-            class="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
+            class="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-300"
           >
-            焦点触发
+            焦点触发(点击)
           </button>
         </Tooltip>
 
         <Tooltip content="悬停或焦点都可触发" trigger="both">
           <button
-            class="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer"
+            class="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-300"
           >
             双重触发
           </button>
@@ -127,7 +128,7 @@ const longText =
 
     <!-- 延迟显示和隐藏 -->
     <section>
-      <h2 class="text-lg font-medium mb-4">延迟显示和隐藏</h2>
+      <h2 class="text-lg font-medium mb-4">显示延迟</h2>
       <div class="flex items-center space-x-4">
         <Tooltip content="延迟500毫秒显示" :openDelay="500">
           <div class="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer">
@@ -143,14 +144,65 @@ const longText =
       </div>
     </section>
 
+    <!-- 跟随鼠标 -->
+    <section>
+      <h2 class="text-lg font-medium mb-4">跟随鼠标</h2>
+      <div class="flex items-center space-x-4">
+        <Tooltip content="跟随鼠标移动" :followCursor="true">
+          <div class="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer">
+            移动鼠标试试
+          </div>
+        </Tooltip>
+      </div>
+    </section>
+
+    <!-- 自定义偏移量 -->
+    <section>
+      <h2 class="text-lg font-medium mb-4">自定义偏移量</h2>
+      <div class="flex items-center space-x-4">
+        <Tooltip content="距离元素20px" :offset="20">
+          <div class="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer">
+            大偏移
+          </div>
+        </Tooltip>
+
+        <Tooltip content="距离元素4px" :offset="4">
+          <div class="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer">
+            小偏移
+          </div>
+        </Tooltip>
+      </div>
+    </section>
+
     <!-- 最大宽度和长文本 -->
     <section>
-      <h2 class="text-lg font-medium mb-4">最大宽度和长文本</h2>
+      <h2 class="text-lg font-medium mb-4">长文本与最大宽度</h2>
       <div class="flex items-center space-x-4">
         <Tooltip :content="longText" :maxWidth="200">
           <div class="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer">
             长文本提示
           </div>
+        </Tooltip>
+      </div>
+    </section>
+
+    <!-- 自定义内容 -->
+    <section>
+      <h2 class="text-lg font-medium mb-4">自定义内容</h2>
+      <div class="flex items-center space-x-4">
+        <Tooltip>
+          <div class="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer">
+            富文本提示
+          </div>
+          <template #content>
+            <div class="p-1">
+              <div class="font-bold text-yellow-300">自定义标题</div>
+              <p class="mt-1">
+                这里可以放
+                <span class="text-red-300">任意HTML内容</span>
+              </p>
+            </div>
+          </template>
         </Tooltip>
       </div>
     </section>
@@ -171,7 +223,7 @@ const longText =
 
     <!-- 无箭头 -->
     <section>
-      <h2 class="text-lg font-medium mb-4">无箭头</h2>
+      <h2 class="text-lg font-medium mb-4">无箭头样式</h2>
       <div class="flex items-center space-x-4">
         <Tooltip content="这个提示没有箭头" :arrow="false">
           <div class="px-4 py-2 bg-blue-500 text-white rounded cursor-pointer">

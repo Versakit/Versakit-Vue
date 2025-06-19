@@ -10,4 +10,5 @@ alwaysApply: false
 禁止使用 any 类型,
 创建的文件必须是.ts
 样式工程必须是index.variants.ts
+必须使用@versakit/composables的函数
 vue里面禁止写scoped css

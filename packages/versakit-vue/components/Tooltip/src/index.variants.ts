@@ -20,26 +20,20 @@ export const tooltipContent = tv({
       warning: 'bg-yellow-600 text-white',
       danger: 'bg-red-600 text-white',
     },
-    placement: {
-      top: '',
-      right: '',
-      bottom: '',
-      left: '',
-    },
     visible: {
-      true: 'opacity-100',
-      false: 'opacity-0',
+      true: 'block',
+      false: 'hidden',
     },
   },
   defaultVariants: {
     color: 'default',
-    placement: 'top',
-    visible: false,
+    visible: true,
   },
 })
 
 /**
  * Tooltip 箭头样式
+ * 注意：箭头位置通过JS动态计算，样式中只定义基本样式和颜色
  */
 export const tooltipArrow = tv({
   base: 'absolute w-2 h-2 rotate-45',
