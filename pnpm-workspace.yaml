@@ -2,6 +2,7 @@ packages:
   - 'packages/*'
   - storybook
   - docs
+  - cli
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - esbuild
