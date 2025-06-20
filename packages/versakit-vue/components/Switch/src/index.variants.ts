@@ -4,48 +4,28 @@ import { tv } from 'tailwind-variants'
 export const switchStyle = tv({
   slots: {
     root: [
-      'relative inline-flex items-center w-10 h-6',
-      'rounded-full transition-all duration-300 ease-in-out',
-      'focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500',
-      'dark:focus:ring-blue-400 dark:focus:ring-offset-gray-800',
+      'relative inline-flex items-center rounded-full transition-all duration-300 ease-in-out',
+      'focus:outline-none focus:ring-2 focus:ring-offset-2',
+      'dark:focus:ring-offset-gray-800',
       'cursor-pointer overflow-hidden',
-      'before:content-[""] before:absolute before:inset-0 before:rounded-full before:opacity-0 before:bg-blue-400/30 before:transition-opacity before:duration-300',
     ],
     thumb: [
-      'absolute top-1',
-      'w-4 h-4 bg-white rounded-full shadow-md',
+      'absolute bg-white rounded-full shadow-md',
       'transform transition-all duration-300 ease-[cubic-bezier(0.34,1.56,0.64,1)]',
       'dark:bg-gray-100',
       'will-change-transform',
       'flex items-center justify-center',
-      'before:content-[""] before:absolute before:opacity-0 before:scale-0 before:transition-all before:duration-300',
     ],
   },
   variants: {
     checked: {
       true: {
-        root: [
-          'bg-blue-600 dark:bg-blue-500',
-          'transition-all duration-300 ease-in-out',
-          'before:opacity-100',
-        ],
-        thumb: [
-          'left-5',
-          'transition-all duration-300',
-          'scale-110',
-          'before:opacity-100 before:scale-100 before:w-2 before:h-2 before:bg-blue-600/30 before:rounded-full',
-        ],
+        root: ['transition-all duration-300 ease-in-out'],
+        thumb: ['transition-all duration-300', 'scale-110'],
       },
       false: {
-        root: [
-          'bg-gray-300 dark:bg-gray-600',
-          'transition-all duration-300 ease-in-out',
-        ],
-        thumb: [
-          'left-1',
-          'transition-all duration-300',
-          'before:opacity-0 before:scale-0',
-        ],
+        root: ['transition-all duration-300 ease-in-out'],
+        thumb: ['transition-all duration-300'],
       },
     },
     disabled: {
@@ -53,9 +33,57 @@ export const switchStyle = tv({
         root: 'opacity-50 cursor-not-allowed',
       },
     },
+    size: {
+      small: {
+        root: 'w-8 h-4',
+        thumb: 'w-3 h-3 top-0.5',
+      },
+      default: {
+        root: 'w-10 h-6',
+        thumb: 'w-4 h-4 top-1',
+      },
+      large: {
+        root: 'w-12 h-7',
+        thumb: 'w-5 h-5 top-1',
+      },
+    },
+    color: {
+      blue: {
+        root: [
+          'focus:ring-blue-500 dark:focus:ring-blue-400',
+          'before:bg-blue-400/30',
+        ],
+      },
+      green: {
+        root: [
+          'focus:ring-green-500 dark:focus:ring-green-400',
+          'before:bg-green-400/30',
+        ],
+      },
+      red: {
+        root: [
+          'focus:ring-red-500 dark:focus:ring-red-400',
+          'before:bg-red-400/30',
+        ],
+      },
+      yellow: {
+        root: [
+          'focus:ring-yellow-500 dark:focus:ring-yellow-400',
+          'before:bg-yellow-400/30',
+        ],
+      },
+      purple: {
+        root: [
+          'focus:ring-purple-500 dark:focus:ring-purple-400',
+          'before:bg-purple-400/30',
+        ],
+      },
+    },
   },
   defaultVariants: {
     checked: false,
     disabled: false,
+    size: 'default',
+    color: 'blue',
   },
 })
