@@ -8,6 +8,7 @@ export const kbdStyle = tv({
         'bg-slate-50 border-slate-200 text-slate-700 shadow-[inset_0_-2px_0_0_rgba(0,0,0,0.1),0_1px_2px_0_rgba(0,0,0,0.05)] hover:bg-slate-100',
       outline:
         'bg-white/80 border-slate-300 text-slate-800 shadow-[inset_0_-1px_0_0_rgba(0,0,0,0.05),0_1px_2px_0_rgba(0,0,0,0.05)] hover:bg-white hover:border-slate-400',
+      dark: 'bg-slate-900 border-slate-700 text-white shadow-[inset_0_-1px_0_0_rgba(255,255,255,0.1),0_1px_2px_0_rgba(0,0,0,0.2)] hover:bg-slate-800',
     },
     size: {
       xs: 'text-xs px-1.5 py-0.5 rounded-sm',
@@ -17,7 +18,7 @@ export const kbdStyle = tv({
     },
   },
   defaultVariants: {
-    variant: 'solid',
+    variant: 'dark',
     size: 'md',
   },
 })

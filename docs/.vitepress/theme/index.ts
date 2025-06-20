@@ -3,6 +3,7 @@ import MyLayout from '../components/Layout.vue'
 import './custom.css'
 import 'virtual:group-icons.css'
 import { Versakit } from '@versakit/vue'
+import '@versakit/vue/style'
 
 export default {
   ...Theme,
