@@ -32,6 +32,13 @@ import { computed } from 'vue'
 
 const componentsData = [
   {
+    name: 'Alert',
+    path: '/Versakit-Vue/components/alert/',
+    description: '用于显示重要信息或操作结果的通知组件。',
+    letter: 'A',
+    color: 'rgba(241, 196, 15, 0.2)',
+  },
+  {
     name: 'Avatar',
     path: '/Versakit-Vue/components/avatar/',
     description:

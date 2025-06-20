@@ -219,4 +219,102 @@ body {
   -webkit-overflow-scrolling: touch;
   overflow-y: overlay;
 }
+
+/* 表格样式优化 */
+.vp-doc table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 24px 0;
+  overflow: hidden;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  font-size: 14px;
+}
+
+.vp-doc table thead {
+  background-color: rgba(0, 0, 0, 0.02);
+}
+
+.vp-doc table th {
+  text-align: left;
+  font-weight: 600;
+  padding: 12px 16px;
+  border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background-color: inherit;
+}
+
+.vp-doc table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.vp-doc table tr:last-child td {
+  border-bottom: none;
+}
+
+.vp-doc table tr:nth-child(odd) {
+  background-color: rgba(0, 0, 0, 0.01);
+}
+
+.vp-doc table tr:hover {
+  background-color: rgba(0, 0, 0, 0.03);
+  transition: background-color 0.2s ease;
+}
+
+/* 响应式表格 */
+@media (max-width: 640px) {
+  .vp-doc table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .vp-doc table th,
+  .vp-doc table td {
+    padding: 10px 12px;
+  }
+}
+
+/* 暗色模式表格样式 */
+.dark .vp-doc table {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.dark .vp-doc table thead {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.dark .vp-doc table th {
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.95);
+}
+
+.dark .vp-doc table td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.dark .vp-doc table tr:nth-child(odd) {
+  background-color: rgba(255, 255, 255, 0.01);
+}
+
+.dark .vp-doc table tr:hover {
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+/* 表格内代码样式 */
+.vp-doc table code {
+  font-size: 12px;
+  background-color: rgba(0, 0, 0, 0.04);
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.dark .vp-doc table code {
+  background-color: rgba(255, 255, 255, 0.1);
+}
 </style>

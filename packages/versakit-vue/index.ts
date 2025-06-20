@@ -11,6 +11,8 @@ import { Slider } from './components/Slider'
 import { Popover } from './components/Popover'
 import { Tooltip } from './components/Tooltip'
 import { Chip } from './components/Chip'
+import { Alert } from './components/Alert'
+
 // 引入样式
 import './style/index.css'
 
@@ -27,6 +29,7 @@ const components: Component[] = [
   Popover,
   Tooltip,
   Chip,
+  Alert,
 ]
 
 export {
@@ -42,6 +45,7 @@ export {
   Popover,
   Tooltip,
   Chip,
+  Alert,
 }
 
 const Versakit = {

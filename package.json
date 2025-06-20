@@ -10,7 +10,7 @@
   "scripts": {
     "all:build": "pnpm --filter @versakit/composables build && pnpm --filter @versakit/vue build",
     "ui:build": "pnpm --filter @versakit/vue build",
-    "composables:build": "turbo run build --filter=@versakit/composables",
+    "composables:build": "pnpm --filter @versakit/composables build",
     "watch:build": "chokidar \"packages/versakit-composables/composables/**/*\" \"packages/versakit-vue/components/**/*\" -c \"pnpm run all:build\"",
     "docs:dev": "pnpm --filter docs dev",
     "storybook": "pnpm --filter storybook storybook",

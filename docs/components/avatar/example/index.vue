@@ -107,63 +107,54 @@ const toggleError = () => {
     <!-- 回退显示 -->
     <section>
       <h2 class="text-lg font-medium mb-4">回退显示</h2>
-      <div class="flex gap-6 items-center">
-        <div>
-          <p class="mb-2">图片加载失败时显示文字缩写：</p>
-          <Avatar
-            :src="
-              imageError
-                ? 'invalid-url.jpg'
-                : 'https://randomuser.me/api/portraits/men/9.jpg'
-            "
-            alt="李四"
-          />
+      <div class="flex flex-col space-y-4">
+        <div class="flex items-center gap-4">
+          <button
+            @click="toggleError"
+            class="px-2 py-1 text-sm bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+          >
+            {{ imageError ? '加载正确图片' : '模拟加载失败' }}
+          </button>
+          <span class="text-sm text-gray-500">点击按钮切换图片加载状态</span>
         </div>
 
-        <div>
-          <p class="mb-2">图片加载失败时显示备用图片：</p>
-          <Avatar
-            :src="
-              imageError
-                ? 'invalid-url.jpg'
-                : 'https://randomuser.me/api/portraits/men/10.jpg'
-            "
-            alt="王五"
-            fallback="https://via.placeholder.com/150/CCCCCC/808080?text=Fallback"
-          />
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div>
+            <p class="mb-2 text-sm">图片加载失败时显示文字缩写：</p>
+            <Avatar
+              :src="
+                imageError
+                  ? 'invalid-url.jpg'
+                  : 'https://randomuser.me/api/portraits/men/9.jpg'
+              "
+              alt="李四"
+            />
+          </div>
+
+          <div>
+            <p class="mb-2 text-sm">图片加载失败时显示备用图片：</p>
+            <Avatar
+              :src="
+                imageError
+                  ? 'invalid-url.jpg'
+                  : 'https://randomuser.me/api/portraits/men/10.jpg'
+              "
+              alt="王五"
+              fallback="https://via.placeholder.com/150/CCCCCC/808080?text=Fallback"
+            />
+          </div>
+
+          <div>
+            <p class="mb-2 text-sm">图片加载失败时显示默认图标：</p>
+            <Avatar
+              :src="
+                imageError
+                  ? 'invalid-url.jpg'
+                  : 'https://randomuser.me/api/portraits/men/11.jpg'
+              "
+            />
+          </div>
         </div>
-
-        <div>
-          <p class="mb-2">图片加载失败时显示默认图标：</p>
-          <Avatar
-            :src="
-              imageError
-                ? 'invalid-url.jpg'
-                : 'https://randomuser.me/api/portraits/men/11.jpg'
-            "
-          />
-        </div>
-
-        <button
-          @click="toggleError"
-          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
-        >
-          {{ imageError ? '加载正确图片' : '模拟加载失败' }}
-        </button>
-      </div>
-    </section>
-
-    <!-- 组合使用 -->
-    <section>
-      <h2 class="text-lg font-medium mb-4">组合使用</h2>
-      <div class="flex gap-6 items-center">
-        <Avatar
-          src="https://randomuser.me/api/portraits/men/12.jpg"
-          alt="用户头像"
-          size="lg"
-          status="online"
-        />
-        <Avatar alt="赵六" size="lg" shape="square" status="busy" />
       </div>
     </section>
   </div>
