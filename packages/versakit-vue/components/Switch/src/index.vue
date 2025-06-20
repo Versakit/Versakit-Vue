@@ -51,7 +51,7 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
-import { useSwitch } from './composables/useSwitch.ts'
+import { useSwitch } from './composables/useSwitch'
 import { switchStyle } from './index.variants'
 import type { SwitchProps } from './type'
 

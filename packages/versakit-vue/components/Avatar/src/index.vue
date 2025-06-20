@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useAvatar } from './composables/useAvatar.ts'
+import { useAvatar } from './composables/useAvatar'
 import { avatar } from './index.variants'
 import type { AvatarProps } from './type'
 

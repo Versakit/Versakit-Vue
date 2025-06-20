@@ -10,7 +10,8 @@ import { kbdStyle } from './index.variants'
 import type { KbdProps } from './type'
 
 defineOptions({
-  name: 'VKbd',
+  // eslint-disable-next-line vue/no-reserved-component-names
+  name: 'Kbd',
 })
 
 const props = withDefaults(defineProps<KbdProps>(), {

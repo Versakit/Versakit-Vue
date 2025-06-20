@@ -9,7 +9,7 @@ import {
 } from './index.variants'
 import type { PopoverProps } from './type'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { usePopover } from './composables/usePopover.ts'
+import { usePopover } from './composables/usePopover'
 
 defineOptions({
   name: 'Popover',

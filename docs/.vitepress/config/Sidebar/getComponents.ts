@@ -22,6 +22,7 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
         { text: 'Switch 开关', link: '/components/switch/' },
         { text: 'Tabs 标签页', link: '/components/tabs/' },
         { text: 'Tooltip 提示', link: '/components/tooltip/' },
+        { text: 'Kbd 键盘', link: '/components/kbd/' },
       ],
     },
   ]

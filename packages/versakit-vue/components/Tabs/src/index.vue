@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, unref, watch } from 'vue'
-import { useTabs } from './composables/useTabs.ts'
+import { useTabs } from './composables/useTabs'
 import { tabsContainer, tabTrigger, tabPanel } from './index.variants'
 import type { TabsProps } from './type'
 

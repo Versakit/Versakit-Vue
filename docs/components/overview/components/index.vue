@@ -71,6 +71,14 @@ const componentsData = [
     color: 'rgba(41, 128, 185, 0.2)',
   },
   {
+    name: 'Kbd',
+    path: '/Versakit-Vue/components/kbd/',
+    description:
+      '用于标识用户需要通过键盘输入的内容（如快捷键、命令行输入等）。',
+    letter: 'K',
+    color: 'rgba(243, 156, 18, 0.2)',
+  },
+  {
     name: 'Drawer',
     path: '/Versakit-Vue/components/drawer/',
     description:
