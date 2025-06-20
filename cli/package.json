@@ -22,7 +22,8 @@
       "ora": "^8.2.0",
       "picocolors": "^1.1.1",
       "prompts": "^2.4.2",
-      "util": "^0.12.5"
+      "util": "^0.12.5",
+      "simple-git": "^3.20.0"
     },
     "devDependencies": {
       "axios": "^1.9.0"
