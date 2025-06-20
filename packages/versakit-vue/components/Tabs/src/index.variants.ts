@@ -2,7 +2,7 @@
 import { tv } from 'tailwind-variants'
 
 export const tabsContainer = tv({
-  base: 'inline-flex rounded-md p-1 bg-white dark:bg-gray-800 outline-none border-none',
+  base: 'inline-flex rounded-md p-1 bg-gray-100 dark:bg-gray-800 outline-none border-none',
   variants: {
     size: {
       sm: 'text-xs',

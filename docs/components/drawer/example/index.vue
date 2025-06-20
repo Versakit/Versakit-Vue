@@ -42,7 +42,7 @@ const openCustomSizeDrawer = () => {
       <div class="flex gap-4">
         <button
           @click="openDrawer"
-          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+          class="px-4 py-2 bg-black text-white rounded cursor-pointer"
         >
           打开右侧抽屉
         </button>
@@ -60,21 +60,21 @@ const openCustomSizeDrawer = () => {
       <div class="flex gap-4">
         <button
           @click="openLeftDrawer"
-          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+          class="px-4 py-2 bg-black text-white rounded cursor-pointer"
         >
           左侧抽屉
         </button>
 
         <button
           @click="openTopDrawer"
-          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+          class="px-4 py-2 bg-black text-white rounded cursor-pointer"
         >
           顶部抽屉
         </button>
 
         <button
           @click="openBottomDrawer"
-          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+          class="px-4 py-2 bg-black text-white rounded cursor-pointer"
         >
           底部抽屉
         </button>
@@ -108,7 +108,7 @@ const openCustomSizeDrawer = () => {
       <div class="flex gap-4">
         <button
           @click="openNoOverlayDrawer"
-          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+          class="px-4 py-2 bg-black text-white rounded cursor-pointer"
         >
           无遮罩层抽屉
         </button>
@@ -131,7 +131,7 @@ const openCustomSizeDrawer = () => {
       <div class="flex gap-4">
         <button
           @click="openCustomSizeDrawer"
-          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+          class="px-4 py-2 bg-black text-white rounded cursor-pointer"
         >
           自定义大小抽屉
         </button>
@@ -153,7 +153,7 @@ const openCustomSizeDrawer = () => {
       <div class="flex gap-4">
         <button
           @click="isDrawerOpen = true"
-          class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+          class="px-4 py-2 bg-black text-white rounded cursor-pointer"
         >
           带页脚的抽屉
         </button>
@@ -172,7 +172,7 @@ const openCustomSizeDrawer = () => {
             </button>
             <button
               @click="isDrawerOpen = false"
-              class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-700"
+              class="px-4 py-2 bg-black text-white rounded"
             >
               确认
             </button>

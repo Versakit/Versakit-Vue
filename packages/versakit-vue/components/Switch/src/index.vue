@@ -1,11 +1,37 @@
-<script setup lang="ts">
-import { computed } from 'vue'
-import { useSwitch } from '@versakit/composables'
-import { switchRoot, switchTrack, switchThumb } from './index.variants'
-import type { SwitchProps, SwitchEmits } from './type'
+<template>
+  <button
+    type="button"
+    role="switch"
+    :aria-checked="checked"
+    :disabled="props.disabled"
+    @click="toggle"
+    @keydown="onKeyDown"
+    :class="classes.root()"
+  >
+    <span :class="classes.thumb()">
+      <span
+        v-if="checked"
+        class="opacity-0 scale-0 absolute inset-0 bg-blue-400/20 rounded-full transition-all duration-300"
+        :class="{ 'opacity-100 scale-100': checked }"
+      ></span>
+    </span>
+    <span
+      class="absolute inset-0 transition-opacity duration-300"
+      :class="{ 'opacity-0': !checked, 'opacity-100': checked }"
+    >
+      <span
+        class="absolute inset-0 bg-blue-400/10 rounded-full transform scale-0 transition-transform duration-500"
+        :class="{ 'scale-100': animateRipple }"
+      ></span>
+    </span>
+  </button>
+</template>
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+<script setup lang="ts">
+import { computed, ref, watch } from 'vue'
+import { useSwitch } from '@versakit/composables'
+import { switchStyle } from './index.variants'
+import type { SwitchProps } from './type'
 
 defineOptions({
   // eslint-disable-next-line vue/no-reserved-component-names
@@ -13,140 +39,33 @@ defineOptions({
 })
 
 const props = withDefaults(defineProps<SwitchProps>(), {
+  modelValue: false,
   disabled: false,
-  loading: false,
-  locked: false, // 默认不锁定，允许切换
-  size: 'md',
-  color: 'primary',
 })
 
-const emit = defineEmits<SwitchEmits>()
+const emit = defineEmits(['update:modelValue'])
 
-// 使用useSwitch钩子处理所有逻辑，使用类型断言解决类型问题
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const { checked, toggle, onKeyDown } = useSwitch({
   modelValue: props.modelValue,
-  disabled: props.disabled || props.loading,
-  locked: props.locked,
-  onChange: (value: boolean) => {
-    emit('update:modelValue', value)
-    emit('change', value)
-  },
-}) as {
-  checked: { value: boolean }
-  toggle: () => void
-  onKeyDown: (e: KeyboardEvent) => void
-}
+  disabled: props.disabled,
+  onChange: (val) => emit('update:modelValue', val),
+})
 
-// 计算是否禁用（组件禁用或加载中）
-const isDisabledState = computed(() => props.disabled || props.loading)
+const animateRipple = ref(false)
 
-// 样式计算
-const rootClass = computed(() =>
-  switchRoot({
-    disabled: isDisabledState.value,
-    size: props.size,
-  }),
-)
+watch(checked, (newVal) => {
+  if (newVal) {
+    animateRipple.value = true
+    setTimeout(() => {
+      animateRipple.value = false
+    }, 500)
+  }
+})
 
-const trackClass = computed(() =>
-  switchTrack({
-    size: props.size,
-    color: props.color,
+const classes = computed(() =>
+  switchStyle({
     checked: checked.value,
-    disabled: isDisabledState.value,
+    disabled: props.disabled,
   }),
-)
-
-const thumbClass = computed(() =>
-  switchThumb({
-    size: props.size,
-    checked: checked.value,
-    loading: props.loading,
-  }),
-)
-
-// 点击处理函数
-const handleToggle = () => {
-  if (isDisabledState.value) return
-  toggle()
-}
-
-// 焦点状态类
-const focusClass =
-  'ring-2 ring-offset-2 ring-blue-500 dark:ring-offset-gray-900'
-const handleFocus = (e: FocusEvent) => {
-  if (isDisabledState.value || !e.currentTarget) return
-  ;(e.currentTarget as HTMLElement).classList.add(focusClass)
-}
-
-const handleBlur = (e: FocusEvent) => {
-  if (!e.currentTarget) return
-  ;(e.currentTarget as HTMLElement).classList.remove(focusClass)
-}
+).value
 </script>
-
-<template>
-  <div class="vk-switch-wrapper">
-    <label
-      :class="rootClass"
-      @click="handleToggle"
-      @keydown="onKeyDown"
-      @focus="handleFocus"
-      @blur="handleBlur"
-      :tabindex="isDisabledState.value ? -1 : 0"
-      role="switch"
-      :aria-checked="checked.value"
-      :aria-disabled="isDisabledState.value"
-      :aria-label="props.ariaLabel || undefined"
-      :aria-required="props.required"
-      :data-state="checked.value ? 'checked' : 'unchecked'"
-      :data-disabled="isDisabledState.value ? 'true' : undefined"
-    >
-      <input
-        type="checkbox"
-        class="sr-only"
-        :checked="checked.value"
-        :disabled="isDisabledState.value"
-        :name="props.name"
-        :id="props.id"
-        :required="props.required"
-        :aria-hidden="true"
-        tabindex="-1"
-      />
-      <div :class="trackClass" aria-hidden="true">
-        <div :class="thumbClass">
-          <svg
-            v-if="props.loading"
-            class="animate-spin h-3 w-3 text-gray-500"
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            aria-hidden="true"
-          >
-            <circle
-              class="opacity-25"
-              cx="11"
-              cy="12"
-              r="10"
-              stroke="currentColor"
-              stroke-width="4"
-            ></circle>
-            <path
-              class="opacity-75"
-              fill="currentColor"
-              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-            ></path>
-          </svg>
-        </div>
-      </div>
-    </label>
-    <span
-      v-if="$slots.default"
-      class="ml-2 text-sm text-gray-700 dark:text-gray-300"
-      :class="{ 'opacity-50': isDisabledState.value }"
-    >
-      <slot></slot>
-    </span>
-  </div>
-</template>
