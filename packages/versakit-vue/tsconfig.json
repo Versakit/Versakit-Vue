@@ -1,7 +1,9 @@
 {
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
-    "declaration": false
+    "declaration": false,
+    "allowImportingTsExtensions": true,
+    "noEmit": true
   },
   "files": [],
   "references": [

@@ -20,7 +20,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useChip } from '@versakit/composables'
+import { useChip } from './composables/useChip.ts'
 import { chipStyle } from './index.variants'
 import type { ChipProps } from './type'
 

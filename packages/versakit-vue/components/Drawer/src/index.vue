@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, watch, onMounted, onBeforeUnmount, nextTick, ref } from 'vue'
-import { useDrawer } from '@versakit/composables'
+import { useDrawer } from './composables/useDrawer.ts'
 import {
   drawerOverlay,
   drawerContainer,

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePinInput } from '@versakit/composables'
+import { usePinInput } from './composables/usePinInput.ts'
 import { pinInput } from './index.variants'
 import type { PinInputProps } from './type'
 

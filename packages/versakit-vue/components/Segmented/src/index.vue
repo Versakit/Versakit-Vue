@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="T extends string | number">
 import { computed, watch } from 'vue'
-import { useSegmented } from '@versakit/composables'
+import { useSegmented } from './composables/useSegmented.ts'
 import { segmentedContainer, segmentedOption } from './index.variants'
 import type { SegmentedProps } from './type'
 

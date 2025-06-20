@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, watch, onMounted, onUnmounted, ref, nextTick } from 'vue'
-import { useTooltip } from '@versakit/composables'
+import { useTooltip } from './composables/useTooltip.ts'
 import { tooltipContent, tooltipArrow } from './index.variants'
 import type { TooltipProps } from './type'
 

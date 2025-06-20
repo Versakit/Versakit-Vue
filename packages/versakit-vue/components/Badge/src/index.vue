@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { useBadge } from '@versakit/composables'
+import { useBadge } from './composables/useBadge.ts'
 import { badge } from './index.variants'
 import type { BadgeProps } from './type'
 

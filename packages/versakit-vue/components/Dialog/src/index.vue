@@ -1,6 +1,6 @@
 <!-- components/dialog/index.vue -->
 <script setup lang="ts">
-import { useDialog } from '@versakit/composables'
+import { useDialog } from './composables/useDialog.ts'
 import type { DialogProps } from './type'
 import { dialogOverlay, dialogContent } from './index.variants'
 import { watch, onMounted, nextTick } from 'vue'

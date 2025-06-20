@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { useSlider } from '@versakit/composables'
+import { useSlider } from './composables/useSlider.ts'
 import {
   sliderContainer,
   sliderTrack,

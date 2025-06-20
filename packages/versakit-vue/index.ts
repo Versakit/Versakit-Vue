@@ -12,6 +12,7 @@ import { Popover } from './components/Popover'
 import { Tooltip } from './components/Tooltip'
 import { Chip } from './components/Chip'
 import { Alert } from './components/Alert'
+import { Kbd } from './components/Kbd'
 
 // 引入样式
 import './style/index.css'
@@ -46,6 +47,7 @@ export {
   Tooltip,
   Chip,
   Alert,
+  Kbd,
 }
 
 const Versakit = {
