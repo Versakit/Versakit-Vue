@@ -1,19 +1,7 @@
 import { ref, onUnmounted, watch, nextTick, onMounted } from 'vue'
 
 // 位置类型定义
-export type Placement =
-  | 'top'
-  | 'right'
-  | 'bottom'
-  | 'left'
-  | 'top-start'
-  | 'top-end'
-  | 'right-start'
-  | 'right-end'
-  | 'bottom-start'
-  | 'bottom-end'
-  | 'left-start'
-  | 'left-end'
+export type Placement = 'top' | 'right' | 'bottom' | 'left'
 
 // 配置选项
 export interface PopoverOptions {
@@ -139,13 +127,7 @@ export function usePopover(options?: PopoverOptions): PopoverReturn {
 
     if (config.followCursor || config.unbound) {
       // 跟随鼠标模式或未绑定模式
-      const placement = config.placement.split('-')[0] as
-        | 'top'
-        | 'right'
-        | 'bottom'
-        | 'left'
-
-      switch (placement) {
+      switch (config.placement) {
         case 'top':
           top = mousePosY - popoverRect.height - config.offset
           left = mousePosX - popoverRect.width / 2
@@ -163,21 +145,6 @@ export function usePopover(options?: PopoverOptions): PopoverReturn {
           left = mousePosX - popoverRect.width - config.offset
           break
       }
-
-      // 应用修饰符 (start/end)
-      if (config.placement.includes('-start')) {
-        if (placement === 'top' || placement === 'bottom') {
-          left = mousePosX
-        } else {
-          top = mousePosY
-        }
-      } else if (config.placement.includes('-end')) {
-        if (placement === 'top' || placement === 'bottom') {
-          left = mousePosX - popoverRect.width
-        } else {
-          top = mousePosY - popoverRect.height
-        }
-      }
     } else {
       // 固定在元素位置模式
       const trigger = triggerRef.value!
@@ -189,48 +156,17 @@ export function usePopover(options?: PopoverOptions): PopoverReturn {
           top = triggerRect.top - popoverRect.height - config.offset
           left = triggerRect.left + (triggerRect.width - popoverRect.width) / 2
           break
-        case 'top-start':
-          top = triggerRect.top - popoverRect.height - config.offset
-          left = triggerRect.left
-          break
-        case 'top-end':
-          top = triggerRect.top - popoverRect.height - config.offset
-          left = triggerRect.right - popoverRect.width
-          break
         case 'bottom':
           top = triggerRect.bottom + config.offset
           left = triggerRect.left + (triggerRect.width - popoverRect.width) / 2
           break
-        case 'bottom-start':
-          top = triggerRect.bottom + config.offset
-          left = triggerRect.left
-          break
-        case 'bottom-end':
-          top = triggerRect.bottom + config.offset
-          left = triggerRect.right - popoverRect.width
-          break
         case 'left':
+          // 优化左侧定位逻辑
           top = triggerRect.top + (triggerRect.height - popoverRect.height) / 2
-          left = triggerRect.left - popoverRect.width - config.offset
-          break
-        case 'left-start':
-          top = triggerRect.top
-          left = triggerRect.left - popoverRect.width - config.offset
-          break
-        case 'left-end':
-          top = triggerRect.bottom - popoverRect.height
           left = triggerRect.left - popoverRect.width - config.offset
           break
         case 'right':
           top = triggerRect.top + (triggerRect.height - popoverRect.height) / 2
-          left = triggerRect.right + config.offset
-          break
-        case 'right-start':
-          top = triggerRect.top
-          left = triggerRect.right + config.offset
-          break
-        case 'right-end':
-          top = triggerRect.bottom - popoverRect.height
           left = triggerRect.right + config.offset
           break
       }
@@ -251,6 +187,7 @@ export function usePopover(options?: PopoverOptions): PopoverReturn {
     popover.style.left = '0'
     popover.style.transform = `translate3d(${left}px, ${top}px, 0)`
     popover.style.zIndex = '9999'
+    popover.style.opacity = '1'
   }
 
   // 点击外部关闭

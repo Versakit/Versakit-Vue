@@ -14,21 +14,13 @@ export const popoverTrigger = tv({
 })
 
 export const popoverContent = tv({
-  base: 'absolute z-10 rounded-md shadow-lg border p-4 max-w-sm',
+  base: 'absolute z-10 rounded-md shadow-lg border p-4 max-w-sm box-border',
   variants: {
     placement: {
-      top: 'bottom-full mb-2',
-      right: 'left-full ml-2',
-      bottom: 'top-full mt-2',
-      left: 'right-full mr-2',
-      'top-start': 'bottom-full mb-2 left-0',
-      'top-end': 'bottom-full mb-2 right-0',
-      'right-start': 'left-full ml-2 top-0',
-      'right-end': 'left-full ml-2 bottom-0',
-      'bottom-start': 'top-full mt-2 left-0',
-      'bottom-end': 'top-full mt-2 right-0',
-      'left-start': 'right-full mr-2 top-0',
-      'left-end': 'right-full mr-2 bottom-0',
+      top: 'mb-2',
+      right: 'ml-2',
+      bottom: 'mt-2',
+      left: 'mr-2',
     },
     visible: {
       true: 'opacity-100 scale-100',
@@ -50,21 +42,13 @@ export const popoverContent = tv({
 })
 
 export const popoverArrow = tv({
-  base: 'absolute w-3 h-3 transform rotate-45 border',
+  base: 'absolute w-3 h-3 transform rotate-45',
   variants: {
     placement: {
-      top: 'bottom-[-6px] left-1/2 -translate-x-1/2 border-t-0 border-l-0',
-      right: 'left-[-6px] top-1/2 -translate-y-1/2 border-r-0 border-t-0',
-      bottom: 'top-[-6px] left-1/2 -translate-x-1/2 border-b-0 border-r-0',
-      left: 'right-[-6px] top-1/2 -translate-y-1/2 border-l-0 border-b-0',
-      'top-start': 'bottom-[-6px] left-4 border-t-0 border-l-0',
-      'top-end': 'bottom-[-6px] right-4 border-t-0 border-l-0',
-      'right-start': 'left-[-6px] top-4 border-r-0 border-t-0',
-      'right-end': 'left-[-6px] bottom-4 border-r-0 border-t-0',
-      'bottom-start': 'top-[-6px] left-4 border-b-0 border-r-0',
-      'bottom-end': 'top-[-6px] right-4 border-b-0 border-r-0',
-      'left-start': 'right-[-6px] top-4 border-l-0 border-b-0',
-      'left-end': 'right-[-6px] bottom-4 border-l-0 border-b-0',
+      top: 'bottom-[-6.5px] left-1/2 -translate-x-1/2',
+      right: 'left-[-6.5px] top-1/2 -translate-y-1/2',
+      bottom: 'top-[-6.5px] left-1/2 -translate-x-1/2',
+      left: 'right-[-6.5px] top-1/2 -translate-y-1/2',
     },
     color: {
       default: 'bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700',

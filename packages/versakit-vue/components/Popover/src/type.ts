@@ -9,19 +9,7 @@ export interface PopoverProps {
    * 弹出层的位置
    * @default 'bottom'
    */
-  placement?:
-    | 'top'
-    | 'right'
-    | 'bottom'
-    | 'left'
-    | 'top-start'
-    | 'top-end'
-    | 'right-start'
-    | 'right-end'
-    | 'bottom-start'
-    | 'bottom-end'
-    | 'left-start'
-    | 'left-end'
+  placement?: 'top' | 'right' | 'bottom' | 'left'
 
   /**
    * 触发方式
