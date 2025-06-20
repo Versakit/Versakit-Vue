@@ -126,7 +126,7 @@ const handleBlur = (e: FocusEvent) => {
           >
             <circle
               class="opacity-25"
-              cx="12"
+              cx="11"
               cy="12"
               r="10"
               stroke="currentColor"
