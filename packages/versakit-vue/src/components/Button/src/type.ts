@@ -7,3 +7,9 @@ export type ButtonProps = {
   rounded?: boolean
   type?: 'button' | 'submit' | 'reset'
 }
+
+export const ButtonEmits = {
+  click: (evt: MouseEvent) => evt instanceof MouseEvent,
+}
+
+export type IButtonEmits = typeof ButtonEmits
