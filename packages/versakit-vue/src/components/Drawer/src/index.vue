@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watch, onMounted, onBeforeUnmount, nextTick, ref } from 'vue'
+import { computed, watch, onBeforeUnmount, ref, useSlots } from 'vue'
 import { useDrawer } from './composables/useDrawer'
 import {
   drawerOverlay,
@@ -24,6 +24,7 @@ const props = withDefaults(defineProps<DrawerProps>(), {
   closeOnOverlayClick: true,
   preventScroll: true,
   zIndex: 1000,
+  hideCloseButton: false,
 })
 
 const emit = defineEmits<{
@@ -32,27 +33,41 @@ const emit = defineEmits<{
   (e: 'open'): void
 }>()
 
+const slots = useSlots()
+
+// 使用 useDrawer 组合式函数
 const { isOpen, close, open, drawerRef, overlayRef, onOverlayClick } =
   useDrawer({
     onClose: () => {
       emit('update:modelValue', false)
       emit('close')
     },
+    onOpen: () => {
+      emit('open')
+    },
+    closeOnEsc: props.closeOnEsc,
+    closeOnOverlayClick: props.closeOnOverlayClick,
   })
 
-// 同步外部modelValue和内部isOpen状态
+// 同步外部 modelValue 和内部 isOpen 状态
 watch(
   () => props.modelValue,
   (val) => {
     if (val && !isOpen.value) {
       open()
-      nextTick(() => emit('open'))
     } else if (!val && isOpen.value) {
       close()
     }
   },
   { immediate: true },
 )
+
+// 同步内部 isOpen 到外部 modelValue
+watch(isOpen, (val) => {
+  if (val !== props.modelValue) {
+    emit('update:modelValue', val)
+  }
+})
 
 // 阻止滚动
 const originalOverflow = ref('')
@@ -75,16 +90,22 @@ onBeforeUnmount(() => {
 
 // 计算样式
 const overlayClass = computed(() => {
-  return drawerOverlay({
-    open: isOpen.value,
-  })
+  return [
+    drawerOverlay({
+      open: isOpen.value,
+    }),
+    props.overlayClass,
+  ]
 })
 
 const containerClass = computed(() => {
-  return drawerContainer({
-    placement: props.placement,
-    open: isOpen.value,
-  })
+  return [
+    drawerContainer({
+      placement: props.placement,
+      open: isOpen.value,
+    }),
+    props.contentClass,
+  ]
 })
 
 const containerStyle = computed(() => {
@@ -106,50 +127,38 @@ const containerStyle = computed(() => {
   return style
 })
 
-const headerClass = computed(() => drawerHeader())
+const headerClass = computed(() => [drawerHeader(), props.headerClass])
 const titleClass = computed(() => drawerTitle())
 const closeButtonClass = computed(() => drawerCloseButton())
-const bodyClass = computed(() => drawerBody())
-const footerClass = computed(() => drawerFooter())
+const bodyClass = computed(() => [drawerBody(), props.bodyClass])
+const footerClass = computed(() => [drawerFooter(), props.footerClass])
 
-// 处理点击遮罩层关闭
-const handleOverlayClick = (e: MouseEvent) => {
-  if (props.closeOnOverlayClick) {
-    onOverlayClick(e)
-  }
+// 处理关闭抽屉
+const closeDrawer = () => {
+  close()
 }
 
-// 处理ESC键关闭
-onMounted(() => {
-  if (!props.closeOnEsc) return
-
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'Escape' && isOpen.value) {
-      close()
-    }
-  }
-
-  document.addEventListener('keydown', handleKeyDown)
-  onBeforeUnmount(() => {
-    document.removeEventListener('keydown', handleKeyDown)
-  })
-})
+// 是否有标题或头部插槽
+const hasHeader = computed(() => !!props.title || !!slots.header)
+// 是否有底部插槽
+const hasFooter = computed(() => !!slots.footer)
 </script>
 
 <template>
   <Teleport to="body">
     <!-- 遮罩层 -->
     <div
-      v-if="showOverlay"
+      v-if="showOverlay && isOpen"
       :class="overlayClass"
       ref="overlayRef"
-      @click="handleOverlayClick"
+      @click="onOverlayClick"
       role="presentation"
+      aria-hidden="true"
     ></div>
 
     <!-- 抽屉容器 -->
     <div
-      :class="containerClass"
+      :class="[containerClass, props.class]"
       :style="containerStyle"
       ref="drawerRef"
       role="dialog"
@@ -158,17 +167,21 @@ onMounted(() => {
       :aria-labelledby="title ? 'drawer-title' : undefined"
     >
       <!-- 抽屉头部 -->
-      <div v-if="$slots.header || title" :class="headerClass">
+      <div v-if="hasHeader" :class="headerClass">
         <slot name="header">
           <h2 v-if="title" :class="titleClass" id="drawer-title">
             {{ title }}
           </h2>
-          <button
-            :class="closeButtonClass"
-            @click="close"
-            aria-label="关闭"
-            type="button"
-          >
+        </slot>
+
+        <button
+          v-if="!hideCloseButton"
+          :class="closeButtonClass"
+          @click="closeDrawer"
+          aria-label="关闭"
+          type="button"
+        >
+          <slot name="close-icon">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -183,8 +196,8 @@ onMounted(() => {
               <line x1="18" y1="6" x2="6" y2="18"></line>
               <line x1="6" y1="6" x2="18" y2="18"></line>
             </svg>
-          </button>
-        </slot>
+          </slot>
+        </button>
       </div>
 
       <!-- 抽屉内容 -->
@@ -193,7 +206,7 @@ onMounted(() => {
       </div>
 
       <!-- 抽屉底部 -->
-      <div v-if="$slots.footer" :class="footerClass">
+      <div v-if="hasFooter" :class="footerClass">
         <slot name="footer"></slot>
       </div>
     </div>

@@ -1,184 +1,157 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { Drawer } from '@versakit/vue'
-import '@versakit/vue/style'
+import { ref } from 'vue'
 
-const isDrawerOpen = ref(false)
-const isLeftDrawerOpen = ref(false)
-const isTopDrawerOpen = ref(false)
-const isBottomDrawerOpen = ref(false)
-const isNoOverlayDrawerOpen = ref(false)
-const isCustomSizeDrawerOpen = ref(false)
+// 基础用法
+const showBasicDrawer = ref(false)
 
-const openDrawer = () => {
-  isDrawerOpen.value = true
-}
+// 不同位置
+const showLeftDrawer = ref(false)
+const showRightDrawer = ref(false)
+const showTopDrawer = ref(false)
+const showBottomDrawer = ref(false)
 
-const openLeftDrawer = () => {
-  isLeftDrawerOpen.value = true
-}
+// 带标题
+const showTitleDrawer = ref(false)
 
-const openTopDrawer = () => {
-  isTopDrawerOpen.value = true
-}
+// 自定义尺寸
+const showCustomSizeDrawer = ref(false)
 
-const openBottomDrawer = () => {
-  isBottomDrawerOpen.value = true
-}
-
-const openNoOverlayDrawer = () => {
-  isNoOverlayDrawerOpen.value = true
-}
-
-const openCustomSizeDrawer = () => {
-  isCustomSizeDrawerOpen.value = true
-}
+// 自定义头部和底部
+const showCustomDrawer = ref(false)
 </script>
 
 <template>
-  <div class="space-y-8">
-    <section>
-      <h2 class="text-lg font-medium mb-4">基础用法</h2>
-      <div class="flex gap-4">
-        <button
-          @click="openDrawer"
-          class="px-4 py-2 bg-black text-white rounded cursor-pointer"
-        >
-          打开右侧抽屉
-        </button>
+  <div class="space-y-6">
+    <!-- 基础用法 -->
+    <div class="mb-4">
+      <h3 class="text-lg font-medium mb-2">基础用法</h3>
+      <button
+        @click="showBasicDrawer = true"
+        class="px-4 py-2 bg-black text-white rounded cursor-pointer"
+      >
+        打开基础抽屉
+      </button>
 
-        <Drawer v-model="isDrawerOpen" title="右侧抽屉">
-          <div class="p-4">
-            <p>这是一个基础的右侧抽屉示例</p>
-          </div>
-        </Drawer>
-      </div>
-    </section>
+      <Drawer v-model="showBasicDrawer" @close="console.log('基础抽屉关闭了')">
+        <p class="text-gray-600">这是一个基础抽屉，默认从右侧滑出。</p>
+      </Drawer>
+    </div>
 
-    <section>
-      <h2 class="text-lg font-medium mb-4">不同位置</h2>
-      <div class="flex gap-4">
+    <!-- 不同位置 -->
+    <div class="mb-4">
+      <h3 class="text-lg font-medium mb-2">不同位置</h3>
+      <div class="flex gap-2 flex-wrap">
         <button
-          @click="openLeftDrawer"
+          @click="showLeftDrawer = true"
           class="px-4 py-2 bg-black text-white rounded cursor-pointer"
         >
           左侧抽屉
         </button>
-
         <button
-          @click="openTopDrawer"
+          @click="showRightDrawer = true"
+          class="px-4 py-2 bg-black text-white rounded cursor-pointer"
+        >
+          右侧抽屉
+        </button>
+        <button
+          @click="showTopDrawer = true"
           class="px-4 py-2 bg-black text-white rounded cursor-pointer"
         >
           顶部抽屉
         </button>
-
         <button
-          @click="openBottomDrawer"
+          @click="showBottomDrawer = true"
           class="px-4 py-2 bg-black text-white rounded cursor-pointer"
         >
           底部抽屉
         </button>
-
-        <Drawer v-model="isLeftDrawerOpen" placement="left" title="左侧抽屉">
-          <div class="p-4">
-            <p>这是一个左侧抽屉示例</p>
-          </div>
-        </Drawer>
-
-        <Drawer v-model="isTopDrawerOpen" placement="top" title="顶部抽屉">
-          <div class="p-4">
-            <p>这是一个顶部抽屉示例</p>
-          </div>
-        </Drawer>
-
-        <Drawer
-          v-model="isBottomDrawerOpen"
-          placement="bottom"
-          title="底部抽屉"
-        >
-          <div class="p-4">
-            <p>这是一个底部抽屉示例</p>
-          </div>
-        </Drawer>
       </div>
-    </section>
 
-    <section>
-      <h2 class="text-lg font-medium mb-4">无遮罩层</h2>
-      <div class="flex gap-4">
-        <button
-          @click="openNoOverlayDrawer"
-          class="px-4 py-2 bg-black text-white rounded cursor-pointer"
-        >
-          无遮罩层抽屉
-        </button>
+      <Drawer v-model="showLeftDrawer" placement="left" title="左侧抽屉">
+        <p class="text-gray-600">这是一个从左侧滑出的抽屉。</p>
+      </Drawer>
 
-        <Drawer
-          v-model="isNoOverlayDrawerOpen"
-          :showOverlay="false"
-          title="无遮罩层"
-        >
-          <div class="p-4">
-            <p>这是一个无遮罩层的抽屉示例</p>
-            <p>点击关闭按钮关闭抽屉</p>
+      <Drawer v-model="showRightDrawer" placement="right" title="右侧抽屉">
+        <p class="text-gray-600">这是一个从右侧滑出的抽屉。</p>
+      </Drawer>
+
+      <Drawer v-model="showTopDrawer" placement="top" title="顶部抽屉">
+        <p class="text-gray-600">这是一个从顶部滑出的抽屉。</p>
+      </Drawer>
+
+      <Drawer v-model="showBottomDrawer" placement="bottom" title="底部抽屉">
+        <p class="text-gray-600">这是一个从底部滑出的抽屉。</p>
+      </Drawer>
+    </div>
+
+    <!-- 带标题 -->
+    <div class="mb-4">
+      <h3 class="text-lg font-medium mb-2">带标题</h3>
+      <button
+        @click="showTitleDrawer = true"
+        class="px-4 py-2 bg-black text-white rounded cursor-pointer"
+      >
+        打开带标题抽屉
+      </button>
+
+      <Drawer v-model="showTitleDrawer" title="这是标题">
+        <p class="text-gray-600">这是一个带标题的抽屉。</p>
+      </Drawer>
+    </div>
+
+    <!-- 自定义尺寸 -->
+    <div class="mb-4">
+      <h3 class="text-lg font-medium mb-2">自定义尺寸</h3>
+      <button
+        @click="showCustomSizeDrawer = true"
+        class="px-4 py-2 bg-black text-white rounded cursor-pointer"
+      >
+        打开宽抽屉
+      </button>
+
+      <Drawer v-model="showCustomSizeDrawer" title="宽抽屉" size="500px">
+        <p class="text-gray-600">这是一个宽度为 500px 的抽屉。</p>
+      </Drawer>
+    </div>
+
+    <!-- 自定义头部和底部 -->
+    <div class="mb-4">
+      <h3 class="text-lg font-medium mb-2">自定义头部和底部</h3>
+      <button
+        @click="showCustomDrawer = true"
+        class="px-4 py-2 bg-black text-white rounded cursor-pointer"
+      >
+        打开自定义抽屉
+      </button>
+
+      <Drawer v-model="showCustomDrawer">
+        <template #header>
+          <div class="flex items-center">
+            <div class="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+            <h3 class="text-lg font-medium">自定义头部</h3>
           </div>
-        </Drawer>
-      </div>
-    </section>
+        </template>
 
-    <section>
-      <h2 class="text-lg font-medium mb-4">自定义大小</h2>
-      <div class="flex gap-4">
-        <button
-          @click="openCustomSizeDrawer"
-          class="px-4 py-2 bg-black text-white rounded cursor-pointer"
-        >
-          自定义大小抽屉
-        </button>
+        <p class="text-gray-600">这是一个带自定义头部和底部的抽屉。</p>
 
-        <Drawer
-          v-model="isCustomSizeDrawerOpen"
-          size="500px"
-          title="自定义大小"
-        >
-          <div class="p-4">
-            <p>这是一个自定义大小的抽屉示例，宽度为500px</p>
-          </div>
-        </Drawer>
-      </div>
-    </section>
-
-    <section>
-      <h2 class="text-lg font-medium mb-4">自定义页脚</h2>
-      <div class="flex gap-4">
-        <button
-          @click="isDrawerOpen = true"
-          class="px-4 py-2 bg-black text-white rounded cursor-pointer"
-        >
-          带页脚的抽屉
-        </button>
-
-        <Drawer v-model="isDrawerOpen" title="自定义页脚">
-          <div class="p-4">
-            <p>这是一个带有自定义页脚的抽屉示例</p>
-          </div>
-
-          <template #footer>
+        <template #footer>
+          <div class="flex justify-end gap-2">
             <button
-              @click="isDrawerOpen = false"
-              class="px-4 py-2 bg-gray-200 text-gray-800 rounded hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"
+              @click="showCustomDrawer = false"
+              class="px-3 py-1 border border-gray-300 rounded"
             >
               取消
             </button>
             <button
-              @click="isDrawerOpen = false"
-              class="px-4 py-2 bg-black text-white rounded"
+              @click="showCustomDrawer = false"
+              class="px-3 py-1 bg-blue-500 text-white rounded"
             >
               确认
             </button>
-          </template>
-        </Drawer>
-      </div>
-    </section>
+          </div>
+        </template>
+      </Drawer>
+    </div>
   </div>
 </template>

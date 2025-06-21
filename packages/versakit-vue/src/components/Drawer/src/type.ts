@@ -8,4 +8,11 @@ export interface DrawerProps {
   preventScroll?: boolean
   zIndex?: number
   title?: string
+  hideCloseButton?: boolean
+  class?: string
+  contentClass?: string
+  headerClass?: string
+  bodyClass?: string
+  footerClass?: string
+  overlayClass?: string
 }

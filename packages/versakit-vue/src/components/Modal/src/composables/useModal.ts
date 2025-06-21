@@ -1,20 +1,18 @@
 import { ref, onUnmounted, watch } from 'vue'
 
-export interface UseDrawerOptions {
+export interface UseModalOptions {
   onClose?: () => void
-  onOpen?: () => void
   closeOnEsc?: boolean
   closeOnOverlayClick?: boolean
 }
 
-export function useDrawer(options?: UseDrawerOptions) {
+export function useModal(options?: UseModalOptions) {
   const isOpen = ref(false)
   const closeOnEsc = options?.closeOnEsc ?? true
   const closeOnOverlayClick = options?.closeOnOverlayClick ?? true
 
   const open = () => {
     isOpen.value = true
-    options?.onOpen?.()
   }
 
   const close = () => {
@@ -22,32 +20,42 @@ export function useDrawer(options?: UseDrawerOptions) {
     options?.onClose?.()
   }
 
-  const drawerRef = ref<HTMLElement | null>(null)
+  const modalRef = ref<HTMLElement | null>(null)
   const overlayRef = ref<HTMLElement | null>(null)
 
   const onKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'Escape' && closeOnEsc) close()
-  }
-
-  const onOverlayClick = (e: MouseEvent) => {
-    if (e.target === overlayRef.value && closeOnOverlayClick) close()
+    if (e.key === 'Escape' && closeOnEsc) {
+      close()
+    }
   }
 
   watch(isOpen, (val) => {
-    if (val) document.addEventListener('keydown', onKeyDown)
-    else document.removeEventListener('keydown', onKeyDown)
+    if (val) {
+      document.addEventListener('keydown', onKeyDown)
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.removeEventListener('keydown', onKeyDown)
+      document.body.style.overflow = ''
+    }
   })
 
   onUnmounted(() => {
     document.removeEventListener('keydown', onKeyDown)
+    document.body.style.overflow = ''
   })
+
+  const onOverlayClick = (e: MouseEvent) => {
+    if (e.target === overlayRef.value && closeOnOverlayClick) {
+      close()
+    }
+  }
 
   return {
     isOpen,
     open,
     close,
+    modalRef,
     overlayRef,
-    drawerRef,
     onOverlayClick,
   }
 }

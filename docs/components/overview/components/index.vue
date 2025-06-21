@@ -85,11 +85,11 @@ const componentsData = [
     color: 'rgba(41, 128, 185, 0.2)',
   },
   {
-    name: 'Dialog',
-    path: '/Versakit-Vue/components/dialog/',
+    name: 'Modal',
+    path: '/Versakit-Vue/components/modal/',
     description:
-      '模态窗口，用于在当前页面层级之上展示重要信息、请求用户确认或执行关键操作。',
-    letter: 'D',
+      '模态框，用于在当前页面层级之上展示重要信息、请求用户确认或执行关键操作。',
+    letter: 'M',
     color: 'rgba(41, 128, 185, 0.2)',
   },
   {

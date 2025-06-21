@@ -16,7 +16,7 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
         { text: 'Card 卡片', link: '/components/card/' },
         { text: 'Chip 芯片', link: '/components/chip/' },
         { text: 'Divider 分割线', link: '/components/divider/' },
-        { text: 'Dialog 对话框', link: '/components/dialog/' },
+        { text: 'Modal 模态框', link: '/components/modal/' },
         { text: 'Drawer 抽屉', link: '/components/drawer/' },
         { text: 'PinInput 验证码输入', link: '/components/pininput/' },
         { text: 'Popover 气泡框', link: '/components/popover/' },

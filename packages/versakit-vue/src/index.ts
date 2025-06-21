@@ -1,7 +1,7 @@
 import type { App, Component } from 'vue'
 import { PinInput } from './components/PinInput'
 import { Tabs } from './components/Tabs'
-import { Dialog } from './components/Dialog'
+import { Modal } from './components/Modal'
 import { Avatar } from './components/Avatar'
 import { Badge } from './components/Badge'
 import { Switch } from './components/Switch'
@@ -24,7 +24,7 @@ import './style/index.css'
 const components: Component[] = [
   PinInput,
   Tabs,
-  Dialog,
+  Modal,
   Avatar,
   Badge,
   Switch,
@@ -45,7 +45,7 @@ const components: Component[] = [
 export {
   PinInput,
   Tabs,
-  Dialog,
+  Modal,
   Avatar,
   Badge,
   Switch,

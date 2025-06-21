@@ -1,7 +1,7 @@
 import { tv } from 'tailwind-variants'
 
 export const drawerOverlay = tv({
-  base: 'fixed inset-0 bg-black bg-opacity-50 dark:bg-opacity-70 transition-opacity z-40',
+  base: 'fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity z-40',
   variants: {
     open: {
       true: 'opacity-100',
@@ -14,7 +14,7 @@ export const drawerOverlay = tv({
 })
 
 export const drawerContainer = tv({
-  base: 'fixed bg-white dark:bg-gray-800 shadow-xl transition-transform overflow-auto flex flex-col z-50',
+  base: 'fixed bg-white dark:bg-gray-800 shadow-xl transition-all duration-300 overflow-auto flex flex-col z-50',
   variants: {
     placement: {
       left: 'top-0 left-0 bottom-0 h-full',
@@ -80,11 +80,11 @@ export const drawerHeader = tv({
 })
 
 export const drawerTitle = tv({
-  base: 'text-lg font-medium text-gray-900 dark:text-gray-100',
+  base: 'text-lg font-medium text-gray-900 dark:text-white',
 })
 
 export const drawerCloseButton = tv({
-  base: 'p-1 rounded-md text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-gray-800',
+  base: 'p-1 rounded-full text-gray-500 hover:bg-gray-100 hover:text-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-gray-400',
 })
 
 export const drawerBody = tv({
