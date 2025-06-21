@@ -54,6 +54,15 @@
       </div>
     </section>
 
+    <!-- 自定义渲染元素 -->
+    <section>
+      <h2 class="mb-4 text-lg font-bold">自定义渲染元素</h2>
+      <p class="mb-2">默认水平分割线 (hr元素)</p>
+      <Divider class="mb-4" />
+      <p class="mb-2">自定义为span元素:</p>
+      <Divider as="span" class="mb-4" />
+    </section>
+
     <!-- 组合使用 -->
     <section>
       <h2 class="mb-4 text-lg font-bold">组合使用</h2>
@@ -71,22 +80,18 @@
       </div>
     </section>
 
-    <!-- 在不同容器宽度中的应用 -->
+    <!-- 分割内容区域 -->
     <section>
-      <h2 class="mb-4 text-lg font-bold">在不同容器宽度中的应用</h2>
-      <div class="w-full mb-4">
-        <Divider label="100% 宽度" />
-      </div>
-      <div class="w-3/4 mb-4">
-        <Divider label="75% 宽度" variant="dashed" />
-      </div>
-      <div class="w-1/2">
-        <Divider label="50% 宽度" variant="dotted" />
+      <h2 class="mb-4 text-lg font-bold">分割内容区域</h2>
+      <div class="p-4 border rounded">
+        <p>上方内容区域</p>
+        <Divider />
+        <p>下方内容区域</p>
       </div>
     </section>
   </div>
 </template>
 
-<script setup>
-// Divider组件已经全局注册，无需在此导入
+<script setup lang="ts">
+import { Divider } from '@versakit/vue'
 </script>

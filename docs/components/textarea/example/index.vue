@@ -117,6 +117,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { Textarea } from '@versakit/vue'
 
 // 示例数据
 const basicValue = ref('')
