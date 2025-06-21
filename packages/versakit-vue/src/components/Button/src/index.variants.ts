@@ -1,7 +1,7 @@
 import { tv } from 'tailwind-variants'
 
 export const buttonStyle = tv({
-  base: 'inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none',
+  base: 'inline-flex items-center justify-center font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
   variants: {
     variant: {
       primary:
@@ -32,6 +32,10 @@ export const buttonStyle = tv({
     rounded: {
       true: 'rounded-full',
     },
+    disabled: {
+      true: 'opacity-50 pointer-events-none cursor-not-allowed',
+      false: 'cursor-pointer',
+    },
   },
   compoundVariants: [
     {
@@ -48,5 +52,6 @@ export const buttonStyle = tv({
   defaultVariants: {
     variant: 'primary',
     size: 'md',
+    disabled: false,
   },
 })
