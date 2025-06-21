@@ -16,7 +16,7 @@ defineOptions({
 
 const props = withDefaults(defineProps<KbdProps>(), {
   size: 'md',
-  variant: 'solid',
+  variant: 'default',
 })
 
 const classes = computed(() =>

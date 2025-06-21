@@ -1,12 +1,15 @@
 import { ref, computed } from 'vue'
 
-export function useChip(props: {
+export interface UseChipProps {
   modelValue?: boolean
   selectable?: boolean
   disabled?: boolean
-  onDelete?: () => void
+  closable?: boolean
+  onClose?: (event: Event) => void
   onChange?: (val: boolean) => void
-}) {
+}
+
+export function useChip(props: UseChipProps) {
   const selected = ref(props.modelValue ?? false)
 
   const toggle = () => {
@@ -15,16 +18,19 @@ export function useChip(props: {
     props.onChange?.(selected.value)
   }
 
-  const handleDelete = () => {
+  const handleClose = (event: Event) => {
     if (props.disabled) return
-    props.onDelete?.()
+    event.stopPropagation()
+    props.onClose?.(event)
   }
 
   const isSelected = computed(() => selected.value)
+  const isClosable = computed(() => props.closable || !!props.onClose)
 
   return {
     isSelected,
+    isClosable,
     toggle,
-    handleDelete,
+    handleClose,
   }
 }

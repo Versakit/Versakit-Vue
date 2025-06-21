@@ -13,6 +13,10 @@ import { Tooltip } from './components/Tooltip'
 import { Chip } from './components/Chip'
 import { Alert } from './components/Alert'
 import { Kbd } from './components/Kbd'
+import { Button } from './components/Button'
+import { Card } from './components/Card'
+import { Divider } from './components/Divider'
+import { Textarea } from './components/Textarea'
 
 // 引入样式
 import './style/index.css'
@@ -31,6 +35,11 @@ const components: Component[] = [
   Tooltip,
   Chip,
   Alert,
+  Kbd,
+  Button,
+  Card,
+  Divider,
+  Textarea,
 ]
 
 export {
@@ -48,6 +57,10 @@ export {
   Chip,
   Alert,
   Kbd,
+  Button,
+  Card,
+  Divider,
+  Textarea,
 }
 
 const Versakit = {

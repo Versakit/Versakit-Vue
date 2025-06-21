@@ -6,5 +6,5 @@ export type KbdProps = {
   /**
    * 键盘按键的样式变体
    */
-  variant?: 'solid' | 'outline'
+  variant?: 'default'
 }

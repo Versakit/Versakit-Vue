@@ -30,7 +30,7 @@ export default defineConfig({
         /__mocks__/,
       ],
       input: {
-        index: 'index.ts',
+        index: 'src/index.ts',
       },
       treeshake: {
         moduleSideEffects: false,
@@ -54,7 +54,7 @@ export default defineConfig({
       ],
     },
     lib: {
-      entry: 'index.ts',
+      entry: 'src/index.ts',
       name: 'versakit-ui',
     },
     terserOptions: {

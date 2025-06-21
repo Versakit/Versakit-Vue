@@ -25,15 +25,6 @@ import { Kbd } from '@versakit/vue'
       </div>
     </section>
 
-    <!-- 不同样式 -->
-    <section>
-      <h2 class="text-lg font-medium mb-4">不同样式</h2>
-      <div class="flex items-center gap-4">
-        <Kbd variant="solid">Enter</Kbd>
-        <Kbd variant="outline">Space</Kbd>
-      </div>
-    </section>
-
     <!-- 常用组合 -->
     <section>
       <h2 class="text-lg font-medium mb-4">常用组合</h2>
@@ -51,7 +42,7 @@ import { Kbd } from '@versakit/vue'
           <Kbd size="sm">Tab</Kbd>
         </div>
         <div class="flex items-center gap-2">
-          <Kbd variant="outline">Esc</Kbd>
+          <Kbd>Esc</Kbd>
           <span class="text-sm text-gray-500">退出</span>
         </div>
       </div>

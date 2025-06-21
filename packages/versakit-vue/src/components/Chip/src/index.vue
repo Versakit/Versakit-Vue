@@ -1,19 +1,90 @@
 <template>
   <span
-    :class="classes"
+    :class="chipClasses"
     role="option"
     :aria-selected="isSelected"
     @click="toggle"
   >
-    <slot />
-    <button
-      v-if="closable"
-      type="button"
-      class="ml-1 text-gray-500 hover:text-red-500 focus:outline-none"
-      @click.stop="handleDelete"
-      aria-label="Remove"
+    <!-- Dot (用于dot变体) -->
+    <span
+      v-if="variant === 'dot'"
+      class="mr-1.5 h-2 w-2 rounded-full"
+      :class="dotClasses"
+    ></span>
+
+    <!-- Avatar -->
+    <slot
+      v-if="$slots.avatar"
+      name="avatar"
+      class="flex shrink-0 mr-1.5"
+    ></slot>
+    <slot v-else-if="avatar" name="avatarFallback" class="flex shrink-0 mr-1.5">
+      <span class="flex shrink-0 mr-1.5">
+        <component :is="avatar" />
+      </span>
+    </slot>
+
+    <!-- 开始内容 -->
+    <slot
+      v-if="$slots.startContent"
+      name="startContent"
+      class="flex shrink-0 mr-1.5"
+    ></slot>
+    <slot
+      v-else-if="startContent"
+      name="startContentFallback"
+      class="flex shrink-0 mr-1.5"
     >
-      ×
+      <span class="flex shrink-0 mr-1.5">
+        <component :is="startContent" />
+      </span>
+    </slot>
+
+    <!-- 主要内容 -->
+    <span class="truncate">
+      <slot />
+    </span>
+
+    <!-- 结束内容 -->
+    <slot
+      v-if="$slots.endContent"
+      name="endContent"
+      class="flex shrink-0 ml-1.5"
+    ></slot>
+    <slot
+      v-else-if="endContent"
+      name="endContentFallback"
+      class="flex shrink-0 ml-1.5"
+    >
+      <span class="flex shrink-0 ml-1.5">
+        <component :is="endContent" />
+      </span>
+    </slot>
+
+    <!-- 关闭按钮 -->
+    <button
+      v-if="isClosable"
+      type="button"
+      class="ml-1.5 flex-shrink-0 flex items-center justify-center rounded-full hover:bg-black/5 focus:outline-none focus:bg-black/10 w-4 h-4"
+      @click.stop="handleClose"
+      aria-label="关闭"
+      :disabled="disabled"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="12"
+        height="12"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        class="opacity-70 hover:opacity-100"
+      >
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
     </button>
   </span>
 </template>
@@ -29,22 +100,46 @@ const props = withDefaults(defineProps<ChipProps>(), {
   selectable: false,
   disabled: false,
   closable: false,
+  variant: 'solid',
+  color: 'default',
+  size: 'md',
+  radius: 'full',
 })
 
-const emit = defineEmits(['update:modelValue', 'delete'])
+const emit = defineEmits(['update:modelValue', 'close'])
 
-const { isSelected, toggle, handleDelete } = useChip({
+const { isSelected, isClosable, toggle, handleClose } = useChip({
   modelValue: props.modelValue,
   selectable: props.selectable,
   disabled: props.disabled,
-  onChange: (val: any) => emit('update:modelValue', val),
-  onDelete: () => emit('delete'),
+  closable: props.closable,
+  onClose: (event) => emit('close', event),
+  onChange: (val: boolean) => emit('update:modelValue', val),
 })
 
-const classes = computed(() =>
+// 主要样式
+const chipClasses = computed(() =>
   chipStyle({
+    variant: props.variant,
+    color: props.color,
+    size: props.size,
+    radius: props.radius,
     selected: isSelected.value,
     disabled: props.disabled,
   }),
 )
+
+// dot变体的点样式
+const dotClasses = computed(() => {
+  const colorClasses = {
+    default: 'bg-zinc-500',
+    primary: 'bg-blue-500',
+    secondary: 'bg-purple-500',
+    success: 'bg-green-500',
+    warning: 'bg-yellow-500',
+    danger: 'bg-red-500',
+  }
+
+  return colorClasses[props.color || 'default']
+})
 </script>

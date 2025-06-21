@@ -47,11 +47,26 @@ const componentsData = [
     color: 'rgba(241, 196, 15, 0.2)',
   },
   {
+    name: 'Button',
+    path: '/Versakit-Vue/components/button/',
+    description: '用于触发用户操作的交互元素，通常以按钮形式呈现。',
+    letter: 'B',
+    color: 'rgba(231, 76, 60, 0.2)',
+  },
+
+  {
     name: 'Badge',
     path: '/Versakit-Vue/components/badge/',
     description:
       '用于显示状态标记或通知计数的小型视觉指示器，通常以圆形或椭圆形徽章形式出现。',
     letter: 'B',
+    color: 'rgba(231, 76, 60, 0.2)',
+  },
+  {
+    name: 'Card',
+    path: '/Versakit-Vue/components/card/',
+    description: '用于显示内容和信息的容器组件，通常以卡片形式呈现。',
+    letter: 'C',
     color: 'rgba(231, 76, 60, 0.2)',
   },
   {
@@ -61,6 +76,13 @@ const componentsData = [
       '用于显示状态标记或通知计数的小型视觉指示器，通常以圆形或椭圆形徽章形式出现。',
     letter: 'C',
     color: 'rgba(231, 76, 60, 0.2)',
+  },
+  {
+    name: 'Divider',
+    path: '/Versakit-Vue/components/divider/',
+    description: '用于分隔内容区域的视觉元素，通常以线条或空白区域形式呈现。',
+    letter: 'D',
+    color: 'rgba(41, 128, 185, 0.2)',
   },
   {
     name: 'Dialog',
@@ -122,6 +144,13 @@ const componentsData = [
       '二元状态选择器，用于在两种状态间快速切换（如 "开 / 关"、"启用 / 禁用"）。',
     letter: 'S',
     color: 'rgba(52, 152, 219, 0.2)',
+  },
+  {
+    name: 'Textarea',
+    path: '/Versakit-Vue/components/textarea/',
+    description: '用于输入多行文本的交互组件，通常以文本框形式呈现。',
+    letter: 'T',
+    color: 'rgba(39, 174, 96, 0.2)',
   },
   {
     name: 'Tabs',
