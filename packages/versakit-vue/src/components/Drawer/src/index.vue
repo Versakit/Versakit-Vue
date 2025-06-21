@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, watch, onBeforeUnmount, ref, useSlots } from 'vue'
+import { computed, watch, onBeforeUnmount, ref, useSlots, Slots } from 'vue'
 import { useDrawer } from './composables/useDrawer'
 import {
   drawerOverlay,
@@ -33,7 +33,7 @@ const emit = defineEmits<{
   (e: 'open'): void
 }>()
 
-const slots = useSlots()
+const slots: Slots = useSlots()
 
 // 使用 useDrawer 组合式函数
 const { isOpen, close, open, drawerRef, overlayRef, onOverlayClick } =
@@ -139,9 +139,9 @@ const closeDrawer = () => {
 }
 
 // 是否有标题或头部插槽
-const hasHeader = computed(() => !!props.title || !!slots.header)
+const hasHeader = computed<boolean>(() => !!props.title || !!slots.header)
 // 是否有底部插槽
-const hasFooter = computed(() => !!slots.footer)
+const hasFooter = computed<boolean>(() => !!slots.footer)
 </script>
 
 <template>
