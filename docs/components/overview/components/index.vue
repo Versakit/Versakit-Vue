@@ -167,6 +167,34 @@ const componentsData = [
     letter: 'T',
     color: 'rgba(25, 113, 194, 0.2)',
   },
+  {
+    name: 'Select',
+    path: '/Versakit-Vue/components/select/',
+    description: '用于从预定义选项列表中选择单个或多个条目的交互控件。',
+    letter: 'S',
+    color: 'rgba(25, 113, 194, 0.2)',
+  },
+  {
+    name: 'Radio',
+    path: '/Versakit-Vue/components/radio/',
+    description: '用于从多个互斥选项中选择唯一条目的交互控件。',
+    letter: 'R',
+    color: 'rgba(25, 113, 194, 0.2)',
+  },
+  {
+    name: 'Checkbox',
+    path: '/Versakit-Vue/components/checkbox/',
+    description: '用于从多个选项中选择零个或多个条目的交互控件。',
+    letter: 'C',
+    color: 'rgba(25, 113, 194, 0.2)',
+  },
+  {
+    name: 'Input',
+    path: '/Versakit-Vue/components/input/',
+    description: '用于输入单行或多行文本的交互组件，通常以文本框形式呈现。',
+    letter: 'I',
+    color: 'rgba(25, 113, 194, 0.2)',
+  },
 ]
 
 const sortedComponents = computed(() => {

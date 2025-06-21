@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { computed, watch, onBeforeUnmount, ref, useSlots, Slots } from 'vue'
+import { computed, watch, onBeforeUnmount, ref, useSlots } from 'vue'
+import type { Slots } from 'vue'
 import { useDrawer } from './composables/useDrawer'
 import {
   drawerOverlay,

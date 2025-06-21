@@ -27,6 +27,10 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
         { text: 'Tabs 标签页', link: '/components/tabs/' },
         { text: 'Tooltip 提示', link: '/components/tooltip/' },
         { text: 'Kbd 键盘', link: '/components/kbd/' },
+        { text: 'Select 选择器', link: '/components/select/' },
+        { text: 'Radio 单选框', link: '/components/radio/' },
+        { text: 'Checkbox 多选框', link: '/components/checkbox/' },
+        { text: 'Input 输入框', link: '/components/input/' },
       ],
     },
   ]
