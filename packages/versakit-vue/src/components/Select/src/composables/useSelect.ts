@@ -1,4 +1,4 @@
-import { ref, computed, watch, nextTick } from 'vue'
+import { ref, computed, watch, nextTick, onMounted } from 'vue'
 import type { SelectOption } from '../type'
 
 export interface UseSelectProps {
@@ -41,11 +41,56 @@ export function useSelect(props: UseSelectProps) {
 
   // 根据值找到对应的选项
   const selectedOptions = computed(() => {
-    const options = props.options || []
-    return options.filter((option) =>
-      selectedValues.value.includes(option.value),
-    )
+    const result: SelectOption[] = []
+    if (!selectedValues.value.length) return result
+
+    // 打印调试信息
+    console.debug('查找选中选项：', {
+      selectedValues: selectedValues.value,
+      options: normalizedOptions.value.map((o) => ({
+        value: o.value,
+        label: o.label,
+      })),
+    })
+
+    for (const val of selectedValues.value) {
+      // 使用严格相等和类型转换后的相等进行匹配
+      const option =
+        normalizedOptions.value.find((o) => o.value === val) ||
+        normalizedOptions.value.find((o) => String(o.value) === String(val))
+
+      if (option) {
+        result.push(option)
+      } else {
+        // 如果找不到，创建一个临时选项显示值
+        console.warn(`没有找到值为 ${val} 的选项，创建临时选项`)
+
+        const tempOption: SelectOption = {
+          label: String(val),
+          value: val as string | number,
+        }
+
+        result.push(tempOption)
+      }
+    }
+
+    console.debug('找到选中选项结果：', result)
+    return result
   })
+
+  // 监听modelValue和options变化，确保选中项能实时更新
+  watch(
+    [() => props.modelValue, () => props.options],
+    () => {
+      console.debug('modelValue或options变化，更新选中项', {
+        modelValue: props.modelValue,
+        options: props.options,
+        selectedValues: selectedValues.value,
+        selectedOptions: selectedOptions.value,
+      })
+    },
+    { immediate: true, deep: true },
+  )
 
   // 获取选项的标签显示
   const getOptionLabel = computed(() => {
@@ -58,13 +103,12 @@ export function useSelect(props: UseSelectProps) {
 
   // 过滤选项
   const filteredOptions = computed(() => {
-    const options = props.options || []
     if (!props.filterable || !searchValue.value) {
-      return options
+      return normalizedOptions.value
     }
 
     const query = searchValue.value.toLowerCase()
-    return options.filter((option) =>
+    return normalizedOptions.value.filter((option) =>
       option.label.toLowerCase().includes(query),
     )
   })
@@ -79,7 +123,10 @@ export function useSelect(props: UseSelectProps) {
 
     if (props.multiple) {
       const values = [...selectedValues.value]
-      const index = values.indexOf(option.value)
+      // 使用类型无关的比较
+      const index = values.findIndex(
+        (val) => String(val) === String(option.value),
+      )
 
       if (index > -1) {
         values.splice(index, 1)
@@ -129,7 +176,6 @@ export function useSelect(props: UseSelectProps) {
 
     if (isOpen.value) {
       nextTick(() => {
-        // 重置activeIndex到第一个未禁用的选项
         resetActiveIndex()
       })
     }
@@ -143,7 +189,6 @@ export function useSelect(props: UseSelectProps) {
 
     isOpen.value = true
 
-    // 重置activeIndex
     nextTick(() => {
       resetActiveIndex()
     })
@@ -169,7 +214,7 @@ export function useSelect(props: UseSelectProps) {
 
   // 选项是否被选中
   const isSelected = (value: string | number) => {
-    return selectedValues.value.includes(value)
+    return selectedValues.value.some((val) => String(val) === String(value))
   }
 
   // 键盘导航
@@ -187,9 +232,8 @@ export function useSelect(props: UseSelectProps) {
         if (!isOpen.value) {
           openDropdown()
         } else {
-          // 向下导航到下一个未禁用选项
           let nextIndex = activeIndex.value
-          let count = 0 // 防止死循环
+          let count = 0
 
           do {
             nextIndex = (nextIndex + 1) % options.length
@@ -206,9 +250,8 @@ export function useSelect(props: UseSelectProps) {
         if (!isOpen.value) {
           openDropdown()
         } else {
-          // 向上导航到上一个未禁用选项
           let prevIndex = activeIndex.value
-          let count = 0 // 防止死循环
+          let count = 0
 
           do {
             prevIndex = prevIndex <= 0 ? options.length - 1 : prevIndex - 1
@@ -271,6 +314,12 @@ export function useSelect(props: UseSelectProps) {
     } else {
       document.removeEventListener('click', clickOutside)
     }
+  })
+
+  // 组件挂载后立即检查 selectedOptions
+  onMounted(() => {
+    console.debug('组件挂载完成，选中的值：', selectedValues.value)
+    console.debug('组件挂载完成，选中的选项：', selectedOptions.value)
   })
 
   // 组件销毁时清理事件监听

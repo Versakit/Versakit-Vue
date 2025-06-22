@@ -17,10 +17,10 @@ import { Button } from './components/Button'
 import { Card } from './components/Card'
 import { Divider } from './components/Divider'
 import { Textarea } from './components/Textarea'
-import { Select } from './components/Select'
 import { Radio } from './components/Radio'
 import { Checkbox } from './components/Checkbox'
 import { Input } from './components/Input'
+import { Select, SelectItem } from './components/Select'
 
 // 引入样式
 import './style/index.css'
@@ -45,6 +45,7 @@ const components: Component[] = [
   Divider,
   Textarea,
   Select,
+  SelectItem,
   Radio,
   Checkbox,
   Input,
@@ -73,6 +74,7 @@ export {
   Radio,
   Checkbox,
   Input,
+  SelectItem,
 }
 
 const Versakit = {
