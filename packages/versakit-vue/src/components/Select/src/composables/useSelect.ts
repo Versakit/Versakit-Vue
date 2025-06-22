@@ -18,12 +18,24 @@ export function useSelect(props: UseSelectProps) {
   const triggerRef = ref<HTMLElement | null>(null)
   const dropdownRef = ref<HTMLElement | null>(null)
 
+  // 内部响应式的 modelValue，用于跟踪当前选中值
+  const internalValue = ref(props.modelValue)
+
+  // 监听外部 modelValue 变化，同步到内部值
+  watch(
+    () => props.modelValue,
+    (newVal) => {
+      internalValue.value = newVal
+    },
+    { immediate: true },
+  )
+
   // 处理选中值
   const selectedValues = computed(() => {
     if (props.multiple) {
-      return Array.isArray(props.modelValue) ? props.modelValue : []
+      return Array.isArray(internalValue.value) ? internalValue.value : []
     } else {
-      return props.modelValue !== undefined ? [props.modelValue] : []
+      return internalValue.value !== undefined ? [internalValue.value] : []
     }
   })
 
@@ -81,6 +93,9 @@ export function useSelect(props: UseSelectProps) {
       closeDropdown()
     }
 
+    // 更新内部值
+    internalValue.value = newValue
+    // 触发外部回调
     props.onChange?.(newValue)
 
     // 清空搜索值
@@ -98,6 +113,9 @@ export function useSelect(props: UseSelectProps) {
     }
 
     const newValue = props.multiple ? [] : undefined
+    // 更新内部值
+    internalValue.value = newValue
+    // 触发外部回调
     props.onChange?.(newValue)
   }
 

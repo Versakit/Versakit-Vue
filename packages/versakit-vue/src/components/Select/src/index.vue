@@ -115,6 +115,7 @@
           @click.stop="selectOption(option)"
         >
           {{ option.label }}
+
           <!-- 选中标记 -->
           <svg
             v-if="isSelected(option.value)"
