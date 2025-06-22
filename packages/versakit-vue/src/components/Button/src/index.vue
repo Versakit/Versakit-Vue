@@ -7,9 +7,16 @@
     @click="handleClick"
   >
     <span v-if="loading" class="mr-2">
+      <span v-if="$slots.loading">
+        <slot name="loading" />
+      </span>
       <span
+        v-else
         class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent"
       ></span>
+    </span>
+    <span v-else-if="$slots.icon">
+      <slot name="icon" />
     </span>
     <slot />
   </button>
