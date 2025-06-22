@@ -1,80 +1,167 @@
 import { tv } from 'tailwind-variants'
 
-export const selectStyle = tv({
+export const selectStyles = tv({
   slots: {
-    root: 'relative inline-flex w-full',
-    trigger:
-      'relative flex w-full cursor-pointer rounded-md border border-gray-300 bg-white px-3 py-2 shadow-sm focus-within:border-blue-500 focus-within:ring-1 focus-within:ring-blue-500 dark:border-gray-600 dark:bg-gray-800',
-    value: 'block flex-1 truncate text-left outline-none dark:text-white',
-    placeholder: 'text-gray-500 dark:text-gray-400',
-    icon: 'ml-2 flex flex-shrink-0 items-center self-center text-gray-500 dark:text-gray-400',
-    clearIcon:
-      'mr-1 flex cursor-pointer items-center text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300',
-    dropdown:
-      'absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-800 dark:ring-gray-700',
-    search:
-      'sticky top-0 z-10 block w-full border-0 border-b border-gray-300 bg-white px-3 py-1.5 dark:border-gray-600 dark:bg-gray-800',
-    option:
-      'relative cursor-pointer select-none py-2 pl-3 pr-9 hover:bg-gray-100 dark:hover:bg-gray-700',
-    optionSelected: 'font-medium text-blue-600 dark:text-blue-300',
-    optionActive: 'bg-gray-100 dark:bg-gray-700',
-    optionDisabled: 'cursor-not-allowed opacity-50',
-    checkIcon:
-      'absolute right-2 top-1/2 h-4 w-4 -translate-y-1/2 text-blue-600 dark:text-blue-300',
-    noMatch: 'px-3 py-2 text-center text-sm text-gray-500 dark:text-gray-400',
-    tag: 'mr-1 inline-flex items-center rounded-md bg-blue-100 px-2 py-0.5 text-sm font-medium text-blue-800 dark:bg-blue-900 dark:text-blue-300',
-    tagRemove:
-      'ml-1 cursor-pointer text-blue-600 hover:text-blue-800 dark:text-blue-300 dark:hover:text-blue-100',
+    base: 'group inline-flex flex-col w-full outline-none border-none',
+    label: 'block text-sm font-medium text-foreground pb-1.5',
+    mainWrapper: 'w-full flex flex-col',
+    trigger: [
+      'flex w-full appearance-none items-center justify-between',
+      'rounded-md border border-input bg-background px-3 py-2',
+      'text-sm ring-offset-background placeholder:text-muted-foreground',
+      'focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2',
+      'disabled:cursor-not-allowed disabled:opacity-50',
+      'transition-colors data-[invalid=true]:border-danger data-[invalid=true]:ring-danger',
+    ],
+    innerWrapper: 'flex h-full items-center gap-1.5',
+    selectorIcon: [
+      'text-large text-default-400',
+      'transition-transform duration-150',
+      'data-[open=true]:rotate-180',
+    ],
+    value: 'w-full outline-none bg-transparent',
+    listboxWrapper: 'w-full',
+    listbox: [
+      'max-h-64 w-full overflow-auto rounded-md bg-popover p-1',
+      'text-popover-foreground shadow-md',
+      'data-[empty=true]:py-6 data-[empty=true]:text-center data-[empty=true]:text-muted-foreground',
+    ],
+    popoverContent: [
+      'w-full p-1 overflow-hidden',
+      'border border-border shadow-sm rounded-md bg-popover',
+    ],
+    helperWrapper: 'flex flex-col gap-1.5 pt-1',
+    description: 'text-xs text-default-400',
+    errorMessage: 'text-xs text-danger',
+    spinner: 'text-default-500',
   },
   variants: {
     size: {
-      small: {
-        trigger: 'h-8 text-sm',
-        dropdown: 'text-sm',
-        option: 'py-1.5',
-        tag: 'text-xs',
+      sm: {
+        trigger: 'h-8 text-xs',
+        label: 'text-xs',
       },
-      default: {
+      md: {
         trigger: 'h-10',
       },
-      large: {
-        trigger: 'h-12 text-lg',
-        dropdown: 'text-lg',
-        option: 'py-2.5',
+      lg: {
+        trigger: 'h-12 text-medium',
+        label: 'text-medium',
       },
     },
-    status: {
-      error: {
-        trigger:
-          '!border-red-500 !ring-red-500/30 focus-within:!ring-red-500/30',
+    radius: {
+      none: {
+        trigger: 'rounded-none',
+        popoverContent: 'rounded-none',
       },
-      warning: {
+      sm: {
+        trigger: 'rounded-sm',
+        popoverContent: 'rounded-sm',
+      },
+      md: {
+        trigger: 'rounded-md',
+        popoverContent: 'rounded-md',
+      },
+      lg: {
+        trigger: 'rounded-lg',
+        popoverContent: 'rounded-lg',
+      },
+      full: {
+        trigger: 'rounded-full',
+        popoverContent: 'rounded-md',
+      },
+    },
+    variant: {
+      flat: {
+        trigger: 'border-transparent bg-default-100 hover:bg-default-200',
+      },
+      bordered: {
+        trigger: 'bg-transparent',
+      },
+      underlined: {
         trigger:
-          '!border-yellow-500 !ring-yellow-500/30 focus-within:!ring-yellow-500/30',
+          'rounded-none border-b-medium border-t-0 border-x-0 bg-transparent px-1 py-0',
+      },
+    },
+    color: {
+      default: {},
+      primary: {
+        trigger:
+          'data-[focus=true]:border-blue-500 data-[focus=true]:ring-blue-500',
+      },
+      secondary: {
+        trigger:
+          'data-[focus=true]:border-gray-500 data-[focus=true]:ring-gray-500',
       },
       success: {
         trigger:
-          '!border-green-500 !ring-green-500/30 focus-within:!ring-green-500/30',
+          'data-[focus=true]:border-green-500 data-[focus=true]:ring-green-500',
+      },
+      warning: {
+        trigger:
+          'data-[focus=true]:border-yellow-500 data-[focus=true]:ring-yellow-500',
+      },
+      danger: {
+        trigger:
+          'data-[focus=true]:border-red-500 data-[focus=true]:ring-red-500',
       },
     },
-    disabled: {
+    labelPlacement: {
+      inside: {},
+      outside: {
+        mainWrapper: 'mt-1',
+      },
+      'outside-left': {
+        base: 'flex-row items-center gap-2',
+        label: 'w-[30%] text-right',
+        mainWrapper: 'w-[70%]',
+      },
+    },
+    isDisabled: {
       true: {
-        trigger: 'cursor-not-allowed bg-gray-100 opacity-50 dark:bg-gray-700',
+        base: 'opacity-disabled',
+        trigger: 'pointer-events-none',
       },
     },
-    multiple: {
+    isInvalid: {
+      true: {
+        trigger:
+          'border-red-500 data-[focus=true]:border-red-500 data-[focus=true]:ring-red-500',
+      },
+    },
+    isRequired: {
+      true: {
+        label: 'after:content-["*"] after:text-red-500 after:ml-0.5',
+      },
+    },
+    isMultiline: {
       true: {
         value: 'flex flex-wrap gap-1',
       },
     },
-    open: {
-      true: {
-        trigger:
-          'border-blue-500 ring-1 ring-blue-500 dark:border-blue-400 dark:ring-blue-400',
-      },
-    },
   },
   defaultVariants: {
-    size: 'default',
+    size: 'md',
+    variant: 'bordered',
+    color: 'default',
+    radius: 'md',
+    labelPlacement: 'inside',
+  },
+})
+
+export const selectItemStyles = tv({
+  slots: {
+    base: [
+      'flex w-full items-center gap-2 p-2 data-[hover=true]:bg-default-100',
+      'cursor-pointer rounded-md outline-none',
+      'data-[focus-visible=true]:ring-2 data-[focus-visible=true]:ring-focus data-[focus-visible=true]:ring-offset-2',
+      'data-[pressed=true]:opacity-70',
+      'data-[selected=true]:bg-primary-500/20',
+      'data-[disabled=true]:cursor-not-allowed data-[disabled=true]:opacity-disabled',
+    ],
+    wrapper: 'flex w-full flex-col',
+    label: 'text-sm font-normal truncate',
+    description: 'text-xs text-foreground-400 truncate',
+    selectedIcon: 'text-primary',
   },
 })

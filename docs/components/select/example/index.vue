@@ -1,263 +1,350 @@
 <template>
-  <div class="space-y-8">
+  <div class="flex flex-col gap-8">
     <!-- 基础用法 -->
     <section>
-      <h2 class="text-lg font-medium mb-4">基础用法</h2>
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <Select
-            v-model="selected1"
-            :options="options"
-            placeholder="请选择一个选项"
-            class="w-full"
-          ></Select>
-          <div class="text-sm text-gray-500 mt-2">
-            当前选中: {{ selected1 ? getOptionLabel(selected1) : '未选择' }}
-          </div>
-        </div>
+      <h2 class="mb-4 text-lg font-bold">基础用法</h2>
+      <Select v-model="selectedValue" placeholder="请选择一个选项">
+        <SelectItem key="option1" label="选项 1" />
+        <SelectItem key="option2" label="选项 2" />
+        <SelectItem key="option3" label="选项 3" />
+      </Select>
+      <div class="mt-2 text-sm text-gray-600">
+        当前选择: {{ selectedValue || '未选择' }}
       </div>
     </section>
 
-    <!-- 不同尺寸 -->
+    <!-- 带标签和默认值 -->
     <section>
-      <h2 class="text-lg font-medium mb-4">不同尺寸</h2>
-      <div class="grid grid-cols-3 gap-4">
-        <Select
-          v-model="selectedSize"
-          :options="options"
-          size="small"
-          placeholder="小型选择器"
-        ></Select>
-        <Select
-          v-model="selectedSize"
-          :options="options"
-          size="default"
-          placeholder="默认选择器"
-        ></Select>
-        <Select
-          v-model="selectedSize"
-          :options="options"
-          size="large"
-          placeholder="大型选择器"
-        ></Select>
+      <h2 class="mb-4 text-lg font-bold">带标签和默认值</h2>
+      <Select label="选择一个选项" v-model="selectedValue2">
+        <SelectItem key="option1" label="选项 1" />
+        <SelectItem key="option2" label="选项 2" />
+        <SelectItem key="option3" label="选项 3" />
+      </Select>
+      <div class="mt-2 text-sm text-gray-600">
+        当前选择: {{ selectedValue2 }}
       </div>
+    </section>
+
+    <!-- 尺寸变体 -->
+    <section>
+      <h2 class="mb-4 text-lg font-bold">尺寸变体</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Select size="sm" label="小尺寸 (sm)" placeholder="选择选项">
+          <SelectItem key="option1" label="选项 1" />
+          <SelectItem key="option2" label="选项 2" />
+        </Select>
+        <Select size="md" label="中等尺寸 (md)" placeholder="选择选项">
+          <SelectItem key="option1" label="选项 1" />
+          <SelectItem key="option2" label="选项 2" />
+        </Select>
+        <Select size="lg" label="大尺寸 (lg)" placeholder="选择选项">
+          <SelectItem key="option1" label="选项 1" />
+          <SelectItem key="option2" label="选项 2" />
+        </Select>
+      </div>
+    </section>
+
+    <!-- 样式变体 -->
+    <section>
+      <h2 class="mb-4 text-lg font-bold">样式变体</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Select variant="flat" label="扁平变体 (flat)" placeholder="选择选项">
+          <SelectItem key="option1" label="选项 1" />
+          <SelectItem key="option2" label="选项 2" />
+        </Select>
+        <Select
+          variant="bordered"
+          label="边框变体 (bordered)"
+          placeholder="选择选项"
+        >
+          <SelectItem key="option1" label="选项 1" />
+          <SelectItem key="option2" label="选项 2" />
+        </Select>
+        <Select
+          variant="underlined"
+          label="下划线变体 (underlined)"
+          placeholder="选择选项"
+        >
+          <SelectItem key="option1" label="选项 1" />
+          <SelectItem key="option2" label="选项 2" />
+        </Select>
+      </div>
+    </section>
+
+    <!-- 颜色变体 -->
+    <section>
+      <h2 class="mb-4 text-lg font-bold">颜色变体</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <Select color="primary" label="主色 (primary)" placeholder="选择选项">
+          <SelectItem key="option1" label="选项 1" />
+          <SelectItem key="option2" label="选项 2" />
+        </Select>
+        <Select
+          color="secondary"
+          label="次要色 (secondary)"
+          placeholder="选择选项"
+        >
+          <SelectItem key="option1" label="选项 1" />
+          <SelectItem key="option2" label="选项 2" />
+        </Select>
+        <Select color="success" label="成功色 (success)" placeholder="选择选项">
+          <SelectItem key="option1" label="选项 1" />
+          <SelectItem key="option2" label="选项 2" />
+        </Select>
+        <Select color="warning" label="警告色 (warning)" placeholder="选择选项">
+          <SelectItem key="option1" label="选项 1" />
+          <SelectItem key="option2" label="选项 2" />
+        </Select>
+        <Select color="danger" label="危险色 (danger)" placeholder="选择选项">
+          <SelectItem key="option1" label="选项 1" />
+          <SelectItem key="option2" label="选项 2" />
+        </Select>
+      </div>
+    </section>
+
+    <!-- 状态展示 -->
+    <section>
+      <h2 class="mb-4 text-lg font-bold">状态展示</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <Select disabled label="禁用状态 (disabled)" placeholder="无法选择">
+          <SelectItem key="option1" label="选项 1" />
+          <SelectItem key="option2" label="选项 2" />
+        </Select>
+        <Select
+          isInvalid
+          errorMessage="请选择一个有效选项"
+          label="错误状态 (isInvalid)"
+          placeholder="选择选项"
+        >
+          <SelectItem key="option1" label="选项 1" />
+          <SelectItem key="option2" label="选项 2" />
+        </Select>
+        <Select isRequired label="必填状态 (isRequired)" placeholder="必须选择">
+          <SelectItem key="option1" label="选项 1" />
+          <SelectItem key="option2" label="选项 2" />
+        </Select>
+        <Select
+          isReadOnly
+          label="只读状态 (isReadOnly)"
+          placeholder="只读"
+          modelValue="option1"
+        >
+          <SelectItem key="option1" label="选项 1" />
+          <SelectItem key="option2" label="选项 2" />
+        </Select>
+      </div>
+    </section>
+
+    <!-- 禁用选项 -->
+    <section>
+      <h2 class="mb-4 text-lg font-bold">禁用选项</h2>
+      <Select label="部分选项禁用" placeholder="选择选项">
+        <SelectItem key="option1" label="选项 1" />
+        <SelectItem key="option2" label="选项 2 (禁用)" disabled />
+        <SelectItem key="option3" label="选项 3" />
+        <SelectItem key="option4" label="选项 4 (禁用)" disabled />
+      </Select>
     </section>
 
     <!-- 多选模式 -->
     <section>
-      <h2 class="text-lg font-medium mb-4">多选模式</h2>
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <Select
-            v-model="multiSelected"
-            :options="options"
-            multiple
-            placeholder="请选择多个选项"
-            class="w-full"
-          ></Select>
-          <div class="text-sm text-gray-500 mt-2">
-            已选中:
-            {{
-              multiSelected.length
-                ? multiSelected.map((id) => getOptionLabel(id)).join(', ')
-                : '未选择'
-            }}
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 可搜索 -->
-    <section>
-      <h2 class="text-lg font-medium mb-4">可搜索</h2>
-      <div class="grid grid-cols-2 gap-4">
-        <Select
-          v-model="filteredSelected"
-          :options="moreOptions"
-          filterable
-          placeholder="输入关键词搜索"
-          class="w-full"
-        ></Select>
-        <Select
-          v-model="filteredMultiSelected"
-          :options="moreOptions"
-          multiple
-          filterable
-          placeholder="多选并可搜索"
-          class="w-full"
-        ></Select>
-      </div>
-    </section>
-
-    <!-- 可清空 -->
-    <section>
-      <h2 class="text-lg font-medium mb-4">可清空</h2>
-      <div class="grid grid-cols-2 gap-4">
-        <Select
-          v-model="clearableSelected"
-          :options="options"
-          clearable
-          placeholder="单选可清空"
-          class="w-full"
-        ></Select>
-        <Select
-          v-model="clearableMultiSelected"
-          :options="options"
-          multiple
-          clearable
-          placeholder="多选可清空"
-          class="w-full"
-        ></Select>
-      </div>
-    </section>
-
-    <!-- 禁用状态 -->
-    <section>
-      <h2 class="text-lg font-medium mb-4">禁用状态</h2>
-      <div class="grid grid-cols-3 gap-4">
-        <Select
-          v-model="disabledSelected"
-          :options="options"
-          disabled
-          placeholder="禁用的选择器"
-        ></Select>
-        <Select
-          v-model="disabledSelectedWithValue"
-          :options="options"
-          disabled
-          placeholder="禁用但有默认值"
-        ></Select>
-        <Select
-          v-model="disabledMultiSelected"
-          :options="options"
-          multiple
-          disabled
-          placeholder="禁用的多选"
-        ></Select>
-      </div>
-    </section>
-
-    <!-- 只读状态 -->
-    <section>
-      <h2 class="text-lg font-medium mb-4">只读状态</h2>
-      <div class="grid grid-cols-2 gap-4">
-        <Select
-          v-model="readonlySelected"
-          :options="options"
-          readonly
-          placeholder="只读选择器"
-        ></Select>
-      </div>
-    </section>
-
-    <!-- 带禁用选项 -->
-    <section>
-      <h2 class="text-lg font-medium mb-4">禁用部分选项</h2>
+      <h2 class="mb-4 text-lg font-bold">多选模式</h2>
       <Select
-        v-model="selectedWithDisabledOptions"
-        :options="optionsWithDisabled"
-        placeholder="包含禁用选项"
-        class="w-full max-w-md"
-      ></Select>
+        selectionMode="multiple"
+        label="多选选择器"
+        placeholder="选择多个选项"
+        v-model="multiSelectedValue"
+        isClearable
+      >
+        <SelectItem key="option1" label="选项 1" />
+        <SelectItem key="option2" label="选项 2" />
+        <SelectItem key="option3" label="选项 3" />
+        <SelectItem key="option4" label="选项 4" />
+      </Select>
+      <div class="mt-2 text-sm text-gray-600">
+        当前选择:
+        {{
+          multiSelectedValue.length ? multiSelectedValue.join(', ') : '未选择'
+        }}
+      </div>
     </section>
 
-    <!-- 不同状态 -->
+    <!-- 带描述的选项 -->
     <section>
-      <h2 class="text-lg font-medium mb-4">不同状态</h2>
-      <div class="grid grid-cols-3 gap-4">
+      <h2 class="mb-4 text-lg font-bold">带描述的选项</h2>
+      <Select label="带描述的选项" placeholder="选择水果">
+        <SelectItem
+          key="apple"
+          label="苹果"
+          description="一种常见的红色或绿色水果"
+        />
+        <SelectItem key="banana" label="香蕉" description="富含钾的黄色水果" />
+        <SelectItem
+          key="orange"
+          label="橙子"
+          description="富含维生素C的柑橘类水果"
+        />
+      </Select>
+    </section>
+
+    <!-- 可搜索选择器 -->
+    <section>
+      <h2 class="mb-4 text-lg font-bold">可搜索选择器</h2>
+      <Select
+        isFilterable
+        label="可搜索选择器"
+        placeholder="搜索并选择水果"
+        v-model="searchValue"
+      >
+        <SelectItem key="apple" label="苹果" />
+        <SelectItem key="banana" label="香蕉" />
+        <SelectItem key="orange" label="橙子" />
+        <SelectItem key="grape" label="葡萄" />
+        <SelectItem key="watermelon" label="西瓜" />
+        <SelectItem key="strawberry" label="草莓" />
+        <SelectItem key="pear" label="梨" />
+        <SelectItem key="peach" label="桃子" />
+      </Select>
+      <div class="mt-2 text-sm text-gray-600">
+        当前选择: {{ searchValue || '未选择' }}
+      </div>
+    </section>
+
+    <!-- 可清除选择 -->
+    <section>
+      <h2 class="mb-4 text-lg font-bold">可清除选择</h2>
+      <Select
+        isClearable
+        label="可清除选择器"
+        placeholder="选择后可清除"
+        v-model="clearableValue"
+      >
+        <SelectItem key="option1" label="选项 1" />
+        <SelectItem key="option2" label="选项 2" />
+        <SelectItem key="option3" label="选项 3" />
+      </Select>
+      <div class="mt-2 text-sm text-gray-600">
+        当前选择: {{ clearableValue || '未选择' }}
+      </div>
+    </section>
+
+    <!-- 实际应用场景：国家选择 -->
+    <section>
+      <h2 class="mb-4 text-lg font-bold">实际应用场景：国家选择</h2>
+      <Select
+        isFilterable
+        label="选择国家"
+        placeholder="搜索并选择国家"
+        v-model="selectedCountry"
+      >
+        <SelectItem
+          v-for="country in countries"
+          :key="country.code"
+          :label="country.name"
+          :description="country.code"
+        />
+      </Select>
+      <div class="mt-2 text-sm text-gray-600">
+        当前选择:
+        {{ selectedCountry ? getCountryName(selectedCountry) : '未选择' }}
+      </div>
+    </section>
+
+    <!-- 实际应用场景：分组选择 -->
+    <section>
+      <h2 class="mb-4 text-lg font-bold">实际应用场景：分组选择</h2>
+      <div class="mb-2">
+        <label class="block text-sm font-medium mb-1">部门</label>
+        <Select placeholder="选择部门" v-model="selectedDepartment">
+          <SelectItem
+            v-for="dept in departments"
+            :key="dept.id"
+            :label="dept.name"
+          />
+        </Select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1">员工</label>
         <Select
-          v-model="statusSelected"
-          :options="options"
-          status="success"
-          placeholder="成功状态"
-        ></Select>
-        <Select
-          v-model="statusSelected"
-          :options="options"
-          status="warning"
-          placeholder="警告状态"
-        ></Select>
-        <Select
-          v-model="statusSelected"
-          :options="options"
-          status="error"
-          placeholder="错误状态"
-        ></Select>
+          placeholder="选择员工"
+          :disabled="!selectedDepartment"
+          isFilterable
+          v-model="selectedEmployee"
+        >
+          <SelectItem
+            v-for="emp in filteredEmployees"
+            :key="emp.id"
+            :label="emp.name"
+            :description="emp.position"
+          />
+        </Select>
       </div>
     </section>
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue'
-import { Select } from '@versakit/vue'
-// 选项数据
-const options = [
-  { label: '选项一', value: '1' },
-  { label: '选项二', value: '2' },
-  { label: '选项三', value: '3' },
-  { label: '选项四', value: '4' },
-  { label: '选项五', value: '5' },
+<script setup>
+import { ref, computed } from 'vue'
+import { Select, SelectItem } from '@versakit/vue'
+
+// 基础示例
+const selectedValue = ref(null)
+const selectedValue2 = ref('option1')
+
+// 多选示例
+const multiSelectedValue = ref([])
+
+// 可搜索示例
+const searchValue = ref(null)
+
+// 可清除示例
+const clearableValue = ref('option2')
+
+// 国家选择示例
+const selectedCountry = ref(null)
+const countries = [
+  { code: 'CN', name: '中国' },
+  { code: 'US', name: '美国' },
+  { code: 'JP', name: '日本' },
+  { code: 'GB', name: '英国' },
+  { code: 'DE', name: '德国' },
+  { code: 'FR', name: '法国' },
+  { code: 'IT', name: '意大利' },
+  { code: 'CA', name: '加拿大' },
+  { code: 'AU', name: '澳大利亚' },
+  { code: 'RU', name: '俄罗斯' },
 ]
 
-// 更多选项（用于搜索示例）
-const moreOptions = [
-  { label: '北京', value: 'beijing' },
-  { label: '上海', value: 'shanghai' },
-  { label: '广州', value: 'guangzhou' },
-  { label: '深圳', value: 'shenzhen' },
-  { label: '杭州', value: 'hangzhou' },
-  { label: '南京', value: 'nanjing' },
-  { label: '武汉', value: 'wuhan' },
-  { label: '成都', value: 'chengdu' },
-  { label: '西安', value: 'xian' },
-  { label: '重庆', value: 'chongqing' },
-]
-
-// 包含禁用选项
-const optionsWithDisabled = [
-  { label: '可选选项 A', value: 'a' },
-  { label: '禁用选项 B', value: 'b', disabled: true },
-  { label: '可选选项 C', value: 'c' },
-  { label: '禁用选项 D', value: 'd', disabled: true },
-  { label: '可选选项 E', value: 'e' },
-]
-
-// 获取选项标签
-const getOptionLabel = (value) => {
-  const allOptions = [...options, ...moreOptions, ...optionsWithDisabled]
-  const option = allOptions.find((opt) => opt.value === value)
-  return option ? option.label : value
+const getCountryName = (code) => {
+  const country = countries.find((c) => c.code === code)
+  return country ? `${country.name} (${country.code})` : code
 }
 
-// 基础用法
-const selected1 = ref('')
+// 分组选择示例
+const selectedDepartment = ref(null)
+const selectedEmployee = ref(null)
 
-// 尺寸
-const selectedSize = ref('')
+const departments = [
+  { id: 'dev', name: '研发部' },
+  { id: 'design', name: '设计部' },
+  { id: 'marketing', name: '市场部' },
+  { id: 'hr', name: '人力资源部' },
+]
 
-// 多选
-const multiSelected = ref([])
+const employees = [
+  { id: 1, name: '张三', department: 'dev', position: '前端开发' },
+  { id: 2, name: '李四', department: 'dev', position: '后端开发' },
+  { id: 3, name: '王五', department: 'dev', position: '全栈开发' },
+  { id: 4, name: '赵六', department: 'design', position: 'UI设计师' },
+  { id: 5, name: '钱七', department: 'design', position: 'UX设计师' },
+  { id: 6, name: '孙八', department: 'marketing', position: '市场专员' },
+  { id: 7, name: '周九', department: 'marketing', position: '内容运营' },
+  { id: 8, name: '吴十', department: 'hr', position: '招聘专员' },
+]
 
-// 可搜索
-const filteredSelected = ref('')
-const filteredMultiSelected = ref([])
-
-// 可清空
-const clearableSelected = ref('')
-const clearableMultiSelected = ref([])
-
-// 禁用状态
-const disabledSelected = ref('')
-const disabledSelectedWithValue = ref('1') // 预设一个值
-const disabledMultiSelected = ref(['1', '2']) // 预设多选值
-
-// 只读状态
-const readonlySelected = ref('3') // 预设一个值
-
-// 禁用选项
-const selectedWithDisabledOptions = ref('')
-
-// 状态
-const statusSelected = ref('')
+const filteredEmployees = computed(() => {
+  if (!selectedDepartment.value) return []
+  return employees.filter((emp) => emp.department === selectedDepartment.value)
+})
 </script>
