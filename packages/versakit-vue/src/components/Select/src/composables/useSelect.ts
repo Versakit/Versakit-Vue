@@ -1,4 +1,4 @@
-import { ref, computed, watch, nextTick, onMounted } from 'vue'
+import { ref, computed, watch, nextTick, onMounted, onBeforeUnmount } from 'vue'
 import type { SelectOption } from '../type'
 
 export interface UseSelectProps {
@@ -9,19 +9,22 @@ export interface UseSelectProps {
   disabled?: boolean
   readonly?: boolean
   onChange?: (val: any) => void
+  onSearch?: (val: string) => void
+  onDropdownVisibleChange?: (visible: boolean) => void
 }
 
 export function useSelect(props: UseSelectProps) {
+  // 基础状态
   const isOpen = ref(false)
   const searchValue = ref('')
   const activeIndex = ref(0)
   const triggerRef = ref<HTMLElement | null>(null)
   const dropdownRef = ref<HTMLElement | null>(null)
+  const internalValue = ref<
+    string | number | Array<string | number> | undefined
+  >(props.modelValue)
 
-  // 内部响应式的 modelValue，用于跟踪当前选中值
-  const internalValue = ref(props.modelValue)
-
-  // 监听外部 modelValue 变化，同步到内部值
+  // 监听外部 modelValue 变化
   watch(
     () => props.modelValue,
     (newVal) => {
@@ -29,6 +32,35 @@ export function useSelect(props: UseSelectProps) {
     },
     { immediate: true },
   )
+
+  // 处理选项数据
+  const normalizedOptions = computed<SelectOption[]>(() => {
+    return (
+      props.options?.map((option) => ({
+        ...option,
+        disabled: option.disabled || false,
+      })) || []
+    )
+  })
+
+  // 分组选项
+  const groupedOptions = computed(() => {
+    const groups: Record<string, SelectOption[]> = {}
+    const noGroup: SelectOption[] = []
+
+    normalizedOptions.value.forEach((option) => {
+      if (option.group) {
+        if (!groups[option.group]) {
+          groups[option.group] = []
+        }
+        groups[option.group].push(option)
+      } else {
+        noGroup.push(option)
+      }
+    })
+
+    return { groups, noGroup }
+  })
 
   // 处理选中值
   const selectedValues = computed(() => {
@@ -44,61 +76,35 @@ export function useSelect(props: UseSelectProps) {
     const result: SelectOption[] = []
     if (!selectedValues.value.length) return result
 
-    // 打印调试信息
-    console.debug('查找选中选项：', {
-      selectedValues: selectedValues.value,
-      options: normalizedOptions.value.map((o) => ({
-        value: o.value,
-        label: o.label,
-      })),
-    })
-
     for (const val of selectedValues.value) {
       // 使用严格相等和类型转换后的相等进行匹配
-      const option =
-        normalizedOptions.value.find((o) => o.value === val) ||
-        normalizedOptions.value.find((o) => String(o.value) === String(val))
+      const option = normalizedOptions.value.find(
+        (o) => o.value === val || String(o.value) === String(val),
+      )
 
       if (option) {
         result.push(option)
-      } else {
+      } else if (val !== undefined && val !== null) {
         // 如果找不到，创建一个临时选项显示值
-        console.warn(`没有找到值为 ${val} 的选项，创建临时选项`)
-
-        const tempOption: SelectOption = {
-          label: String(val),
-          value: val as string | number,
+        // 修复类型问题，确保 value 只为 string 或 number
+        if (typeof val === 'string' || typeof val === 'number') {
+          const tempOption: SelectOption = {
+            label: String(val),
+            value: val,
+            disabled: false,
+          }
+          result.push(tempOption)
         }
-
-        result.push(tempOption)
       }
     }
 
-    console.debug('找到选中选项结果：', result)
     return result
   })
 
-  // 监听modelValue和options变化，确保选中项能实时更新
-  watch(
-    [() => props.modelValue, () => props.options],
-    () => {
-      console.debug('modelValue或options变化，更新选中项', {
-        modelValue: props.modelValue,
-        options: props.options,
-        selectedValues: selectedValues.value,
-        selectedOptions: selectedOptions.value,
-      })
-    },
-    { immediate: true, deep: true },
-  )
-
   // 获取选项的标签显示
   const getOptionLabel = computed(() => {
-    if (props.multiple) {
-      return selectedOptions.value.map((o) => o.label).join(', ')
-    } else {
-      return selectedOptions.value[0]?.label || ''
-    }
+    if (!selectedOptions.value || selectedOptions.value.length === 0) return ''
+    return selectedOptions.value[0]?.label || ''
   })
 
   // 过滤选项
@@ -119,11 +125,10 @@ export function useSelect(props: UseSelectProps) {
       return
     }
 
-    let newValue: any
+    let newValue: string | number | Array<string | number>
 
     if (props.multiple) {
-      const values = [...selectedValues.value]
-      // 使用类型无关的比较
+      const values = [...selectedValues.value] as Array<string | number>
       const index = values.findIndex(
         (val) => String(val) === String(option.value),
       )
@@ -140,9 +145,7 @@ export function useSelect(props: UseSelectProps) {
       closeDropdown()
     }
 
-    // 更新内部值
     internalValue.value = newValue
-    // 触发外部回调
     props.onChange?.(newValue)
 
     // 清空搜索值
@@ -154,25 +157,21 @@ export function useSelect(props: UseSelectProps) {
   }
 
   // 清空选择
-  const clearSelection = () => {
-    if (props.disabled || props.readonly) {
-      return
-    }
+  const clearSelection = (e?: Event) => {
+    if (e) e.stopPropagation()
+    if (props.disabled || props.readonly) return
 
     const newValue = props.multiple ? [] : undefined
-    // 更新内部值
     internalValue.value = newValue
-    // 触发外部回调
     props.onChange?.(newValue)
   }
 
   // 切换下拉菜单
   const toggleDropdown = () => {
-    if (props.disabled || props.readonly) {
-      return
-    }
+    if (props.disabled || props.readonly) return
 
     isOpen.value = !isOpen.value
+    props.onDropdownVisibleChange?.(isOpen.value)
 
     if (isOpen.value) {
       nextTick(() => {
@@ -183,11 +182,10 @@ export function useSelect(props: UseSelectProps) {
 
   // 打开下拉菜单
   const openDropdown = () => {
-    if (props.disabled || props.readonly || isOpen.value) {
-      return
-    }
+    if (props.disabled || props.readonly || isOpen.value) return
 
     isOpen.value = true
+    props.onDropdownVisibleChange?.(true)
 
     nextTick(() => {
       resetActiveIndex()
@@ -196,8 +194,11 @@ export function useSelect(props: UseSelectProps) {
 
   // 关闭下拉菜单
   const closeDropdown = () => {
+    if (!isOpen.value) return
+
     isOpen.value = false
     searchValue.value = ''
+    props.onDropdownVisibleChange?.(false)
   }
 
   // 重置激活选项
@@ -219,45 +220,37 @@ export function useSelect(props: UseSelectProps) {
 
   // 键盘导航
   const onKeyDown = (e: KeyboardEvent) => {
-    if (props.disabled || props.readonly) {
-      return
-    }
+    if (props.disabled || props.readonly) return
 
     const options = filteredOptions.value
 
     switch (e.key) {
       case 'ArrowDown':
         e.preventDefault()
-
         if (!isOpen.value) {
           openDropdown()
         } else {
           let nextIndex = activeIndex.value
           let count = 0
-
           do {
             nextIndex = (nextIndex + 1) % options.length
             count++
           } while (options[nextIndex]?.disabled && count < options.length)
-
           activeIndex.value = nextIndex
         }
         break
 
       case 'ArrowUp':
         e.preventDefault()
-
         if (!isOpen.value) {
           openDropdown()
         } else {
           let prevIndex = activeIndex.value
           let count = 0
-
           do {
             prevIndex = prevIndex <= 0 ? options.length - 1 : prevIndex - 1
             count++
           } while (options[prevIndex]?.disabled && count < options.length)
-
           activeIndex.value = prevIndex
         }
         break
@@ -265,7 +258,6 @@ export function useSelect(props: UseSelectProps) {
       case 'Enter':
       case ' ':
         e.preventDefault()
-
         if (
           isOpen.value &&
           activeIndex.value >= 0 &&
@@ -291,11 +283,12 @@ export function useSelect(props: UseSelectProps) {
   // 搜索框输入
   const onSearchInput = (value: string) => {
     searchValue.value = value
+    props.onSearch?.(value)
     resetActiveIndex()
   }
 
   // 点击外部关闭下拉菜单
-  const clickOutside = (e: MouseEvent) => {
+  const handleClickOutside = (e: MouseEvent) => {
     if (
       isOpen.value &&
       triggerRef.value &&
@@ -308,24 +301,38 @@ export function useSelect(props: UseSelectProps) {
   }
 
   // 添加点击外部事件监听
+  const setupClickOutsideListener = () => {
+    document.addEventListener('mousedown', handleClickOutside)
+  }
+
+  const removeClickOutsideListener = () => {
+    document.removeEventListener('mousedown', handleClickOutside)
+  }
+
   watch(isOpen, (val) => {
     if (val) {
-      document.addEventListener('click', clickOutside)
+      setupClickOutsideListener()
     } else {
-      document.removeEventListener('click', clickOutside)
+      removeClickOutsideListener()
     }
   })
 
-  // 组件挂载后立即检查 selectedOptions
+  // 清理事件监听
+  const cleanup = () => {
+    removeClickOutsideListener()
+  }
+
+  // 组件挂载时设置事件监听
   onMounted(() => {
-    console.debug('组件挂载完成，选中的值：', selectedValues.value)
-    console.debug('组件挂载完成，选中的选项：', selectedOptions.value)
+    if (isOpen.value) {
+      setupClickOutsideListener()
+    }
   })
 
-  // 组件销毁时清理事件监听
-  const cleanup = () => {
-    document.removeEventListener('click', clickOutside)
-  }
+  // 组件卸载时清理事件监听
+  onBeforeUnmount(() => {
+    cleanup()
+  })
 
   return {
     isOpen,
@@ -337,6 +344,7 @@ export function useSelect(props: UseSelectProps) {
     selectedOptions,
     getOptionLabel,
     filteredOptions,
+    groupedOptions,
     selectOption,
     clearSelection,
     toggleDropdown,

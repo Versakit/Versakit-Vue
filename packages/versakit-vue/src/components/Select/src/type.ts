@@ -1,3 +1,5 @@
+import type { JSX } from 'vue/jsx-runtime'
+
 export interface SelectProps {
   /**
    * 选择器的值
@@ -5,7 +7,14 @@ export interface SelectProps {
   modelValue?: string | number | Array<string | number>
 
   /**
+   * 选项列表
+   * @default []
+   */
+  options?: SelectOption[]
+
+  /**
    * 占位符
+   * @default '请选择'
    */
   placeholder?: string
 
@@ -16,117 +25,39 @@ export interface SelectProps {
   disabled?: boolean
 
   /**
-   * 选择模式
-   * @default 'single'
+   * 是否只读
+   * @default false
    */
-  selectionMode?: 'single' | 'multiple'
+  readonly?: boolean
+
+  /**
+   * 是否多选
+   * @default false
+   */
+  multiple?: boolean
 
   /**
    * 尺寸
-   * @default 'md'
-   */
-  size?: 'sm' | 'md' | 'lg'
-
-  /**
-   * 颜色变体
    * @default 'default'
    */
-  color?: 'default' | 'primary' | 'secondary' | 'success' | 'warning' | 'danger'
+  size?: 'small' | 'default' | 'large'
 
   /**
-   * 外观变体
-   * @default 'flat'
+   * 状态
    */
-  variant?: 'flat' | 'bordered' | 'underlined'
-
-  /**
-   * 圆角大小
-   * @default 'md'
-   */
-  radius?: 'none' | 'sm' | 'md' | 'lg' | 'full'
-
-  /**
-   * 标签文本
-   */
-  label?: string
-
-  /**
-   * 标签位置
-   * @default 'inside'
-   */
-  labelPlacement?: 'inside' | 'outside' | 'outside-left'
-
-  /**
-   * 描述文本
-   */
-  description?: string
-
-  /**
-   * 错误消息
-   */
-  errorMessage?: string
-
-  /**
-   * 是否无效
-   * @default false
-   */
-  isInvalid?: boolean
-
-  /**
-   * 是否必填
-   * @default false
-   */
-  isRequired?: boolean
+  status?: 'default' | 'success' | 'warning' | 'error'
 
   /**
    * 是否可清除
    * @default false
    */
-  isClearable?: boolean
+  clearable?: boolean
 
   /**
    * 是否可搜索
    * @default false
    */
-  isFilterable?: boolean
-
-  /**
-   * 最大下拉框高度
-   * @default 256
-   */
-  maxDropdownHeight?: number
-
-  /**
-   * 禁用的选项键值
-   */
-  disabledKeys?: string[]
-
-  /**
-   * 选择器图标
-   */
-  selectorIcon?: string
-
-  /**
-   * 禁用选择器图标旋转
-   * @default false
-   */
-  disableSelectorIconRotation?: boolean
-
-  /**
-   * 左侧内容
-   */
-  startContent?: string
-
-  /**
-   * 右侧内容
-   */
-  endContent?: string
-
-  /**
-   * 是否显示滚动指示器
-   * @default true
-   */
-  showScrollIndicators?: boolean
+  filterable?: boolean
 
   /**
    * 无匹配选项时显示的文本
@@ -135,16 +66,54 @@ export interface SelectProps {
   noMatchText?: string
 
   /**
+   * 最大下拉框高度
+   * @default 250
+   */
+  maxDropdownHeight?: number
+
+  /**
+   * 是否显示标签
+   * @default false
+   */
+  showLabel?: boolean
+
+  /**
+   * 标签文本
+   */
+  label?: string
+
+  /**
+   * 是否必填
+   * @default false
+   */
+  required?: boolean
+
+  /**
+   * 帮助文本
+   */
+  helpText?: string
+
+  /**
+   * 错误文本
+   */
+  errorText?: string
+
+  /**
+   * 自定义渲染选项的函数
+   */
+  renderOption?: (option: SelectOption) => string | JSX.Element
+
+  /**
    * 自定义渲染选中值的函数
    */
-  renderValue?: (selectedItems: SelectItem[]) => string
+  renderValue?: (option: SelectOption | SelectOption[]) => string | JSX.Element
 }
 
-export interface SelectItem {
+export interface SelectOption {
   /**
-   * 选项键值
+   * 选项值
    */
-  key: string
+  value: string | number
 
   /**
    * 选项标签
@@ -152,68 +121,29 @@ export interface SelectItem {
   label: string
 
   /**
-   * 选项描述
-   */
-  description?: string
-
-  /**
    * 是否禁用
    * @default false
    */
   disabled?: boolean
 
   /**
-   * 左侧内容
+   * 分组名称
    */
-  startContent?: string
+  group?: string
 
   /**
-   * 右侧内容
+   * 自定义数据
    */
-  endContent?: string
+  [key: string]: any
 }
 
-export interface SelectItemProps {
-  /**
-   * 选项键值
-   */
-  key: string
-
-  /**
-   * 选项标签
-   */
-  label?: string
-
-  /**
-   * 选项描述
-   */
-  description?: string
-
-  /**
-   * 是否禁用
-   * @default false
-   */
-  disabled?: boolean
-
-  /**
-   * 左侧内容
-   */
-  startContent?: string
-
-  /**
-   * 右侧内容
-   */
-  endContent?: string
-}
-
-export interface SelectSectionProps {
-  /**
-   * 分组标题
-   */
-  title?: string
-
-  /**
-   * 分组描述
-   */
-  description?: string
+export interface SelectEmits {
+  'update:modelValue': [value: string | number | Array<string | number>]
+  change: [value: string | number | Array<string | number>]
+  focus: [event: FocusEvent]
+  blur: [event: FocusEvent]
+  clear: []
+  search: [value: string]
+  'dropdown-visible-change': [visible: boolean]
+  'option-select': [option: SelectOption]
 }

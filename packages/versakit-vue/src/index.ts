@@ -20,7 +20,7 @@ import { Textarea } from './components/Textarea'
 import { Radio } from './components/Radio'
 import { Checkbox } from './components/Checkbox'
 import { Input } from './components/Input'
-import { Select, SelectItem } from './components/Select'
+import { Select } from './components/Select'
 import { Rate } from './components/Rate'
 
 // 引入样式
@@ -46,7 +46,6 @@ const components: Component[] = [
   Divider,
   Textarea,
   Select,
-  SelectItem,
   Radio,
   Checkbox,
   Input,
@@ -76,7 +75,6 @@ export {
   Radio,
   Checkbox,
   Input,
-  SelectItem,
   Rate,
 }
 
