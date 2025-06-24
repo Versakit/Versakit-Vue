@@ -1,41 +1,33 @@
 <template>
-  <div class="space-y-8">
+  <div class="space-y-10">
     <!-- 基础用法 -->
     <section>
       <h2 class="text-lg font-medium mb-4">基础用法</h2>
-      <div class="flex space-x-4 items-center">
+      <div class="flex space-x-6 items-center">
         <Radio v-model="radio1" value="option1">选项一</Radio>
         <Radio v-model="radio1" value="option2">选项二</Radio>
         <Radio v-model="radio1" value="option3">选项三</Radio>
-        <div class="text-sm text-gray-500">
-          当前选中: {{ getSelectedLabel(radio1) }}
-        </div>
+      </div>
+      <div class="mt-2 text-sm text-gray-500">
+        当前选中: {{ getSelectedLabel(radio1) }}
       </div>
     </section>
 
     <!-- 不同尺寸 -->
     <section>
       <h2 class="text-lg font-medium mb-4">不同尺寸</h2>
-      <div class="flex flex-col space-y-4">
-        <div class="flex items-center space-x-4">
-          <Radio v-model="radioSize" value="small" size="small">
-            小型单选框
-          </Radio>
-          <Radio v-model="radioSize" value="default" size="default">
-            默认单选框
-          </Radio>
-          <Radio v-model="radioSize" value="large" size="large">
-            大型单选框
-          </Radio>
-        </div>
-        <div class="text-sm text-gray-500">选中尺寸: {{ radioSize }}</div>
+      <div class="flex items-center space-x-6">
+        <Radio v-model="radioSize" value="small" size="small">小型</Radio>
+        <Radio v-model="radioSize" value="default" size="default">默认</Radio>
+        <Radio v-model="radioSize" value="large" size="large">大型</Radio>
       </div>
+      <div class="mt-2 text-sm text-gray-500">当前尺寸: {{ radioSize }}</div>
     </section>
 
     <!-- 不同颜色 -->
     <section>
       <h2 class="text-lg font-medium mb-4">不同颜色</h2>
-      <div class="grid grid-cols-3 gap-4">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         <Radio v-model="radioColor" value="blue" color="blue">
           蓝色 (默认)
         </Radio>
@@ -44,12 +36,13 @@
         <Radio v-model="radioColor" value="yellow" color="yellow">黄色</Radio>
         <Radio v-model="radioColor" value="purple" color="purple">紫色</Radio>
       </div>
+      <div class="mt-2 text-sm text-gray-500">当前颜色: {{ radioColor }}</div>
     </section>
 
     <!-- 禁用状态 -->
     <section>
       <h2 class="text-lg font-medium mb-4">禁用状态</h2>
-      <div class="flex space-x-6 items-center">
+      <div class="flex flex-wrap gap-6 items-center">
         <Radio v-model="radioDisabled" value="normal">正常状态</Radio>
         <Radio v-model="radioDisabled" value="disabled" disabled>
           禁用未选中
@@ -60,25 +53,27 @@
       </div>
     </section>
 
-    <!-- 使用标签 -->
+    <!-- 标签与插槽 -->
     <section>
-      <h2 class="text-lg font-medium mb-4">使用标签属性</h2>
-      <div class="flex space-x-4">
-        <Radio
-          v-model="radioLabel"
-          value="label"
-          label="使用label属性的单选框"
-        ></Radio>
-      </div>
-    </section>
+      <h2 class="text-lg font-medium mb-4">标签与自定义内容</h2>
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-base font-medium mb-2">使用label属性</h3>
+          <Radio
+            v-model="radioLabel"
+            value="label"
+            label="使用label属性的单选框"
+          />
+        </div>
 
-    <!-- 使用插槽 -->
-    <section>
-      <h2 class="text-lg font-medium mb-4">使用插槽自定义内容</h2>
-      <Radio v-model="radioSlot" value="slot">
-        <span class="font-medium text-purple-600">自定义插槽内容</span>
-        <span class="text-xs ml-1 text-gray-500">(支持任意内容)</span>
-      </Radio>
+        <div>
+          <h3 class="text-base font-medium mb-2">使用插槽自定义内容</h3>
+          <Radio v-model="radioSlot" value="slot">
+            <span class="font-medium text-purple-600">自定义插槽内容</span>
+            <span class="text-xs ml-1 text-gray-500">(支持任意HTML)</span>
+          </Radio>
+        </div>
+      </div>
     </section>
 
     <!-- 单选框组 -->
@@ -101,28 +96,35 @@
     <!-- 布局展示 -->
     <section>
       <h2 class="text-lg font-medium mb-4">不同布局展示</h2>
-      <div class="space-y-4">
-        <h3 class="text-base font-medium">横向布局</h3>
-        <div class="flex space-x-6">
-          <Radio v-model="radioLayout" value="horizontal">选项一</Radio>
-          <Radio v-model="radioLayout" value="vertical">选项二</Radio>
-          <Radio v-model="radioLayout" value="grid">选项三</Radio>
+      <div class="space-y-6">
+        <div>
+          <h3 class="text-base font-medium mb-2">横向布局</h3>
+          <div class="flex flex-wrap gap-6">
+            <Radio v-model="radioLayout" value="horizontal">横向排列</Radio>
+            <Radio v-model="radioLayout" value="vertical">纵向排列</Radio>
+            <Radio v-model="radioLayout" value="grid">网格排列</Radio>
+          </div>
         </div>
 
-        <h3 class="text-base font-medium mt-4">纵向布局</h3>
-        <div class="flex flex-col space-y-2">
-          <Radio v-model="radioLayout" value="horizontal">选项一</Radio>
-          <Radio v-model="radioLayout" value="vertical">选项二</Radio>
-          <Radio v-model="radioLayout" value="grid">选项三</Radio>
+        <div>
+          <h3 class="text-base font-medium mb-2">纵向布局</h3>
+          <div class="flex flex-col space-y-2">
+            <Radio v-model="radioLayout" value="horizontal">横向排列</Radio>
+            <Radio v-model="radioLayout" value="vertical">纵向排列</Radio>
+            <Radio v-model="radioLayout" value="grid">网格排列</Radio>
+          </div>
         </div>
 
-        <h3 class="text-base font-medium mt-4">网格布局</h3>
-        <div class="grid grid-cols-3 gap-4">
-          <Radio v-model="radioLayout" value="horizontal">选项一</Radio>
-          <Radio v-model="radioLayout" value="vertical">选项二</Radio>
-          <Radio v-model="radioLayout" value="grid">选项三</Radio>
+        <div>
+          <h3 class="text-base font-medium mb-2">网格布局</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+            <Radio v-model="radioLayout" value="horizontal">横向排列</Radio>
+            <Radio v-model="radioLayout" value="vertical">纵向排列</Radio>
+            <Radio v-model="radioLayout" value="grid">网格排列</Radio>
+          </div>
         </div>
       </div>
+      <div class="mt-2 text-sm text-gray-500">当前选择: {{ radioLayout }}</div>
     </section>
   </div>
 </template>
@@ -157,8 +159,8 @@ const radioGroup = ref('apple')
 const radioLayout = ref('horizontal')
 
 // 获取选中项标签
-const getSelectedLabel = (value) => {
-  const options = {
+const getSelectedLabel = (value: string) => {
+  const options: Record<string, string> = {
     option1: '选项一',
     option2: '选项二',
     option3: '选项三',
@@ -167,8 +169,8 @@ const getSelectedLabel = (value) => {
 }
 
 // 获取水果名称
-const getFruitName = (value) => {
-  const fruits = {
+const getFruitName = (value: string) => {
+  const fruits: Record<string, string> = {
     apple: '苹果',
     banana: '香蕉',
     orange: '橙子',
