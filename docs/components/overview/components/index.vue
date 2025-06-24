@@ -189,6 +189,13 @@ const componentsData = [
     color: 'rgba(25, 113, 194, 0.2)',
   },
   {
+    name: 'Rate',
+    path: '/Versakit-Vue/components/rate/',
+    description: '用于显示评分或评价的交互组件，通常以星星或心形等形式呈现。',
+    letter: 'R',
+    color: 'rgba(25, 113, 194, 0.2)',
+  },
+  {
     name: 'Input',
     path: '/Versakit-Vue/components/input/',
     description: '用于输入单行或多行文本的交互组件，通常以文本框形式呈现。',

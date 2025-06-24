@@ -21,6 +21,7 @@ import { Radio } from './components/Radio'
 import { Checkbox } from './components/Checkbox'
 import { Input } from './components/Input'
 import { Select, SelectItem } from './components/Select'
+import { Rate } from './components/Rate'
 
 // 引入样式
 import './style/index.css'
@@ -49,6 +50,7 @@ const components: Component[] = [
   Radio,
   Checkbox,
   Input,
+  Rate,
 ]
 
 export {
@@ -75,6 +77,7 @@ export {
   Checkbox,
   Input,
   SelectItem,
+  Rate,
 }
 
 const Versakit = {

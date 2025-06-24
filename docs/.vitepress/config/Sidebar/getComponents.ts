@@ -43,6 +43,7 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
     { text: 'Tabs 标签页', link: '/components/tabs/' },
     { text: 'Textarea 文本域', link: '/components/textarea/' },
     { text: 'Tooltip 提示', link: '/components/tooltip/' },
+    { text: 'Rate 评分', link: '/components/rate/' },
   ]
 
   // 对组件按字母顺序排序
