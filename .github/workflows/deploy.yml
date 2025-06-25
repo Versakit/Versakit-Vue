@@ -1,21 +1,21 @@
 # 此工作流程用于将项目部署到 GitHub Pages。
 # 当 `main` 分支有新的推送时，或者手动从 GitHub Actions 选项卡触发时，工作流程将自动运行。
 
-name: Deploy to GitHub Pages
+name: 部署文档到GitHub Pages
 
 on:
   push:
-    branches: [main] # 仅在 `main` 分支有推送时触发
+    branches: [main] # 仅在 main 分支有推送时触发
     paths:
       - 'docs/**'
       - 'packages/**'
       - '.github/workflows/deploy.yml'
       - 'pnpm-lock.yaml'
 
-  # 允许你从 Actions 选项卡手动运行此工作流程
+  # 允许从 Actions 选项卡手动运行此工作流程
   workflow_dispatch:
 
-# 设置 GITHUB_TOKEN 的权限，以允许部署到 GitHub Pages
+# 设置 GITHUB_TOKEN 的权限
 permissions:
   contents: write
   pages: write
@@ -23,35 +23,35 @@ permissions:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest # 使用最新的 Ubuntu 环境运行任务
+    name: 构建并部署文档
+    runs-on: ubuntu-latest
 
     steps:
-      # 检出代码到工作目录
-      - name: Checkout code
+      # 检出代码
+      - name: 检出代码
         uses: actions/checkout@v4
 
-      # 设置 pnpm 包管理器，并指定版本为 9
-      - name: Setup pnpm
+      # 设置 pnpm
+      - name: 设置 pnpm
         uses: pnpm/action-setup@v3
         with:
           version: 9
 
-      # 设置 Node.js 环境，并指定版本为 20
-      - name: Setup Node.js
+      # 设置 Node.js
+      - name: 设置 Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'pnpm'
 
-      # 获取 pnpm store 目录路径，用于缓存
-      - name: Get pnpm store directory
+      # 设置 pnpm 缓存
+      - name: 获取 pnpm store 目录
         id: pnpm-cache
         shell: bash
         run: |
           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-      # 设置 pnpm 缓存
-      - name: Setup pnpm cache
+      - name: 配置 pnpm 缓存
         uses: actions/cache@v4
         with:
           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
@@ -59,36 +59,34 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      # 安装项目依赖
-      - name: Install dependencies
+      # 安装依赖
+      - name: 安装依赖
         run: pnpm install --frozen-lockfile
 
-      # 运行代码检查
-      - name: Lint code
+      # 代码检查
+      - name: 代码检查
         run: pnpm run lint
 
-      # 运行测试（如果有）
-      - name: Run tests
-        run: pnpm run test || echo "No tests found"
-
       # 构建 UI 组件库
-      - name: Build UI library
+      - name: 构建 UI 组件库
         run: pnpm run ui:build
 
-      # 使用 VitePress 构建文档
-      - name: Build documentation
-        run: pnpm run docs:build
+      # 构建文档
+      - name: 构建文档
+        run: pnpm --filter docs build
 
       # 配置 GitHub Pages
-      - name: Setup Pages
+      - name: 配置 GitHub Pages
         uses: actions/configure-pages@v4
 
       # 上传构建产物
-      - name: Upload artifact
+      - name: 上传构建产物
         uses: actions/upload-pages-artifact@v3
         with:
           path: docs/.vitepress/dist
 
-      # 将构建后的文档部署到 GitHub Pages
-      - name: Deploy to GitHub Pages
+      # 部署到 GitHub Pages
+      - name: 部署到 GitHub Pages
         uses: actions/deploy-pages@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}

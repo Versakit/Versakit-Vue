@@ -1,0 +1,11 @@
+# 新PR的配置
+newPRWelcomeComment: >
+  感谢您提交PR！我们将尽快审核。
+
+# 首次PR的配置  
+firstPRWelcomeComment: >
+  🎉 恭喜您提交了您的第一个PR！感谢您的贡献。
+
+# 首次问题的配置
+firstIssueWelcomeComment: >
+  感谢您提交问题！我们将尽快回复。 

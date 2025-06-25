@@ -1,4 +1,4 @@
-name: Release
+name: 包发布
 
 on:
   push:
@@ -22,36 +22,36 @@ permissions:
 
 jobs:
   release:
-    name: Release
+    name: 发布包
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: 检出代码
         uses: actions/checkout@v4
         with:
-          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
+          # 获取完整Git历史以便Changesets生成正确的更新日志
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Setup Node.js
+      - name: 设置 Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
           cache: 'pnpm'
 
-      - name: Setup PNPM
+      - name: 设置 PNPM
         uses: pnpm/action-setup@v3
         with:
           version: 9
           run_install: false
 
-      - name: Get pnpm store directory
+      - name: 获取 pnpm store 目录
         id: pnpm-cache
         shell: bash
         run: |
           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-      - name: Setup pnpm cache
+      - name: 设置 pnpm 缓存
         uses: actions/cache@v4
         with:
           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
@@ -59,18 +59,18 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: Install Dependencies
+      - name: 安装依赖
         run: pnpm install --frozen-lockfile
 
-      - name: Lint and Test
+      - name: 代码检查和测试
         run: |
           pnpm run lint
-          pnpm run test || echo "No tests found"
+          pnpm run test || echo "没有找到测试"
 
-      - name: Build Packages
+      - name: 构建包
         run: pnpm run ui:build
 
-      - name: Create Release Pull Request or Publish to npm
+      - name: 创建发布PR或发布到npm
         id: changesets
         uses: changesets/action@v1
         with:
@@ -82,11 +82,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
-      - name: Update Tags
+      - name: 更新标签
         if: steps.changesets.outputs.published == 'true'
         run: |
           git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
           git fetch
           echo "已发布的包："
           echo "${{ steps.changesets.outputs.publishedPackages }}" | jq -r '.[].name'
-+
