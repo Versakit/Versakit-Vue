@@ -17,7 +17,6 @@ import { Button } from './components/Button'
 import { Card } from './components/Card'
 import { Divider } from './components/Divider'
 import { Textarea } from './components/Textarea'
-import { Radio } from './components/Radio'
 import { Checkbox } from './components/Checkbox'
 import { Input } from './components/Input'
 import { Select } from './components/Select'
@@ -46,7 +45,6 @@ const components: Component[] = [
   Divider,
   Textarea,
   Select,
-  Radio,
   Checkbox,
   Input,
   Rate,
@@ -72,7 +70,6 @@ export {
   Divider,
   Textarea,
   Select,
-  Radio,
   Checkbox,
   Input,
   Rate,

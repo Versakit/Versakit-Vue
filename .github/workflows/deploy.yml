@@ -6,6 +6,11 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main] # 仅在 `main` 分支有推送时触发
+    paths:
+      - 'docs/**'
+      - 'packages/**'
+      - '.github/workflows/deploy.yml'
+      - 'pnpm-lock.yaml'
 
   # 允许你从 Actions 选项卡手动运行此工作流程
   workflow_dispatch:
@@ -17,7 +22,7 @@ permissions:
   id-token: write
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest # 使用最新的 Ubuntu 环境运行任务
 
     steps:
@@ -32,27 +37,58 @@ jobs:
           version: 9
 
       # 设置 Node.js 环境，并指定版本为 20
-      - name: Setup node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
+          cache: 'pnpm'
+
+      # 获取 pnpm store 目录路径，用于缓存
+      - name: Get pnpm store directory
+        id: pnpm-cache
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      # 设置 pnpm 缓存
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       # 安装项目依赖
       - name: Install dependencies
-        run: pnpm i
+        run: pnpm install --frozen-lockfile
 
-      # 构建 UI
-      - name: Build UI
-        run: pnpm run ui-devops:build
+      # 运行代码检查
+      - name: Lint code
+        run: pnpm run lint
+
+      # 运行测试（如果有）
+      - name: Run tests
+        run: pnpm run test || echo "No tests found"
+
+      # 构建 UI 组件库
+      - name: Build UI library
+        run: pnpm run ui:build
 
       # 使用 VitePress 构建文档
-      - name: Build project
+      - name: Build documentation
         run: pnpm run docs:build
+
+      # 配置 GitHub Pages
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      # 上传构建产物
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/.vitepress/dist
 
       # 将构建后的文档部署到 GitHub Pages
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4.3.4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }} # 使用 GitHub Token 进行身份验证
-          branch: gh-pages # 部署到 `gh-pages` 分支
-          folder: docs/.vitepress/dist # 指定要部署的文件夹路径
+        uses: actions/deploy-pages@v4

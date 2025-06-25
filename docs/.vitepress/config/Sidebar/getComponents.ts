@@ -35,7 +35,6 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
     { text: 'Modal 模态框', link: '/components/modal/' },
     { text: 'PinInput 验证码输入', link: '/components/pininput/' },
     { text: 'Popover 气泡框', link: '/components/popover/' },
-    { text: 'Radio 单选框', link: '/components/radio/' },
     { text: 'Segmented 分段器', link: '/components/segmented/' },
     { text: 'Select 选择器', link: '/components/select/' },
     { text: 'Slider 滑块', link: '/components/slider/' },
