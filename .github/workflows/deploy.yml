@@ -1,92 +1,58 @@
 # 此工作流程用于将项目部署到 GitHub Pages。
 # 当 `main` 分支有新的推送时，或者手动从 GitHub Actions 选项卡触发时，工作流程将自动运行。
 
-name: 部署文档到GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main] # 仅在 main 分支有推送时触发
-    paths:
-      - 'docs/**'
-      - 'packages/**'
-      - '.github/workflows/deploy.yml'
-      - 'pnpm-lock.yaml'
+    branches: [main] # 仅在 `main` 分支有推送时触发
 
-  # 允许从 Actions 选项卡手动运行此工作流程
+  # 允许你从 Actions 选项卡手动运行此工作流程
   workflow_dispatch:
 
-# 设置 GITHUB_TOKEN 的权限
+# 设置 GITHUB_TOKEN 的权限，以允许部署到 GitHub Pages
 permissions:
   contents: write
   pages: write
   id-token: write
 
 jobs:
-  build-and-deploy:
-    name: 构建并部署文档
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-latest # 使用最新的 Ubuntu 环境运行任务
 
     steps:
-      # 检出代码
-      - name: 检出代码
+      # 检出代码到工作目录
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      # 设置 pnpm
-      - name: 设置 pnpm
+      # 设置 pnpm 包管理器，并指定版本为 9
+      - name: Setup pnpm
         uses: pnpm/action-setup@v3
         with:
           version: 9
 
-      # 设置 Node.js
-      - name: 设置 Node.js
+      # 设置 Node.js 环境，并指定版本为 20
+      - name: Setup node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'pnpm'
 
-      # 设置 pnpm 缓存
-      - name: 获取 pnpm store 目录
-        id: pnpm-cache
-        shell: bash
-        run: |
-          echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+      # 安装项目依赖
+      - name: Install dependencies
+        run: pnpm i
 
-      - name: 配置 pnpm 缓存
-        uses: actions/cache@v4
+      # 构建 UI
+      - name: Build UI
+        run: pnpm run ui-devops:build
+
+      # 使用 VitePress 构建文档
+      - name: Build project
+        run: pnpm run docs:build
+
+      # 将构建后的文档部署到 GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4.3.4
         with:
-          path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
-          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-pnpm-store-
-
-      # 安装依赖
-      - name: 安装依赖
-        run: pnpm install --frozen-lockfile
-
-      # 代码检查
-      - name: 代码检查
-        run: pnpm run lint
-
-      # 构建 UI 组件库
-      - name: 构建 UI 组件库
-        run: pnpm run ui:build
-
-      # 构建文档
-      - name: 构建文档
-        run: pnpm --filter docs build
-
-      # 配置 GitHub Pages
-      - name: 配置 GitHub Pages
-        uses: actions/configure-pages@v4
-
-      # 上传构建产物
-      - name: 上传构建产物
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: docs/.vitepress/dist
-
-      # 部署到 GitHub Pages
-      - name: 部署到 GitHub Pages
-        uses: actions/deploy-pages@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }} # 使用 GitHub Token 进行身份验证
+          branch: gh-pages # 部署到 `gh-pages` 分支
+          folder: docs/.vitepress/dist # 指定要部署的文件夹路径
