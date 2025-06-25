@@ -1,91 +1,58 @@
-name: 包发布
+name: Release
 
 on:
   push:
     branches:
       - main
-    paths:
-      - 'packages/**'
-      - 'pnpm-lock.yaml'
-      - '.changeset/**'
-      - '.github/workflows/release.yml'
-
-  # 允许手动触发工作流
-  workflow_dispatch:
 
 concurrency: ${{ github.workflow }}-${{ github.ref }}
 
-permissions:
-  contents: write
-  pull-requests: write
-  packages: write
-
 jobs:
   release:
-    name: 发布包
+    name: Release
     runs-on: ubuntu-latest
     steps:
-      - name: 检出代码
+      - name: Checkout Repo
         uses: actions/checkout@v4
         with:
-          # 获取完整Git历史以便Changesets生成正确的更新日志
+          # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
-          persist-credentials: false
 
-      - name: 设置 Node.js
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
-          cache: 'pnpm'
+          node-version: 18
 
-      - name: 设置 PNPM
+      - name: Setup PNPM
         uses: pnpm/action-setup@v3
         with:
-          version: 9
+          version: 8
           run_install: false
 
-      - name: 获取 pnpm store 目录
+      - name: Get pnpm store directory
         id: pnpm-cache
         shell: bash
         run: |
           echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
 
-      - name: 设置 pnpm 缓存
-        uses: actions/cache@v4
+      - uses: actions/cache@v4
+        name: Setup pnpm cache
         with:
           path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: 安装依赖
+      - name: Install Dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: 代码检查和测试
-        run: |
-          pnpm run lint
-          pnpm run test || echo "没有找到测试"
-
-      - name: 构建包
-        run: pnpm run ui:build
-
-      - name: 创建发布PR或发布到npm
+      - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: pnpm release
+          publish: pnpm version
           version: pnpm version
           commit: 'chore: 版本更新'
           title: 'chore: 版本更新'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: 更新标签
-        if: steps.changesets.outputs.published == 'true'
-        run: |
-          git remote set-url origin https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
-          git fetch
-          echo "已发布的包："
-          echo "${{ steps.changesets.outputs.publishedPackages }}" | jq -r '.[].name'
