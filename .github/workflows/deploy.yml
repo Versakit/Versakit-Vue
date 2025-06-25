@@ -77,7 +77,7 @@ jobs:
 
       # 配置 GitHub Pages
       - name: 配置 GitHub Pages
-        uses: actions/configure-pages@v4
+        uses: actions/configure-pages@v5
 
       # 上传构建产物
       - name: 上传构建产物
