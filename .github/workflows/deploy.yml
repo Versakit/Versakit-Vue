@@ -43,7 +43,7 @@ jobs:
 
       # 构建 UI
       - name: Build UI
-        run: pnpm run ui-devops:build
+        run: pnpm run ui:build
 
       # 使用 VitePress 构建文档
       - name: Build project
