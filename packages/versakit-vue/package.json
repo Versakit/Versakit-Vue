@@ -59,8 +59,7 @@
     "@vitejs/plugin-vue-jsx": "^4.1.1",
     "@vueuse/core": "^13.0.0",
     "rollup-plugin-visualizer": "^5.14.0",
-    "@versakit/shared": "workspace:*",
-    "@versakit/composables": "workspace:*"
+    "@versakit/shared": "workspace:*"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.8",
