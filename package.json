@@ -10,6 +10,7 @@
   "scripts": {
     "ui:build": "pnpm --filter @versakit/vue build",
     "docs:dev": "pnpm --filter docs dev",
+    "docs:build": "pnpm --filter docs build",
     "storybook": "pnpm --filter storybook storybook",
     "preinstall": "node ./scripts/preinstall.js",
     "lint": "turbo run lint",
