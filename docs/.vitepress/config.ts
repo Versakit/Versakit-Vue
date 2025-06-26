@@ -14,6 +14,7 @@ export default defineConfig({
   base: '/Versakit-Vue/',
   title: 'VersaKit',
   description: 'VersaKit is a UI library for Vue 3',
+  ignoreDeadLinks: true,
   themeConfig: {
     nav: getNav(),
     sidebar: {
