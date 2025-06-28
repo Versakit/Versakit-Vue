@@ -10,12 +10,6 @@ export const getGuideSidebar = (): DefaultTheme.Sidebar => {
         { text: '快速开始', link: '/guide/quickstart/' },
         { text: '暗黑模式', link: '/guide/dark/' },
         { text: '更新日志', link: '/guide/log/' },
-      ],
-    },
-    {
-      text: '进阶',
-      items: [
-        { text: '主题', link: '/guide/theme/' },
         { text: '无障碍', link: '/guide/accessibility/' },
       ],
     },

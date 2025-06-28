@@ -1,10 +1,11 @@
 import { computed } from 'vue'
+import type { BadgePosition } from '../type'
 
 export function useBadge(props: {
   content?: string | number
   dot?: boolean
   show?: boolean
-  position?: 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
+  position?: BadgePosition
 }) {
   const visible = computed(() => {
     if (props.dot) return props.show !== false

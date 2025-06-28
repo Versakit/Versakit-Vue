@@ -1,5 +1,5 @@
 <template>
-  <kbd :class="classes">
+  <kbd :class="rootClass">
     <slot />
   </kbd>
 </template>
@@ -17,12 +17,18 @@ defineOptions({
 const props = withDefaults(defineProps<KbdProps>(), {
   size: 'md',
   variant: 'default',
+  unstyled: false,
 })
 
-const classes = computed(() =>
-  kbdStyle({
+const rootClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.root || ''
+  }
+
+  return kbdStyle({
     size: props.size,
     variant: props.variant,
-  }),
-)
+    class: props.pt?.root,
+  })
+})
 </script>

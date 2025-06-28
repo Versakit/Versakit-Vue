@@ -26,6 +26,7 @@ const props = withDefaults(defineProps<DrawerProps>(), {
   preventScroll: true,
   zIndex: 1000,
   hideCloseButton: false,
+  unstyled: false,
 })
 
 const emit = defineEmits<{
@@ -91,21 +92,34 @@ onBeforeUnmount(() => {
 
 // 计算样式
 const overlayClass = computed(() => {
+  if (props.unstyled) {
+    return [props.pt?.overlay, props.overlayClass].filter(Boolean)
+  }
+
   return [
     drawerOverlay({
       open: isOpen.value,
+      class: props.pt?.overlay,
     }),
     props.overlayClass,
   ]
 })
 
 const containerClass = computed(() => {
+  if (props.unstyled) {
+    return [props.pt?.container, props.contentClass, props.class].filter(
+      Boolean,
+    )
+  }
+
   return [
     drawerContainer({
       placement: props.placement,
       open: isOpen.value,
+      class: props.pt?.container,
     }),
     props.contentClass,
+    props.class,
   ]
 })
 
@@ -114,7 +128,7 @@ const containerStyle = computed(() => {
     zIndex: props.zIndex.toString(),
   }
 
-  if (props.size) {
+  if (!props.unstyled && props.size) {
     const sizeValue =
       typeof props.size === 'number' ? `${props.size}px` : props.size
 
@@ -128,11 +142,40 @@ const containerStyle = computed(() => {
   return style
 })
 
-const headerClass = computed(() => [drawerHeader(), props.headerClass])
-const titleClass = computed(() => drawerTitle())
-const closeButtonClass = computed(() => drawerCloseButton())
-const bodyClass = computed(() => [drawerBody(), props.bodyClass])
-const footerClass = computed(() => [drawerFooter(), props.footerClass])
+const headerClass = computed(() => {
+  if (props.unstyled) {
+    return [props.pt?.header, props.headerClass].filter(Boolean)
+  }
+  return [drawerHeader({ class: props.pt?.header }), props.headerClass]
+})
+
+const titleClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.title || ''
+  }
+  return drawerTitle({ class: props.pt?.title })
+})
+
+const closeButtonClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.closeButton || ''
+  }
+  return drawerCloseButton({ class: props.pt?.closeButton })
+})
+
+const bodyClass = computed(() => {
+  if (props.unstyled) {
+    return [props.pt?.body, props.bodyClass].filter(Boolean)
+  }
+  return [drawerBody({ class: props.pt?.body }), props.bodyClass]
+})
+
+const footerClass = computed(() => {
+  if (props.unstyled) {
+    return [props.pt?.footer, props.footerClass].filter(Boolean)
+  }
+  return [drawerFooter({ class: props.pt?.footer }), props.footerClass]
+})
 
 // 处理关闭抽屉
 const closeDrawer = () => {
@@ -159,7 +202,7 @@ const hasFooter = computed<boolean>(() => !!slots.footer)
 
     <!-- 抽屉容器 -->
     <div
-      :class="[containerClass, props.class]"
+      :class="containerClass"
       :style="containerStyle"
       ref="drawerRef"
       role="dialog"

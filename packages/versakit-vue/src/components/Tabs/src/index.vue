@@ -13,6 +13,7 @@ const props = withDefaults(defineProps<TabsProps>(), {
   size: 'md',
   disabled: false,
   block: false,
+  unstyled: false,
 })
 
 const emit = defineEmits<{
@@ -30,22 +31,48 @@ watch(selectedIndex, (newIndex) => {
 
 // 计算容器样式
 const containerClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.container || ''
+  }
   return tabsContainer({
     size: props.size,
     disabled: props.disabled,
     block: props.block,
+    class: props.pt?.container,
   })
 })
 
 // 计算选项样式
 const getTabClass = (index: number, disabled?: boolean) => {
   const isActive = unref(selectedIndex) === index
+  if (props.unstyled) {
+    return props.pt?.trigger || ''
+  }
   return tabTrigger({
     selected: isActive,
     disabled: props.disabled || disabled,
     size: props.size,
+    class: props.pt?.trigger,
   })
 }
+
+// 计算面板样式
+const panelClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.panel || ''
+  }
+  return tabPanel({
+    class: props.pt?.panel,
+  })
+})
+
+// 计算图标样式
+const iconClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.icon || 'w-4 h-4 mr-2'
+  }
+  return `w-4 h-4 mr-2 ${props.pt?.icon || ''}`
+})
 
 // 处理选项点击
 const handleTabClick = (index: number, disabled?: boolean) => {
@@ -74,8 +101,10 @@ const handleTabClick = (index: number, disabled?: boolean) => {
           <img
             v-if="tab.icon"
             :src="tab.icon"
-            class="w-4 h-4 mr-2"
-            :class="unref(selectedIndex) === index ? '' : 'opacity-70'"
+            :class="[
+              iconClass,
+              unref(selectedIndex) === index ? '' : 'opacity-70',
+            ]"
           />
           {{ tab.label }}
         </div>
@@ -88,7 +117,7 @@ const handleTabClick = (index: number, disabled?: boolean) => {
       :key="index"
       v-show="unref(selectedIndex) === index"
       role="tabpanel"
-      :class="tabPanel()"
+      :class="panelClass"
     >
       <slot :tab="tab">
         <template v-if="typeof tab.content === 'function'">

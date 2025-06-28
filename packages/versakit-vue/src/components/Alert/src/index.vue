@@ -64,6 +64,7 @@ const props = withDefaults(defineProps<AlertProps>(), {
   rounded: 'md',
   border: true,
   shadow: false,
+  unstyled: false,
 })
 
 const emit = defineEmits<{
@@ -78,39 +79,53 @@ const handleClose = () => {
 }
 
 const classes = computed(() =>
-  alertStyle({
-    variant: props.variant,
-    size: props.size,
-    rounded: props.rounded,
-    border: props.border,
-    shadow: props.shadow,
-    class: props.class,
-  }),
+  props.unstyled
+    ? props.pt?.root || ''
+    : alertStyle({
+        variant: props.variant,
+        size: props.size,
+        rounded: props.rounded,
+        border: props.border,
+        shadow: props.shadow,
+        class: [props.class, props.pt?.root],
+      }),
 )
 
 const iconClasses = computed(() =>
-  alertIconStyle({
-    variant: props.variant,
-    size: props.size,
-  }),
+  props.unstyled
+    ? props.pt?.icon || ''
+    : alertIconStyle({
+        variant: props.variant,
+        size: props.size,
+        class: props.pt?.icon,
+      }),
 )
 
 const titleClasses = computed(() =>
-  alertTitleStyle({
-    size: props.size,
-  }),
+  props.unstyled
+    ? props.pt?.title || ''
+    : alertTitleStyle({
+        size: props.size,
+        class: props.pt?.title,
+      }),
 )
 
 const descriptionClasses = computed(() =>
-  alertDescriptionStyle({
-    size: props.size,
-  }),
+  props.unstyled
+    ? props.pt?.description || ''
+    : alertDescriptionStyle({
+        size: props.size,
+        class: props.pt?.description,
+      }),
 )
 
 const closeButtonClasses = computed(() =>
-  alertCloseButtonStyle({
-    size: props.size,
-  }),
+  props.unstyled
+    ? props.pt?.closeButton || ''
+    : alertCloseButtonStyle({
+        size: props.size,
+        class: props.pt?.closeButton,
+      }),
 )
 
 // 默认图标

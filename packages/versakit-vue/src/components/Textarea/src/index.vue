@@ -1,7 +1,7 @@
 <template>
-  <div class="w-full">
+  <div :class="rootClass">
     <textarea
-      :class="classes"
+      :class="textareaClass"
       :value="modelValue"
       :placeholder="placeholder"
       :disabled="disabled"
@@ -11,10 +11,7 @@
       :minlength="minLength"
       @input="handleInput"
     />
-    <div
-      v-if="showCount && maxLength"
-      class="mt-1 text-right text-sm text-gray-500"
-    >
+    <div v-if="showCount && maxLength" :class="counterClass">
       {{ modelValue?.length || 0 }}/{{ maxLength }}
     </div>
   </div>
@@ -38,17 +35,36 @@ const props = withDefaults(defineProps<TextareaProps>(), {
   showCount: false,
   size: 'md',
   status: undefined,
+  unstyled: false,
 })
 
 const emit = defineEmits(['update:modelValue'])
 
-const classes = computed(() =>
-  textareaStyle({
+// 根元素样式
+const rootClass = computed(() => {
+  return props.pt?.root || 'w-full'
+})
+
+// 文本域样式
+const textareaClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.textarea || ''
+  }
+  return textareaStyle({
     size: props.size,
     status: props.status,
     resize: props.resize,
-  }),
-)
+    class: props.pt?.textarea,
+  })
+})
+
+// 计数器样式
+const counterClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.counter || ''
+  }
+  return props.pt?.counter || 'mt-1 text-right text-sm text-gray-500'
+})
 
 const handleInput = (e: Event) => {
   const target = e.target as HTMLTextAreaElement

@@ -173,6 +173,9 @@ importers:
 
   storybook:
     dependencies:
+      '@versakit/vue':
+        specifier: workspace:*
+        version: link:../packages/versakit-vue
       vue:
         specifier: ^3.5.12
         version: 3.5.16(typescript@5.6.3)

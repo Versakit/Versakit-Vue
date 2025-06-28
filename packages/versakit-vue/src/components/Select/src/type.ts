@@ -107,6 +107,40 @@ export interface SelectProps {
    * 自定义渲染选中值的函数
    */
   renderValue?: (option: SelectOption | SelectOption[]) => string | JSX.Element
+
+  /**
+   * 是否使用无样式模式
+   * @default false
+   */
+  unstyled?: boolean
+
+  /**
+   * 传递模板样式
+   */
+  pt?: SelectPT
+}
+
+/**
+ * Select组件模板样式类型
+ */
+export type SelectPT = {
+  root?: string
+  trigger?: string
+  value?: string
+  placeholder?: string
+  dropdown?: string
+  option?: string
+  optionSelected?: string
+  optionActive?: string
+  optionDisabled?: string
+  icon?: string
+  clearIcon?: string
+  checkIcon?: string
+  search?: string
+  tag?: string
+  tagRemove?: string
+  noMatch?: string
+  label?: string
 }
 
 export interface SelectOption {

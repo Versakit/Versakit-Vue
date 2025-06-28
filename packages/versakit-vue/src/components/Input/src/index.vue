@@ -1,15 +1,15 @@
 <template>
-  <div :class="classes.root()">
-    <div :class="[classes.wrapper(), props.readonly && 'cursor-default']">
+  <div :class="rootClass">
+    <div :class="[wrapperClass, props.readonly && 'cursor-default']">
       <!-- 前缀图标 -->
-      <div v-if="props.prefixIcon" :class="classes.prefix()">
+      <div v-if="props.prefixIcon" :class="prefixClass">
         <i :class="props.prefixIcon"></i>
       </div>
 
       <!-- 输入框 -->
       <input
         :type="props.type"
-        :class="classes.input()"
+        :class="inputClass"
         :value="inputValue"
         :placeholder="props.placeholder"
         :disabled="props.disabled"
@@ -27,7 +27,7 @@
         v-if="
           props.clearable && inputValue && !props.disabled && !props.readonly
         "
-        :class="[classes.suffix(), classes.clear()]"
+        :class="[suffixClass, clearClass]"
         @click="clearInput"
       >
         <svg
@@ -47,13 +47,13 @@
       </div>
 
       <!-- 后缀图标 -->
-      <div v-if="props.suffixIcon" :class="classes.suffix()">
+      <div v-if="props.suffixIcon" :class="suffixClass">
         <i :class="props.suffixIcon"></i>
       </div>
     </div>
 
     <!-- 字数统计 -->
-    <div v-if="props.showCount && props.maxlength" :class="classes.count()">
+    <div v-if="props.showCount && props.maxlength" :class="countClass">
       {{ inputValue.length }}/{{ props.maxlength }}
     </div>
   </div>
@@ -78,6 +78,7 @@ const props = withDefaults(defineProps<InputProps>(), {
   clearable: false,
   showCount: false,
   autofocus: false,
+  unstyled: false,
 })
 
 const emit = defineEmits(['update:modelValue', 'focus', 'blur', 'clear'])
@@ -93,13 +94,103 @@ const { inputValue, inputRef, updateValue, clearInput, focus, blur } = useInput(
   },
 )
 
-const classes = computed(() =>
-  inputStyle({
+const rootClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.root || ''
+  }
+
+  const styles = inputStyle({
     size: props.size,
     status: props.status,
     disabled: props.disabled,
-  }),
-).value
+  })
+
+  return styles.root({ class: props.pt?.root })
+})
+
+const wrapperClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.wrapper || ''
+  }
+
+  const styles = inputStyle({
+    size: props.size,
+    status: props.status,
+    disabled: props.disabled,
+  })
+
+  return styles.wrapper({ class: props.pt?.wrapper })
+})
+
+const inputClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.input || ''
+  }
+
+  const styles = inputStyle({
+    size: props.size,
+    status: props.status,
+    disabled: props.disabled,
+  })
+
+  return styles.input({ class: props.pt?.input })
+})
+
+const prefixClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.prefix || ''
+  }
+
+  const styles = inputStyle({
+    size: props.size,
+    status: props.status,
+    disabled: props.disabled,
+  })
+
+  return styles.prefix({ class: props.pt?.prefix })
+})
+
+const suffixClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.suffix || ''
+  }
+
+  const styles = inputStyle({
+    size: props.size,
+    status: props.status,
+    disabled: props.disabled,
+  })
+
+  return styles.suffix({ class: props.pt?.suffix })
+})
+
+const clearClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.clear || ''
+  }
+
+  const styles = inputStyle({
+    size: props.size,
+    status: props.status,
+    disabled: props.disabled,
+  })
+
+  return styles.clear({ class: props.pt?.clear })
+})
+
+const countClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.count || ''
+  }
+
+  const styles = inputStyle({
+    size: props.size,
+    status: props.status,
+    disabled: props.disabled,
+  })
+
+  return styles.count({ class: props.pt?.count })
+})
 
 defineExpose({
   focus,

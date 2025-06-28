@@ -29,4 +29,5 @@ export const avatar = tv({
     shape: 'circle',
     status: 'none',
   },
+  compoundVariants: [],
 })

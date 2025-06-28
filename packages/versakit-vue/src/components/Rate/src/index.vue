@@ -25,17 +25,14 @@
       </span>
 
       <!-- 全星 -->
-      <span v-if="getStarValue(index - 1) === 1" :class="[fullClass, 'w-full']">
+      <span v-if="getStarValue(index - 1) === 1" :class="fullClass">
         <slot name="character">
           {{ character || '★' }}
         </slot>
       </span>
 
       <!-- 半星 -->
-      <span
-        v-else-if="getStarValue(index - 1) === 0.5"
-        :class="[halfClass, 'w-1/2']"
-      >
+      <span v-else-if="getStarValue(index - 1) === 0.5" :class="halfClass">
         <slot name="character">
           {{ character || '★' }}
         </slot>
@@ -76,6 +73,7 @@ const props = withDefaults(defineProps<RateProps>(), {
   color: 'yellow',
   size: 'default',
   showScore: false,
+  unstyled: false,
 })
 
 const emit = defineEmits(RateEmits)
@@ -103,39 +101,68 @@ const {
 
 // 计算样式
 const containerClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.container || ''
+  }
   return rateContainer({
     disabled: props.disabled,
+    class: props.pt?.container,
   })
 })
 
 const itemClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.item || ''
+  }
   return rateItem({
     size: props.size,
     disabled: props.disabled,
     readonly: props.readonly,
+    class: props.pt?.item,
   })
 })
 
 const scoreClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.score || ''
+  }
   return rateScore({
     size: props.size,
+    class: props.pt?.score,
   })
 })
 
 const fullClass = computed(() => {
-  return rateStarFull({
-    color: props.color,
-  })
+  if (props.unstyled) {
+    return props.pt?.fullStar || 'absolute inset-0 overflow-hidden w-full'
+  }
+  return (
+    rateStarFull({
+      color: props.color,
+      class: props.pt?.fullStar,
+    }) + ' w-full'
+  )
 })
 
 const halfClass = computed(() => {
-  return rateHalfStar({
-    color: props.color,
-  })
+  if (props.unstyled) {
+    return props.pt?.halfStar || 'absolute inset-0 overflow-hidden w-1/2'
+  }
+  return (
+    rateHalfStar({
+      color: props.color,
+      class: props.pt?.halfStar,
+    }) + ' w-1/2'
+  )
 })
 
 const voidClass = computed(() => {
-  return rateStarVoid()
+  if (props.unstyled) {
+    return props.pt?.voidStar || ''
+  }
+  return rateStarVoid({
+    class: props.pt?.voidStar,
+  })
 })
 
 // 格式化分数显示

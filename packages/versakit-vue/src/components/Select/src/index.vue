@@ -1,19 +1,12 @@
 <template>
-  <div
-    :class="[
-      styles.root({
-        size: props.size,
-        status: props.status,
-        disabled: props.disabled,
-        multiple: props.multiple,
-        open: isOpen,
-      }),
-    ]"
-  >
+  <div :class="getStyles.root">
     <!-- 标签 -->
     <label
       v-if="props.showLabel && props.label"
-      class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1"
+      :class="
+        props.pt?.label ||
+        'block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1'
+      "
     >
       {{ props.label }}
       <span v-if="props.required" class="text-red-500">*</span>
@@ -22,15 +15,7 @@
     <!-- 选择器触发区域 -->
     <div
       ref="triggerRef"
-      :class="[
-        styles.trigger({
-          size: props.size,
-          status: props.status,
-          disabled: props.disabled,
-          multiple: props.multiple,
-          open: isOpen,
-        }),
-      ]"
+      :class="getStyles.trigger"
       @click="!props.disabled && !props.readonly && toggleDropdown()"
       @keydown="onKeyDown"
       tabindex="0"
@@ -43,7 +28,7 @@
       :aria-controls="dropdownId"
     >
       <!-- 选择器内容 -->
-      <div :class="styles.value({ multiple: props.multiple })">
+      <div :class="getStyles.value">
         <!-- 多选模式 -->
         <div
           v-if="props.multiple && selectedOptions.length"
@@ -52,13 +37,13 @@
           <div
             v-for="option in selectedOptions"
             :key="option.value"
-            :class="styles.tag()"
+            :class="getStyles.tag"
           >
             <span class="truncate">{{ option.label }}</span>
             <button
               v-if="!props.disabled && !props.readonly"
               type="button"
-              :class="styles.tagRemove()"
+              :class="getStyles.tagRemove"
               @click.stop="selectOption(option)"
               aria-label="移除"
             >
@@ -83,7 +68,7 @@
         </div>
 
         <!-- 占位符 -->
-        <div v-else :class="styles.placeholder()">
+        <div v-else :class="getStyles.placeholder">
           {{ props.placeholder }}
         </div>
       </div>
@@ -99,7 +84,7 @@
             !props.readonly
           "
           type="button"
-          :class="styles.clearIcon()"
+          :class="getStyles.clearIcon"
           @click.stop="clearSelection"
           aria-label="清除选择"
         >
@@ -117,7 +102,7 @@
         </button>
 
         <!-- 下拉指示器 -->
-        <div :class="styles.icon()">
+        <div :class="getStyles.icon">
           <svg
             viewBox="0 0 24 24"
             width="16"
@@ -140,7 +125,7 @@
         v-if="isOpen"
         ref="dropdownRef"
         :id="dropdownId"
-        :class="styles.dropdown()"
+        :class="getStyles.dropdown"
         :style="{ maxHeight: `${props.maxDropdownHeight}px` }"
         role="listbox"
         :aria-multiselectable="props.multiple"
@@ -149,7 +134,7 @@
         <div v-if="props.filterable" class="sticky top-0">
           <input
             ref="searchInputRef"
-            :class="styles.search()"
+            :class="getStyles.search"
             type="text"
             :value="searchValue"
             @input="onInputSearch"
@@ -167,11 +152,11 @@
                 v-for="(option, index) in filteredOptions"
                 :key="option.value"
                 :class="[
-                  styles.option(),
+                  getStyles.option,
                   {
-                    [styles.optionSelected()]: isSelected(option.value),
-                    [styles.optionActive()]: activeIndex === index,
-                    [styles.optionDisabled()]: option.disabled,
+                    [getStyles.optionSelected]: isSelected(option.value),
+                    [getStyles.optionActive]: activeIndex === index,
+                    [getStyles.optionDisabled]: option.disabled,
                   },
                 ]"
                 @click.stop="!option.disabled && selectOption(option)"
@@ -182,7 +167,7 @@
                 {{ option.label }}
                 <svg
                   v-if="isSelected(option.value)"
-                  :class="styles.checkIcon()"
+                  :class="getStyles.checkIcon"
                   viewBox="0 0 24 24"
                   width="16"
                   height="16"
@@ -194,7 +179,7 @@
                 </svg>
               </div>
             </template>
-            <div v-else :class="styles.noMatch()">
+            <div v-else :class="getStyles.noMatch">
               {{ props.noMatchText }}
             </div>
           </template>
@@ -207,12 +192,11 @@
                 v-for="(option, index) in groupedOptions.noGroup"
                 :key="option.value"
                 :class="[
-                  styles.option(),
+                  getStyles.option,
                   {
-                    [styles.optionSelected()]: isSelected(option.value),
-                    [styles.optionActive()]:
-                      getGlobalIndex(null, index) === activeIndex,
-                    [styles.optionDisabled()]: option.disabled,
+                    [getStyles.optionSelected]: isSelected(option.value),
+                    [getStyles.optionActive]: activeIndex === index,
+                    [getStyles.optionDisabled]: option.disabled,
                   },
                 ]"
                 @click.stop="!option.disabled && selectOption(option)"
@@ -223,7 +207,7 @@
                 {{ option.label }}
                 <svg
                   v-if="isSelected(option.value)"
-                  :class="styles.checkIcon()"
+                  :class="getStyles.checkIcon"
                   viewBox="0 0 24 24"
                   width="16"
                   height="16"
@@ -238,25 +222,25 @@
 
             <!-- 分组选项 -->
             <template
-              v-for="(options, group) in groupedOptions.groups"
-              :key="group"
+              v-for="(group, groupName) in groupedOptions.groups"
+              :key="groupName"
             >
               <div
-                class="px-3 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-750"
+                class="px-3 py-1 text-xs font-semibold text-gray-500 dark:text-gray-400"
               >
-                {{ group }}
+                {{ groupName }}
               </div>
               <div
-                v-for="(option, index) in options"
+                v-for="(option, index) in group"
                 :key="option.value"
                 :class="[
-                  styles.option(),
+                  getStyles.option,
                   'pl-5',
                   {
-                    [styles.optionSelected()]: isSelected(option.value),
-                    [styles.optionActive()]:
-                      getGlobalIndex(group, index) === activeIndex,
-                    [styles.optionDisabled()]: option.disabled,
+                    [getStyles.optionSelected]: isSelected(option.value),
+                    [getStyles.optionActive]:
+                      getGlobalIndex(groupName, index) === activeIndex,
+                    [getStyles.optionDisabled]: option.disabled,
                   },
                 ]"
                 @click.stop="!option.disabled && selectOption(option)"
@@ -267,7 +251,7 @@
                 {{ option.label }}
                 <svg
                   v-if="isSelected(option.value)"
-                  :class="styles.checkIcon()"
+                  :class="getStyles.checkIcon"
                   viewBox="0 0 24 24"
                   width="16"
                   height="16"
@@ -322,6 +306,7 @@ const props = withDefaults(defineProps<SelectProps>(), {
   maxDropdownHeight: 250,
   showLabel: false,
   required: false,
+  unstyled: false,
 })
 
 const emit = defineEmits([
@@ -337,6 +322,68 @@ const emit = defineEmits([
 
 // 应用样式
 const styles = selectStyle()
+
+// 创建样式计算属性
+const getStyles = computed(() => {
+  if (props.unstyled) {
+    return {
+      root: props.pt?.root || '',
+      trigger: props.pt?.trigger || '',
+      value: props.pt?.value || '',
+      placeholder: props.pt?.placeholder || '',
+      dropdown: props.pt?.dropdown || '',
+      option: props.pt?.option || '',
+      optionSelected: props.pt?.optionSelected || '',
+      optionActive: props.pt?.optionActive || '',
+      optionDisabled: props.pt?.optionDisabled || '',
+      icon: props.pt?.icon || '',
+      clearIcon: props.pt?.clearIcon || '',
+      checkIcon: props.pt?.checkIcon || '',
+      search: props.pt?.search || '',
+      tag: props.pt?.tag || '',
+      tagRemove: props.pt?.tagRemove || '',
+      noMatch: props.pt?.noMatch || '',
+      label: props.pt?.label || '',
+    }
+  }
+
+  // 使用 tailwind-variants 并合并自定义类
+  return {
+    root: styles.root({
+      size: props.size,
+      status: props.status,
+      disabled: props.disabled,
+      multiple: props.multiple,
+      open: isOpen.value,
+      class: props.pt?.root,
+    }),
+    trigger: styles.trigger({
+      size: props.size,
+      status: props.status,
+      disabled: props.disabled,
+      multiple: props.multiple,
+      open: isOpen.value,
+      class: props.pt?.trigger,
+    }),
+    value: styles.value({
+      multiple: props.multiple,
+      class: props.pt?.value,
+    }),
+    placeholder: styles.placeholder({ class: props.pt?.placeholder }),
+    dropdown: styles.dropdown({ class: props.pt?.dropdown }),
+    option: styles.option({ class: props.pt?.option }),
+    optionSelected: styles.optionSelected({ class: props.pt?.optionSelected }),
+    optionActive: styles.optionActive({ class: props.pt?.optionActive }),
+    optionDisabled: styles.optionDisabled({ class: props.pt?.optionDisabled }),
+    icon: styles.icon({ class: props.pt?.icon }),
+    clearIcon: styles.clearIcon({ class: props.pt?.clearIcon }),
+    checkIcon: styles.checkIcon({ class: props.pt?.checkIcon }),
+    search: styles.search({ class: props.pt?.search }),
+    tag: styles.tag({ class: props.pt?.tag }),
+    tagRemove: styles.tagRemove({ class: props.pt?.tagRemove }),
+    noMatch: styles.noMatch({ class: props.pt?.noMatch }),
+  }
+})
 
 // 生成唯一ID
 const dropdownId = `versa-select-dropdown-${Math.random().toString(36).substring(2, 9)}`

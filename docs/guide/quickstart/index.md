@@ -1,15 +1,17 @@
 # 快速开始
 
-本节将介绍如何在项目中使用 Versakit。
+本节将介绍如何在项目中快速集成和使用 Versakit组件库。
 
-## 用法
+## 完整引入
+
+在应用入口文件中导入 Versakit：
 
 ```javascript
 // main.ts
 import { createApp } from 'vue'
 import App from './App.vue'
-import { Versakit } from '@versakit/ui' // 引入组件库
-import '@versakit/ui/dist/ui.css' // 引入样式
+import { Versakit } from '@versakit/vue' // 引入组件库
+import '@versakit/ui/style' // 引入样式
 
 const app = createApp(App)
 
@@ -19,16 +21,17 @@ app.mount('#app')
 
 ## 按需导入
 
-自动导入 <VK-tag>推荐</VK-tag>
-​
+### 自动导入 <VK-tag>推荐</VK-tag>
 
-<p>首先你需要安装unplugin-vue-components 和 unplugin-auto-import这两款插件</p>
+首先需要安装自动导入相关插件：
 
 ```shell
 npm install -D unplugin-vue-components unplugin-auto-import @versakit/resolvers
 ```
 
-### Vite
+### Vite 配置
+
+在 Vite 配置文件中添加以下配置：
 
 ```typescript
 import { defineConfig } from 'vite'

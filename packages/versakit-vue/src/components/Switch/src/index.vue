@@ -6,18 +6,20 @@
     :disabled="props.disabled"
     @click="toggle"
     @keydown="onKeyDown"
-    :class="classes.root()"
+    :class="rootClass"
   >
     <!-- 轨道背景 -->
     <span
-      class="absolute inset-0 rounded-full transition-colors duration-300 ease-in-out"
-      :class="getTrackColorClass()"
+      :class="[
+        trackClass,
+        'absolute inset-0 rounded-full transition-colors duration-300 ease-in-out',
+      ]"
     ></span>
 
     <!-- 滑块 -->
     <span
       :class="[
-        classes.thumb(),
+        thumbClass,
         'transform transition-all duration-300 ease-in-out',
         getThumbPositionClass(),
       ]"
@@ -41,7 +43,7 @@
       <span
         class="absolute inset-0 rounded-full transform transition-transform duration-500"
         :class="[
-          getRippleColorClass(),
+          rippleClass,
           { 'scale-100': animateRipple, 'scale-0': !animateRipple },
         ]"
       ></span>
@@ -65,6 +67,7 @@ const props = withDefaults(defineProps<SwitchProps>(), {
   disabled: false,
   size: 'default',
   color: 'blue',
+  unstyled: false,
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -132,14 +135,47 @@ const getRippleColorClass = () => {
   return colorMap[props.color] || colorMap.blue
 }
 
-const classes = computed(() =>
+// 计算样式类
+const styles = computed(() =>
   switchStyle({
     checked: checked.value,
     disabled: props.disabled,
     size: props.size,
     color: props.color,
   }),
-).value
+)
+
+// 根元素样式
+const rootClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.root || ''
+  }
+  return styles.value.root({ class: props.pt?.root })
+})
+
+// 轨道样式
+const trackClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.track || ''
+  }
+  return getTrackColorClass() + (props.pt?.track ? ` ${props.pt.track}` : '')
+})
+
+// 滑块样式
+const thumbClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.thumb || ''
+  }
+  return styles.value.thumb({ class: props.pt?.thumb })
+})
+
+// 波纹样式
+const rippleClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.ripple || ''
+  }
+  return getRippleColorClass() + (props.pt?.ripple ? ` ${props.pt.ripple}` : '')
+})
 </script>
 
 <style scoped>

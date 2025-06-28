@@ -1,6 +1,6 @@
 <template>
   <label
-    :class="classes.root()"
+    :class="rootClass"
     @click.prevent="toggle"
     @keydown="onKeyDown"
     tabindex="0"
@@ -11,8 +11,8 @@
       :checked="checked"
       :disabled="props.disabled"
     />
-    <div :class="classes.checkbox()">
-      <span :class="classes.icon()" v-if="checked">
+    <div :class="checkboxClass">
+      <span :class="iconClass" v-if="checked">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
@@ -27,7 +27,7 @@
         </svg>
       </span>
     </div>
-    <span v-if="props.label" :class="classes.label()">{{ props.label }}</span>
+    <span v-if="props.label" :class="labelClass">{{ props.label }}</span>
     <slot v-else></slot>
   </label>
 </template>
@@ -47,6 +47,7 @@ const props = withDefaults(defineProps<CheckboxProps>(), {
   disabled: false,
   size: 'default',
   color: 'blue',
+  unstyled: false,
 })
 
 const emit = defineEmits(['update:modelValue'])
@@ -57,12 +58,63 @@ const { checked, toggle, onKeyDown } = useCheckbox({
   onChange: (val) => emit('update:modelValue', val),
 })
 
-const classes = computed(() =>
-  checkboxStyle({
+const rootClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.root || ''
+  }
+
+  const styles = checkboxStyle({
     checked: checked.value,
     disabled: props.disabled,
     size: props.size,
     color: props.color,
-  }),
-).value
+  })
+
+  return styles.root({ class: props.pt?.root })
+})
+
+const checkboxClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.checkbox || ''
+  }
+
+  const styles = checkboxStyle({
+    checked: checked.value,
+    disabled: props.disabled,
+    size: props.size,
+    color: props.color,
+  })
+
+  return styles.checkbox({ class: props.pt?.checkbox })
+})
+
+const iconClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.icon || ''
+  }
+
+  const styles = checkboxStyle({
+    checked: checked.value,
+    disabled: props.disabled,
+    size: props.size,
+    color: props.color,
+  })
+
+  return styles.icon({ class: props.pt?.icon })
+})
+
+const labelClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.label || ''
+  }
+
+  const styles = checkboxStyle({
+    checked: checked.value,
+    disabled: props.disabled,
+    size: props.size,
+    color: props.color,
+  })
+
+  return styles.label({ class: props.pt?.label })
+})
 </script>

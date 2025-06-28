@@ -29,6 +29,8 @@ const props = withDefaults(defineProps<PopoverProps>(), {
   followCursor: false,
   unbound: false,
   color: 'default',
+  unstyled: false,
+  pt: undefined,
 })
 
 const emit = defineEmits<{
@@ -341,36 +343,65 @@ const handleClickOutside = (e: MouseEvent) => {
 }
 
 // 计算样式
+const containerClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.container || 'relative inline-block'
+  }
+  return props.pt?.container
+    ? `relative inline-block ${props.pt.container}`
+    : 'relative inline-block'
+})
+
 const triggerClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.trigger || 'inline-block'
+  }
   return popoverTrigger({
     disabled: props.disabled,
+    class: props.pt?.trigger,
   })
 })
 
 const contentClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.content || ''
+  }
   return popoverContent({
     placement: props.placement,
     visible: isOpen.value,
     color: props.color,
+    class: props.pt?.content,
   })
 })
 
 const arrowClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.arrow || ''
+  }
   return popoverArrow({
     placement: props.placement,
     color: props.color,
+    class: props.pt?.arrow,
   })
 })
 
 const titleClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.title || ''
+  }
   return popoverTitle({
     color: props.color,
+    class: props.pt?.title,
   })
 })
 
 const bodyClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.body || ''
+  }
   return popoverBody({
     color: props.color,
+    class: props.pt?.body,
   })
 })
 
@@ -471,7 +502,7 @@ defineExpose({
 </script>
 
 <template>
-  <div class="relative inline-block" @mousemove="handleMouseMove">
+  <div :class="containerClass" @mousemove="handleMouseMove">
     <!-- 触发元素，仅在非unbound模式下渲染 -->
     <div
       v-if="!unbound"

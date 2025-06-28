@@ -63,6 +63,29 @@ export interface RateProps {
    * 分数显示的格式化函数
    */
   formatTooltip?: (value: number) => string
+
+  /**
+   * 是否使用无样式模式
+   * @default false
+   */
+  unstyled?: boolean
+
+  /**
+   * 传递模板样式
+   */
+  pt?: RatePT
+}
+
+/**
+ * Rate组件模板样式类型
+ */
+export type RatePT = {
+  container?: string
+  item?: string
+  score?: string
+  fullStar?: string
+  halfStar?: string
+  voidStar?: string
 }
 
 export const RateEmits = {

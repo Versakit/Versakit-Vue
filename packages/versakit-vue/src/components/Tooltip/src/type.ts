@@ -79,4 +79,24 @@ export interface TooltipProps {
    * @default false
    */
   modelValue?: boolean
+
+  /**
+   * 是否使用无样式模式
+   * @default false
+   */
+  unstyled?: boolean
+
+  /**
+   * 传递模板样式
+   */
+  pt?: TooltipPT
+}
+
+/**
+ * Tooltip组件模板样式类型
+ */
+export type TooltipPT = {
+  container?: string
+  content?: string
+  arrow?: string
 }

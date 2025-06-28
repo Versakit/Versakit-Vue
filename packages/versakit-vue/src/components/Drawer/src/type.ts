@@ -1,6 +1,8 @@
+export type DrawerPlacement = 'left' | 'right' | 'top' | 'bottom'
+
 export interface DrawerProps {
   modelValue: boolean
-  placement?: 'left' | 'right' | 'top' | 'bottom'
+  placement?: DrawerPlacement
   size?: string | number
   showOverlay?: boolean
   closeOnEsc?: boolean
@@ -15,4 +17,26 @@ export interface DrawerProps {
   bodyClass?: string
   footerClass?: string
   overlayClass?: string
+  /**
+   * 是否使用无样式模式
+   * @default false
+   */
+  unstyled?: boolean
+  /**
+   * 传递模板样式
+   */
+  pt?: DrawerPT
+}
+
+/**
+ * Drawer组件模板样式类型
+ */
+export type DrawerPT = {
+  overlay?: string
+  container?: string
+  header?: string
+  title?: string
+  closeButton?: string
+  body?: string
+  footer?: string
 }

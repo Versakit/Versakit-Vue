@@ -12,6 +12,7 @@ const props = withDefaults(defineProps<SegmentedProps<T>>(), {
   size: 'md',
   disabled: false,
   block: false,
+  unstyled: false,
 })
 
 const emit = defineEmits<{
@@ -63,19 +64,27 @@ watch(
 
 // 计算容器样式
 const containerClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.container || ''
+  }
   return segmentedContainer({
     size: props.size,
     disabled: props.disabled,
     block: props.block,
+    class: props.pt?.container,
   })
 })
 
 // 计算选项样式
 const getOptionClass = (value: T, disabled: boolean) => {
+  if (props.unstyled) {
+    return props.pt?.option || ''
+  }
   return segmentedOption({
     selected: isSelected(value),
     disabled: props.disabled || disabled,
     size: props.size,
+    class: props.pt?.option,
   })
 }
 

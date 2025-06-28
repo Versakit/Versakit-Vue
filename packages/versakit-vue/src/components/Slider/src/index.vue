@@ -25,6 +25,8 @@ const props = withDefaults(defineProps<SliderProps>(), {
   disabled: false,
   showTooltip: false,
   showMarks: false,
+  unstyled: false,
+  pt: undefined,
 })
 
 const emit = defineEmits<{
@@ -54,30 +56,46 @@ const {
 
 // 计算样式
 const containerClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.container || ''
+  }
   return sliderContainer({
     orientation: props.orientation,
     disabled: props.disabled,
+    class: props.pt?.container,
   })
 })
 
 const trackClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.track || ''
+  }
   return sliderTrack({
     orientation: props.orientation,
     disabled: props.disabled,
+    class: props.pt?.track,
   })
 })
 
 const fillClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.fill || ''
+  }
   return sliderFill({
     orientation: props.orientation,
     disabled: props.disabled,
+    class: props.pt?.fill,
   })
 })
 
 const thumbClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.thumb || ''
+  }
   return sliderThumb({
     orientation: props.orientation,
     disabled: props.disabled,
+    class: props.pt?.thumb,
   })
 })
 
@@ -102,9 +120,13 @@ const thumbStyle = computed(() => {
 // 处理tooltip
 const isTooltipVisible = ref(false)
 const tooltipClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.tooltip || ''
+  }
   return sliderTooltip({
     orientation: props.orientation,
     visible: props.showTooltip && isTooltipVisible.value,
+    class: props.pt?.tooltip,
   })
 })
 
@@ -126,8 +148,12 @@ const tooltipText = computed(() => {
 
 // 处理刻度标记
 const marksClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.marks || ''
+  }
   return sliderMarks({
     orientation: props.orientation,
+    class: props.pt?.marks,
   })
 })
 
@@ -162,9 +188,13 @@ const normalizedMarks = computed(() => {
 })
 
 const getMarkClass = (active: boolean) => {
+  if (props.unstyled) {
+    return props.pt?.mark || ''
+  }
   return sliderMark({
     orientation: props.orientation,
     active,
+    class: props.pt?.mark,
   })
 }
 
@@ -177,8 +207,12 @@ const getMarkStyle = (percent: number) => {
 }
 
 const getMarkLabelClass = () => {
+  if (props.unstyled) {
+    return props.pt?.markLabel || ''
+  }
   return sliderMarkLabel({
     orientation: props.orientation,
+    class: props.pt?.markLabel,
   })
 }
 

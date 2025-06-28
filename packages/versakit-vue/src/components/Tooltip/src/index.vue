@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { computed, watch, onMounted, onUnmounted, ref, nextTick } from 'vue'
 import { useTooltip } from './composables/useTooltip'
-import { tooltipContent, tooltipArrow } from './index.variants'
+import {
+  tooltipContent,
+  tooltipArrow,
+  tooltipContainer,
+} from './index.variants'
 import type { TooltipProps } from './type'
 
 defineOptions({
@@ -20,6 +24,7 @@ const props = withDefaults(defineProps<TooltipProps>(), {
   followCursor: false,
   unbound: false,
   modelValue: false,
+  unstyled: false,
 })
 
 // 定义emit事件
@@ -77,19 +82,37 @@ const toggleTooltip = () => {
   }
 }
 
+// 容器样式
+const containerClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.container || ''
+  }
+  return tooltipContainer({
+    class: props.pt?.container,
+  })
+})
+
 // 内容样式
 const contentClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.content || ''
+  }
   return tooltipContent({
     color: props.color,
     visible: true,
+    class: props.pt?.content,
   })
 })
 
 // 箭头样式
 const arrowClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.arrow || ''
+  }
   return tooltipArrow({
     color: props.color,
     placement: props.placement,
+    class: props.pt?.arrow,
   })
 })
 
@@ -335,7 +358,7 @@ defineExpose({
     @focus="handleFocus"
     @blur="handleBlur"
     :aria-describedby="tooltipId"
-    class="inline-block"
+    :class="containerClass"
     role="button"
     tabindex="0"
   >

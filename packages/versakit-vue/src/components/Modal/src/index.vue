@@ -22,6 +22,7 @@ const props = withDefaults(defineProps<ModalProps>(), {
   closeOnOverlayClick: true,
   hideCloseButton: false,
   size: 'lg',
+  unstyled: false,
 })
 
 const emit = defineEmits<{
@@ -76,6 +77,62 @@ const closeModal = () => {
 // 判断是否有各个插槽
 const hasHeader = computed(() => !!props.title || !!slots.header)
 const hasFooter = computed(() => !!slots.footer)
+
+// 计算样式
+const overlayClass = computed(() => {
+  if (props.unstyled) {
+    return [props.pt?.overlay, props.class].filter(Boolean)
+  }
+  return [modalOverlay({ class: props.pt?.overlay }), props.class]
+})
+
+const contentClass = computed(() => {
+  if (props.unstyled) {
+    return [props.pt?.content, props.contentClass].filter(Boolean)
+  }
+  return [
+    modalContent({
+      size: props.size,
+      class: props.pt?.content,
+    }),
+    props.contentClass,
+  ]
+})
+
+const headerClass = computed(() => {
+  if (props.unstyled) {
+    return [props.pt?.header, props.headerClass].filter(Boolean)
+  }
+  return [modalHeader({ class: props.pt?.header }), props.headerClass]
+})
+
+const titleClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.title || ''
+  }
+  return modalTitle({ class: props.pt?.title })
+})
+
+const bodyClass = computed(() => {
+  if (props.unstyled) {
+    return [props.pt?.body, props.bodyClass].filter(Boolean)
+  }
+  return [modalBody({ class: props.pt?.body }), props.bodyClass]
+})
+
+const footerClass = computed(() => {
+  if (props.unstyled) {
+    return [props.pt?.footer, props.footerClass].filter(Boolean)
+  }
+  return [modalFooter({ class: props.pt?.footer }), props.footerClass]
+})
+
+const closeButtonClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.closeButton || ''
+  }
+  return modalCloseButton({ class: props.pt?.closeButton })
+})
 </script>
 
 <template>
@@ -84,26 +141,26 @@ const hasFooter = computed(() => !!slots.footer)
     <!-- 只有当 isOpen 为 true 时才渲染模态框 -->
     <div
       v-if="isOpen"
-      :class="[modalOverlay(), props.class]"
+      :class="overlayClass"
       ref="overlayRef"
       @click="onOverlayClick"
     >
       <div
-        :class="[modalContent({ size: props.size }), props.contentClass]"
+        :class="contentClass"
         ref="modalRef"
         role="dialog"
         aria-modal="true"
         tabindex="-1"
       >
         <!-- 模态框头部 -->
-        <div v-if="hasHeader" :class="[modalHeader(), props.headerClass]">
+        <div v-if="hasHeader" :class="headerClass">
           <slot name="header">
-            <h3 :class="modalTitle()">{{ props.title }}</h3>
+            <h3 :class="titleClass">{{ props.title }}</h3>
           </slot>
 
           <button
             v-if="!hideCloseButton"
-            :class="modalCloseButton()"
+            :class="closeButtonClass"
             @click="closeModal"
             aria-label="关闭"
           >
@@ -127,12 +184,12 @@ const hasFooter = computed(() => !!slots.footer)
         </div>
 
         <!-- 模态框内容 -->
-        <div :class="[modalBody(), props.bodyClass]">
+        <div :class="bodyClass">
           <slot />
         </div>
 
         <!-- 模态框底部 -->
-        <div v-if="hasFooter" :class="[modalFooter(), props.footerClass]">
+        <div v-if="hasFooter" :class="footerClass">
           <slot name="footer" />
         </div>
       </div>

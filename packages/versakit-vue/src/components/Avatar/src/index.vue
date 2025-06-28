@@ -14,16 +14,40 @@ const props = withDefaults(defineProps<AvatarProps>(), {
   status: 'none',
   alt: '',
   fallback: '',
+  unstyled: false,
 })
 
 const { isError, onLoad, onError } = useAvatar()
 
 const avatarClass = computed(() => {
-  return avatar({
-    size: props.size,
-    shape: props.shape,
-    status: props.status,
-  })
+  return props.unstyled
+    ? props.pt?.root || ''
+    : avatar({
+        size: props.size,
+        shape: props.shape,
+        status: props.status,
+        class: props.pt?.root,
+      })
+})
+
+const imageClass = computed(() => {
+  return props.unstyled ? props.pt?.image || '' : 'w-full h-full object-cover'
+})
+
+const fallbackClass = computed(() => {
+  return props.unstyled
+    ? props.pt?.fallback || ''
+    : 'w-full h-full flex items-center justify-center'
+})
+
+const initialsClass = computed(() => {
+  return props.unstyled
+    ? props.pt?.initials || ''
+    : 'w-full h-full flex items-center justify-center'
+})
+
+const iconClass = computed(() => {
+  return props.unstyled ? props.pt?.icon || '' : 'w-1/2 h-1/2'
 })
 
 const initials = computed(() => {
@@ -45,23 +69,17 @@ const showFallback = computed(() => !props.src || isError.value)
       v-if="!showFallback"
       :src="src"
       :alt="alt"
-      class="w-full h-full object-cover"
+      :class="imageClass"
       @load="onLoad"
       @error="onError"
     />
-    <span
-      v-else-if="fallback"
-      class="w-full h-full flex items-center justify-center"
-    >
-      <img :src="fallback" :alt="alt" class="w-full h-full object-cover" />
+    <span v-else-if="fallback" :class="fallbackClass">
+      <img :src="fallback" :alt="alt" :class="imageClass" />
     </span>
-    <span
-      v-else-if="alt"
-      class="w-full h-full flex items-center justify-center"
-    >
+    <span v-else-if="alt" :class="initialsClass">
       {{ initials }}
     </span>
-    <span v-else class="w-full h-full flex items-center justify-center">
+    <span v-else :class="fallbackClass">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -70,7 +88,7 @@ const showFallback = computed(() => !props.src || isError.value)
         stroke-width="2"
         stroke-linecap="round"
         stroke-linejoin="round"
-        class="w-1/2 h-1/2"
+        :class="iconClass"
       >
         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
         <circle cx="12" cy="7" r="4" />

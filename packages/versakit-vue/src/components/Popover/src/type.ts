@@ -98,4 +98,27 @@ export interface PopoverProps {
    * @default 'default'
    */
   color?: 'default' | 'primary' | 'success' | 'warning' | 'danger'
+
+  /**
+   * 是否使用无样式模式
+   * @default false
+   */
+  unstyled?: boolean
+
+  /**
+   * 传递模板样式
+   */
+  pt?: PopoverPT
+}
+
+/**
+ * Popover组件模板样式类型
+ */
+export type PopoverPT = {
+  container?: string
+  trigger?: string
+  content?: string
+  arrow?: string
+  title?: string
+  body?: string
 }

@@ -1,3 +1,15 @@
+export type InputType =
+  | 'text'
+  | 'password'
+  | 'email'
+  | 'number'
+  | 'tel'
+  | 'url'
+  | 'search'
+
+export type InputSize = 'small' | 'default' | 'large'
+export type InputStatus = 'error' | 'warning' | 'success'
+
 export interface InputProps {
   /**
    * 输入框的值
@@ -13,7 +25,7 @@ export interface InputProps {
    * 输入框类型
    * @default 'text'
    */
-  type?: 'text' | 'password' | 'email' | 'number' | 'tel' | 'url' | 'search'
+  type?: InputType
 
   /**
    * 是否禁用
@@ -31,7 +43,7 @@ export interface InputProps {
    * 输入框尺寸
    * @default 'default'
    */
-  size?: 'small' | 'default' | 'large'
+  size?: InputSize
 
   /**
    * 前缀图标
@@ -69,5 +81,29 @@ export interface InputProps {
   /**
    * 输入框状态
    */
-  status?: 'error' | 'warning' | 'success'
+  status?: InputStatus
+
+  /**
+   * 是否使用无样式模式
+   * @default false
+   */
+  unstyled?: boolean
+
+  /**
+   * 传递模板样式
+   */
+  pt?: InputPT
+}
+
+/**
+ * Input组件模板样式类型
+ */
+export type InputPT = {
+  root?: string
+  wrapper?: string
+  input?: string
+  prefix?: string
+  suffix?: string
+  clear?: string
+  count?: string
 }

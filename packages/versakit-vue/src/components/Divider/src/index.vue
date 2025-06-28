@@ -1,13 +1,13 @@
 <template>
   <component
     :is="computedTag"
-    :class="classes"
+    :class="rootClass"
     :style="customStyle"
     role="separator"
     :aria-orientation="orientation"
     :data-orientation="orientation"
   >
-    <div v-if="hasLabel" class="px-2 text-gray-500">
+    <div v-if="hasLabel" :class="labelClass">
       <slot>{{ label }}</slot>
     </div>
   </component>
@@ -27,6 +27,7 @@ const props = withDefaults(defineProps<DividerProps>(), {
   label: undefined,
   labelPosition: 'center',
   as: undefined,
+  unstyled: false,
 })
 
 const slots: Slots = useSlots()
@@ -43,18 +44,27 @@ const computedTag = computed((): string => {
   return props.orientation === 'horizontal' && !hasLabel.value ? 'hr' : 'div'
 })
 
-const classes = computed(() =>
-  dividerStyle({
+const rootClass = computed(() => {
+  if (props.unstyled) {
+    return props.pt?.root || ''
+  }
+
+  return dividerStyle({
     orientation: props.orientation,
     variant: props.variant,
     size: props.size,
     labelPosition: props.labelPosition,
     withLabel: hasLabel.value,
-  }),
-)
+    class: props.pt?.root,
+  })
+})
+
+const labelClass = computed(() => {
+  return props.unstyled ? props.pt?.label || '' : 'px-2 text-gray-500'
+})
 
 const customStyle = computed(() => {
-  if (props.color) {
+  if (!props.unstyled && props.color) {
     return {
       borderColor: props.color,
       '--tw-border-opacity': 1,
