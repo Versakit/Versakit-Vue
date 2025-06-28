@@ -12,6 +12,7 @@
     "docs:dev": "pnpm --filter docs dev",
     "docs:build": "pnpm --filter docs build",
     "storybook": "pnpm --filter storybook storybook",
+    "storybook:build": "pnpm --filter storybook storybook:build",
     "preinstall": "node ./scripts/preinstall.js",
     "lint": "turbo run lint",
     "format": "prettier --write \"./**/*.{html,vue,ts,js,json,md}\"",
