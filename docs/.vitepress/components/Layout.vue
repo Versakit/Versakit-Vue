@@ -83,6 +83,25 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
   background: transparent !important;
 }
 
+/* 毛玻璃效果：头部导航栏 */
+.VPNavBar {
+  background: rgba(255, 255, 255, 0.7) !important;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+  transition: background 0.3s, backdrop-filter 0.3s;
+}
+
+/* 暗色模式下毛玻璃效果 */
+.dark .VPNavBar {
+  background: rgba(20, 20, 20, 0.6) !important;
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
 .curtain {
   background: transparent !important;
 }
