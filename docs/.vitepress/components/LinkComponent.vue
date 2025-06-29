@@ -11,7 +11,9 @@ defineProps({
 </script>
 
 <template>
-  <div class="bg-gray-100 rounded-md p-2 inline-block">
+  <div
+    class="bg-gray-100 dark:bg-gray-800 dark:text-white rounded-md p-2 inline-block"
+  >
     <a
       :href="link"
       target="_blank"
