@@ -2,6 +2,8 @@
 
 Divider 是一种用于视觉分隔内容的界面元素，通过水平或垂直的线条、空白区域或装饰性元素划分不同内容区块，增强页面层次感和组织性。它不承载具体内容，而是通过空间关系引导用户注意力。
 
+<Link link="https://versakit.github.io/Versakit-Vue/storybook/?path=/story/%E7%BB%84%E4%BB%B6-divider-%E5%88%86%E5%89%B2%E7%BA%BF--basic"/>
+
 ## 引入
 
 ```typescript
