@@ -1,1 +1,0 @@
-import{K as n}from"./theme.BRH0OaeS.js";import{d as t,b as o,o as a,k as r}from"./framework.dgRUQZ7Z.js";const p=t({__name:"index",setup(c){const e=[{label:"首页",content:"这里是首页内容"},{label:"设置",content:"这里是设置内容"},{label:"关于",content:"这是关于内容"}];return(s,l)=>(a(),o(r(n),{items:e,initialIndex:0}))}});export{p as default};
