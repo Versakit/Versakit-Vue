@@ -1,0 +1,10 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/chunks/index.BLBuof1k.js","assets/chunks/theme.wnS-VJoD.js","assets/chunks/framework.Cpyw2Gc9.js"])))=>i.map(i=>d[i]);
+import{p as d,D as c,v as h,aj as m,B as o,c as _,o as k,j as i,G as e,ai as v,a1 as y,a as f,a2 as b,k as a,w as r,ak as B}from"./chunks/framework.Cpyw2Gc9.js";import{O as V,E as C}from"./chunks/index.CSC85q1C.js";const E=`<template>
+  <PinInput />
+</template>
+
+<script setup lang="ts">
+import { PinInput } from '@versakit/vue'
+import '@versakit/vue/style'
+<\/script>
+`,x=JSON.parse('{"title":"PinInput","description":"","frontmatter":{},"headers":[],"relativePath":"components/pininput/index.md","filePath":"components/pininput/index.md"}'),W={name:"components/pininput/index.md"},D=Object.assign(W,{setup(g){const s=d(!0),n=c();return h(async()=>{n.value=(await m(async()=>{const{default:l}=await import("./chunks/index.BLBuof1k.js");return{default:l}},__vite__mapDeps([0,1,2]))).default}),(l,t)=>{const p=o("Link"),u=o("ClientOnly");return k(),_("div",null,[t[1]||(t[1]=i("h1",{id:"pininput",tabindex:"-1"},[f("PinInput "),i("a",{class:"header-anchor",href:"#pininput","aria-label":'Permalink to "PinInput"'},"​")],-1)),t[2]||(t[2]=i("p",null,"PinInput（密码输入框）组件是一种专为输入短序列密码（如 PIN 码、验证码）设计的交互组件，通过将输入框拆分为独立的字符单元，引导用户分步骤输入，提升安全性和输入效率。",-1)),e(p,{link:"https://versakit.github.io/Versakit-Vue/storybook/?path=/story/%E7%BB%84%E4%BB%B6-pininput-%E9%AA%8C%E8%AF%81%E7%A0%81%E8%BE%93%E5%85%A5--basic"}),t[3]||(t[3]=v("",3)),y(e(a(V),null,null,512),[[b,s.value]]),e(u,null,{default:r(()=>[e(a(C),{title:"",description:"",locale:"",select:"vue",order:"vue,react,html",github:"",gitlab:"",theme:"",lightTheme:"",darkTheme:"",stackblitz:"%7B%22show%22%3Afalse%7D",codesandbox:"%7B%22show%22%3Afalse%7D",codeplayer:"%7B%22show%22%3Afalse%7D",files:"%7B%22vue%22%3A%7B%7D%2C%22react%22%3A%7B%7D%2C%22html%22%3A%7B%7D%7D",scope:"",visible:!0,onMount:t[0]||(t[0]=()=>{s.value=!1}),vueCode:a(E)},B({_:2},[n.value?{name:"vue",fn:r(()=>[e(a(n))]),key:"0"}:void 0]),1032,["vueCode"])]),_:1})])}}});export{x as __pageData,D as default};

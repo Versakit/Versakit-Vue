@@ -1,0 +1,1 @@
+import{q as n}from"./theme.wnS-VJoD.js";import{d as t,b as o,o as a,k as c}from"./framework.Cpyw2Gc9.js";const p=t({__name:"index",setup(r){const e=[{label:"首页",content:"这里是首页内容"},{label:"设置",content:"这里是设置内容"},{label:"关于",content:"这是关于内容"}];return(s,l)=>(a(),o(c(n),{items:e,initialIndex:0}))}});export{p as default};
