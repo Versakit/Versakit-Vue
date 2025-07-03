@@ -70,6 +70,13 @@ const componentsData = [
     color: 'rgba(231, 76, 60, 0.2)',
   },
   {
+    name: 'Calendar',
+    path: '/Versakit-Vue/components/calendar/',
+    description: '用于显示日历的组件，通常以日历形式呈现。',
+    letter: 'C',
+    color: 'rgba(231, 76, 60, 0.2)',
+  },
+  {
     name: 'Chip',
     path: '/Versakit-Vue/components/chip/',
     description:
@@ -193,6 +200,34 @@ const componentsData = [
     path: '/Versakit-Vue/components/input/',
     description: '用于输入单行或多行文本的交互组件，通常以文本框形式呈现。',
     letter: 'I',
+    color: 'rgba(25, 113, 194, 0.2)',
+  },
+  {
+    name: 'DatePicker',
+    path: '/Versakit-Vue/components/datepicker/',
+    description: '用于选择日期的交互组件，通常以日历形式呈现。',
+    letter: 'D',
+    color: 'rgba(25, 113, 194, 0.2)',
+  },
+  {
+    name: 'DateTimePicker',
+    path: '/Versakit-Vue/components/datetimepicker/',
+    description: '用于选择日期和时间的交互组件，通常以日历形式呈现。',
+    letter: 'D',
+    color: 'rgba(25, 113, 194, 0.2)',
+  },
+  {
+    name: 'TimePicker',
+    path: '/Versakit-Vue/components/timepicker/',
+    description: '用于选择时间的交互组件，通常以时间选择器形式呈现。',
+    letter: 'T',
+    color: 'rgba(25, 113, 194, 0.2)',
+  },
+  {
+    name: 'TimeSelect',
+    path: '/Versakit-Vue/components/timeselect/',
+    description: '用于选择时间的交互组件，通常以时间选择器形式呈现。',
+    letter: 'T',
     color: 'rgba(25, 113, 194, 0.2)',
   },
 ]

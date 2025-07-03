@@ -43,6 +43,14 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
     { text: 'Textarea 文本域', link: '/components/textarea/' },
     { text: 'Tooltip 提示', link: '/components/tooltip/' },
     { text: 'Rate 评分', link: '/components/rate/' },
+    { text: 'Calendar 日历', link: '/components/calendar/' },
+    { text: 'DatePicker 日期选择器', link: '/components/datepicker/' },
+    {
+      text: 'DateTimePicker 日期时间选择器',
+      link: '/components/datetimepicker/',
+    },
+    { text: 'TimePicker 时间选择器', link: '/components/timepicker/' },
+    { text: 'TimeSelect 时间选择器', link: '/components/timeselect/' },
   ]
 
   // 对组件按字母顺序排序

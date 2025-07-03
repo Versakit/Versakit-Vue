@@ -21,7 +21,11 @@ import { Checkbox } from './components/Checkbox'
 import { Input } from './components/Input'
 import { Select } from './components/Select'
 import { Rate } from './components/Rate'
-
+import { Calendar } from './components/Calendar'
+import { TimePicker } from './components/TimePicker'
+import { DatePicker } from './components/DatePicker'
+import { DateTimePicker } from './components/DateTimePicker'
+import { TimeSelect } from './components/TimeSelect'
 // 引入样式
 import './style/index.css'
 
@@ -48,6 +52,11 @@ const components: Component[] = [
   Checkbox,
   Input,
   Rate,
+  Calendar,
+  TimePicker,
+  DatePicker,
+  DateTimePicker,
+  TimeSelect,
 ]
 
 export {
@@ -73,6 +82,11 @@ export {
   Checkbox,
   Input,
   Rate,
+  Calendar,
+  TimePicker,
+  DatePicker,
+  DateTimePicker,
+  TimeSelect,
 }
 
 const Versakit = {
