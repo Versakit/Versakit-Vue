@@ -33,7 +33,7 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
     { text: 'Input 输入框', link: '/components/input/' },
     { text: 'Kbd 键盘', link: '/components/kbd/' },
     { text: 'Modal 模态框', link: '/components/modal/' },
-    { text: 'PinInput 验证码输入', link: '/components/pininput/' },
+    { text: 'InputOtp 验证码输入', link: '/components/inputopt/' },
     { text: 'Popover 气泡框', link: '/components/popover/' },
     { text: 'Segmented 分段器', link: '/components/segmented/' },
     { text: 'Select 选择器', link: '/components/select/' },
@@ -51,6 +51,7 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
     },
     { text: 'TimePicker 时间选择器', link: '/components/timepicker/' },
     { text: 'TimeSelect 时间选择器', link: '/components/timeselect/' },
+    { text: 'Skeleton 骨架屏', link: '/components/skeleton/' },
   ]
 
   // 对组件按字母顺序排序

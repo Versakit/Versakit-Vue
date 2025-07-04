@@ -7,7 +7,7 @@ PinInput（密码输入框）组件是一种专为输入短序列密码（如 PI
 ## 引入
 
 ```typescript
-import { PinInput } from '@versakit/vue'
+import { InputOtp } from '@versakit/vue'
 ```
 
 ## 使用

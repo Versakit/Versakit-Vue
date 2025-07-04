@@ -116,10 +116,10 @@ const componentsData = [
     color: 'rgba(243, 156, 18, 0.2)',
   },
   {
-    name: 'PinInput',
-    path: '/Versakit-Vue/components/pininput/',
+    name: 'InputOtp',
+    path: '/Versakit-Vue/components/inputopt/',
     description: '专为输入短序列密码（如 PIN 码、验证码）设计的交互组件。',
-    letter: 'P',
+    letter: 'I',
     color: 'rgba(142, 68, 173, 0.2)',
   },
   {
@@ -228,6 +228,13 @@ const componentsData = [
     path: '/Versakit-Vue/components/timeselect/',
     description: '用于选择时间的交互组件，通常以时间选择器形式呈现。',
     letter: 'T',
+    color: 'rgba(25, 113, 194, 0.2)',
+  },
+  {
+    name: 'Skeleton',
+    path: '/Versakit-Vue/components/skeleton/',
+    description: '用于显示骨架屏的组件，通常以骨架屏形式呈现。',
+    letter: 'S',
     color: 'rgba(25, 113, 194, 0.2)',
   },
 ]

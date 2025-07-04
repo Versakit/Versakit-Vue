@@ -1,6 +1,5 @@
 import type { App, Component } from 'vue'
-import { PinInput } from './components/PinInput'
-import { Tabs } from './components/Tabs'
+import { InputOtp } from './components/InputOtp'
 import { Modal } from './components/Modal'
 import { Avatar } from './components/Avatar'
 import { Badge } from './components/Badge'
@@ -26,12 +25,13 @@ import { TimePicker } from './components/TimePicker'
 import { DatePicker } from './components/DatePicker'
 import { DateTimePicker } from './components/DateTimePicker'
 import { TimeSelect } from './components/TimeSelect'
+import { Skeleton, SkeletonText, SkeletonAvatar } from './components/Skeleton'
+import { Tabs, TabItem } from './components/Tabs'
 // 引入样式
 import './style/index.css'
 
 const components: Component[] = [
-  PinInput,
-  Tabs,
+  InputOtp,
   Modal,
   Avatar,
   Badge,
@@ -57,11 +57,15 @@ const components: Component[] = [
   DatePicker,
   DateTimePicker,
   TimeSelect,
+  Skeleton,
+  SkeletonText,
+  SkeletonAvatar,
+  Tabs,
+  TabItem,
 ]
 
 export {
-  PinInput,
-  Tabs,
+  InputOtp,
   Modal,
   Avatar,
   Badge,
@@ -87,6 +91,11 @@ export {
   DatePicker,
   DateTimePicker,
   TimeSelect,
+  Skeleton,
+  SkeletonText,
+  SkeletonAvatar,
+  Tabs,
+  TabItem,
 }
 
 const Versakit = {
