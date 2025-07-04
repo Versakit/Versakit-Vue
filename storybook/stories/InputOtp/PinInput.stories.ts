@@ -1,12 +1,12 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
-import { PinInput } from '@versakit/vue'
+import { InputOtp } from '@versakit/vue'
 import '@versakit/vue/style'
-import PinInputDemo from './index.vue'
+import InputOtpDemo from './index.vue'
 
 // 定义组件元数据
-const meta: Meta<typeof PinInput> = {
-  title: '组件/PinInput 验证码输入框',
-  component: PinInput,
+const meta: Meta<typeof InputOtp> = {
+  title: '组件/InputOtp 验证码输入框',
+  component: InputOtp,
   tags: ['autodocs'],
   argTypes: {
     length: {
@@ -55,7 +55,7 @@ const meta: Meta<typeof PinInput> = {
 }
 
 export default meta
-type Story = StoryObj<typeof PinInput>
+type Story = StoryObj<typeof InputOtp>
 
 // 基础示例
 export const Basic: Story = {
@@ -127,7 +127,7 @@ export const Unstyled: Story = {
 // 完整示例展示
 export const AllExamples: Story = {
   render: () => ({
-    components: { PinInputDemo },
-    template: '<PinInputDemo />',
+    components: { InputOtpDemo },
+    template: '<InputOtpDemo />',
   }),
 }

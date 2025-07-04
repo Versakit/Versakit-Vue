@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { PinInput } from '@versakit/vue'
+import { InputOtp } from '@versakit/vue'
 </script>
 
 <template>
   <div class="space-y-8 p-4">
     <section>
       <h2 class="text-xl font-bold mb-4">基础用法</h2>
-      <PinInput :length="4" state="default" />
+      <InputOtp :length="4" state="default" />
     </section>
 
     <section>
@@ -14,11 +14,11 @@ import { PinInput } from '@versakit/vue'
       <div class="space-y-4">
         <div>
           <p class="mb-2">4位验证码</p>
-          <PinInput :length="4" state="default" />
+          <InputOtp :length="4" state="default" />
         </div>
         <div>
           <p class="mb-2">6位验证码</p>
-          <PinInput :length="6" state="default" />
+          <InputOtp :length="6" state="default" />
         </div>
       </div>
     </section>
@@ -28,15 +28,15 @@ import { PinInput } from '@versakit/vue'
       <div class="space-y-4">
         <div>
           <p class="mb-2">小尺寸</p>
-          <PinInput :length="4" size="sm" state="default" />
+          <InputOtp :length="4" size="sm" state="default" />
         </div>
         <div>
           <p class="mb-2">中等尺寸</p>
-          <PinInput :length="4" size="md" state="default" />
+          <InputOtp :length="4" size="md" state="default" />
         </div>
         <div>
           <p class="mb-2">大尺寸</p>
-          <PinInput :length="4" size="lg" state="default" />
+          <InputOtp :length="4" size="lg" state="default" />
         </div>
       </div>
     </section>
@@ -46,15 +46,15 @@ import { PinInput } from '@versakit/vue'
       <div class="space-y-4">
         <div>
           <p class="mb-2">默认状态</p>
-          <PinInput :length="4" state="default" />
+          <InputOtp :length="4" state="default" />
         </div>
         <div>
           <p class="mb-2">错误状态</p>
-          <PinInput :length="4" state="error" />
+          <InputOtp :length="4" state="error" />
         </div>
         <div>
           <p class="mb-2">成功状态</p>
-          <PinInput :length="4" state="success" />
+          <InputOtp :length="4" state="success" />
         </div>
       </div>
     </section>
@@ -64,7 +64,7 @@ import { PinInput } from '@versakit/vue'
       <div class="space-y-4">
         <div>
           <p class="mb-2">自定义间距和边框颜色</p>
-          <PinInput
+          <InputOtp
             :length="4"
             state="default"
             :pt="{
@@ -82,7 +82,7 @@ import { PinInput } from '@versakit/vue'
       <div class="space-y-4">
         <div>
           <p class="mb-2">圆形输入框样式</p>
-          <PinInput
+          <InputOtp
             :length="4"
             state="default"
             unstyled
@@ -95,7 +95,7 @@ import { PinInput } from '@versakit/vue'
         </div>
         <div>
           <p class="mb-2">下划线样式</p>
-          <PinInput
+          <InputOtp
             :length="4"
             state="default"
             unstyled
@@ -108,7 +108,7 @@ import { PinInput } from '@versakit/vue'
         </div>
         <div>
           <p class="mb-2">渐变边框样式</p>
-          <PinInput
+          <InputOtp
             :length="4"
             state="default"
             unstyled
