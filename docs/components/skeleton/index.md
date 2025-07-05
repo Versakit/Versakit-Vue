@@ -2,6 +2,8 @@
 
 在内容加载过程中显示的占位符组件，提供更好的用户体验。
 
+<Link link="https://versakit.github.io/Versakit-Vue/storybook/?path=/story/%E7%BB%84%E4%BB%B6-skeleton-%E5%BC%80%E5%85%B3--basic"/>
+
 ## 引入
 
 ```typescript
