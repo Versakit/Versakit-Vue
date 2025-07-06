@@ -39,7 +39,7 @@ jobs:
 
       # 安装项目依赖
       - name: Install dependencies
-        run: pnpm i
+        run: pnpm install --no-frozen-lockfile
 
       # 构建 UI
       - name: Build UI
