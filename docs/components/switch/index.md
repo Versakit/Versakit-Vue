@@ -1,22 +1,15 @@
-# Switch 开关
+# Switch
 
-表示两种相互对立的状态间的切换，多用于触发「开/关」。
+Switch（开关）组件是一种二元状态选择器，用于在两种状态间快速切换（如 "开 / 关"、"启用 / 禁用"），通过直观的视觉反馈降低用户操作认知成本，提升交互效率。
 
-## 基础用法
+<Link link="https://versakit.github.io/Versakit-Vue/storybook/?path=/story/%E7%BB%84%E4%BB%B6-switch-%E5%BC%80%E5%85%B3--basic"/>
 
-绑定 `v-model` 到一个 `Boolean` 类型的变量。
+## 引入
 
-<demo vue="./example/base.vue"></demo>
+```typeScript
+import { Switch } from '@versakit/vue'
+```
 
-## 尺寸
+## 使用
 
-可以通过 `size` 属性来设置 switch 的大小。
-
-<demo vue="./example/size.vue"></demo>
-
-## Switch API
-
-| 属性                     | 说明     | 类型                            | 默认值 |
-| ------------------------ | -------- | ------------------------------- | ------ |
-| `v-model` / `modelValue` | 绑定值   | `boolean`                       | false  |
-| `size`                   | 设置尺寸 | `enum`<Tool value="lg,md,sm" /> | md     |
+<demo vue="./example/index.vue" />

@@ -1,25 +1,60 @@
-# Panel 面板
+# Panel
 
-面板通常是指一个独立的容器，用于承载内容。
+Panel 是一个可折叠的内容容器组件，用于组织和展示信息，支持多种样式变体和自定义配置。它可以有效地节省页面空间，提高用户体验，常用于分组展示相关内容、FAQ、设置面板等场景。
 
-## 基础用法
+<Link link="https://versakit.github.io/Versakit-Vue/storybook/?path=/story/%E7%BB%84%E4%BB%B6-panel-%E9%9D%A2%E6%9D%BF--basic"/>
 
-这是一个很简单的面板。
+## 引入
 
-<demo vue="./example/base.vue"></demo>
+```typescript
+import { Panel } from '@versakit/vue'
+```
 
-## 阴影
+## 使用
 
-你可以定义什么时候展示面板的阴影效果。
+<demo vue="./example/index.vue" />
 
-通过`shadow`属性设置卡片阴影出现的时刻。该属性的值可以是: `always`、`hover` 或 `never`
+## API
 
-<demo vue="./example/shadow.vue"></demo>
+### 属性
 
-## Panel API
+| 属性名           | 说明               | 类型                                     | 默认值    |
+| ---------------- | ------------------ | ---------------------------------------- | --------- |
+| title            | 面板标题           | string                                   | -         |
+| variant          | 面板样式变体       | 'default' \| 'bordered' \| 'elevated'    | 'default' |
+| padding          | 内边距大小         | 'none' \| 'sm' \| 'md' \| 'lg'           | 'md'      |
+| radius           | 圆角大小           | 'none' \| 'sm' \| 'md' \| 'lg' \| 'full' | 'md'      |
+| collapsible      | 是否可折叠         | boolean                                  | false     |
+| defaultCollapsed | 是否默认折叠       | boolean                                  | false     |
+| bordered         | 是否显示边框       | boolean                                  | true      |
+| unstyled         | 是否使用无样式模式 | boolean                                  | false     |
+| pt               | 传递模板样式       | PanelPT                                  | -         |
 
-### Panel 属性
+### 事件
 
-| 属性     | 说明                                     | 类型                                      | 默认值   |
-| -------- | ---------------------------------------- | ----------------------------------------- | -------- |
-| `shadow` | 可以使用 shadow 来决定卡片拥有阴影的时机 | `enum`<Tool value="always,hover,never" /> | `always` |
+| 事件名           | 说明               | 回调参数                     |
+| ---------------- | ------------------ | ---------------------------- |
+| update:collapsed | 折叠状态变化时触发 | (collapsed: boolean) => void |
+| collapse         | 折叠状态变化时触发 | (collapsed: boolean) => void |
+
+### 插槽
+
+| 插槽名  | 说明           |
+| ------- | -------------- |
+| default | 面板内容       |
+| title   | 自定义标题     |
+| icon    | 自定义折叠图标 |
+
+### 样式定制
+
+当使用 `unstyled` 模式时，可以通过 `pt` 属性传递自定义样式：
+
+```typescript
+interface PanelPT {
+	root?: string
+	header?: string
+	title?: string
+	content?: string
+	icon?: string
+}
+```

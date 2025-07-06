@@ -1,45 +1,15 @@
-# Card 卡片
+# Card
 
-<p>将信息聚合在卡片容器中展示。</p>
+Card 是一种将相关信息聚合在一起的容器组件，通常以矩形卡片形式呈现，具有独立的视觉边界。它通过分组内容创造清晰的视觉层次，支持多样化的内容结构（如图片、文本、按钮），广泛应用于信息展示、内容聚合和操作入口场景。
 
-## 基础用法
+<Link link="https://versakit.github.io/Versakit-Vue/storybook/?path=/story/%E7%BB%84%E4%BB%B6-card-%E5%8D%A1%E7%89%87--basic"/>
 
-卡片包含标题，内容以及操作区域。
+## 引入
 
-Card 组件 由 `header` 和 `body` 组成。`header` 是可选的，其内容取决于一个具名的 `solt`
+```typescript
+import { Card } from '@versakit/vue'
+```
 
-<demo vue="./example/base.vue"></demo>
+## 使用
 
-## 简单卡片
-
-卡片可以只有内容区域。
-
-<demo vue="./example/simple.vue"></demo>
-
-## 插槽
-
-卡片可以只有内容区域。
-
-<demo vue="./example/template.vue"></demo>
-
-## 带有阴影效果的卡片
-
-你可以定义什么时候展示卡片的阴影效果。
-
-通过 `shadow` 属性设置卡片阴影出现的时刻。该属性的值可以是: `always`、`hover` 或 `never`
-
-<demo vue="./example/shadow.vue"></demo>
-
-## Card API
-
-### Card 属性
-
-| 属性     | 说明                                   | 类型                                     | 默认值 |
-| -------- | -------------------------------------- | ---------------------------------------- | ------ |
-| `shadow` | 可以使用shadow来决定卡片拥有阴影的时机 | `enum`<Tool value="always,hover,never"/> | always |
-
-### Card 插槽
-
-| 插槽名   | 说明         |
-| -------- | ------------ |
-| `header` | 卡片标题内容 |
+<demo vue="./example/index.vue" />

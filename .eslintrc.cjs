@@ -20,12 +20,7 @@ module.exports = {
     },
   },
   /* 继承已有的规则 */
-  extends: [
-    'eslint:recommended',
-    'plugin:vue/vue3-essential',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-  ],
+  extends: ['eslint:recommended', 'plugin:vue/vue3-essential', 'plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended', 'plugin:storybook/recommended'],
   globals: {
     defineRender: 'readonly',
   },

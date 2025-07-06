@@ -1,32 +1,13 @@
-# TextArea 文本域
+# TextArea
 
-多行纯文本编辑控件，适用于评论或反馈表单中的一段意见。
+TextArea 是一种允许用户输入多行文本的表单组件，通常以矩形区域呈现，支持文本编辑、换行和滚动。与单行输入框（Input）相比，它更适合长文本输入场景，如评论、留言、描述填写等。
 
-## 基础用法
+<Link link="https://versakit.github.io/Versakit-Vue/storybook/?path=/story/%E7%BB%84%E4%BB%B6-textarea-%E6%96%87%E6%9C%AC%E5%9F%9F--basic"/>
 
-用于多行输入。
+```typescript
+import { TextArea } from '@versakit/vue'
+```
 
-<demo vue="./example/base.vue"></demo>
+## 使用
 
-## 禁用状态
-
-使用 `disabled` 属性设置不可点击。
-
-<demo vue="./example/disabled.vue"></demo>
-
-## 限制长度
-
-使用 `maxlength` 属性限制最大输入长度。
-
-<demo vue="./example/maxlength.vue"></demo>
-
-## Textarea API
-
-### Textarea 属性
-
-| 属性                     | 说明           | 类型      | 默认值 |
-| ------------------------ | -------------- | --------- | ------ |
-| `disabled`               | 是否禁用       | `boolean` | false  |
-| `placeholder	`            | 输入框占位文本 | `string`  | -      |
-| `v-model` / `modelValue` | 绑定值         | `string`  | -      |
-| `maxlength`              | 最大值         | `string`  | -      |
+<demo vue="./example/index.vue" />

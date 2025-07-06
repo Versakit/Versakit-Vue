@@ -1,27 +1,15 @@
-# Segmented 分段控制器
+# Segmented
 
-## 基本使用
+Segmented 是一种水平排列的选项卡控件，用于在多个互斥选项之间进行快速切换。它将相关操作或视图分类展示，用户通过点击选项即可触发对应功能，界面简洁且交互效率高。
 
-<demo vue="./example/base.vue"></demo>
+<Link link="https://versakit.github.io/Versakit-Vue/storybook/?path=/story/%E7%BB%84%E4%BB%B6-segmented-%E5%88%86%E6%AE%B5%E6%8E%A7%E5%88%B6%E5%99%A8--basic"/>
 
-## API 参考
+## 引入
 
-### Segmented Props
+```typescript
+import { Segmented } from '@versakit/vue'
+```
 
-| 属性名     | 类型                                                        | 默认值    | 说明                      |
-| ---------- | ----------------------------------------------------------- | --------- | ------------------------- |
-| modelValue | string \| number                                            | -         | 当前选中值                |
-| options    | Array<string \| { label: string, value: string \| number }> | []        | 选项配置                  |
-| size       | string                                                      | 'default' | 尺寸：small/default/large |
+## 使用
 
-### Segmented Events
-
-| 事件名 | 说明           | 回调参数   |
-| ------ | -------------- | ---------- |
-| change | 选项改变时触发 | 当前选中值 |
-
-### Segmented Slots
-
-| 名称    | 说明           |
-| ------- | -------------- |
-| default | 自定义选项内容 |
+<demo vue="./example/index.vue" />

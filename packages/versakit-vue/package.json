@@ -1,0 +1,69 @@
+{
+  "name": "@versakit/vue",
+  "version": "0.4.1",
+  "author": "Jannik",
+  "private": false,
+  "type": "module",
+  "types": "./dist/index.d.ts",
+  "main": "./dist/esm/index.esm.js",
+  "style": "./dist/esm/vue.css",
+  "unpkg": "./dist/umd/index.umd.js",
+  "module": "./dist/esm/index.esm.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/esm/index.esm.js",
+      "require": "./dist/umd/index.umd.js",
+      "default": "./dist/esm/index.esm.js"
+    },
+    "./style": {
+      "import": "./dist/esm/vue.css",
+      "require": "./dist/umd/vue.css",
+      "default": "./dist/esm/vue.css"
+    }
+  },
+  "homepage": "https://versakit.github.io/Versakit-Vue/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Versakit/Versakit-Vue"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "bugs": {
+    "url": "https://github.com/Versakit/Versakit-Vue/issues"
+  },
+  "keywords": [
+    "Vue3",
+    "UI",
+    "Components"
+  ],
+  "license": "MIT",
+  "files": [
+    "dist",
+    "!**/*.test.*",
+    "!**/*.spec.*"
+  ],
+  "scripts": {
+    "build-only": "run-p type-check \"build-only {@}\" --",
+    "build": "vite build",
+    "type-check": "vue-tsc --build --force",
+    "lint": "eslint --ext .ts,.vue .",
+    "lint:fix": "eslint --ext .ts,.vue . --fix",
+    "clean": "rimraf dist"
+  },
+  "devDependencies": {
+    "@popperjs/core": "^2.11.8",
+    "@vitejs/plugin-vue": "^5.1.4",
+    "@vitejs/plugin-vue-jsx": "^4.1.1",
+    "@vueuse/core": "^13.0.0",
+    "rollup-plugin-visualizer": "^5.14.0",
+    "@versakit/shared": "workspace:*"
+  },
+  "dependencies": {
+    "@tailwindcss/vite": "^4.1.8",
+    "tailwind-variants": "^1.0.0",
+    "tailwindcss": "^4.1.8"
+  }
+}

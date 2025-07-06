@@ -1,24 +1,15 @@
-# Input 输入框
+# Input
 
-## 基础使用
+Input 是一种允许用户输入文本或数值的表单组件，通常以矩形框形式呈现，支持单行输入（默认）或通过属性扩展为多行（TextArea）。它是用户与系统进行文本交互的基础入口，广泛应用于表单填写、搜索框、数据录入等场景。
 
-通过鼠标或键盘输入字符.
+<Link link="https://versakit.github.io/Versakit-Vue/storybook/?path=/story/%E7%BB%84%E4%BB%B6-input-%E8%BE%93%E5%85%A5%E6%A1%86--basic"/>
 
-<demo vue="./example/base.vue"></demo>
+## 引用
 
-## 禁用状态
+```typescript
+import { Input } from '@versakit/vue'
+```
 
-通过 `disabled` 属性指定是否禁用 input 组件
+## 使用
 
-<demo vue="./example/disabled.vue"></demo>
-
-## Input API
-
-### Input 属性
-
-| 属性          | 说明                           | 类型      | 默认值 |
-| ------------- | ------------------------------ | --------- | ------ |
-| `placeholder` | 输入框中未输入时默认显示的文字 | `string`  | -      |
-| `modelValue`  | 输入框输入内容绑定的值         | `string`  | -      |
-| `type`        | 输入框的类型                   | `string`  | text   |
-| `disabled`    | 是否禁用输入框                 | `boolean` | false  |
+<demo vue="./example/index.vue"  />

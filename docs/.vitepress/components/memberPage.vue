@@ -1,38 +1,6 @@
-<template>
-  <div class="member-container">
-    <VPTeamPage>
-      <VPTeamPageTitle class="member-title">
-        <template #title>团队成员</template>
-        <template #lead>我们是一群热爱开源的人。</template>
-      </VPTeamPageTitle>
-
-      <VPTeamMembers class="member-content" size="small" :members="members" />
-    </VPTeamPage>
-
-    <VPTeamPage>
-      <VPTeamPageTitle class="member-title">
-        <template #title>贡献者</template>
-        <template #lead>
-          感谢每一位贡献者的支持与贡献！你们的每一次提交，都是推动 Versakit UI
-          进步的动力 💖
-        </template>
-      </VPTeamPageTitle>
-      <div class="contributors">
-        <div
-          class="contributor"
-          v-for="member in contributors"
-          :key="member.name"
-          @click="handleClick(member.link)"
-        >
-          <img class="contributor-avatar" :src="member.avatar" alt="avatar" />
-          {{ member.name }}
-        </div>
-      </div>
-    </VPTeamPage>
-  </div>
-</template>
 <script lang="ts" setup>
 import { VPTeamPage, VPTeamPageTitle, VPTeamMembers } from 'vitepress/theme'
+
 const contributors = [
   {
     avatar: 'https://avatars.githubusercontent.com/u/74483049?v=4',
@@ -131,10 +99,46 @@ const members = [
     links: [{ icon: 'github', link: 'https://github.com/abining' }],
   },
 ]
+
 const handleClick = (link: string) => {
   window.open(link)
 }
 </script>
+
+<template>
+  <div class="member-container">
+    <VPTeamPage>
+      <VPTeamPageTitle class="member-title">
+        <template #title>团队成员</template>
+        <template #lead>我们是一群热爱开源的人。</template>
+      </VPTeamPageTitle>
+
+      <VPTeamMembers class="member-content" size="small" :members="members" />
+    </VPTeamPage>
+
+    <VPTeamPage>
+      <VPTeamPageTitle class="member-title">
+        <template #title>贡献者</template>
+        <template #lead>
+          感谢每一位贡献者的支持与贡献！你们的每一次提交，都是推动 Versakit UI
+          进步的动力 💖
+        </template>
+      </VPTeamPageTitle>
+      <div class="contributors">
+        <div
+          class="contributor"
+          v-for="member in contributors"
+          :key="member.name"
+          @click="handleClick(member.link)"
+        >
+          <img class="contributor-avatar" :src="member.avatar" alt="avatar" />
+          {{ member.name }}
+        </div>
+      </div>
+    </VPTeamPage>
+  </div>
+</template>
+
 <style scoped>
 .member-container {
   padding-bottom: 100px;

@@ -1,25 +1,15 @@
-# Badge 徽标
+# Badge
 
-按钮和图标上的数字或状态标记。
+Badge 是一种用于显示状态标记或通知计数的小型视觉指示器，通常以圆形或椭圆形徽章形式出现在图标、文本或组件的右上角。它通过颜色、数字或图标传达额外信息，帮助用户快速识别重要状态变化。
 
-## 基础用法
+<Link link="https://versakit.github.io/Versakit-Vue/storybook/?path=/story/%E7%BB%84%E4%BB%B6-badge-%E5%BE%BD%E7%AB%A0--basic"/>
 
-可以通过设置 `type` 属性改变徽标类型。
-数量值可接受 `Number` 或 `String。`
+## 引入
 
-<demo vue="./example/base.vue"></demo>
+```typescript
+import { Badge } from '@versakit/vue'
+```
 
-## 最大值徽标
+## 使用
 
-当徽标中数字大于 `99` 时候会显示 `99+`，使用数字徽标需将 `type` 属性设置为 `number`
-
-<demo vue="./example/number.vue"></demo>
-
-## Badge API
-
-### Badge 属性
-
-| 属性    | 说明           | 类型                                | 默认值 |
-| ------- | -------------- | ----------------------------------- | ------ |
-| `type`  | 指定徽标的类型 | `enum`<Tool value="number,string"/> | number |
-| `value` | 徽标显示的值   | `number` / `string`                 | -      |
+<demo vue="./example/index.vue" />

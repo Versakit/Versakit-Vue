@@ -1,257 +1,214 @@
 # 更新日志
 
-## 0.3.10
-
-- 🛠&nbsp;组件 bugs 修复
-- ✨&nbsp;Segmented 分段器组件 无头化
-- ✨&nbsp;Notification 和 Message 消息组件 堆叠卡片效果
-- ✨&nbsp;Calendar组件 无头化
-- ✨&nbsp;Tabs 组件 无头化
-- ✨&nbsp;Breadcrumb组件无头化 支持传入自定义icon分割符
-- ✨&nbsp;Backtop组件 无头化
-- ✨&nbsp;Avatar 新增兜底背景色组件 无头化
-- ✨&nbsp; Icon组件 支持可旋转
-- 🚫&nbsp;删除 GradientText 渐变文字组件
-
-## 0.3.9
-
-- 🛠&nbsp;组件 bugs 修复
-- 🛠&nbsp;组件样式 bugs 修复
-- 📃&nbsp;文档更新
-- ⛓️‍💥&nbsp;数据脱敏指令
-- ✨&nbsp;Card组件 无头组件化
-- ✨&nbsp;Panel组件 无头组件化
-- ✨&nbsp;Badge组件 无头组件化
-- ✨&nbsp;Tag组件 无头组件化
-- ✨&nbsp;Avatar组件 无头组件化
-- ✨&nbsp;Switch组件 无头组件化
-- ✨&nbsp;Dialog组件 无头组件化
-- ✨&nbsp;Drawer组件 无头组件化
-- ✨&nbsp;Divider组件 无头组件化
-- 🚫&nbsp;删除Text文本组件
-- 🚫&nbsp;删除Result结果组件
-- 🚫&nbsp;删除Empty空组件
-- 🚫&nbsp;删除Scrollbar滚动条组件
-
-## 0.3.8
-
-- 🛠&nbsp;组件样式 bugs 修复
-
-## 0.3.7
-
-- 🛠&nbsp;组件 bugs 修复
-- 🛠&nbsp;组件样式 bugs 修复
-- 🛠&nbsp;组件名称更换为 VK 更加简单
-- 🛠&nbsp;添加更多无障碍访问内容
-- ✨&nbsp;新增指令包
-- ✨&nbsp;重构 Tabs 组件
-
-## 0.3.6
-
-- 🛠&nbsp;组件 bugs 修复
-- 🛠&nbsp;组件样式 bugs 修复
-- ✨&nbsp;重构 Steps 步骤条
-- ✨&nbsp;重构 Checkbox 多选框
-- ✨&nbsp;新增Upload 上传
-- ✨&nbsp;新增Popover 弹出框
-- ✨&nbsp;新增Select 选择器
+此页面记录了 Versakit 的版本迭代历史，包括新特性、重要更新和问题修复。
 
-## 0.3.5
-
-- 🛠&nbsp;组件 bugs 修复
-- 🛠&nbsp;组件样式 bugs 修复
-- ✨&nbsp;新增 Dropdown 下拉菜单组件
-- ✨&nbsp;新增 DateTime Picker 日期时间选择器
-- ✨&nbsp;新增 Time Picker 时间选择器
-- ✨&nbsp;新增 Time Select 时间选择
-- ✨&nbsp;新增 Color Picker 取色器
-
-## 0.3.4
-
-- 🛠&nbsp;组件 bugs 修复
-
-## 0.3.3
-
-- 🛠&nbsp;组件 bugs 修复
-- 🛠&nbsp;组件样式 bugs 修复
-- ✨&nbsp;新增Date Picker 日期选择器
-- ✨&nbsp;新增InputNumber 数字输入框
-- ✨&nbsp;新增Descriptions 描述列表
-- 📃&nbsp;完善文档
-
-## 0.3.2
-
-- 🛠&nbsp;组件 bugs 修复
-- 🛠&nbsp;组件样式 bugs 修复
-- 🧐&nbsp;适配Accessibility无障碍
-- 📃&nbsp;完善文档
-
-## 0.3.1
-
-- 🛠&nbsp;组件 bugs 修复
-- 🛠&nbsp;组件样式 bugs 修复
-- ✨&nbsp;新增图标库
-- ✨&nbsp;Avatar 头像组件返工
-
-## 0.3.1
-
-- ✨&nbsp;文档新增主题生成器
-
-## 0.3.0
-
-- 🛠&nbsp;组件 bugs 修复
-- 🛠&nbsp;组件样式 bugs 修复
-- 🛠️&nbsp;优化打包配置
-- 🛠️&nbsp;添加更多单元测试和组件测试
-- ✨&nbsp;新增Rate 评分组件
-- ✨&nbsp;新增NoticeBar 通知栏组件
-- ✨&nbsp;新增Splitter 分配器组件
-- ✨&nbsp;新增InputTag 标签输入框组件
+## v0.4.0 Latest 🎉
 
-## 0.2.11
+`2025-07-05`
 
-- 🛠&nbsp;组件 bugs 修复
-- 🛠&nbsp;组件样式 bugs 修复
-- 🛠️&nbsp;优化打包配置
-- 🛠️&nbsp;添加更多单元测试和组件测试
-- ✨&nbsp;新增Image 图片 组件
-- ✨&nbsp;新增Checkbox 复选框 组件
+### 🚀 核心升级
 
-## 0.2.10
+- **全面基于 Tailwind CSS 重构**
 
-- 🛠&nbsp;组件 bugs 修复
-- 🛠&nbsp;组件样式 bugs 修复
-- ✨&nbsp;新增Skeleton 骨架屏 组件
-- ✨&nbsp;新增Pagination 分页 组件
+  - 整体组件系统基于 Tailwind CSS 重新设计
+  - 提供更一致的设计语言和开发体验
+  - 优化组件样式系统，减少冗余代码
+  - 支持深色模式和主题定制
 
-## 0.2.9
+- **组件样式定制能力增强**
 
-- 🛠&nbsp;组件 bugs 修复
-- ✨&nbsp;新增Scrollbar 滚动条 组件
+  - 引入 `unstyled` 模式，支持完全自定义组件样式
+  - 新增 `PT` (Pass Through) 样式传递机制，精确控制组件各部分样式
+  - 提供丰富的样式变体和预设配置
+  - 支持组件级别的主题定制
 
-## 0.2.8
+- **文档官网全面重构**
+  - 全新的文档网站设计和交互体验
+  - 更丰富的示例和使用说明
+  - 提供在线演示和代码编辑器
 
-- 🛠&nbsp;组件 bugs 修复
+### ✨ 新特性
 
-## 0.2.8
+- **组件无头化改造**
 
-- 🛠&nbsp;组件 bugs 修复
-- ✨&nbsp;新增Calendar 日历 组件
-- ✨&nbsp;新增InputOtp 个人识别码 组件
+  - 所有组件支持无头化设计，分离逻辑与样式
+  - 提供更灵活的自定义能力和更好的性能
+  - 支持自定义主题和样式覆盖
 
-## 0.2.7
+- **新增高质量组件**
 
-- 🛠 组件 bugs 修复
-- ✨&nbsp;新增Timeline 时间线 组件
-- ✨&nbsp;新增功能 主题包
-- ✨&nbsp;新增功能 按钮无样式属性
-- 🚫&nbsp;删除Link 链接 组件
+  - **Panel 面板组件**：支持折叠、多种样式变体、自定义标题和内容
+  - **Paginator 分页器**：支持多种大小、形状和样式变体，页码跳转等功能
+  - 其他组件升级：Checkbox、Dropdown、DateTimePicker 等
 
-## 0.2.6
+- **组件 UI 全面优化**
+  - 所有组件视觉设计升级，更加美观现代
+  - 优化交互细节，提升用户体验
+  - 增强组件动效和过渡效果
+  - 提高组件可访问性和键盘导航支持
 
-- 🛠&nbsp;组件 bugs 修复
-- ✨&nbsp;新增Carousel 走马灯 组件
-- ✨&nbsp;新增NumberAnimation 数字动画 指令
+### 🔥 Breaking Changes
 
-## 0.2.5
+- 包名更改：从 `@versakit/ui` 变更为 `@versakit/vue`
+- 样式引入方式变更：使用 `@versakit/vue/style` 替代 `@versakit/ui/dist/ui.css`
+- 组件 API 优化调整，引入一致的属性命名规范
+- 删除 `GradientText` 渐变文字组件
+- 详见[迁移指南](#)
 
-- 🛠&nbsp;组件 bugs 修复
-- ✔&nbsp;完善Container 布局容器
-- ✔&nbsp;更好的打包配置文件
-- 🧐&nbsp;适配TS类型
-- 🛠&nbsp;重构 Layout 布局 组件
-- 🛠&nbsp;重构 Button 按钮 组件
-- ✔&nbsp;完善Container 布同容器
-- ✔&nbsp;更好的打包配置文件
-- 🧐&nbsp; 适配TS类型
-- 🛠&nbsp;重构 Layout 布局 组件
-- 🛠&nbsp;重构 Button 按钮 组件
-- ✨&nbsp;新增Flex 弹性布局 组件
-- ✨&nbsp;新增Slider 滑块 组件
-- ✨&nbsp;新增Progress 进度条 组件
-- ✨&nbsp;新增GradientText 渐变文字 组件
-- ✨&nbsp;新增Table 表格 组件
-- ✨&nbsp;新增Tooltip 文字提示
-- ✨&nbsp;新增Segmented 分段控制器组件
+### 🐛 问题修复
 
-## 0.2.4
+- 修复组件相关 bugs
+- 优化组件样式问题
+- 提高组件渲染性能
+- 解决SSR兼容性问题
 
-- 🛠&nbsp;组件 bugs 修复
-- ✨&nbsp;新增Collapse 折叠面板 组件
+## v0.3.x
 
-## 0.2.3
+### 0.3.10 (2024-03-15)
 
-- 🛠&nbsp;组件 bugs 修复
-- ✔&nbsp;头像组件返工
-- ✔&nbsp;徽章组件返工
-- ✔&nbsp;卡片组件返工
-- ✔&nbsp;新增面板组件
-- ✔&nbsp;新增空状态组件
-- ✔&nbsp;新增结果组件
-- ✔&nbsp;新增消息组件返工
-- ✔&nbsp;通知组件返工
-- ✔&nbsp;图标库返工
+<br />
 
-## 0.2.2
+#### ✨ 新特性
 
-- 🛠&nbsp;组件 bugs 修复
+- **消息通知优化**
 
-## 0.2.1
+  - Notification 和 Message 组件新增堆叠卡片效果
+  - 提供更好的视觉体验
 
-- 🛠&nbsp;组件 bugs 修复
+- **组件无头化**
+  - Calendar、Tabs、Breadcrumb 等组件完成无头化
+  - Avatar 组件新增兜底背景色
+  - Icon 组件支持可旋转
 
-## 0.2.0
+### 0.3.9 (2024-03-10)
 
-- ☕&nbsp;修改架构从单体项目变成Pnpm+Monorepo+Changesets
+#### 🎯 核心更新
 
-## 0.1.9
+- **组件无头化**
+  - Card、Panel、Badge 等组件完成无头化改造
+  - 提供更灵活的自定义能力
 
-- 🛠&nbsp;组件 bugs 修复
+#### 🔧 功能优化
 
-## 0.1.8
+- 新增数据脱敏指令
+- 优化组件文档
 
-- 🌜&nbsp;暗黑模式适配
+#### 🔥 Breaking Changes
 
-## 0.1.7
+- 删除 Text、Result、Empty、Scrollbar 等组件
+- 建议使用对应的替代方案
 
-- 🛠&nbsp;组件 bugs 修复
+### 0.3.7 - 0.3.8 (2024-03-05)
 
-## 0.1.7
+#### 💫 重要更新
 
-- ✨&nbsp;新增Input 输入框
-- ✨&nbsp;新增Switch 开关
-- ✨&nbsp;新增Radio 单选框
-- ✨&nbsp;新增TextArea 文本域
-- ✨&nbsp;新增Avatar 头像
-- ✨&nbsp;新增Card 卡片
+- 组件前缀统一更改为 `VK`
+- 增强无障碍访问支持
+- 新增指令包
+- Tabs 组件重构
 
-## 0.1.6
+### 0.3.5 - 0.3.6 (2024-02-25)
 
-- ✨&nbsp;新增Tag 标签
-- ✨&nbsp;新增Backtop 回到顶部
-- ✨&nbsp;新增Tabs 标签页
+#### ✨ 新特性
 
-## 0.1.5
+- **新增组件**
+  - Upload 上传组件
+  - Popover 弹出框
+  - Select 选择器
+  - Dropdown 下拉菜单
+  - DateTime/Time Picker 时间选择器
+  - Color Picker 取色器
 
-- ✨&nbsp;新增Dialog 对话框
-- ✨&nbsp;新增Drawer 抽屉
-- ✨&nbsp;新增Message 消息提示
-- ✨&nbsp;新增Notification 通知
-- ✨&nbsp;组件库内部脚手架
+#### 🔄 重构优化
 
-## 0.1.3
+- Steps 步骤条重构
+- Checkbox 多选框重构
 
-- 🛠&nbsp;引入Vitest做组件单元测试
+## v0.2.x
 
-## 0.1.2
+<br />
 
-- 📃&nbsp;使用Vitepress
+### 0.2.11 (2024-02-15)
 
-## 0.1.1 && 0.1.0
+#### 🛠️ 优化
 
-- ✨&nbsp;新增Button 按钮
-- ✨&nbsp;新增Text 文本
-- ✨&nbsp;新增Link 链接
-- ✨&nbsp;新增Divider 分割线
-- ✨&nbsp;新增Icons 图标
-- ✨&nbsp;新增Ripple 水波纹
+- 优化打包配置
+- 增加单元测试覆盖率
+
+#### ✨ 新特性
+
+- Image 图片组件
+- Checkbox 复选框组件
+
+### 0.2.7 - 0.2.10 (2024-02-01)
+
+#### 🎯 核心更新
+
+- 新增主题包支持
+- 按钮新增无样式属性
+
+#### ✨ 新组件
+
+- Timeline 时间线
+- Carousel 走马灯
+- Skeleton 骨架屏
+- Pagination 分页
+- Calendar 日历
+- InputOtp 验证码输入
+
+### 0.2.5 (2024-01-20)
+
+#### 🔥 重大更新
+
+- Layout 布局组件重构
+- Button 按钮组件重构
+- 完善 TS 类型支持
+
+#### ✨ 新特性
+
+- Flex 弹性布局
+- Slider 滑块
+- Progress 进度条
+- Table 表格
+- Tooltip 文字提示
+- Segmented 分段控制器
+
+## v0.1.x
+
+<br />
+
+### 0.1.7 - 0.1.9 (2024-01-10)
+
+#### 🌙 亮点更新
+
+- 暗黑模式支持
+- Input、Switch、Radio 等基础组件
+- Avatar、Card 等展示组件
+
+### 0.1.5 - 0.1.6 (2024-01-05)
+
+#### ✨ 新特性
+
+- Dialog 对话框
+- Drawer 抽屉
+- Message 消息提示
+- Notification 通知
+- Tag 标签
+- Backtop 回到顶部
+- Tabs 标签页
+
+### 0.1.0 - 0.1.3 (2024-01-01)
+
+#### 🎯 初始版本
+
+- 基础组件：Button、Text、Link、Divider
+- Icons 图标库
+- Ripple 水波纹效果
+- 引入 Vitest 测试框架
+- 使用 Vitepress 构建文档
+
+## 🔍 更新指南
+
+- 查看完整的[组件文档](/components)
+- 了解[版本升级指南](/guide/migration)
+- 反馈[问题或建议](https://github.com/versakit/issues)

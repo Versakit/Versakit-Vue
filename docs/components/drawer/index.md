@@ -1,23 +1,15 @@
-# Drawer 抽屉
+# Drawer
 
-有些时候, `Dialog` 组件并不满足我们的需求, 比如你的表单很长, 亦或是你需要临时展示一些文档。
+Drawer（抽屉）组件是一种常见的移动端和桌面端交互组件，通常以侧边滑出或底部弹出的形式呈现，用于在不离开当前页面的情况下展示额外内容或功能选项，具有轻量化、非阻塞的特点。
 
-## 基础使用
+<Link link="https://versakit.github.io/Versakit-Vue/storybook/?path=/story/%E7%BB%84%E4%BB%B6-drawer-%E6%8A%BD%E5%B1%89--basic"/>
 
-呼出一个临时的侧边栏，自定义内容。
+## 引入
 
-<demo vue="./example/base.vue"></demo>
+```typescript
+import { Drawer } from '@versakit/vue'
+```
 
-## 不同方向
+## 使用
 
-抽屉可以从四个方向呼出，可以用 `direction` 设置。
-
-<demo vue="./example/direction.vue"></demo>
-
-## Drawer API
-
-### Drawer 属性
-
-| 属性        | 说明           | 类型                                              | 默认值 |
-| ----------- | -------------- | ------------------------------------------------- | ------ |
-| `direction` | 设置呼出的方向 | `enum`<Tool value="left,top,right,bottom"></Tool> | left   |
+<demo vue="./example/index.vue" />

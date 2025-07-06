@@ -1,9 +1,15 @@
-# Tooltip 文字提示
+# Tooltip
 
-常用于展示鼠标 hover 时的提示信息。
+Tooltip 是一种轻量级信息提示组件，当用户悬停、聚焦或点击元素时，会在其附近显示简短说明文本。它以半透明气泡形式呈现，不干扰主界面，用于提供即时的上下文帮助或补充信息，常见于图标解释、功能说明等场景。
 
-## 基本用法
+<Link link="https://versakit.github.io/Versakit-Vue/storybook/?path=/story/%E7%BB%84%E4%BB%B6-tooltip-%E6%8F%90%E7%A4%BA%E6%B0%94%E6%B3%A1--basic"/>
 
-在这里我们提供 9 种不同方向的展示方式，可以通过以下完整示例来理解，选择你要的效果。
+## 引入
 
-<demo vue="./example/base.vue"></demo>
+```typescript
+import { Tooltip } from '@versakit/vue'
+```
+
+## 使用
+
+<demo vue="./example/index.vue" />

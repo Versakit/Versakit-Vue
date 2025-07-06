@@ -1,8 +1,9 @@
-<MainPage />
+---
+layout: home
+---
 
-<MemberPage />
+<MainPage />
 
 <script setup>
 import MainPage from '/.vitepress/components/mainPage.vue'
-import MemberPage from '/.vitepress/components/memberPage.vue'
 </script>

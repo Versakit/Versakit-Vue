@@ -43,16 +43,28 @@ jobs:
 
       # 构建 UI
       - name: Build UI
-        run: pnpm run ui-devops:build
+        run: pnpm run ui:build
 
       # 使用 VitePress 构建文档
-      - name: Build project
+      - name: Build docs
         run: pnpm run docs:build
 
-      # 将构建后的文档部署到 GitHub Pages
+      # 构建 Storybook
+      - name: Build Storybook
+        run: pnpm run --filter storybook storybook:build
+
+      # 创建合并目录
+      - name: Create merged directory
+        run: |
+          mkdir -p dist
+          cp -r docs/.vitepress/dist/* dist/
+          mkdir -p dist/storybook
+          cp -r storybook/storybook-static/* dist/storybook/
+
+      # 将构建后的文档和 Storybook 部署到 GitHub Pages
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4.3.4
         with:
           token: ${{ secrets.GITHUB_TOKEN }} # 使用 GitHub Token 进行身份验证
           branch: gh-pages # 部署到 `gh-pages` 分支
-          folder: docs/.vitepress/dist # 指定要部署的文件夹路径
+          folder: dist # 指定要部署的合并文件夹路径

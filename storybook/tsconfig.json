@@ -1,0 +1,9 @@
+{
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "types": ["node", "vite/client"]
+  },
+  "include": ["stories/**/*", ".storybook/**/*", "**/*.vue", "**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}
