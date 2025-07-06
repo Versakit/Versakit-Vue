@@ -27,6 +27,8 @@ import { DateTimePicker } from './components/DateTimePicker'
 import { TimeSelect } from './components/TimeSelect'
 import { Skeleton, SkeletonText, SkeletonAvatar } from './components/Skeleton'
 import { Tabs, TabItem } from './components/Tabs'
+import { Panel } from './components/Panel'
+import { Paginator } from './components/Paginator'
 // 引入样式
 import './style/index.css'
 
@@ -62,6 +64,8 @@ const components: Component[] = [
   SkeletonAvatar,
   Tabs,
   TabItem,
+  Panel,
+  Paginator,
 ]
 
 export {
@@ -96,6 +100,8 @@ export {
   SkeletonAvatar,
   Tabs,
   TabItem,
+  Panel,
+  Paginator,
 }
 
 const Versakit = {

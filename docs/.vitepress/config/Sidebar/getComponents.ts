@@ -52,6 +52,8 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
     { text: 'TimePicker 时间选择器', link: '/components/timepicker/' },
     { text: 'TimeSelect 时间选择器', link: '/components/timeselect/' },
     { text: 'Skeleton 骨架屏', link: '/components/skeleton/' },
+    { text: 'Paginator 分页器', link: '/components/paginator/' },
+    { text: 'Panel 面板', link: '/components/panel/' },
   ]
 
   // 对组件按字母顺序排序

@@ -108,6 +108,20 @@ const componentsData = [
     color: 'rgba(243, 156, 18, 0.2)',
   },
   {
+    name: 'Paginator',
+    path: '/Versakit-Vue/components/paginator/',
+    description: '用于分页的组件，通常以分页器形式呈现。',
+    letter: 'P',
+    color: 'rgba(243, 156, 18, 0.2)',
+  },
+  {
+    name: 'Panel',
+    path: '/Versakit-Vue/components/panel/',
+    description: '用于显示内容和信息的容器组件，通常以面板形式呈现。',
+    letter: 'P',
+    color: 'rgba(243, 156, 18, 0.2)',
+  },
+  {
     name: 'Drawer',
     path: '/Versakit-Vue/components/drawer/',
     description:
