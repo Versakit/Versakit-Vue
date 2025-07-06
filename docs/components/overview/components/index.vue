@@ -39,7 +39,7 @@
           class="stats-icon"
           :style="{ backgroundColor: getCategoryColor(category) }"
         >
-          <span>{{ category[0] }}</span>
+          <span>{{ category[0].toUpperCase() }}</span>
         </div>
         <div class="stats-content">
           <div class="stats-value">{{ count }}</div>
@@ -126,6 +126,15 @@ const componentsData = [
     letter: 'A',
     color: 'rgba(241, 196, 15, 0.2)',
     category: 'data',
+  },
+  {
+    name: 'Breadcrumb',
+    path: '/Versakit-Vue/components/breadcrumb/',
+    description:
+      '面包屑导航用于显示当前页面在网站层级结构中的位置，并提供返回各级的导航能力。',
+    letter: 'B',
+    color: 'rgba(231, 76, 60, 0.2)',
+    category: 'navigation',
   },
   {
     name: 'Button',

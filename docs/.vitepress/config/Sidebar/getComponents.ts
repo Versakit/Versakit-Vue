@@ -109,6 +109,11 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
       category: 'navigation',
     },
     { text: 'Panel 面板', link: '/components/panel/', category: 'layout' },
+    {
+      text: 'Breadcrumb 面包屑',
+      link: '/components/breadcrumb/',
+      category: 'navigation',
+    },
   ]
 
   // 分类标签

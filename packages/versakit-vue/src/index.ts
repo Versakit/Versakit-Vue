@@ -30,6 +30,7 @@ import { Tabs, TabItem } from './components/Tabs'
 import { Panel } from './components/Panel'
 import { Paginator } from './components/Paginator'
 import { Progress } from './components/Progress'
+import { Breadcrumb, BreadcrumbItem } from './components/Breadcrumb'
 // 引入样式
 import './style/index.css'
 
@@ -68,6 +69,8 @@ const components: Component[] = [
   Panel,
   Paginator,
   Progress,
+  Breadcrumb,
+  BreadcrumbItem,
 ]
 
 const Versakit = {
@@ -115,4 +118,6 @@ export {
   Panel,
   Paginator,
   Progress,
+  Breadcrumb,
+  BreadcrumbItem,
 }

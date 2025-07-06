@@ -25,7 +25,7 @@ export default defineConfig({
       { icon: 'github', link: 'https://github.com/Versakit/Versakit-Vue' },
       {
         icon: 'npm',
-        link: 'https://www.npmjs.com/package/@versakit/composables',
+        link: 'https://www.npmjs.com/package/@versakit/vue',
       },
     ],
   },
