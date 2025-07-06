@@ -5,7 +5,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject } from 'vue'
+import { computed, inject, ref } from 'vue'
+import type { Ref } from 'vue'
 import type { TabItemProps } from './type'
 
 defineOptions({
@@ -17,11 +18,11 @@ const props = withDefaults(defineProps<TabItemProps>(), {
   unstyled: false,
 })
 
-// 注入activeTab
-const activeTab = inject<string | number>('activeTab', '')
+// 注入activeTab（这是一个ref对象）
+const activeTab = inject<Ref<string | number>>('activeTab', ref(''))
 
 // 判断当前标签页是否激活
-const isActive = computed(() => activeTab === props.name)
+const isActive = computed(() => activeTab.value === props.name)
 
 // 计算根元素样式
 const rootClass = computed(() => {
