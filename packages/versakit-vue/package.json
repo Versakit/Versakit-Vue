@@ -1,6 +1,6 @@
 {
   "name": "@versakit/vue",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "author": "Jannik",
   "private": false,
   "type": "module",
@@ -22,17 +22,17 @@
       "default": "./dist/esm/vue.css"
     }
   },
-  "homepage": "https://versakit.github.io/Versakit/",
+  "homepage": "https://versakit.github.io/Versakit-Vue/",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Versakit/Versakit"
+    "url": "git+https://github.com/Versakit/Versakit-Vue"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
   "bugs": {
-    "url": "https://github.com/lenran659/Versakit/issues"
+    "url": "https://github.com/Versakit/Versakit-Vue/issues"
   },
   "keywords": [
     "Vue3",

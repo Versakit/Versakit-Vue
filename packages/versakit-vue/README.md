@@ -1,72 +1,116 @@
 <div align="center">
-  <a href="/">
-	<img src="./logo.svg"  />
+  <a href="https://versakit.github.io/Versakit/">
+    <img src="./logo.svg" width="160" />
   </a>
   <h1>Versakit</h1>
-  <p>A Vue3 component library that supports the desktop side.</p>
+  <p>A modern, highly customizable Vue3 component library</p>
   <p>
-	<a href="">Documentation</a> | 
-	<a href="./README.zh-CN.md">中文</a>
+    <a href="https://versakit.github.io/Versakit/">Documentation</a> | 
+    <a href="https://versakit.github.io/Versakit/storybook/">Storybook</a> | 
+    <a href="./README.md">中文</a>
   </p>
   <p>
-	<img src="https://img.shields.io/badge/vue-v3.2.0%2B-%23407fbc" alt="vue">
-	<img src="https://img.shields.io/npm/l/@varlet/ui.svg" alt="license">
+    <img src="https://img.shields.io/badge/vue-v3.2.0%2B-%2342b883" alt="vue">
+    <img src="https://img.shields.io/badge/typescript-%5E5.0.0-%233178c6" alt="typescript">
+    <img src="https://img.shields.io/badge/tailwindcss-v3.3.0-%2338bdf8" alt="tailwindcss">
+    <img src="https://img.shields.io/npm/l/@versakit/ui.svg" alt="license">
   </p>
 </div>
 
 ---
 
-## I. Introduction
+## 📖 Introduction
 
-Versakit is a carefully designed Vue3 component library, aiming to provide developers with highly customizable component solutions. It allows you to build user interfaces without relying on specific visual styles, giving you the full ability to control the appearance and behavior of components.
+Versakit is a carefully designed Vue3 component library aimed at providing highly customizable, headless component solutions. It allows developers to build user interfaces without being constrained by specific visual styles, while providing complete control over the appearance and behavior of components.
 
-## II. Features
+## ✨ Features
 
-- 🚀 &nbsp; Provides over 20 high-quality universal components.
-- 💪 &nbsp; Developed by Chinese developers, with complete Chinese and English documentation and logistical support.
-- 🛠️ &nbsp; Supports on-demand import.
-- 🛠️ &nbsp; Supports theme customization.
-- 🌍 &nbsp; Supports internationalization.
-- 💡 &nbsp; Supports Typescript.
-- 💪 &nbsp; Ensures over 90% unit test coverage, providing stability guarantees.
-- 🛠️ &nbsp; Supports dark mode.
-- 🔧 &nbsp; Provides an official VSCode plugin.
-- ⌨️ &nbsp; Supports accessible access (under continuous improvement).
+- 🚀 &nbsp; Provides 30+ high-quality universal components covering forms, navigation, feedback, data display, and more
+- 💪 &nbsp; Built entirely on Tailwind CSS, offering elegant default styles with high customizability
+- 🎨 &nbsp; Supports headless (unstyled) mode and PT style passing mechanism for flexible component styling
+- 🛠️ &nbsp; Supports on-demand importing to optimize application size
+- 🌈 &nbsp; Supports theme customization for creating brand-specific UIs
+- 🌍 &nbsp; Supports internationalization with built-in Chinese and English language packs
+- 💡 &nbsp; Fully developed with TypeScript, providing comprehensive type definitions
+- 📚 &nbsp; Detailed documentation and examples for quick onboarding
+- 🌙 &nbsp; Native support for dark mode with one-click switching
+- ♿ &nbsp; Focus on accessibility design, compliant with WCAG standards
 
-## III. Installation
-
-You can install Versakit in the following ways:
+## 📦 Installation
 
 ```bash
 # Using npm
-npm install @versakit/ui
+npm install @versakit/vue
 
 # Using yarn
-yarn add @versakit/ui
+yarn add @versakit/vue
 
 # Using pnpm
-pnpm add @versakit/ui
+pnpm add @versakit/vue
 ```
 
-```
-import App from './App.vue'
+## 🚀 Quick Start
+
+### Full Import
+
+```ts
+// main.ts
 import { createApp } from 'vue'
-import Versakit from '@versakit/ui' // Import the component library
-import '@versakit/ui/dist/style.css' // Import the styles
+import App from './App.vue'
+import Versakit from '@versakit/vue'
+import '@versakit/vue/style'
 
 createApp(App).use(Versakit).mount('#app')
 ```
 
-## IV. Documentation Address
+### On-demand Import
 
-[Component Library Documentation](https://lenran659.github.io/versakit-docs/)
+```vue
+<script setup lang="ts">
+import { VButton, VInput } from '@versakit/vue'
+import '@versakit/vue/style'
+</script>
 
-[github](https://github.com/lenran659/versakit-ui)
+<template>
+	<v-input placeholder="Please enter content" />
+	<v-button>Click Button</v-button>
+</template>
+```
 
-[gitee](https://gitee.com/dragon_water/versakit-ui#/dragon_water/versakit-ui/blob/master/%22https:/lenran659.github.io/versakit-docs/%22)
+## 🔍 Online Documentation
 
-## V. License
+Check out our [online documentation](https://versakit.github.io/Versakit/) for more detailed information on component usage, examples, and API references.
 
-Versakit is released under the [MIT] license. For detailed information, please check the `LICENSE` file in the project root directory.
+## 💻 Local Development
 
-Please note that you need to adjust and supplement the above content according to the actual situation of your component library, including accurate installation steps, detailed component documentation, license information, etc. If your component library is not based on React, you need to modify the example code section to adapt to the corresponding technology stack.
+```bash
+# Clone the repository
+git clone https://github.com/lenran659/versakit-ui.git
+
+# Install dependencies
+pnpm install
+
+# Start the development server
+pnpm dev
+
+# Build the component library
+pnpm build
+
+# Run tests
+pnpm test
+```
+
+## 🤝 Contribution Guide
+
+We welcome your contributions! Please check the [contribution guide](./CONTRIBUTING.md) to learn how to participate in the project.
+
+## 📄 License
+
+Versakit is licensed under the [MIT License](./LICENSE).
+
+## 🔗 Related Links
+
+- [GitHub Repository](https://github.com/lenran659/versakit-ui)
+- [Gitee Mirror](https://gitee.com/dragon_water/versakit-ui)
+- [Issue Feedback](https://github.com/lenran659/versakit-ui/issues)
+- [Changelog](./CHANGELOG.md)
