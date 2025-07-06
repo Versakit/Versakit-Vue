@@ -29,6 +29,7 @@ import { Skeleton, SkeletonText, SkeletonAvatar } from './components/Skeleton'
 import { Tabs, TabItem } from './components/Tabs'
 import { Panel } from './components/Panel'
 import { Paginator } from './components/Paginator'
+import { Progress } from './components/Progress'
 // 引入样式
 import './style/index.css'
 
@@ -66,7 +67,18 @@ const components: Component[] = [
   TabItem,
   Panel,
   Paginator,
+  Progress,
 ]
+
+const Versakit = {
+  install: (app: App) => {
+    for (const c in components) {
+      app.component(components[c]?.name || c, components[c])
+    }
+  },
+}
+
+export { Versakit }
 
 export {
   InputOtp,
@@ -102,14 +114,5 @@ export {
   TabItem,
   Panel,
   Paginator,
+  Progress,
 }
-
-const Versakit = {
-  install: (app: App) => {
-    for (const c in components) {
-      app.component(components[c]?.name || c, components[c])
-    }
-  },
-}
-
-export { Versakit }
