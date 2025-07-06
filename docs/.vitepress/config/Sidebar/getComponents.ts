@@ -114,6 +114,21 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
       link: '/components/breadcrumb/',
       category: 'navigation',
     },
+    {
+      text: 'RangeCalendar 范围日历',
+      link: '/components/rangecalendar/',
+      category: 'data',
+    },
+    {
+      text: 'Splitter 分割器',
+      link: '/components/splitter/',
+      category: 'layout',
+    },
+    {
+      text: 'Timeline 时间轴',
+      link: '/components/timeline/',
+      category: 'layout',
+    },
   ]
 
   // 分类标签

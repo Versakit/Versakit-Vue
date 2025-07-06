@@ -31,6 +31,9 @@ import { Panel } from './components/Panel'
 import { Paginator } from './components/Paginator'
 import { Progress } from './components/Progress'
 import { Breadcrumb, BreadcrumbItem } from './components/Breadcrumb'
+import { Timeline, TimelineItem } from './components/Timeline'
+import { Splitter, SplitterItem } from './components/Splitter'
+import { RangeCalendar } from './components/RangeCalendar'
 // 引入样式
 import './style/index.css'
 
@@ -71,6 +74,11 @@ const components: Component[] = [
   Progress,
   Breadcrumb,
   BreadcrumbItem,
+  Timeline,
+  TimelineItem,
+  Splitter,
+  SplitterItem,
+  RangeCalendar,
 ]
 
 const Versakit = {
@@ -120,4 +128,9 @@ export {
   Progress,
   Breadcrumb,
   BreadcrumbItem,
+  Timeline,
+  TimelineItem,
+  Splitter,
+  SplitterItem,
+  RangeCalendar,
 }
