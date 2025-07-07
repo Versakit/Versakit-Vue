@@ -34,6 +34,7 @@ import { Breadcrumb, BreadcrumbItem } from './components/Breadcrumb'
 import { Timeline, TimelineItem } from './components/Timeline'
 import { Splitter, SplitterItem } from './components/Splitter'
 import { RangeCalendar } from './components/RangeCalendar'
+import { Accordion, AccordionItem } from './components/Accordion'
 // 引入样式
 import './style/index.css'
 
@@ -79,6 +80,8 @@ const components: Component[] = [
   Splitter,
   SplitterItem,
   RangeCalendar,
+  Accordion,
+  AccordionItem,
 ]
 
 const Versakit = {
@@ -133,4 +136,6 @@ export {
   Splitter,
   SplitterItem,
   RangeCalendar,
+  Accordion,
+  AccordionItem,
 }

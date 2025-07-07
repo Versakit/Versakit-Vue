@@ -111,6 +111,14 @@ const activeFilter = ref('all')
 
 const componentsData = [
   {
+    name: 'Accordion',
+    path: '/Versakit-Vue/components/accordion/',
+    description: '用于显示手风琴的组件，通常以手风琴形式呈现。',
+    letter: 'A',
+    color: 'rgba(241, 196, 15, 0.2)',
+    category: 'layout',
+  },
+  {
     name: 'Alert',
     path: '/Versakit-Vue/components/alert/',
     description: '用于显示重要信息或操作结果的通知组件。',

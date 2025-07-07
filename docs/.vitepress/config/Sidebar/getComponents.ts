@@ -115,6 +115,11 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
       category: 'navigation',
     },
     {
+      text: 'Accordion 手风琴',
+      link: '/components/accordion/',
+      category: 'layout',
+    },
+    {
       text: 'RangeCalendar 范围日历',
       link: '/components/rangecalendar/',
       category: 'data',
