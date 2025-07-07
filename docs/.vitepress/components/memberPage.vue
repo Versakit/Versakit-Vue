@@ -1,6 +1,15 @@
 <script lang="ts" setup>
 import { VPTeamPage, VPTeamPageTitle, VPTeamMembers } from 'vitepress/theme'
 
+const members = [
+  {
+    avatar: 'https://avatars.githubusercontent.com/u/74483049?v=4',
+    name: 'lenran659',
+    title: '核心开发者',
+    links: [{ icon: 'github', link: 'https://github.com/lenran659' }],
+  },
+]
+
 const contributors = [
   {
     avatar_url: 'https://avatars.githubusercontent.com/u/74483049?v=4',
@@ -98,11 +107,15 @@ const handleClick = (link: string) => {
         <div
           class="contributor"
           v-for="member in contributors"
-          :key="member.name"
-          @click="handleClick(member.link)"
+          :key="member.login"
+          @click="handleClick(member.html_url)"
         >
-          <img class="contributor-avatar" :src="member.avatar" alt="avatar" />
-          {{ member.name }}
+          <img
+            class="contributor-avatar"
+            :src="member.avatar_url"
+            alt="avatar"
+          />
+          {{ member.login }}
         </div>
       </div>
     </VPTeamPage>
