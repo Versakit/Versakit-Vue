@@ -130,6 +130,11 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
       category: 'navigation',
     },
     {
+      text: 'Carousel 轮播图',
+      link: '/components/carousel/',
+      category: 'navigation',
+    },
+    {
       text: 'RangeCalendar 范围日历',
       link: '/components/rangecalendar/',
       category: 'data',

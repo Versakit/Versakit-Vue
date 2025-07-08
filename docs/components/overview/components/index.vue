@@ -127,6 +127,14 @@ const componentsData = [
     category: 'form',
   },
   {
+    name: 'Carousel',
+    path: '/Versakit-Vue/components/carousel/',
+    description: '用于显示轮播图的组件，通常以轮播图形式呈现。',
+    letter: 'C',
+    color: 'rgba(241, 196, 15, 0.2)',
+    category: 'navigation',
+  },
+  {
     name: 'Dropdown',
     path: '/Versakit-Vue/components/dropdown/',
     description: '用于下拉菜单的组件，通常以下拉菜单形式呈现。',

@@ -37,6 +37,7 @@ import { RangeCalendar } from './components/RangeCalendar'
 import { Accordion, AccordionItem } from './components/Accordion'
 import { InputTag } from './components/InputTag'
 import { Dropdown, DropdownItem } from './components/Dropdown'
+import { Carousel } from './components/Carousel'
 // 引入样式
 import './style/index.css'
 
@@ -87,6 +88,7 @@ const components: Component[] = [
   InputTag,
   Dropdown,
   DropdownItem,
+  Carousel,
 ]
 
 const Versakit = {
@@ -146,4 +148,5 @@ export {
   InputTag,
   Dropdown,
   DropdownItem,
+  Carousel,
 }
