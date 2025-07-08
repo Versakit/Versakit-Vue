@@ -120,6 +120,16 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
       category: 'layout',
     },
     {
+      text: 'InputTag 输入标签',
+      link: '/components/inputtag/',
+      category: 'form',
+    },
+    {
+      text: 'Dropdown 下拉菜单',
+      link: '/components/dropdown/',
+      category: 'navigation',
+    },
+    {
       text: 'RangeCalendar 范围日历',
       link: '/components/rangecalendar/',
       category: 'data',

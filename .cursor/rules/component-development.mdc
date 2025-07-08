@@ -1,0 +1,100 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 组件开发规范
+
+## 目录结构
+每个组件目录应遵循以下结构:
+```
+ComponentName/
+├── index.ts         # 导出组件
+└── src/
+    ├── index.vue    # 组件实现
+    ├── type.ts      # 类型定义
+    ├── index.variants.ts # 样式定义
+    └── use-component-name.ts # 可选的组件逻辑
+```
+
+## 类型定义
+
+- 所有props、emits和其他类型必须在`type.ts`中定义
+- 禁止使用`any`类型，必须提供精确类型
+- 组件Props接口命名格式为`ComponentNameProps`
+- 组件Emits常量命名格式为`ComponentNameEmits`
+
+例如:
+```ts
+// type.ts
+export type ButtonProps = {
+  variant?: ButtonVariant
+  size?: ButtonSize
+  disabled?: boolean
+  // ...其他属性
+  pt?: ButtonPT // 自定义样式传递
+}
+
+export const ButtonEmits = {
+  click: (evt: MouseEvent) => evt instanceof MouseEvent,
+}
+```
+
+## 样式定义
+
+- 所有样式必须使用`tailwind-variants`在`index.variants.ts`中定义
+- 组件需支持`unstyled`模式和`pt`（pass through）样式传递
+- 支持暗黑模式，使用Tailwind CSS的`dark:`前缀
+
+例如:
+```ts
+// index.variants.ts
+import { tv } from 'tailwind-variants'
+
+export const buttonStyle = tv({
+  base: 'inline-flex items-center justify-center...',
+  variants: {
+    variant: {
+      primary: 'bg-blue-500 text-white dark:bg-blue-600...',
+      // ...其他变体
+    },
+    // ...其他变量
+  },
+  // ...
+})
+```
+
+## 组件实现
+
+- 使用`<script setup lang="ts">`语法
+- 禁止在Vue文件中使用scoped CSS
+- 通过计算属性绑定样式
+- 支持无障碍访问属性
+
+例如:
+```vue
+<template>
+  <button :class="classes" :type="type" :disabled="disabled || loading">
+    <!-- 内容 -->
+  </button>
+</template>
+
+<script setup lang="ts">
+import { computed } from 'vue'
+import { buttonStyle } from './index.variants'
+import type { ButtonProps } from './type'
+import { ButtonEmits } from './type'
+
+// ...props和emits定义
+
+const classes = computed(() => {
+  return props.unstyled
+    ? props.pt?.root || ''
+    : buttonStyle({
+        variant: props.variant,
+        // ...其他样式属性
+      })
+})
+</script>
+```
+

@@ -108,8 +108,10 @@ export type AccordionItemPT = {
 }
 
 export const AccordionEmits = {
-  'update:modelValue': () => true,
-  change: () => true,
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+  'update:modelValue': (value: string | string[] | undefined) => true,
+  /* eslint-disable-next-line @typescript-eslint/no-unused-vars */
+  change: (value: string | string[] | undefined) => true,
 }
 
 export const AccordionItemEmits = {

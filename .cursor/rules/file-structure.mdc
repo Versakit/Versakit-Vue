@@ -1,0 +1,77 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 文件结构和命名规范
+
+## 项目结构
+
+Versakit 项目采用monorepo结构，主要包含以下包:
+
+```
+Versakit-Vue/
+├── packages/
+│   ├── versakit-vue/      # 主组件库
+│   │   ├── src/
+│   │   │   ├── components/ # 所有组件
+│   │   │   ├── style/     # 全局样式
+│   │   │   └── index.ts   # 入口文件
+│   │   └── package.json
+│   └── versakit-shared/   # 共享工具库
+├── docs/                  # 文档站点
+└── storybook/             # Storybook示例
+```
+
+## 组件目录结构
+
+每个组件应遵循以下目录结构:
+
+```
+ComponentName/             # 使用大驼峰命名
+├── index.ts               # 导出文件
+└── src/
+    ├── index.vue          # 组件实现
+    ├── type.ts            # 类型定义
+    ├── index.variants.ts  # 样式变体定义
+    └── use-component-name.ts  # 组件逻辑hook (kebab-case命名)
+```
+
+## 文件命名规范
+
+- **TypeScript文件**: 必须使用`.ts`扩展名，不允许使用`.js`
+- **Vue组件文件**: 使用`.vue`扩展名
+- **样式变体文件**: 必须命名为`index.variants.ts`
+- **类型定义文件**: 命名为`type.ts`
+- **组件Hook文件**: 使用`use-[component-name].ts`形式命名 (kebab-case)
+
+## 导入路径规范
+
+- 使用相对路径导入同一组件内的文件
+- 使用别名导入其他组件或工具
+
+```ts
+// 正确的导入方式
+import { Button } from './src/index.vue'
+import { buttonStyle } from './src/index.variants'
+import type { ButtonProps } from './src/type'
+
+// 导入其他组件或工具
+import { withInstall } from '@versakit/shared'
+```
+
+## 导出规范
+
+组件必须通过`index.ts`文件导出，并使用`withInstall`高阶函数:
+
+```ts
+// index.ts
+import { withInstall } from '@versakit/shared'
+import _Button from './src/index.vue'
+
+export const Button = withInstall(_Button)
+export default Button
+
+export * from './src/type'
+```
+

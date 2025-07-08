@@ -35,6 +35,8 @@ import { Timeline, TimelineItem } from './components/Timeline'
 import { Splitter, SplitterItem } from './components/Splitter'
 import { RangeCalendar } from './components/RangeCalendar'
 import { Accordion, AccordionItem } from './components/Accordion'
+import { InputTag } from './components/InputTag'
+import { Dropdown, DropdownItem } from './components/Dropdown'
 // 引入样式
 import './style/index.css'
 
@@ -82,6 +84,9 @@ const components: Component[] = [
   RangeCalendar,
   Accordion,
   AccordionItem,
+  InputTag,
+  Dropdown,
+  DropdownItem,
 ]
 
 const Versakit = {
@@ -138,4 +143,7 @@ export {
   RangeCalendar,
   Accordion,
   AccordionItem,
+  InputTag,
+  Dropdown,
+  DropdownItem,
 }

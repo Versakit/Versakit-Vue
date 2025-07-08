@@ -1,0 +1,110 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# 样式开发指南
+
+## 样式系统概述
+
+Versakit使用Tailwind CSS和tailwind-variants来构建可定制的组件样式系统，支持以下特性:
+
+- 主题定制
+- 暗黑模式
+- 无障碍访问
+- 样式传递机制
+
+## 样式文件
+
+每个组件必须有一个`index.variants.ts`文件，包含使用`tailwind-variants`定义的样式。
+
+## tailwind-variants使用规范
+
+使用`tv`函数定义样式，结构如下:
+
+```ts
+import { tv } from 'tailwind-variants'
+
+export const componentStyle = tv({
+  base: 'base-styles-here',
+  variants: {
+    // 变体定义
+    variant: {
+      primary: 'primary-variant-styles',
+      secondary: 'secondary-variant-styles',
+      // ...其他变体
+    },
+    size: {
+      sm: 'small-size-styles',
+      md: 'medium-size-styles',
+      lg: 'large-size-styles',
+      // ...其他尺寸
+    },
+    // ...其他变体类型
+  },
+  compoundVariants: [
+    // 组合变体
+    {
+      variant: 'primary',
+      size: 'sm',
+      class: 'combined-styles'
+    },
+    // ...其他组合
+  ],
+  defaultVariants: {
+    // 默认变体
+    variant: 'primary',
+    size: 'md',
+  }
+})
+```
+
+## 暗黑模式支持
+
+所有组件样式必须支持暗黑模式，使用Tailwind CSS的`dark:`前缀:
+
+```ts
+{
+  primary: 'bg-blue-500 text-white dark:bg-blue-700 dark:text-gray-100'
+}
+```
+
+## 样式传递机制
+
+每个组件必须支持两种自定义样式的方式:
+
+1. **unstyled模式**: 通过`unstyled`属性完全禁用默认样式
+2. **PT样式传递**: 通过`pt`对象传递自定义类名
+
+在组件中实现:
+
+```vue
+<script setup lang="ts">
+// ...
+const classes = computed(() => {
+  return props.unstyled
+    ? props.pt?.root || ''
+    : componentStyle({
+        variant: props.variant,
+        size: props.size,
+        class: props.pt?.root, // 合并传入的根元素类名
+      })
+})
+
+const childClasses = computed(() => {
+  return props.unstyled
+    ? props.pt?.child || ''
+    : 'child-default-classes'
+})
+</script>
+```
+
+## 无障碍设计原则
+
+样式实现必须遵循WCAG标准:
+
+- 合适的对比度
+- 键盘可访问的焦点状态
+- 适当的文本大小和间距
+- 确保交互元素有足够的点击/触摸区域
+

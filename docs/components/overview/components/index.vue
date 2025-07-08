@@ -119,6 +119,22 @@ const componentsData = [
     category: 'layout',
   },
   {
+    name: 'InputTag',
+    path: '/Versakit-Vue/components/inputtag/',
+    description: '用于输入标签的组件，通常以标签形式呈现。',
+    letter: 'I',
+    color: 'rgba(241, 196, 15, 0.2)',
+    category: 'form',
+  },
+  {
+    name: 'Dropdown',
+    path: '/Versakit-Vue/components/dropdown/',
+    description: '用于下拉菜单的组件，通常以下拉菜单形式呈现。',
+    letter: 'D',
+    color: 'rgba(241, 196, 15, 0.2)',
+    category: 'navigation',
+  },
+  {
     name: 'Alert',
     path: '/Versakit-Vue/components/alert/',
     description: '用于显示重要信息或操作结果的通知组件。',

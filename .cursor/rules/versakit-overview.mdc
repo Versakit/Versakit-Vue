@@ -1,0 +1,34 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# Versakit 项目概述
+
+Versakit是一个现代化、高度可定制的Vue3组件库，基于TypeScript和Tailwind CSS开发。
+
+## 项目结构
+
+- `packages/versakit-vue` - 主要的Vue3组件库包
+- `packages/versakit-shared` - 共享工具和类型定义
+- `docs` - 项目文档
+- `storybook` - Storybook示例和组件展示
+
+## 开发规范
+
+- 使用TypeScript进行类型标注，禁止使用any类型
+- 组件文件必须为.ts格式（而非.js）
+- 支持暗黑模式
+- 支持无障碍访问
+- 样式工程必须使用index.variants.ts文件（使用tailwind-variants）
+- Vue组件内禁止使用scoped CSS，统一使用tailwind-variants
+
+## 组件结构
+
+每个组件通常包含以下文件:
+- `index.ts` - 组件导出入口
+- `src/index.vue` - 组件主文件
+- `src/type.ts` - 类型定义
+- `src/index.variants.ts` - 样式变体定义
+- `src/use-[component].ts` - 组件逻辑hooks（可选）
+
