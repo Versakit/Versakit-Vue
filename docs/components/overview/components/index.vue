@@ -143,6 +143,14 @@ const componentsData = [
     category: 'navigation',
   },
   {
+    name: 'Swap 调换',
+    path: '/Versakit-Vue/components/swap/',
+    description: '用于在两种状态间切换内容显示的交互式组件。',
+    letter: 'S',
+    color: 'rgba(241, 196, 15, 0.2)',
+    category: 'layout',
+  },
+  {
     name: 'Alert',
     path: '/Versakit-Vue/components/alert/',
     description: '用于显示重要信息或操作结果的通知组件。',

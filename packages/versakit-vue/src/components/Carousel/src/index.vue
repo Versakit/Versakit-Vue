@@ -155,7 +155,14 @@ onMounted(() => {
   if (slots.default) {
     let slotContent: any[] = []
     try {
-      slotContent = slots.default() || []
+      // 将默认槽内容解析为vnodes数组
+      slotContent =
+        slots.default({
+          class: '',
+          key: 0,
+          index: 0,
+          active: false,
+        }) || []
     } catch (e) {
       console.warn('Failed to render carousel slots:', e)
     }

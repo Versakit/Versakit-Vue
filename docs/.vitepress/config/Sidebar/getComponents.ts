@@ -135,6 +135,11 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
       category: 'navigation',
     },
     {
+      text: 'Swap 调换',
+      link: '/components/swap/',
+      category: 'layout',
+    },
+    {
       text: 'RangeCalendar 范围日历',
       link: '/components/rangecalendar/',
       category: 'data',

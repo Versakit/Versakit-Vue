@@ -38,6 +38,7 @@ import { Accordion, AccordionItem } from './components/Accordion'
 import { InputTag } from './components/InputTag'
 import { Dropdown, DropdownItem } from './components/Dropdown'
 import { Carousel } from './components/Carousel'
+import { Swap } from './components/Swap'
 // 引入样式
 import './style/index.css'
 
@@ -89,6 +90,7 @@ const components: Component[] = [
   Dropdown,
   DropdownItem,
   Carousel,
+  Swap,
 ]
 
 const Versakit = {
@@ -149,4 +151,5 @@ export {
   Dropdown,
   DropdownItem,
   Carousel,
+  Swap,
 }

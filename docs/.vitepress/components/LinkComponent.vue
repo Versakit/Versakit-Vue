@@ -12,7 +12,7 @@ defineProps({
 
 <template>
   <div
-    class="bg-gray-100 dark:bg-gray-800 dark:text-white rounded-md p-2 inline-block"
+    class="bg-gray-100 dark:bg-gray-800 dark:text-white rounded-2xl p-2 inline-block"
   >
     <a
       :href="link"
@@ -37,7 +37,9 @@ defineProps({
             ></path>
           </g>
         </svg>
-        <span class="text-gray-400 ml-2">Storybook</span>
+        <span class="text-gray-400 ml-2 hover:text-black dark:hover:text-white">
+          Storybook
+        </span>
       </div>
     </a>
   </div>
