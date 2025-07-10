@@ -32,7 +32,7 @@ import { Paginator } from './components/Paginator'
 import { Progress } from './components/Progress'
 import { Breadcrumb, BreadcrumbItem } from './components/Breadcrumb'
 import { Timeline, TimelineItem } from './components/Timeline'
-import { Splitter, SplitterItem } from './components/Splitter'
+import { Splitter, SplitterPane } from './components/Splitter'
 import { RangeCalendar } from './components/RangeCalendar'
 import { Accordion, AccordionItem } from './components/Accordion'
 import { InputTag } from './components/InputTag'
@@ -82,7 +82,7 @@ const components: Component[] = [
   Timeline,
   TimelineItem,
   Splitter,
-  SplitterItem,
+  SplitterPane,
   RangeCalendar,
   Accordion,
   AccordionItem,
@@ -143,7 +143,7 @@ export {
   Timeline,
   TimelineItem,
   Splitter,
-  SplitterItem,
+  SplitterPane,
   RangeCalendar,
   Accordion,
   AccordionItem,

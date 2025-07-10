@@ -226,6 +226,48 @@
       </Dropdown>
     </section>
 
+    <!-- 键盘导航 -->
+    <section>
+      <h2 class="text-lg font-medium mb-4">键盘导航</h2>
+      <div class="bg-gray-50 p-4 rounded-md mb-4">
+        <h3 class="text-sm font-medium text-gray-700 mb-2">支持的键盘操作：</h3>
+        <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+          <li>
+            <strong>Enter/Space</strong>
+            ：打开/关闭下拉菜单
+          </li>
+          <li>
+            <strong>↓ (向下箭头)</strong>
+            ：聚焦到第一个菜单项
+          </li>
+          <li>
+            <strong>Esc</strong>
+            ：关闭菜单
+          </li>
+          <li>
+            <strong>Tab</strong>
+            ：切换焦点
+          </li>
+          <li>
+            <strong>Enter/Space</strong>
+            ：选择菜单项
+          </li>
+        </ul>
+      </div>
+      <div class="flex items-center space-x-4">
+        <Dropdown>
+          <template #trigger>
+            <button class="btn-primary">尝试键盘导航</button>
+          </template>
+          <DropdownItem value="key1" label="使用键盘进行导航" />
+          <DropdownItem value="key2" label="支持Tab键导航" />
+          <DropdownItem value="key3" label="使用Enter键选择" />
+          <DropdownItem divider />
+          <DropdownItem value="key4" label="按Esc键关闭菜单" />
+        </Dropdown>
+      </div>
+    </section>
+
     <!-- 自定义内容 -->
     <section>
       <h2 class="text-lg font-medium mb-4">自定义内容</h2>
@@ -285,7 +327,7 @@
             'absolute z-10 mt-2 min-w-[200px] rounded-xl bg-gradient-to-r from-blue-500 to-purple-500 p-0.5',
           menu: 'bg-white rounded-lg overflow-hidden',
           menuItem:
-            'block w-full px-4 py-3 text-left text-gray-700 hover:bg-blue-50 hover:text-blue-700 border-b border-gray-100 last:border-b-0',
+            'block w-full px-4 py-3 text-left text-gray-700 hover:bg-blue-50 hover:text-blue-700 border-b border-gray-100 last:border-b-0 focus:outline-none focus-visible:bg-blue-50 focus-visible:text-blue-700',
           menuItemIcon: 'inline-block mr-2',
           menuDivider: 'border-t border-gray-200 my-1',
         }"
@@ -303,6 +345,43 @@
         <DropdownItem divider />
         <DropdownItem value="unstyled3" label="自定义样式选项3" icon="🎭" />
       </Dropdown>
+    </section>
+
+    <!-- 无障碍访问 -->
+    <section>
+      <h2 class="text-lg font-medium mb-4">无障碍访问 (A11y)</h2>
+      <div class="bg-gray-50 p-4 rounded-md mb-4">
+        <h3 class="text-sm font-medium text-gray-700 mb-2">无障碍特性：</h3>
+        <ul class="list-disc pl-5 text-sm text-gray-600 space-y-1">
+          <li>
+            <strong>ARIA属性</strong>
+            ：包含aria-haspopup、aria-expanded等属性
+          </li>
+          <li>
+            <strong>角色属性</strong>
+            ：使用适当的role="menu"和role="menuitem"
+          </li>
+          <li>
+            <strong>键盘导航</strong>
+            ：完整支持键盘导航
+          </li>
+          <li>
+            <strong>焦点管理</strong>
+            ：清晰的焦点状态
+          </li>
+        </ul>
+      </div>
+      <div class="flex items-center space-x-4">
+        <Dropdown>
+          <template #trigger>
+            <button class="btn-primary">无障碍下拉菜单</button>
+          </template>
+          <DropdownItem value="a11y1" label="屏幕阅读器友好" />
+          <DropdownItem value="a11y2" label="键盘可访问" />
+          <DropdownItem divider />
+          <DropdownItem value="a11y3" label="遵循WCAG 2.1标准" />
+        </Dropdown>
+      </div>
     </section>
 
     <!-- 实际应用案例 -->
@@ -348,7 +427,7 @@
                 <button
                   class="w-full flex items-center justify-between px-3 py-2 border border-gray-300 rounded text-left"
                   aria-haspopup="true"
-                  aria-expanded="languageDropdownVisible"
+                  :aria-expanded="languageDropdownVisible"
                 >
                   <span>{{ selectedLanguage.label || '请选择语言' }}</span>
                   <span>▼</span>
@@ -367,6 +446,30 @@
             已选择: {{ selectedLanguage.label }} ({{ selectedLanguage.value }})
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- 暗黑模式 -->
+    <section class="dark bg-gray-900 p-6 rounded-lg">
+      <h2 class="text-lg font-medium mb-4 text-white">暗黑模式</h2>
+      <div class="flex flex-wrap gap-4">
+        <Dropdown>
+          <template #trigger>
+            <button class="btn-primary">暗黑模式下拉菜单</button>
+          </template>
+          <DropdownItem value="dark1" label="暗黑模式选项1" />
+          <DropdownItem value="dark2" label="暗黑模式选项2" />
+          <DropdownItem divider />
+          <DropdownItem value="dark3" label="暗黑模式选项3" />
+        </Dropdown>
+
+        <Dropdown arrow>
+          <template #trigger>
+            <button class="btn-secondary">带箭头</button>
+          </template>
+          <DropdownItem value="darkarrow1" label="带箭头选项1" />
+          <DropdownItem value="darkarrow2" label="带箭头选项2" />
+        </Dropdown>
       </div>
     </section>
   </div>
@@ -416,3 +519,103 @@ const handleLanguageSelect = (lang: { value: string; label: string }) => {
   languageDropdownVisible.value = false
 }
 </script>
+
+<style scoped>
+.btn-primary {
+  padding: 0.5rem 1rem;
+  background-color: #3b82f6;
+  color: white;
+  border-radius: 0.25rem;
+}
+
+.btn-primary:hover {
+  background-color: #2563eb;
+}
+
+.btn-primary:focus {
+  outline: none;
+}
+
+.btn-primary:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #93c5fd,
+    0 0 0 4px #3b82f6;
+}
+
+.btn-secondary {
+  padding: 0.5rem 1rem;
+  background-color: #f3f4f6;
+  color: #1f2937;
+  border: 1px solid #d1d5db;
+  border-radius: 0.25rem;
+}
+
+.btn-secondary:hover {
+  background-color: #e5e7eb;
+}
+
+.btn-secondary:focus {
+  outline: none;
+}
+
+.btn-secondary:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #e5e7eb,
+    0 0 0 4px #6b7280;
+}
+
+.btn-disabled {
+  padding: 0.5rem 1rem;
+  background-color: #e5e7eb;
+  color: #6b7280;
+  border-radius: 0.25rem;
+  cursor: not-allowed;
+}
+
+.btn-sm-primary {
+  padding: 0.25rem 0.75rem;
+  background-color: #3b82f6;
+  color: white;
+  border-radius: 0.25rem;
+  font-size: 0.875rem;
+}
+
+.btn-sm-primary:hover {
+  background-color: #2563eb;
+}
+
+.btn-sm-primary:focus {
+  outline: none;
+}
+
+.btn-sm-primary:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #93c5fd,
+    0 0 0 4px #3b82f6;
+}
+
+.btn-purple {
+  padding: 0.5rem 1rem;
+  background-color: #8b5cf6;
+  color: white;
+  border-radius: 0.25rem;
+}
+
+.btn-purple:hover {
+  background-color: #7c3aed;
+}
+
+.btn-purple:focus {
+  outline: none;
+}
+
+.btn-purple:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #c4b5fd,
+    0 0 0 4px #8b5cf6;
+}
+</style>

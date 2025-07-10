@@ -13,7 +13,7 @@ export type DropdownPlacement =
   | 'right-start'
   | 'right-end'
 
-export interface DropdownOption {
+export type DropdownOption = {
   /**
    * 选项值
    */
@@ -40,7 +40,7 @@ export interface DropdownOption {
   children?: DropdownOption[]
 }
 
-export interface DropdownItemProps {
+export type DropdownItemProps = {
   /**
    * 选项值
    */
@@ -63,7 +63,7 @@ export interface DropdownItemProps {
   divider?: boolean
 }
 
-export interface DropdownProps {
+export type DropdownProps = {
   /**
    * 选项数据
    */
@@ -145,7 +145,7 @@ export type DropdownEmitsType = typeof DropdownEmits
 /**
  * 下拉菜单注入的上下文类型
  */
-export interface DropdownContext {
+export type DropdownContext = {
   /**
    * 选项点击处理函数
    */

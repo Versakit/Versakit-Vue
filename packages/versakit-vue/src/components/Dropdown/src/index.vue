@@ -5,6 +5,11 @@
       :class="classes.trigger()"
       @click="onTriggerClick"
       ref="triggerContentRef"
+      :tabindex="disabled ? -1 : 0"
+      :aria-haspopup="true"
+      :aria-expanded="isOpen"
+      :aria-disabled="disabled"
+      role="button"
     >
       <slot name="trigger"></slot>
     </div>
@@ -18,8 +23,15 @@
         ref="contentRef"
         v-bind="$attrs"
         tabindex="-1"
+        role="menu"
+        aria-orientation="vertical"
       >
-        <div v-if="arrow" :class="classes.arrow()" :style="arrowStyle"></div>
+        <div
+          v-if="arrow"
+          :class="classes.arrow()"
+          :style="arrowStyle"
+          aria-hidden="true"
+        ></div>
         <div :class="classes.menu()">
           <slot>
             <template v-if="options && options.length > 0">
@@ -52,8 +64,9 @@ import {
   useDebounceFn,
   useVModel,
 } from '@vueuse/core'
-import type { DropdownProps, DropdownContext } from './type'
 import { dropdownStyle } from './index.variants'
+import type { DropdownProps, DropdownContext } from './type'
+import { DropdownEmits } from './type'
 import DropdownItem from './dropdown-item.vue'
 
 const props = withDefaults(defineProps<DropdownProps>(), {
@@ -65,10 +78,7 @@ const props = withDefaults(defineProps<DropdownProps>(), {
   unstyled: false,
 })
 
-const emit = defineEmits<{
-  (e: 'update:visible', visible: boolean): void
-  (e: 'select', value: any): void
-}>()
+const emit = defineEmits(DropdownEmits)
 
 // 引用和状态
 const triggerRef = ref<HTMLElement | null>(null)
@@ -95,10 +105,6 @@ const classes = computed(() => {
       content: () => props.pt?.content || '',
       arrow: () => props.pt?.arrow || '',
       menu: () => props.pt?.menu || '',
-      menuItem: () => props.pt?.menuItem || '',
-      menuItemIcon: () => props.pt?.menuItemIcon || '',
-      menuItemLabel: () => props.pt?.menuItemLabel || '',
-      menuDivider: () => props.pt?.menuDivider || '',
     }
   }
 
@@ -310,6 +316,24 @@ if (props.trigger === 'focus') {
     closeDropdown()
   })
 }
+
+// 处理键盘导航
+useEventListener(triggerRef, 'keydown', (e: KeyboardEvent) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault()
+    toggleDropdown()
+  } else if (e.key === 'Escape' && isOpen.value) {
+    e.preventDefault()
+    closeDropdown()
+    triggerContentRef.value?.focus()
+  } else if (e.key === 'ArrowDown' && isOpen.value) {
+    e.preventDefault()
+    const firstMenuItem = contentRef.value?.querySelector(
+      '[role="menuitem"]',
+    ) as HTMLElement
+    firstMenuItem?.focus()
+  }
+})
 
 // 监听visible属性变化
 watch(

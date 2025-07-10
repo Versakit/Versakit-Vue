@@ -491,6 +491,32 @@ const filteredComponents = computed(() => {
 </script>
 
 <style scoped>
+:root {
+  --vk-text-primary: #222;
+  --vk-text-secondary: #666;
+  --vk-card-bg: #fff;
+  --vk-shadow-color: rgba(0, 0, 0, 0.05);
+  --vk-shadow-hover: rgba(0, 0, 0, 0.1);
+  --vk-border-color: rgba(0, 0, 0, 0.05);
+  --vk-border-hover: rgba(0, 0, 0, 0.1);
+  --vk-icon-text: rgba(0, 0, 0, 0.75);
+  --vk-primary: #4f46e5;
+  --vk-hover-bg: #f5f5f5;
+  --vk-tag-bg: rgba(79, 70, 229, 0.1);
+}
+
+.dark {
+  --vk-text-primary: #e0e0e0;
+  --vk-text-secondary: #a0a0a0;
+  --vk-card-bg: #2a2a2a;
+  --vk-shadow-color: rgba(0, 0, 0, 0.2);
+  --vk-shadow-hover: rgba(0, 0, 0, 0.3);
+  --vk-border-color: rgba(255, 255, 255, 0.08);
+  --vk-border-hover: rgba(255, 255, 255, 0.15);
+  --vk-icon-text: rgba(255, 255, 255, 0.85);
+  --vk-hover-bg: #333;
+  --vk-tag-bg: rgba(79, 70, 229, 0.2);
+}
 .component-overview {
   padding: 32px;
   max-width: 1200px;
@@ -529,6 +555,10 @@ const filteredComponents = computed(() => {
   box-shadow: 0 2px 8px var(--vk-shadow-color, rgba(0, 0, 0, 0.05));
   border: 1px solid var(--vk-border-color, rgba(0, 0, 0, 0.05));
   transition: all 0.2s ease;
+  .dark & {
+    background-color: var(--vk-card-bg, #2a2a2a);
+    border-color: var(--vk-border-color, rgba(255, 255, 255, 0.08));
+  }
 }
 
 .stats-card:hover {
@@ -595,6 +625,11 @@ const filteredComponents = computed(() => {
   border: 1px solid var(--vk-border-color, rgba(0, 0, 0, 0.1));
   cursor: pointer;
   transition: all 0.2s ease;
+  .dark & {
+    color: whitesmoke;
+    background-color: var(--vk-card-bg, #2a2a2a);
+    border-color: var(--vk-border-color, rgba(255, 255, 255, 0.08));
+  }
 }
 
 .filter-button:hover {
@@ -711,32 +746,5 @@ const filteredComponents = computed(() => {
   .component-grid {
     grid-template-columns: 1fr;
   }
-}
-
-:root {
-  --vk-text-primary: #222;
-  --vk-text-secondary: #666;
-  --vk-card-bg: #fff;
-  --vk-shadow-color: rgba(0, 0, 0, 0.05);
-  --vk-shadow-hover: rgba(0, 0, 0, 0.1);
-  --vk-border-color: rgba(0, 0, 0, 0.05);
-  --vk-border-hover: rgba(0, 0, 0, 0.1);
-  --vk-icon-text: rgba(0, 0, 0, 0.75);
-  --vk-primary: #4f46e5;
-  --vk-hover-bg: #f5f5f5;
-  --vk-tag-bg: rgba(79, 70, 229, 0.1);
-}
-
-.dark {
-  --vk-text-primary: #e0e0e0;
-  --vk-text-secondary: #a0a0a0;
-  --vk-card-bg: #2a2a2a;
-  --vk-shadow-color: rgba(0, 0, 0, 0.2);
-  --vk-shadow-hover: rgba(0, 0, 0, 0.3);
-  --vk-border-color: rgba(255, 255, 255, 0.08);
-  --vk-border-hover: rgba(255, 255, 255, 0.15);
-  --vk-icon-text: rgba(255, 255, 255, 0.85);
-  --vk-hover-bg: #333;
-  --vk-tag-bg: rgba(79, 70, 229, 0.2);
 }
 </style>

@@ -21,16 +21,16 @@ import { Splitter } from '@versakit/vue'
 ```vue
 <template>
 	<Splitter>
-		<template #panel-0>
+		<SplitterItem>
 			<div class="h-40 flex items-center justify-center bg-gray-100">
 				面板 1
 			</div>
-		</template>
-		<template #panel-1>
+		</SplitterItem>
+		<SplitterItem>
 			<div class="h-40 flex items-center justify-center bg-gray-200">
 				面板 2
 			</div>
-		</template>
+		</SplitterItem>
 	</Splitter>
 </template>
 ```

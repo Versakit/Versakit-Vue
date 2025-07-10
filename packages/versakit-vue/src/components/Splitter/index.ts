@@ -1,11 +1,11 @@
 import { withInstall } from '@versakit/shared'
-import SplitterComponent from './src/splitter.vue'
-import SplitterItemComponent from './src/splitter-item.vue'
+import _Splitter from './src/index.vue'
+import _SplitterPane from './src/splitter-pane.vue'
 
-export const Splitter = withInstall(SplitterComponent, {
-  SplitterItem: SplitterItemComponent,
+export const Splitter = withInstall(_Splitter, {
+  SplitterPane: _SplitterPane,
 })
 
-export const SplitterItem = Splitter.SplitterItem
+export const SplitterPane = Splitter.SplitterPane
 
 export * from './src/type'
