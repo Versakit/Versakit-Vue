@@ -1,111 +1,143 @@
-/**
- * Splitter组件的布局方向
- */
-export type SplitterLayout = 'horizontal' | 'vertical'
+export type SplitterDirection = 'horizontal' | 'vertical'
+export type SplitterSize = 'sm' | 'md' | 'lg'
 
-/**
- * Splitter组件属性
- */
-export type SplitterProps = {
+export interface SplitterPanelSize {
   /**
-   * 布局方向，水平或垂直
-   * @default 'horizontal'
+   * 面板的大小，可以是像素值或百分比
    */
-  layout?: SplitterLayout
+  size?: string
 
   /**
-   * 分隔条大小（像素）
-   * @default 4
+   * 最小大小，可以是像素值或百分比
    */
-  gutterSize?: number
+  minSize?: string
 
   /**
-   * 面板最小尺寸，可以是单个数值或数组（百分比）
-   * @default 10
+   * 最大大小，可以是像素值或百分比
    */
-  minSize?: number | number[]
+  maxSize?: string
 
   /**
-   * 是否允许折叠面板
-   * @default false
+   * 是否可调整大小
+   */
+  resizable?: boolean
+
+  /**
+   * 是否可折叠
    */
   collapsible?: boolean
 
   /**
-   * 初始折叠的面板索引
+   * 是否已折叠
    */
-  initialCollapsed?: number[]
+  collapsed?: boolean
 
   /**
-   * 是否保存面板状态到本地存储
+   * 保存折叠前的尺寸（内部使用）
+   * @internal
+   */
+  _savedSize?: string
+}
+
+export type SplitterProps = {
+  /**
+   * 分割方向
+   * @default 'horizontal'
+   */
+  direction?: SplitterDirection
+
+  /**
+   * 分割条大小
+   * @default 'md'
+   */
+  size?: SplitterSize
+
+  /**
+   * 面板初始大小配置
+   */
+  panels?: SplitterPanelSize[]
+
+  /**
+   * 分割条是否为实线
    * @default false
    */
-  stateful?: boolean
+  solid?: boolean
 
   /**
-   * 本地存储的键名
-   * @default 'splitter-state'
+   * 分割条是否可以拖动
+   * @default true
    */
-  stateKey?: string
+  resizable?: boolean
 
   /**
-   * 是否禁用默认样式
+   * 分割条是否为点状线
+   * @default false
+   */
+  dotted?: boolean
+
+  /**
+   * 分割条是否为虚线
+   * @default false
+   */
+  dashed?: boolean
+
+  /**
+   * 鼠标悬停时是否显示分割条指示器
+   * @default true
+   */
+  showIndicator?: boolean
+
+  /**
+   * 是否无样式
    * @default false
    */
   unstyled?: boolean
 
   /**
-   * 样式传递对象
+   * 自定义样式
    */
   pt?: SplitterPT
 }
 
-/**
- * Splitter组件样式传递类型
- */
 export type SplitterPT = {
-  /**
-   * 根元素样式
-   */
   root?: string
-
-  /**
-   * 分隔条样式
-   */
+  wrapper?: string
+  panel?: string
   gutter?: string
-
-  /**
-   * 分隔条手柄样式
-   */
-  gutterHandler?: string
-
-  /**
-   * 折叠按钮样式
-   */
-  collapseButton?: string
+  gutterHandle?: string
+  gutterIcon?: string
 }
 
-/**
- * SplitterPane组件属性
- */
-export type SplitterPaneProps = {
+export const SplitterEmits = {
+  'update:panels': (panels: SplitterPanelSize[]) => Array.isArray(panels),
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  'resize-start': (event: MouseEvent | TouchEvent) => true,
+  resize: (sizes: SplitterPanelSize[]) => Array.isArray(sizes),
+  'resize-end': (sizes: SplitterPanelSize[]) => Array.isArray(sizes),
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  collapse: (index: number, collapsed: boolean) => true,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  expand: (index: number, collapsed: boolean) => true,
+}
+
+export type SplitterPanelProps = {
   /**
-   * 面板初始尺寸（百分比）
-   * @default 0
+   * 面板大小
+   * @default '1fr'
    */
-  size?: number
+  size?: string
 
   /**
-   * 面板最小尺寸（百分比）
-   * @default 10
+   * 最小大小
+   * @default '0'
    */
-  minSize?: number
+  minSize?: string
 
   /**
-   * 面板最大尺寸（百分比）
-   * @default 100
+   * 最大大小
+   * @default '1fr'
    */
-  maxSize?: number
+  maxSize?: string
 
   /**
    * 是否可调整大小
@@ -120,67 +152,29 @@ export type SplitterPaneProps = {
   collapsible?: boolean
 
   /**
-   * 折叠后的尺寸（像素）
-   * @default 36
+   * 是否已折叠
+   * @default false
    */
-  collapsedSize?: number
+  collapsed?: boolean
 
   /**
-   * 是否禁用默认样式
+   * 是否无样式
    * @default false
    */
   unstyled?: boolean
 
   /**
-   * 样式传递对象
+   * 自定义样式
    */
-  pt?: SplitterPanePT
+  pt?: SplitterPanelPT
 }
 
-/**
- * SplitterPane组件样式传递类型
- */
-export type SplitterPanePT = {
-  /**
-   * 根元素样式
-   */
+export type SplitterPanelPT = {
   root?: string
-
-  /**
-   * 折叠状态样式
-   */
-  collapsed?: string
+  content?: string
 }
 
-/**
- * Splitter组件事件
- */
-export const SplitterEmits = {
-  /**
-   * 调整大小时触发
-   */
-  resize: (sizes: number[]) => Array.isArray(sizes),
-
-  /**
-   * 开始调整大小时触发
-   */
-  resizeStart: (e: MouseEvent | TouchEvent) =>
-    e instanceof MouseEvent || e instanceof TouchEvent,
-
-  /**
-   * 结束调整大小时触发
-   */
-  resizeEnd: (sizes: number[]) => Array.isArray(sizes),
-
-  /**
-   * 面板折叠时触发
-   */
-  collapse: (index: number) => typeof index === 'number',
-
-  /**
-   * 面板展开时触发
-   */
-  expand: (index: number) => typeof index === 'number',
+export const SplitterPanelEmits = {
+  'update:size': (size: string) => typeof size === 'string',
+  'update:collapsed': (collapsed: boolean) => typeof collapsed === 'boolean',
 }
-
-export type ISplitterEmits = typeof SplitterEmits

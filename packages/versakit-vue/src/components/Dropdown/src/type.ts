@@ -12,60 +12,49 @@ export type DropdownPlacement =
   | 'right'
   | 'right-start'
   | 'right-end'
+export type DropdownSize = 'sm' | 'md' | 'lg'
 
-export type DropdownOption = {
+export interface DropdownOption {
   /**
    * 选项值
    */
-  value: string | number | boolean | object
-  /**
-   * 选项标签
-   */
-  label: string
-  /**
-   * 是否禁用
-   */
-  disabled?: boolean
-  /**
-   * 自定义图标
-   */
-  icon?: string
-  /**
-   * 是否是分割线
-   */
-  divider?: boolean
-  /**
-   * 子选项
-   */
-  children?: DropdownOption[]
-}
+  value?: string | number
 
-export type DropdownItemProps = {
-  /**
-   * 选项值
-   */
-  value?: any
   /**
    * 选项标签
    */
   label?: string
+
+  /**
+   * 图标
+   */
+  icon?: string
+
   /**
    * 是否禁用
    */
   disabled?: boolean
+
   /**
-   * 自定义图标
-   */
-  icon?: string
-  /**
-   * 是否是分割线
+   * 是否为分割线
    */
   divider?: boolean
+
+  /**
+   * 自定义数据
+   */
+  [key: string]: any
 }
 
 export type DropdownProps = {
   /**
-   * 选项数据
+   * 是否显示下拉菜单
+   * @default false
+   */
+  visible?: boolean
+
+  /**
+   * 选项列表
    */
   options?: DropdownOption[]
 
@@ -77,7 +66,7 @@ export type DropdownProps = {
 
   /**
    * 下拉菜单位置
-   * @default 'bottom-start'
+   * @default 'bottom'
    */
   placement?: DropdownPlacement
 
@@ -88,41 +77,53 @@ export type DropdownProps = {
   disabled?: boolean
 
   /**
-   * 是否显示
+   * 尺寸
+   * @default 'md'
    */
-  visible?: boolean
+  size?: DropdownSize
 
   /**
-   * 最大宽度
-   */
-  maxWidth?: string | number
-
-  /**
-   * 最小宽度，默认为触发元素宽度
-   */
-  minWidth?: string | number
-
-  /**
-   * 显示箭头
+   * 是否有箭头
    * @default false
    */
   arrow?: boolean
 
   /**
-   * 是否使用无样式模式
+   * 显示延迟，仅在trigger为hover时有效
+   * @default 100
+   */
+  showDelay?: number
+
+  /**
+   * 隐藏延迟，仅在trigger为hover时有效
+   * @default 100
+   */
+  hideDelay?: number
+
+  /**
+   * 是否点击外部关闭
+   * @default true
+   */
+  closeOnClickOutside?: boolean
+
+  /**
+   * 是否点击菜单项后关闭
+   * @default true
+   */
+  closeOnSelect?: boolean
+
+  /**
+   * 是否无样式
    * @default false
    */
   unstyled?: boolean
 
   /**
-   * 传递模板样式
+   * 自定义样式
    */
   pt?: DropdownPT
 }
 
-/**
- * Dropdown组件模板样式类型
- */
 export type DropdownPT = {
   root?: string
   trigger?: string
@@ -130,32 +131,87 @@ export type DropdownPT = {
   arrow?: string
   menu?: string
   menuItem?: string
+  menuItemSelected?: string
+  menuItemActive?: string
+  menuItemDisabled?: string
   menuItemIcon?: string
-  menuItemLabel?: string
   menuDivider?: string
 }
 
 export const DropdownEmits = {
   'update:visible': (visible: boolean) => typeof visible === 'boolean',
-  select: (value: any) => value !== undefined,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  select: (_value: string | number, _event: MouseEvent) => true,
+  show: () => true,
+  hide: () => true,
 }
 
-export type DropdownEmitsType = typeof DropdownEmits
+export type DropdownItemProps = {
+  /**
+   * 选项值
+   */
+  value?: string | number
 
-/**
- * 下拉菜单注入的上下文类型
- */
-export type DropdownContext = {
   /**
-   * 选项点击处理函数
+   * 选项标签
    */
-  onItemClick: (value: any) => void
+  label?: string
+
   /**
-   * 是否使用无样式模式
+   * 是否禁用
+   * @default false
    */
-  unstyled: boolean
+  disabled?: boolean
+
   /**
-   * 传递模板样式
+   * 是否高亮
+   * @default false
    */
-  pt: Record<string, string>
+  active?: boolean
+
+  /**
+   * 图标
+   */
+  icon?: string
+
+  /**
+   * 是否为分割线
+   * @default false
+   */
+  divider?: boolean
+
+  /**
+   * 是否无样式
+   * @default false
+   */
+  unstyled?: boolean
+
+  /**
+   * 自定义样式
+   */
+  pt?: DropdownItemPT
+}
+
+export type DropdownItemPT = {
+  root?: string
+  icon?: string
+}
+
+export const DropdownItemEmits = {
+  click: (event: MouseEvent) => event instanceof MouseEvent,
+}
+
+export type DropdownDividerProps = {
+  /**
+   * 是否无样式
+   * @default false
+   */
+  unstyled?: boolean
+
+  /**
+   * 自定义样式
+   */
+  pt?: {
+    root?: string
+  }
 }

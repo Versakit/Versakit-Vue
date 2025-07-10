@@ -1,107 +1,107 @@
 import { tv } from 'tailwind-variants'
 
-/**
- * Splitter组件样式
- */
 export const splitterStyle = tv({
-  base: 'flex relative',
+  slots: {
+    root: 'relative w-full h-full flex',
+    wrapper: 'flex flex-grow',
+    panel: 'flex flex-grow overflow-auto',
+    gutter: [
+      'flex items-center justify-center',
+      'bg-gray-100 dark:bg-gray-700',
+      'transition-colors duration-200',
+      'hover:bg-gray-200 dark:hover:bg-gray-600',
+      'focus:outline-none focus:ring-2 focus:ring-blue-500 focus-visible:z-10',
+    ],
+    gutterHandle: [
+      'flex items-center justify-center',
+      'w-full h-full',
+      'cursor-col-resize',
+    ],
+    gutterIcon: ['flex-shrink-0', 'text-gray-400 dark:text-gray-500'],
+  },
   variants: {
-    layout: {
-      horizontal: 'flex-row',
-      vertical: 'flex-col h-full',
+    direction: {
+      horizontal: {
+        root: 'flex-row',
+        gutter: 'w-1 cursor-col-resize',
+      },
+      vertical: {
+        root: 'flex-col',
+        gutter: 'h-1 cursor-row-resize',
+      },
     },
-  },
-  defaultVariants: {
-    layout: 'horizontal',
-  },
-})
-
-/**
- * Splitter分隔条样式
- */
-export const splitterGutterStyle = tv({
-  base: 'flex items-center justify-center shrink-0 transition-colors duration-200 touch-none',
-  variants: {
-    layout: {
-      horizontal: 'cursor-col-resize',
-      vertical: 'cursor-row-resize',
+    size: {
+      sm: {
+        gutter: 'horizontal:w-0.5 vertical:h-0.5',
+      },
+      md: {
+        gutter: 'horizontal:w-1 vertical:h-1',
+      },
+      lg: {
+        gutter: 'horizontal:w-2 vertical:h-2',
+      },
     },
-  },
-  defaultVariants: {
-    layout: 'horizontal',
-  },
-})
-
-/**
- * Splitter分隔条手柄样式
- */
-export const splitterGutterHandlerStyle = tv({
-  base: 'bg-gray-300 rounded transition-transform duration-200 dark:bg-gray-600',
-  variants: {
-    layout: {
-      horizontal: 'h-8 w-1',
-      vertical: 'w-8 h-1',
+    solid: {
+      true: {
+        gutter:
+          'bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500',
+      },
     },
-  },
-  defaultVariants: {
-    layout: 'horizontal',
-  },
-})
-
-/**
- * Splitter折叠按钮样式
- */
-export const splitterCollapseButtonStyle = tv({
-  base: 'absolute bg-gray-100 hover:bg-gray-200 rounded-full flex items-center justify-center cursor-pointer z-10 text-gray-500 hover:text-gray-700 transition-colors duration-200 dark:bg-gray-700 dark:hover:bg-gray-600 dark:text-gray-400 dark:hover:text-gray-300',
-  variants: {
-    layout: {
-      horizontal: 'w-5 h-5 top-2',
-      vertical: 'h-5 w-5 left-2',
+    dotted: {
+      true: {
+        gutter:
+          'border-dotted border-gray-300 dark:border-gray-600 bg-transparent',
+      },
     },
-    position: {
-      before: '',
-      after: '',
+    dashed: {
+      true: {
+        gutter:
+          'border-dashed border-gray-300 dark:border-gray-600 bg-transparent',
+      },
+    },
+    disabled: {
+      true: {
+        gutter: 'cursor-default opacity-50',
+        gutterHandle: 'cursor-default',
+      },
     },
   },
   compoundVariants: [
     {
-      layout: 'horizontal',
-      position: 'before',
-      class: 'left-[-10px]',
+      direction: 'horizontal',
+      dotted: true,
+      class: {
+        gutter: 'border-l border-r',
+      },
     },
     {
-      layout: 'horizontal',
-      position: 'after',
-      class: 'right-[-10px]',
+      direction: 'vertical',
+      dotted: true,
+      class: {
+        gutter: 'border-t border-b',
+      },
     },
     {
-      layout: 'vertical',
-      position: 'before',
-      class: 'top-[-10px]',
+      direction: 'horizontal',
+      dashed: true,
+      class: {
+        gutter: 'border-l border-r',
+      },
     },
     {
-      layout: 'vertical',
-      position: 'after',
-      class: 'bottom-[-10px]',
+      direction: 'vertical',
+      dashed: true,
+      class: {
+        gutter: 'border-t border-b',
+      },
     },
   ],
   defaultVariants: {
-    layout: 'horizontal',
-    position: 'before',
-  },
-})
-
-/**
- * SplitterPane组件样式
- */
-export const splitterPaneStyle = tv({
-  base: 'overflow-hidden transition-all duration-300 ease-in-out',
-  variants: {
-    collapsed: {
-      true: 'opacity-70',
-    },
-  },
-  defaultVariants: {
-    collapsed: false,
+    direction: 'horizontal',
+    size: 'md',
+    solid: false,
+    dotted: false,
+    dashed: false,
+    disabled: false,
   },
 })

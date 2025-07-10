@@ -1,396 +1,389 @@
-import { onBeforeUnmount, onMounted, ref, type Ref, watch, inject } from 'vue'
-import type { SplitterLayout, SplitterProps } from './type'
+import {
+  type SetupContext,
+  ref,
+  reactive,
+  onMounted,
+  onBeforeUnmount,
+  computed,
+} from 'vue'
+import type { SplitterProps, SplitterPanelSize } from './type'
 
-interface PaneConfig {
-  size: number
-  minSize: number
-  maxSize: number
-  resizable: boolean
-  collapsible: boolean
-  collapsedSize: number
-}
+export const useSplitter = (
+  props: SplitterProps,
+  emit: SetupContext<{
+    'update:panels': [SplitterPanelSize[]]
+    'resize-start': [MouseEvent | TouchEvent]
+    resize: [SplitterPanelSize[]]
+    'resize-end': [SplitterPanelSize[]]
+    collapse: [number, boolean]
+    expand: [number, boolean]
+  }>['emit'],
+) => {
+  const rootRef = ref<HTMLElement | null>(null)
+  const panelRefs = ref<HTMLElement[]>([])
+  const gutterRefs = ref<HTMLElement[]>([])
 
-interface SplitterContext {
-  layout: SplitterLayout
-  registerPane: (config: PaneConfig) => number
-  getPaneSize: (index: number) => number | undefined
-  togglePaneCollapse: (index: number) => void
-  collapsedPanes: Ref<Set<number>>
-}
+  const isResizing = ref(false)
+  const startPos = ref(0)
+  const currentGutterIndex = ref(-1)
 
-// 定义一个兼容的emit接口
-interface EmitWrapper {
-  resize: (sizes: number[]) => void
-  resizeStart: (e: MouseEvent | TouchEvent) => void
-  resizeEnd: (sizes: number[]) => void
-  collapse: (index: number) => void
-  expand: (index: number) => void
-}
+  // 保存面板状态
+  const panelSizes = reactive<SplitterPanelSize[]>(props.panels || [])
 
-/**
- * Splitter组件的逻辑
- */
-export function useSplitter(props: SplitterProps, emit: any) {
-  // 创建一个兼容的emit包装器
-  const emitWrapper: EmitWrapper = {
-    resize: (sizes) => emit('resize', sizes),
-    resizeStart: (e) => emit('resizeStart', e),
-    resizeEnd: (sizes) => emit('resizeEnd', sizes),
-    collapse: (index) => emit('collapse', index),
-    expand: (index) => emit('expand', index),
+  // 计算是否为水平方向
+  const isHorizontal = computed(() => props.direction !== 'vertical')
+
+  // 注册面板
+  const registerPanel = (el: HTMLElement, index: number) => {
+    panelRefs.value[index] = el
   }
 
-  const _ref = ref<HTMLElement | null>(null)
-  const paneRefs = ref<HTMLElement[]>([])
-  const paneSizes = ref<number[]>([])
-  const paneConfigs = ref<PaneConfig[]>([])
-  const paneCount = ref(0)
-  const isDragging = ref(false)
-  const dragIndex = ref(-1)
-  const startPos = ref(0)
-  const startSizes = ref<number[]>([])
-  const collapsedPanes = ref<Set<number>>(new Set())
+  // 注册分割条
+  const registerGutter = (el: HTMLElement, index: number) => {
+    gutterRefs.value[index] = el
+  }
 
-  // 监听窗口变化
-  onMounted(() => {
-    window.addEventListener('resize', handleResize)
-    window.addEventListener('mouseup', onGutterMouseUp)
-    window.addEventListener('touchend', onGutterMouseUp)
-    window.addEventListener('touchcancel', onGutterMouseUp)
-    window.addEventListener('mousemove', onGutterMouseMove)
-    window.addEventListener('touchmove', onGutterMouseMove)
+  // 初始化面板大小
+  const initPanelSizes = () => {
+    if (!rootRef.value || panelRefs.value.length === 0) return
 
-    // 如果有initialCollapsed，设置初始折叠状态
-    if (props.initialCollapsed && props.initialCollapsed.length) {
-      props.initialCollapsed.forEach((index) => {
-        if (index >= 0 && index < paneCount.value) {
-          collapsedPanes.value.add(index)
-        }
+    const containerSize = isHorizontal.value
+      ? rootRef.value.clientWidth
+      : rootRef.value.clientHeight
+
+    // 如果没有配置面板大小，则均分空间
+    if (!props.panels || props.panels.length === 0) {
+      const equalSize = `${100 / panelRefs.value.length}%`
+      panelRefs.value.forEach((_, i) => {
+        panelSizes[i] = panelSizes[i] || {}
+        panelSizes[i].size = equalSize
+        panelSizes[i].resizable = panelSizes[i].resizable !== false
       })
+
+      return
     }
-  })
 
-  onBeforeUnmount(() => {
-    window.removeEventListener('resize', handleResize)
-    window.removeEventListener('mouseup', onGutterMouseUp)
-    window.removeEventListener('touchend', onGutterMouseUp)
-    window.removeEventListener('touchcancel', onGutterMouseUp)
-    window.removeEventListener('mousemove', onGutterMouseMove)
-    window.removeEventListener('touchmove', onGutterMouseMove)
+    // 否则使用配置的大小
+    props.panels.forEach((panel: SplitterPanelSize, i: number) => {
+      if (i < panelRefs.value.length) {
+        panelSizes[i] = { ...panel }
 
-    // 保存状态
-    if (props.stateful) {
-      savePaneState()
-    }
-  })
-
-  // 重置尺寸
-  const resetSizes = () => {
-    let unassignedPercentage = 100
-    let assignedPanels = 0
-
-    // 首先设置有明确尺寸的面板
-    paneConfigs.value.forEach((config, idx) => {
-      if (config.size > 0) {
-        paneSizes.value[idx] = config.size
-        unassignedPercentage -= config.size
-        assignedPanels++
+        // 将百分比转换为像素
+        if (panel.size && panel.size.endsWith('%')) {
+          const percent = parseFloat(panel.size) / 100
+          const pixelSize = Math.floor(containerSize * percent)
+          panelRefs.value[i].style[isHorizontal.value ? 'width' : 'height'] =
+            `${pixelSize}px`
+        } else if (panel.size) {
+          panelRefs.value[i].style[isHorizontal.value ? 'width' : 'height'] =
+            panel.size
+        }
       }
     })
 
-    // 然后为剩余面板均分剩余空间
-    if (unassignedPercentage > 0 && paneCount.value - assignedPanels > 0) {
-      const defaultSize =
-        unassignedPercentage / (paneCount.value - assignedPanels)
-      paneConfigs.value.forEach((_, idx) => {
-        if (!paneSizes.value[idx]) {
-          paneSizes.value[idx] = defaultSize
-        }
-      })
-    }
-
-    emitWrapper.resize([...paneSizes.value])
+    // 更新面板大小
+    emit('update:panels', [...panelSizes])
   }
 
-  // 添加面板
-  const registerPane = (config: PaneConfig) => {
-    const index = paneCount.value
-    paneCount.value++
-    paneConfigs.value.push(config)
+  // 开始拖动
+  const onGutterMouseDown = (
+    event: MouseEvent | TouchEvent,
+    gutterIndex: number,
+  ) => {
+    if (!props.resizable) return
 
-    if (paneSizes.value.length < paneCount.value) {
-      paneSizes.value.push(0) // 添加一个占位尺寸，稍后会在resetSizes中计算
+    // 检查相邻面板是否可调整大小
+    const leftPanelIndex = gutterIndex
+    const rightPanelIndex = gutterIndex + 1
+
+    const leftPanelResizable = panelSizes[leftPanelIndex]?.resizable !== false
+    const rightPanelResizable = panelSizes[rightPanelIndex]?.resizable !== false
+
+    if (!leftPanelResizable && !rightPanelResizable) return
+
+    event.preventDefault()
+    isResizing.value = true
+    currentGutterIndex.value = gutterIndex
+
+    // 记录起始位置
+    if (event instanceof MouseEvent) {
+      startPos.value = isHorizontal.value ? event.clientX : event.clientY
+    } else {
+      const touch = event.touches[0]
+      startPos.value = isHorizontal.value ? touch.clientX : touch.clientY
     }
 
-    // 当所有面板都注册完成后重新计算尺寸
-    if (paneCount.value === paneConfigs.value.length) {
-      resetSizes()
-    }
+    // 添加事件监听
+    window.addEventListener('mousemove', onMouseMove)
+    window.addEventListener('mouseup', onMouseUp)
+    window.addEventListener('touchmove', onTouchMove)
+    window.addEventListener('touchend', onTouchEnd)
 
-    return index
+    // 发出开始调整大小事件
+    emit('resize-start', event)
   }
 
-  // 获取面板尺寸
-  const getPaneSize = (index: number) => {
-    if (index >= 0 && index < paneSizes.value.length) {
-      // 如果面板已折叠，返回0
-      if (collapsedPanes.value.has(index)) {
-        return 0
-      }
-      return paneSizes.value[index]
-    }
-    return undefined
+  // 处理鼠标移动
+  const onMouseMove = (event: MouseEvent) => {
+    if (!isResizing.value) return
+    handleMove(isHorizontal.value ? event.clientX : event.clientY)
   }
 
-  // 切换面板折叠状态
-  const togglePaneCollapse = (index: number) => {
+  // 处理触摸移动
+  const onTouchMove = (event: TouchEvent) => {
+    if (!isResizing.value) return
+    const touch = event.touches[0]
+    handleMove(isHorizontal.value ? touch.clientX : touch.clientY)
+  }
+
+  // 处理移动逻辑
+  const handleMove = (currentPos: number) => {
+    if (!isResizing.value || !rootRef.value) return
+
+    const index = currentGutterIndex.value
+    const leftPanelIndex = index
+    const rightPanelIndex = index + 1
+
     if (
-      index >= 0 &&
-      index < paneCount.value &&
-      paneConfigs.value[index].collapsible
-    ) {
-      if (collapsedPanes.value.has(index)) {
-        collapsedPanes.value.delete(index)
-        emitWrapper.expand(index)
-
-        resetSizes()
-      } else {
-        collapsedPanes.value.add(index)
-        emitWrapper.collapse(index)
-
-        // 重新分配其他面板的尺寸
-        const collapsedSize = paneSizes.value[index]
-        const remainingPanes = paneCount.value - collapsedPanes.value.size
-
-        if (remainingPanes > 0) {
-          const extraSizePerPane = collapsedSize / remainingPanes
-          paneSizes.value = paneSizes.value.map((size, idx) => {
-            if (collapsedPanes.value.has(idx)) {
-              return 0
-            } else {
-              return size + extraSizePerPane
-            }
-          })
-        }
-      }
-
-      if (props.stateful) {
-        savePaneState()
-      }
-
-      emitWrapper.resize([...paneSizes.value])
-    }
-  }
-
-  // 开始拖动分隔条
-  const onGutterMouseDown = (e: MouseEvent | TouchEvent, index: number) => {
-    e.preventDefault()
-
-    // 如果面板不可调整大小，直接返回
-    if (
-      !paneConfigs.value[index].resizable ||
-      !paneConfigs.value[index + 1].resizable
+      leftPanelIndex < 0 ||
+      rightPanelIndex >= panelRefs.value.length ||
+      !panelRefs.value[leftPanelIndex] ||
+      !panelRefs.value[rightPanelIndex]
     ) {
       return
     }
 
-    isDragging.value = true
-    dragIndex.value = index
+    const leftPanel = panelRefs.value[leftPanelIndex]
+    const rightPanel = panelRefs.value[rightPanelIndex]
 
-    const pos = getMousePosition(e)
-    startPos.value = pos
-    startSizes.value = [...paneSizes.value]
+    // 计算移动距离
+    const delta = currentPos - startPos.value
+    if (delta === 0) return
 
-    emitWrapper.resizeStart(e)
-  }
+    // 获取当前尺寸
+    const leftPanelSize = isHorizontal.value
+      ? leftPanel.offsetWidth
+      : leftPanel.offsetHeight
+    const rightPanelSize = isHorizontal.value
+      ? rightPanel.offsetWidth
+      : rightPanel.offsetHeight
 
-  // 拖动分隔条
-  const onGutterMouseMove = (e: MouseEvent | TouchEvent) => {
-    if (!isDragging.value) return
+    // 检查最小尺寸限制
+    const leftMinSize = panelSizes[leftPanelIndex]?.minSize
+      ? parseSizeToPixel(
+          panelSizes[leftPanelIndex].minSize as string,
+          rootRef.value,
+          isHorizontal.value,
+        )
+      : 0
 
-    const isHorizontal = props.layout === 'horizontal'
-    const containerSize = isHorizontal
-      ? _ref.value?.clientWidth || 0
-      : _ref.value?.clientHeight || 0
+    const rightMinSize = panelSizes[rightPanelIndex]?.minSize
+      ? parseSizeToPixel(
+          panelSizes[rightPanelIndex].minSize as string,
+          rootRef.value,
+          isHorizontal.value,
+        )
+      : 0
 
-    const pos = getMousePosition(e)
-    const delta = pos - startPos.value
-    const deltaPercentage = (delta / containerSize) * 100
+    // 检查最大尺寸限制
+    const leftMaxSize = panelSizes[leftPanelIndex]?.maxSize
+      ? parseSizeToPixel(
+          panelSizes[leftPanelIndex].maxSize as string,
+          rootRef.value,
+          isHorizontal.value,
+        )
+      : Infinity
 
-    // 计算新的尺寸
-    const newSizes = [...startSizes.value]
-    const minSize1 = getMinSize(dragIndex.value)
-    const minSize2 = getMinSize(dragIndex.value + 1)
+    const rightMaxSize = panelSizes[rightPanelIndex]?.maxSize
+      ? parseSizeToPixel(
+          panelSizes[rightPanelIndex].maxSize as string,
+          rootRef.value,
+          isHorizontal.value,
+        )
+      : Infinity
 
-    let size1 = newSizes[dragIndex.value] + deltaPercentage
-    let size2 = newSizes[dragIndex.value + 1] - deltaPercentage
+    // 计算新尺寸
+    let newLeftPanelSize = leftPanelSize + delta
+    let newRightPanelSize = rightPanelSize - delta
 
-    // 确保尺寸不小于最小尺寸
-    if (size1 < minSize1) {
-      size1 = minSize1
-      size2 =
-        newSizes[dragIndex.value] + newSizes[dragIndex.value + 1] - minSize1
+    // 应用限制
+    if (newLeftPanelSize < leftMinSize) {
+      newLeftPanelSize = leftMinSize
+      newRightPanelSize = leftPanelSize + rightPanelSize - leftMinSize
+    } else if (newLeftPanelSize > leftMaxSize) {
+      newLeftPanelSize = leftMaxSize
+      newRightPanelSize = leftPanelSize + rightPanelSize - leftMaxSize
     }
 
-    if (size2 < minSize2) {
-      size2 = minSize2
-      size1 =
-        newSizes[dragIndex.value] + newSizes[dragIndex.value + 1] - minSize2
+    if (newRightPanelSize < rightMinSize) {
+      newRightPanelSize = rightMinSize
+      newLeftPanelSize = leftPanelSize + rightPanelSize - rightMinSize
+    } else if (newRightPanelSize > rightMaxSize) {
+      newRightPanelSize = rightMaxSize
+      newLeftPanelSize = leftPanelSize + rightPanelSize - rightMaxSize
     }
 
-    newSizes[dragIndex.value] = size1
-    newSizes[dragIndex.value + 1] = size2
-
-    // 更新尺寸
-    paneSizes.value = newSizes
-    emitWrapper.resize([...paneSizes.value])
-  }
-
-  // 结束拖动分隔条
-  const onGutterMouseUp = () => {
-    if (!isDragging.value) return
-
-    isDragging.value = false
-    dragIndex.value = -1
-
-    // 如果启用了本地存储，保存当前状态
-    if (props.stateful) {
-      savePaneState()
-    }
-
-    emitWrapper.resizeEnd([...paneSizes.value])
-  }
-
-  // 处理窗口大小变化
-  const handleResize = () => {
-    // 重新调整所有面板的比例
-    resetSizes()
-  }
-
-  // 获取鼠标位置
-  const getMousePosition = (e: MouseEvent | TouchEvent) => {
-    const isHorizontal = props.layout === 'horizontal'
-
-    if (e instanceof MouseEvent) {
-      return isHorizontal ? e.clientX : e.clientY
+    // 更新面板大小
+    if (isHorizontal.value) {
+      leftPanel.style.width = `${newLeftPanelSize}px`
+      rightPanel.style.width = `${newRightPanelSize}px`
     } else {
-      return isHorizontal ? e.touches[0].clientX : e.touches[0].clientY
+      leftPanel.style.height = `${newLeftPanelSize}px`
+      rightPanel.style.height = `${newRightPanelSize}px`
     }
+
+    // 更新状态
+    panelSizes[leftPanelIndex] = {
+      ...panelSizes[leftPanelIndex],
+      size: `${newLeftPanelSize}px`,
+    }
+
+    panelSizes[rightPanelIndex] = {
+      ...panelSizes[rightPanelIndex],
+      size: `${newRightPanelSize}px`,
+    }
+
+    // 更新起始位置
+    startPos.value = currentPos
+
+    // 发出调整大小事件
+    emit('resize', [...panelSizes])
   }
 
-  // 获取面板的最小尺寸
-  const getMinSize = (index: number) => {
-    if (typeof props.minSize === 'number') {
-      return Math.max(props.minSize, paneConfigs.value[index]?.minSize || 0)
-    } else if (
-      Array.isArray(props.minSize) &&
-      props.minSize[index] !== undefined
-    ) {
-      return Math.max(
-        props.minSize[index],
-        paneConfigs.value[index]?.minSize || 0,
+  // 结束拖动
+  const onMouseUp = () => {
+    endResize()
+  }
+
+  const onTouchEnd = () => {
+    endResize()
+  }
+
+  // 结束拖动逻辑
+  const endResize = () => {
+    if (!isResizing.value) return
+
+    isResizing.value = false
+    currentGutterIndex.value = -1
+
+    // 移除事件监听
+    window.removeEventListener('mousemove', onMouseMove)
+    window.removeEventListener('mouseup', onMouseUp)
+    window.removeEventListener('touchmove', onTouchMove)
+    window.removeEventListener('touchend', onTouchEnd)
+
+    // 发出结束调整大小事件
+    emit('resize-end', [...panelSizes])
+    emit('update:panels', [...panelSizes])
+  }
+
+  // 折叠/展开面板
+  const toggleCollapse = (index: number) => {
+    if (index < 0 || index >= panelRefs.value.length) return
+
+    const panel = panelRefs.value[index]
+    const panelSize = panelSizes[index]
+
+    if (!panelSize.collapsible) return
+
+    // 切换折叠状态
+    const newCollapsed = !panelSize.collapsed
+
+    if (newCollapsed) {
+      // 保存当前大小以便展开时恢复
+      panelSize._savedSize = panelSize.size
+
+      // 折叠面板
+      if (isHorizontal.value) {
+        panel.style.width = '0'
+      } else {
+        panel.style.height = '0'
+      }
+
+      panelSize.size = '0'
+      panelSize.collapsed = true
+
+      // 发出折叠事件
+      emit('collapse', index, true)
+    } else {
+      // 展开面板
+      const sizeToRestore = panelSize._savedSize || '1fr'
+
+      if (isHorizontal.value) {
+        panel.style.width = sizeToRestore
+      } else {
+        panel.style.height = sizeToRestore
+      }
+
+      panelSize.size = sizeToRestore
+      panelSize.collapsed = false
+
+      // 发出展开事件
+      emit('expand', index, false)
+    }
+
+    // 更新面板状态
+    emit('update:panels', [...panelSizes])
+  }
+
+  // 工具函数：将尺寸字符串解析为像素值
+  const parseSizeToPixel = (
+    size: string,
+    container: HTMLElement,
+    isHorizontal: boolean,
+  ): number => {
+    if (size.endsWith('px')) {
+      return parseFloat(size)
+    } else if (size.endsWith('%')) {
+      const containerSize = isHorizontal
+        ? container.clientWidth
+        : container.clientHeight
+      return (parseFloat(size) / 100) * containerSize
+    } else if (size.endsWith('rem')) {
+      const fontSize = parseFloat(
+        getComputedStyle(document.documentElement).fontSize,
       )
+      return parseFloat(size) * fontSize
+    } else if (size.endsWith('em')) {
+      const fontSize = parseFloat(getComputedStyle(container).fontSize)
+      return parseFloat(size) * fontSize
+    } else if (size.endsWith('vh')) {
+      return (parseFloat(size) / 100) * window.innerHeight
+    } else if (size.endsWith('vw')) {
+      return (parseFloat(size) / 100) * window.innerWidth
     }
 
-    return paneConfigs.value[index]?.minSize || 10
+    return parseFloat(size) || 0
   }
 
-  // 保存面板状态到本地存储
-  const savePaneState = () => {
-    if (
-      typeof localStorage !== 'undefined' &&
-      props.stateful &&
-      props.stateKey
-    ) {
-      const state = {
-        sizes: paneSizes.value,
-        collapsed: Array.from(collapsedPanes.value),
-      }
-      localStorage.setItem(props.stateKey, JSON.stringify(state))
-    }
-  }
+  // 初始化
+  onMounted(() => {
+    initPanelSizes()
 
-  // 从本地存储加载面板状态
-  const loadPaneState = () => {
-    if (
-      typeof localStorage !== 'undefined' &&
-      props.stateful &&
-      props.stateKey
-    ) {
-      const savedState = localStorage.getItem(props.stateKey)
-      if (savedState) {
-        try {
-          const state = JSON.parse(savedState)
+    // 监听窗口大小变化
+    window.addEventListener('resize', initPanelSizes)
+  })
 
-          // 恢复尺寸
-          if (
-            state.sizes &&
-            Array.isArray(state.sizes) &&
-            state.sizes.length === paneCount.value
-          ) {
-            paneSizes.value = state.sizes
-          }
-
-          // 恢复折叠状态
-          if (state.collapsed && Array.isArray(state.collapsed)) {
-            collapsedPanes.value = new Set(state.collapsed)
-          }
-        } catch (error) {
-          console.error('加载Splitter状态失败:', error)
-        }
-      }
-    }
-  }
+  // 清理
+  onBeforeUnmount(() => {
+    window.removeEventListener('resize', initPanelSizes)
+    window.removeEventListener('mousemove', onMouseMove)
+    window.removeEventListener('mouseup', onMouseUp)
+    window.removeEventListener('touchmove', onTouchMove)
+    window.removeEventListener('touchend', onTouchEnd)
+  })
 
   return {
-    _ref,
-    paneRefs,
-    paneSizes,
-    paneCount,
-    collapsedPanes,
-    isDragging,
-    registerPane,
-    getPaneSize,
-    togglePaneCollapse,
-    savePaneState,
-    loadPaneState,
+    rootRef,
+    panelRefs,
+    gutterRefs,
+    isResizing,
+    panelSizes,
+    isHorizontal,
+    registerPanel,
+    registerGutter,
     onGutterMouseDown,
-  }
-}
-
-/**
- * SplitterPane组件的逻辑
- */
-export function useSplitterPane() {
-  const _ref = ref<HTMLElement | null>(null)
-  const panelIndex = ref(-1)
-  const collapsed = ref(false)
-
-  // 注入来自Splitter的上下文
-  const splitterContext = inject<SplitterContext | null>(
-    'splitterContext',
-    null,
-  )
-
-  if (!splitterContext) {
-    console.warn('SplitterPane must be used within Splitter component')
-  }
-
-  // 监听折叠状态变化
-  if (splitterContext) {
-    watch(
-      () => splitterContext.collapsedPanes,
-      (newCollapsed) => {
-        collapsed.value = newCollapsed.value.has(panelIndex.value)
-      },
-      { immediate: true, deep: true },
-    )
-  }
-
-  return {
-    _ref,
-    splitterContext,
-    panelIndex,
-    collapsed,
+    toggleCollapse,
+    initPanelSizes,
   }
 }

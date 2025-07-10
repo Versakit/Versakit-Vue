@@ -32,11 +32,11 @@ import { Paginator } from './components/Paginator'
 import { Progress } from './components/Progress'
 import { Breadcrumb, BreadcrumbItem } from './components/Breadcrumb'
 import { Timeline, TimelineItem } from './components/Timeline'
-import { Splitter, SplitterPane } from './components/Splitter'
+import { Splitter, SplitterPanel } from './components/Splitter'
 import { RangeCalendar } from './components/RangeCalendar'
 import { Accordion, AccordionItem } from './components/Accordion'
 import { InputTag } from './components/InputTag'
-import { Dropdown, DropdownItem } from './components/Dropdown'
+import { Dropdown, DropdownItem, DropdownDivider } from './components/Dropdown'
 import { Carousel } from './components/Carousel'
 import { Swap } from './components/Swap'
 // 引入样式
@@ -82,13 +82,14 @@ const components: Component[] = [
   Timeline,
   TimelineItem,
   Splitter,
-  SplitterPane,
+  SplitterPanel,
   RangeCalendar,
   Accordion,
   AccordionItem,
   InputTag,
   Dropdown,
   DropdownItem,
+  DropdownDivider,
   Carousel,
   Swap,
 ]
@@ -143,13 +144,14 @@ export {
   Timeline,
   TimelineItem,
   Splitter,
-  SplitterPane,
+  SplitterPanel,
   RangeCalendar,
   Accordion,
   AccordionItem,
   InputTag,
   Dropdown,
   DropdownItem,
+  DropdownDivider,
   Carousel,
   Swap,
 }
