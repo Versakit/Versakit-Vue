@@ -72,7 +72,7 @@
             Object.keys(checkedGroup)
               .filter((key) => checkedGroup[key])
               .join(', ')
-              .replace('option', '选项 ')
+              .replaceAll('option', '选项 ')
           }}
         </div>
       </div>
