@@ -1,33 +1,66 @@
+export type CarouselVariant = 'default' | 'dots' | 'thumbnails'
+export type CarouselSize = 'sm' | 'md' | 'lg'
+
 export type CarouselProps = {
-  /** 是否自动播放 */
+  /**
+   * 轮播图变体类型
+   */
+  variant?: CarouselVariant
+  /**
+   * 轮播图尺寸
+   */
+  size?: CarouselSize
+  /**
+   * 是否自动播放
+   */
   autoplay?: boolean
-  /** 自动播放间隔(毫秒) */
+  /**
+   * 自动播放间隔时间（毫秒）
+   */
   interval?: number
-  /** 初始激活项索引 */
-  activeIndex?: number
-  /** 轮播方向，水平或垂直 */
-  direction?: 'horizontal' | 'vertical'
-  /** 是否循环播放 */
+  /**
+   * 是否循环播放
+   */
   loop?: boolean
-  /** 是否显示指示器 */
+  /**
+   * 是否显示指示器
+   */
   indicators?: boolean
-  /** 是否显示控制按钮 */
-  controls?: boolean
-  /** 过渡效果 */
-  effect?: 'slide' | 'fade'
-  /** 是否可触摸滑动 */
-  touchable?: boolean
-  /** 是否移除默认样式 */
+  /**
+   * 是否显示导航按钮
+   */
+  navigation?: boolean
+  /**
+   * 是否启用键盘导航
+   */
+  keyboardNavigation?: boolean
+  /**
+   * 是否启用触摸滑动
+   */
+  touchSwipe?: boolean
+  /**
+   * 是否禁用轮播图
+   */
+  disabled?: boolean
+  /**
+   * 初始激活的幻灯片索引
+   */
+  initialIndex?: number
+  /**
+   * 是否使用无样式模式
+   */
   unstyled?: boolean
-  /** 自定义样式 */
+  /**
+   * 自定义样式传递
+   */
   pt?: CarouselPT
 }
 
 export type CarouselPT = {
   root?: string
-  wrapper?: string
-  slide?: string
-  controls?: string
+  container?: string
+  item?: string
+  navigation?: string
   prevButton?: string
   nextButton?: string
   indicators?: string
@@ -36,8 +69,9 @@ export type CarouselPT = {
 }
 
 export const CarouselEmits = {
-  change: (index: number) => typeof index === 'number',
+  change: (currentIndex: number, prevIndex: number) =>
+    typeof currentIndex === 'number' && typeof prevIndex === 'number',
   'update:activeIndex': (index: number) => typeof index === 'number',
 }
 
-export type CarouselEmits = typeof CarouselEmits
+export type ICarouselEmits = typeof CarouselEmits

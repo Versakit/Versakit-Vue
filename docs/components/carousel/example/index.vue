@@ -5,21 +5,27 @@
       <h3 class="text-lg font-medium mb-4">基础轮播</h3>
       <div class="h-64">
         <Carousel>
-          <div
-            class="w-full h-full bg-blue-500 flex items-center justify-center text-white text-2xl"
-          >
-            幻灯片 1
-          </div>
-          <div
-            class="w-full h-full bg-green-500 flex items-center justify-center text-white text-2xl"
-          >
-            幻灯片 2
-          </div>
-          <div
-            class="w-full h-full bg-red-500 flex items-center justify-center text-white text-2xl"
-          >
-            幻灯片 3
-          </div>
+          <template #item-0>
+            <div
+              class="w-full h-full bg-blue-500 flex items-center justify-center text-white text-2xl"
+            >
+              幻灯片 1
+            </div>
+          </template>
+          <template #item-1>
+            <div
+              class="w-full h-full bg-green-500 flex items-center justify-center text-white text-2xl"
+            >
+              幻灯片 2
+            </div>
+          </template>
+          <template #item-2>
+            <div
+              class="w-full h-full bg-red-500 flex items-center justify-center text-white text-2xl"
+            >
+              幻灯片 3
+            </div>
+          </template>
         </Carousel>
       </div>
     </section>
@@ -29,70 +35,92 @@
       <h3 class="text-lg font-medium mb-4">自动播放</h3>
       <div class="h-64">
         <Carousel :autoplay="true" :interval="3000">
-          <div
-            class="w-full h-full bg-blue-500 flex items-center justify-center text-white text-2xl"
-          >
-            幻灯片 1
-          </div>
-          <div
-            class="w-full h-full bg-green-500 flex items-center justify-center text-white text-2xl"
-          >
-            幻灯片 2
-          </div>
-          <div
-            class="w-full h-full bg-red-500 flex items-center justify-center text-white text-2xl"
-          >
-            幻灯片 3
-          </div>
+          <template #item-0>
+            <div
+              class="w-full h-full bg-blue-500 flex items-center justify-center text-white text-2xl"
+            >
+              幻灯片 1
+            </div>
+          </template>
+          <template #item-1>
+            <div
+              class="w-full h-full bg-green-500 flex items-center justify-center text-white text-2xl"
+            >
+              幻灯片 2
+            </div>
+          </template>
+          <template #item-2>
+            <div
+              class="w-full h-full bg-red-500 flex items-center justify-center text-white text-2xl"
+            >
+              幻灯片 3
+            </div>
+          </template>
         </Carousel>
       </div>
     </section>
 
-    <!-- 不同方向 -->
+    <!-- 不同尺寸 -->
     <section>
-      <h3 class="text-lg font-medium mb-4">垂直方向轮播</h3>
-      <div class="h-64">
-        <Carousel direction="vertical" :autoplay="true" :interval="3000">
-          <div
-            class="w-full h-full bg-blue-500 flex items-center justify-center text-white text-2xl"
-          >
-            幻灯片 1
-          </div>
-          <div
-            class="w-full h-full bg-green-500 flex items-center justify-center text-white text-2xl"
-          >
-            幻灯片 2
-          </div>
-          <div
-            class="w-full h-full bg-red-500 flex items-center justify-center text-white text-2xl"
-          >
-            幻灯片 3
-          </div>
-        </Carousel>
-      </div>
-    </section>
-
-    <!-- 过渡效果 -->
-    <section>
-      <h3 class="text-lg font-medium mb-4">渐变效果</h3>
-      <div class="h-64">
-        <Carousel effect="fade" :autoplay="true" :interval="3000">
-          <div
-            class="w-full h-full bg-blue-500 flex items-center justify-center text-white text-2xl"
-          >
-            幻灯片 1
-          </div>
-          <div
-            class="w-full h-full bg-green-500 flex items-center justify-center text-white text-2xl"
-          >
-            幻灯片 2
-          </div>
-          <div
-            class="w-full h-full bg-red-500 flex items-center justify-center text-white text-2xl"
-          >
-            幻灯片 3
-          </div>
-        </Carousel>
+      <h3 class="text-lg font-medium mb-4">不同尺寸</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div>
+          <p class="mb-2 text-sm text-gray-600">小尺寸 (sm)</p>
+          <Carousel size="sm">
+            <template #item-0>
+              <div
+                class="w-full h-full bg-blue-500 flex items-center justify-center text-white"
+              >
+                幻灯片 1
+              </div>
+            </template>
+            <template #item-1>
+              <div
+                class="w-full h-full bg-green-500 flex items-center justify-center text-white"
+              >
+                幻灯片 2
+              </div>
+            </template>
+          </Carousel>
+        </div>
+        <div>
+          <p class="mb-2 text-sm text-gray-600">中尺寸 (md)</p>
+          <Carousel size="md">
+            <template #item-0>
+              <div
+                class="w-full h-full bg-blue-500 flex items-center justify-center text-white"
+              >
+                幻灯片 1
+              </div>
+            </template>
+            <template #item-1>
+              <div
+                class="w-full h-full bg-green-500 flex items-center justify-center text-white"
+              >
+                幻灯片 2
+              </div>
+            </template>
+          </Carousel>
+        </div>
+        <div>
+          <p class="mb-2 text-sm text-gray-600">大尺寸 (lg)</p>
+          <Carousel size="lg">
+            <template #item-0>
+              <div
+                class="w-full h-full bg-blue-500 flex items-center justify-center text-white"
+              >
+                幻灯片 1
+              </div>
+            </template>
+            <template #item-1>
+              <div
+                class="w-full h-full bg-green-500 flex items-center justify-center text-white"
+              >
+                幻灯片 2
+              </div>
+            </template>
+          </Carousel>
+        </div>
       </div>
     </section>
 
@@ -101,66 +129,72 @@
       <h3 class="text-lg font-medium mb-4">控制选项</h3>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div class="h-48">
-          <Carousel :controls="false">
-            <div
-              class="w-full h-full bg-blue-500 flex items-center justify-center text-white text-2xl"
-            >
-              无控制按钮
-            </div>
-            <div
-              class="w-full h-full bg-green-500 flex items-center justify-center text-white text-2xl"
-            >
-              幻灯片 2
-            </div>
-            <div
-              class="w-full h-full bg-red-500 flex items-center justify-center text-white text-2xl"
-            >
-              幻灯片 3
-            </div>
+          <p class="mb-2 text-sm text-gray-600">无导航按钮</p>
+          <Carousel :navigation="false">
+            <template #item-0>
+              <div
+                class="w-full h-full bg-blue-500 flex items-center justify-center text-white text-xl"
+              >
+                无导航按钮
+              </div>
+            </template>
+            <template #item-1>
+              <div
+                class="w-full h-full bg-green-500 flex items-center justify-center text-white text-xl"
+              >
+                幻灯片 2
+              </div>
+            </template>
           </Carousel>
         </div>
         <div class="h-48">
+          <p class="mb-2 text-sm text-gray-600">无指示器</p>
           <Carousel :indicators="false">
-            <div
-              class="w-full h-full bg-blue-500 flex items-center justify-center text-white text-2xl"
-            >
-              无指示器
-            </div>
-            <div
-              class="w-full h-full bg-green-500 flex items-center justify-center text-white text-2xl"
-            >
-              幻灯片 2
-            </div>
-            <div
-              class="w-full h-full bg-red-500 flex items-center justify-center text-white text-2xl"
-            >
-              幻灯片 3
-            </div>
+            <template #item-0>
+              <div
+                class="w-full h-full bg-blue-500 flex items-center justify-center text-white text-xl"
+              >
+                无指示器
+              </div>
+            </template>
+            <template #item-1>
+              <div
+                class="w-full h-full bg-green-500 flex items-center justify-center text-white text-xl"
+              >
+                幻灯片 2
+              </div>
+            </template>
           </Carousel>
         </div>
       </div>
     </section>
 
-    <!-- 自定义控制按钮 -->
+    <!-- 自定义导航图标 -->
     <section>
-      <h3 class="text-lg font-medium mb-4">自定义控制按钮</h3>
+      <h3 class="text-lg font-medium mb-4">自定义导航图标</h3>
       <div class="h-64">
         <Carousel>
-          <div
-            class="w-full h-full bg-blue-500 flex items-center justify-center text-white text-2xl"
-          >
-            幻灯片 1
-          </div>
-          <div
-            class="w-full h-full bg-green-500 flex items-center justify-center text-white text-2xl"
-          >
-            幻灯片 2
-          </div>
-          <div
-            class="w-full h-full bg-red-500 flex items-center justify-center text-white text-2xl"
-          >
-            幻灯片 3
-          </div>
+          <template #item-0>
+            <div
+              class="w-full h-full bg-blue-500 flex items-center justify-center text-white text-2xl"
+            >
+              幻灯片 1
+            </div>
+          </template>
+          <template #item-1>
+            <div
+              class="w-full h-full bg-green-500 flex items-center justify-center text-white text-2xl"
+            >
+              幻灯片 2
+            </div>
+          </template>
+          <template #item-2>
+            <div
+              class="w-full h-full bg-red-500 flex items-center justify-center text-white text-2xl"
+            >
+              幻灯片 3
+            </div>
+          </template>
 
           <template #prev-icon>
             <svg
@@ -203,18 +237,20 @@
     <section>
       <h3 class="text-lg font-medium mb-4">图片轮播</h3>
       <div class="h-64">
-        <Carousel effect="fade" :autoplay="true" :interval="3000">
-          <div
+        <Carousel :autoplay="true" :interval="3000">
+          <template
             v-for="(image, index) in images"
             :key="index"
-            class="w-full h-full"
+            v-slot:[`item-${index}`]
           >
-            <img
-              :src="image"
-              class="w-full h-full object-cover"
-              :alt="`图片 ${index + 1}`"
-            />
-          </div>
+            <div class="w-full h-full">
+              <img
+                :src="image"
+                class="w-full h-full object-cover"
+                :alt="`图片 ${index + 1}`"
+              />
+            </div>
+          </template>
         </Carousel>
       </div>
     </section>
@@ -223,22 +259,28 @@
     <section>
       <h3 class="text-lg font-medium mb-4">程序控制轮播</h3>
       <div class="h-64 mb-4">
-        <Carousel ref="carouselRef" :controls="false">
-          <div
-            class="w-full h-full bg-blue-500 flex items-center justify-center text-white text-2xl"
-          >
-            幻灯片 1
-          </div>
-          <div
-            class="w-full h-full bg-green-500 flex items-center justify-center text-white text-2xl"
-          >
-            幻灯片 2
-          </div>
-          <div
-            class="w-full h-full bg-red-500 flex items-center justify-center text-white text-2xl"
-          >
-            幻灯片 3
-          </div>
+        <Carousel ref="carouselRef" :navigation="false">
+          <template #item-0>
+            <div
+              class="w-full h-full bg-blue-500 flex items-center justify-center text-white text-2xl"
+            >
+              幻灯片 1
+            </div>
+          </template>
+          <template #item-1>
+            <div
+              class="w-full h-full bg-green-500 flex items-center justify-center text-white text-2xl"
+            >
+              幻灯片 2
+            </div>
+          </template>
+          <template #item-2>
+            <div
+              class="w-full h-full bg-red-500 flex items-center justify-center text-white text-2xl"
+            >
+              幻灯片 3
+            </div>
+          </template>
         </Carousel>
       </div>
 
@@ -282,21 +324,50 @@
           }"
           :autoplay="true"
         >
-          <div
-            class="w-full h-full bg-blue-500 flex items-center justify-center text-white text-2xl"
-          >
-            幻灯片 1
-          </div>
-          <div
-            class="w-full h-full bg-green-500 flex items-center justify-center text-white text-2xl"
-          >
-            幻灯片 2
-          </div>
-          <div
-            class="w-full h-full bg-red-500 flex items-center justify-center text-white text-2xl"
-          >
-            幻灯片 3
-          </div>
+          <template #item-0>
+            <div
+              class="w-full h-full bg-blue-500 flex items-center justify-center text-white text-2xl"
+            >
+              幻灯片 1
+            </div>
+          </template>
+          <template #item-1>
+            <div
+              class="w-full h-full bg-green-500 flex items-center justify-center text-white text-2xl"
+            >
+              幻灯片 2
+            </div>
+          </template>
+          <template #item-2>
+            <div
+              class="w-full h-full bg-red-500 flex items-center justify-center text-white text-2xl"
+            >
+              幻灯片 3
+            </div>
+          </template>
+        </Carousel>
+      </div>
+    </section>
+
+    <!-- 禁用状态 -->
+    <section>
+      <h3 class="text-lg font-medium mb-4">禁用状态</h3>
+      <div class="h-64">
+        <Carousel :disabled="true">
+          <template #item-0>
+            <div
+              class="w-full h-full bg-blue-500 flex items-center justify-center text-white text-2xl"
+            >
+              已禁用轮播
+            </div>
+          </template>
+          <template #item-1>
+            <div
+              class="w-full h-full bg-green-500 flex items-center justify-center text-white text-2xl"
+            >
+              幻灯片 2
+            </div>
+          </template>
         </Carousel>
       </div>
     </section>

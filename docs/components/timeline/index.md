@@ -21,17 +21,17 @@ import { Timeline, TimelineItem } from '@versakit/vue'
 ```vue
 <template>
 	<Timeline>
-		<TimelineItem>
+		<TimelineItem :position="0" :isLast="false">
 			<div class="font-medium">创建项目</div>
 			<div class="text-sm text-gray-500">2023-01-01</div>
 			<div>项目初始化完成</div>
 		</TimelineItem>
-		<TimelineItem>
+		<TimelineItem :position="1" :isLast="false">
 			<div class="font-medium">开发阶段</div>
 			<div class="text-sm text-gray-500">2023-02-15</div>
 			<div>完成核心功能开发</div>
 		</TimelineItem>
-		<TimelineItem>
+		<TimelineItem :position="2" :isLast="true">
 			<div class="font-medium">测试阶段</div>
 			<div class="text-sm text-gray-500">2023-03-20</div>
 			<div>完成所有测试用例</div>
@@ -48,15 +48,15 @@ import { Timeline, TimelineItem } from '@versakit/vue'
 <template>
 	<!-- 左侧对齐 -->
 	<Timeline align="left">
-		<TimelineItem>
+		<TimelineItem :position="0" :isLast="false">
 			<div class="font-medium">创建项目</div>
 			<div class="text-sm text-gray-500">2023-01-01</div>
 		</TimelineItem>
-		<TimelineItem>
+		<TimelineItem :position="1" :isLast="false">
 			<div class="font-medium">开发阶段</div>
 			<div class="text-sm text-gray-500">2023-02-15</div>
 		</TimelineItem>
-		<TimelineItem>
+		<TimelineItem :position="2" :isLast="true">
 			<div class="font-medium">测试阶段</div>
 			<div class="text-sm text-gray-500">2023-03-20</div>
 		</TimelineItem>
@@ -64,15 +64,15 @@ import { Timeline, TimelineItem } from '@versakit/vue'
 
 	<!-- 右侧对齐 -->
 	<Timeline align="right">
-		<TimelineItem>
+		<TimelineItem :position="0" :isLast="false">
 			<div class="font-medium">创建项目</div>
 			<div class="text-sm text-gray-500">2023-01-01</div>
 		</TimelineItem>
-		<TimelineItem>
+		<TimelineItem :position="1" :isLast="false">
 			<div class="font-medium">开发阶段</div>
 			<div class="text-sm text-gray-500">2023-02-15</div>
 		</TimelineItem>
-		<TimelineItem>
+		<TimelineItem :position="2" :isLast="true">
 			<div class="font-medium">测试阶段</div>
 			<div class="text-sm text-gray-500">2023-03-20</div>
 		</TimelineItem>
@@ -80,19 +80,19 @@ import { Timeline, TimelineItem } from '@versakit/vue'
 
 	<!-- 交替对齐 -->
 	<Timeline align="alternate">
-		<TimelineItem>
+		<TimelineItem :position="0" :isLast="false">
 			<div class="font-medium">创建项目</div>
 			<div class="text-sm text-gray-500">2023-01-01</div>
 		</TimelineItem>
-		<TimelineItem>
+		<TimelineItem :position="1" :isLast="false">
 			<div class="font-medium">开发阶段</div>
 			<div class="text-sm text-gray-500">2023-02-15</div>
 		</TimelineItem>
-		<TimelineItem>
+		<TimelineItem :position="2" :isLast="false">
 			<div class="font-medium">测试阶段</div>
 			<div class="text-sm text-gray-500">2023-03-20</div>
 		</TimelineItem>
-		<TimelineItem>
+		<TimelineItem :position="3" :isLast="true">
 			<div class="font-medium">发布阶段</div>
 			<div class="text-sm text-gray-500">2023-04-10</div>
 		</TimelineItem>
@@ -107,7 +107,7 @@ import { Timeline, TimelineItem } from '@versakit/vue'
 ```vue
 <template>
 	<Timeline>
-		<TimelineItem dot-color="#10b981">
+		<TimelineItem :position="0" :isLast="false" dot-color="#10b981">
 			<template #dot>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -119,6 +119,7 @@ import { Timeline, TimelineItem } from '@versakit/vue'
 					stroke-width="2"
 					stroke-linecap="round"
 					stroke-linejoin="round"
+					class="text-green-500"
 				>
 					<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
 					<polyline points="22 4 12 14.01 9 11.01"></polyline>
@@ -127,7 +128,12 @@ import { Timeline, TimelineItem } from '@versakit/vue'
 			<div class="font-medium">任务完成</div>
 			<div class="text-sm text-gray-500">2023-01-01</div>
 		</TimelineItem>
-		<TimelineItem dot-color="#f59e0b" line-color="#f59e0b">
+		<TimelineItem
+			:position="1"
+			:isLast="false"
+			dot-color="#f59e0b"
+			line-color="#f59e0b"
+		>
 			<template #dot>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -139,6 +145,7 @@ import { Timeline, TimelineItem } from '@versakit/vue'
 					stroke-width="2"
 					stroke-linecap="round"
 					stroke-linejoin="round"
+					class="text-yellow-500"
 				>
 					<circle cx="12" cy="12" r="10"></circle>
 					<line x1="12" y1="8" x2="12" y2="12"></line>
@@ -148,7 +155,12 @@ import { Timeline, TimelineItem } from '@versakit/vue'
 			<div class="font-medium">进行中</div>
 			<div class="text-sm text-gray-500">2023-02-15</div>
 		</TimelineItem>
-		<TimelineItem dot-color="#ef4444" line-color="#ef4444">
+		<TimelineItem
+			:position="2"
+			:isLast="true"
+			dot-color="#ef4444"
+			line-color="#ef4444"
+		>
 			<template #dot>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -160,6 +172,7 @@ import { Timeline, TimelineItem } from '@versakit/vue'
 					stroke-width="2"
 					stroke-linecap="round"
 					stroke-linejoin="round"
+					class="text-red-500"
 				>
 					<circle cx="12" cy="12" r="10"></circle>
 					<line x1="15" y1="9" x2="9" y2="15"></line>
@@ -180,21 +193,21 @@ import { Timeline, TimelineItem } from '@versakit/vue'
 ```vue
 <template>
 	<Timeline align="alternate">
-		<TimelineItem>
+		<TimelineItem :position="0" :isLast="false">
 			<template #opposite>
 				<div class="font-bold text-blue-500">阶段 1</div>
 			</template>
 			<div class="font-medium">创建项目</div>
 			<div class="text-sm text-gray-500">2023-01-01</div>
 		</TimelineItem>
-		<TimelineItem>
+		<TimelineItem :position="1" :isLast="false">
 			<template #opposite>
 				<div class="font-bold text-green-500">阶段 2</div>
 			</template>
 			<div class="font-medium">开发阶段</div>
 			<div class="text-sm text-gray-500">2023-02-15</div>
 		</TimelineItem>
-		<TimelineItem>
+		<TimelineItem :position="2" :isLast="true">
 			<template #opposite>
 				<div class="font-bold text-amber-500">阶段 3</div>
 			</template>
@@ -213,19 +226,25 @@ import { Timeline, TimelineItem } from '@versakit/vue'
 <template>
 	<Timeline :pt="{ root: 'border-l-2 border-blue-500 pl-6 ml-6' }">
 		<TimelineItem
-			:pt="{ dot: 'bg-blue-500 border-white', line: 'bg-blue-500' }"
+			:position="0"
+			:isLast="false"
+			:pt="{ dot: 'bg-blue-500 border-white', connector: 'bg-blue-500' }"
 		>
 			<div class="font-medium">创建项目</div>
 			<div class="text-sm text-gray-500">2023-01-01</div>
 		</TimelineItem>
 		<TimelineItem
-			:pt="{ dot: 'bg-green-500 border-white', line: 'bg-green-500' }"
+			:position="1"
+			:isLast="false"
+			:pt="{ dot: 'bg-green-500 border-white', connector: 'bg-green-500' }"
 		>
 			<div class="font-medium">开发阶段</div>
 			<div class="text-sm text-gray-500">2023-02-15</div>
 		</TimelineItem>
 		<TimelineItem
-			:pt="{ dot: 'bg-amber-500 border-white', line: 'bg-amber-500' }"
+			:position="2"
+			:isLast="true"
+			:pt="{ dot: 'bg-amber-500 border-white', connector: 'bg-amber-500' }"
 		>
 			<div class="font-medium">测试阶段</div>
 			<div class="text-sm text-gray-500">2023-03-20</div>
@@ -242,42 +261,82 @@ import { Timeline, TimelineItem } from '@versakit/vue'
 <template>
 	<Timeline
 		unstyled
-		:pt="{ root: 'relative border-l-2 border-gray-300 ml-4 pl-8' }"
+		:pt="{
+			root: 'relative border-l-2 border-gray-300 ml-4 pl-8 dark:border-gray-700',
+		}"
 	>
 		<TimelineItem
+			:position="0"
+			:isLast="false"
 			unstyled
 			:pt="{
 				root: 'mb-8 relative',
-				dot: 'absolute -left-10 flex items-center justify-center w-6 h-6 rounded-full bg-white border-4 border-blue-500',
-				content: 'bg-white p-4 rounded-md shadow-md border border-gray-100',
-				line: 'absolute top-6 bottom-0 -left-9 w-0.5 bg-gray-300',
+				dot: 'absolute -left-10 flex items-center justify-center w-6 h-6 rounded-full bg-white border-4 border-blue-500 dark:bg-gray-900 dark:border-blue-600',
+				content:
+					'bg-white p-4 rounded-md shadow-md border border-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100',
+				connector:
+					'absolute top-6 bottom-0 -left-9 w-0.5 bg-gray-300 dark:bg-gray-700',
 			}"
 		>
 			<div class="font-medium">创建项目</div>
-			<div class="text-sm text-gray-500">2023-01-01</div>
+			<div class="text-sm text-gray-500 dark:text-gray-400">2023-01-01</div>
 		</TimelineItem>
 		<TimelineItem
+			:position="1"
+			:isLast="false"
 			unstyled
 			:pt="{
 				root: 'mb-8 relative',
-				dot: 'absolute -left-10 flex items-center justify-center w-6 h-6 rounded-full bg-white border-4 border-green-500',
-				content: 'bg-white p-4 rounded-md shadow-md border border-gray-100',
-				line: 'absolute top-6 bottom-0 -left-9 w-0.5 bg-gray-300',
+				dot: 'absolute -left-10 flex items-center justify-center w-6 h-6 rounded-full bg-white border-4 border-green-500 dark:bg-gray-900 dark:border-green-600',
+				content:
+					'bg-white p-4 rounded-md shadow-md border border-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100',
+				connector:
+					'absolute top-6 bottom-0 -left-9 w-0.5 bg-gray-300 dark:bg-gray-700',
 			}"
 		>
 			<div class="font-medium">开发阶段</div>
-			<div class="text-sm text-gray-500">2023-02-15</div>
+			<div class="text-sm text-gray-500 dark:text-gray-400">2023-02-15</div>
 		</TimelineItem>
 		<TimelineItem
+			:position="2"
+			:isLast="true"
 			unstyled
 			:pt="{
 				root: 'mb-8 relative',
-				dot: 'absolute -left-10 flex items-center justify-center w-6 h-6 rounded-full bg-white border-4 border-amber-500',
-				content: 'bg-white p-4 rounded-md shadow-md border border-gray-100',
+				dot: 'absolute -left-10 flex items-center justify-center w-6 h-6 rounded-full bg-white border-4 border-amber-500 dark:bg-gray-900 dark:border-amber-600',
+				content:
+					'bg-white p-4 rounded-md shadow-md border border-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-100',
 			}"
 		>
 			<div class="font-medium">测试阶段</div>
+			<div class="text-sm text-gray-500 dark:text-gray-400">2023-03-20</div>
+		</TimelineItem>
+	</Timeline>
+</template>
+```
+
+## 水平方向
+
+通过 `orientation` 属性设置时间轴的方向，支持 `vertical` 和 `horizontal` 两种方式。
+
+```vue
+<template>
+	<Timeline orientation="horizontal">
+		<TimelineItem :position="0" :isLast="false">
+			<div class="font-medium">创建项目</div>
+			<div class="text-sm text-gray-500">2023-01-01</div>
+		</TimelineItem>
+		<TimelineItem :position="1" :isLast="false">
+			<div class="font-medium">开发阶段</div>
+			<div class="text-sm text-gray-500">2023-02-15</div>
+		</TimelineItem>
+		<TimelineItem :position="2" :isLast="false">
+			<div class="font-medium">测试阶段</div>
 			<div class="text-sm text-gray-500">2023-03-20</div>
+		</TimelineItem>
+		<TimelineItem :position="3" :isLast="true">
+			<div class="font-medium">发布阶段</div>
+			<div class="text-sm text-gray-500">2023-04-10</div>
 		</TimelineItem>
 	</Timeline>
 </template>
@@ -287,29 +346,24 @@ import { Timeline, TimelineItem } from '@versakit/vue'
 
 ### Timeline Props
 
-| 名称     | 类型                             | 默认值 | 说明             |
-| -------- | -------------------------------- | ------ | ---------------- |
-| align    | 'left' \| 'right' \| 'alternate' | 'left' | 时间轴的对齐方式 |
-| unstyled | boolean                          | false  | 是否移除默认样式 |
-| pt       | TimelinePT                       | -      | 传递样式类       |
+| 名称        | 类型                             | 默认值     | 说明             |
+| ----------- | -------------------------------- | ---------- | ---------------- |
+| orientation | 'vertical' \| 'horizontal'       | 'vertical' | 时间轴的方向     |
+| align       | 'left' \| 'right' \| 'alternate' | 'left'     | 时间轴的对齐方式 |
+| reverse     | boolean                          | false      | 是否反向显示     |
+| unstyled    | boolean                          | false      | 是否移除默认样式 |
+| pt          | TimelinePT                       | -          | 传递样式类       |
 
 ### TimelineItem Props
 
-| 名称      | 类型              | 默认值 | 说明             |
-| --------- | ----------------- | ------ | ---------------- |
-| dot       | string            | -      | 点的自定义内容   |
-| dotColor  | string            | -      | 点的颜色         |
-| line      | boolean           | true   | 是否显示线       |
-| lineColor | string            | -      | 线的颜色         |
-| position  | 'left' \| 'right' | -      | 强制指定位置     |
-| unstyled  | boolean           | false  | 是否移除默认样式 |
-| pt        | TimelineItemPT    | -      | 传递样式类       |
-
-### TimelineItem Events
-
-| 名称  | 参数            | 说明     |
-| ----- | --------------- | -------- |
-| click | (e: MouseEvent) | 点击事件 |
+| 名称      | 类型           | 默认值 | 说明                 |
+| --------- | -------------- | ------ | -------------------- |
+| position  | number         | -      | 在时间线中的位置索引 |
+| isLast    | boolean        | -      | 是否为最后一个项目   |
+| dotColor  | string         | -      | 点的颜色             |
+| lineColor | string         | -      | 线的颜色             |
+| unstyled  | boolean        | false  | 是否移除默认样式     |
+| pt        | TimelineItemPT | -      | 传递样式类           |
 
 ### TimelineItem Slots
 
@@ -318,5 +372,3 @@ import { Timeline, TimelineItem } from '@versakit/vue'
 | default  | -    | 默认内容 |
 | dot      | -    | 自定义点 |
 | opposite | -    | 反向内容 |
-
-</rewritten_file>

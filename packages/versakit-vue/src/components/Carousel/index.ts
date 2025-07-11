@@ -1,7 +1,7 @@
 import { withInstall } from '@versakit/shared'
-import _Carousel from './src/index.vue'
+import CarouselComponent from './src/index.vue'
 
-export const Carousel = withInstall(_Carousel)
+export const Carousel = withInstall(CarouselComponent)
 export default Carousel
 
 export * from './src/type'

@@ -29,17 +29,17 @@ if (typeof window !== 'undefined') {
       <h2 class="example-title">基础用法</h2>
       <div class="example-container">
         <Timeline>
-          <TimelineItem>
+          <TimelineItem :position="0" :isLast="false">
             <div class="timeline-title">创建项目</div>
             <div class="timeline-date">2023-01-01</div>
             <div class="timeline-content">项目初始化完成</div>
           </TimelineItem>
-          <TimelineItem>
+          <TimelineItem :position="1" :isLast="false">
             <div class="timeline-title">开发阶段</div>
             <div class="timeline-date">2023-02-15</div>
             <div class="timeline-content">完成核心功能开发</div>
           </TimelineItem>
-          <TimelineItem>
+          <TimelineItem :position="2" :isLast="true">
             <div class="timeline-title">测试阶段</div>
             <div class="timeline-date">2023-03-20</div>
             <div class="timeline-content">完成所有测试用例</div>
@@ -55,15 +55,15 @@ if (typeof window !== 'undefined') {
         <div class="example-card">
           <h3 class="example-subtitle">左侧对齐</h3>
           <Timeline align="left">
-            <TimelineItem>
+            <TimelineItem :position="0" :isLast="false">
               <div class="timeline-title">创建项目</div>
               <div class="timeline-date">2023-01-01</div>
             </TimelineItem>
-            <TimelineItem>
+            <TimelineItem :position="1" :isLast="false">
               <div class="timeline-title">开发阶段</div>
               <div class="timeline-date">2023-02-15</div>
             </TimelineItem>
-            <TimelineItem>
+            <TimelineItem :position="2" :isLast="true">
               <div class="timeline-title">测试阶段</div>
               <div class="timeline-date">2023-03-20</div>
             </TimelineItem>
@@ -73,15 +73,15 @@ if (typeof window !== 'undefined') {
         <div class="example-card">
           <h3 class="example-subtitle">右侧对齐</h3>
           <Timeline align="right">
-            <TimelineItem>
+            <TimelineItem :position="0" :isLast="false">
               <div class="timeline-title">创建项目</div>
               <div class="timeline-date">2023-01-01</div>
             </TimelineItem>
-            <TimelineItem>
+            <TimelineItem :position="1" :isLast="false">
               <div class="timeline-title">开发阶段</div>
               <div class="timeline-date">2023-02-15</div>
             </TimelineItem>
-            <TimelineItem>
+            <TimelineItem :position="2" :isLast="true">
               <div class="timeline-title">测试阶段</div>
               <div class="timeline-date">2023-03-20</div>
             </TimelineItem>
@@ -91,19 +91,19 @@ if (typeof window !== 'undefined') {
         <div class="example-card">
           <h3 class="example-subtitle">交替对齐</h3>
           <Timeline align="alternate">
-            <TimelineItem>
+            <TimelineItem :position="0" :isLast="false">
               <div class="timeline-title">创建项目</div>
               <div class="timeline-date">2023-01-01</div>
             </TimelineItem>
-            <TimelineItem>
+            <TimelineItem :position="1" :isLast="false">
               <div class="timeline-title">开发阶段</div>
               <div class="timeline-date">2023-02-15</div>
             </TimelineItem>
-            <TimelineItem>
+            <TimelineItem :position="2" :isLast="false">
               <div class="timeline-title">测试阶段</div>
               <div class="timeline-date">2023-03-20</div>
             </TimelineItem>
-            <TimelineItem>
+            <TimelineItem :position="3" :isLast="true">
               <div class="timeline-title">发布阶段</div>
               <div class="timeline-date">2023-04-10</div>
             </TimelineItem>
@@ -117,7 +117,11 @@ if (typeof window !== 'undefined') {
       <h2 class="example-title">自定义点和线</h2>
       <div class="example-container">
         <Timeline>
-          <TimelineItem dot-color="var(--example-success)">
+          <TimelineItem
+            :position="0"
+            :isLast="false"
+            dot-color="var(--example-success)"
+          >
             <template #dot>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -139,6 +143,8 @@ if (typeof window !== 'undefined') {
             <div class="timeline-date">2023-01-01</div>
           </TimelineItem>
           <TimelineItem
+            :position="1"
+            :isLast="false"
             dot-color="var(--example-warning)"
             line-color="var(--example-warning)"
           >
@@ -164,6 +170,8 @@ if (typeof window !== 'undefined') {
             <div class="timeline-date">2023-02-15</div>
           </TimelineItem>
           <TimelineItem
+            :position="2"
+            :isLast="true"
             dot-color="var(--example-danger)"
             line-color="var(--example-danger)"
           >
@@ -197,21 +205,21 @@ if (typeof window !== 'undefined') {
       <h2 class="example-title">反向内容</h2>
       <div class="example-container">
         <Timeline align="alternate">
-          <TimelineItem>
+          <TimelineItem :position="0" :isLast="false">
             <template #opposite>
               <div class="timeline-tag timeline-tag-blue">阶段 1</div>
             </template>
             <div class="timeline-title">创建项目</div>
             <div class="timeline-date">2023-01-01</div>
           </TimelineItem>
-          <TimelineItem>
+          <TimelineItem :position="1" :isLast="false">
             <template #opposite>
               <div class="timeline-tag timeline-tag-green">阶段 2</div>
             </template>
             <div class="timeline-title">开发阶段</div>
             <div class="timeline-date">2023-02-15</div>
           </TimelineItem>
-          <TimelineItem>
+          <TimelineItem :position="2" :isLast="true">
             <template #opposite>
               <div class="timeline-tag timeline-tag-amber">阶段 3</div>
             </template>
@@ -234,33 +242,39 @@ if (typeof window !== 'undefined') {
           }"
         >
           <TimelineItem
+            :position="0"
+            :isLast="false"
             :pt="{
               dot: isDarkMode
                 ? 'bg-blue-400 border-gray-800'
                 : 'bg-blue-500 border-white',
-              line: isDarkMode ? 'bg-blue-400' : 'bg-blue-500',
+              connector: isDarkMode ? 'bg-blue-400' : 'bg-blue-500',
             }"
           >
             <div class="timeline-title">创建项目</div>
             <div class="timeline-date">2023-01-01</div>
           </TimelineItem>
           <TimelineItem
+            :position="1"
+            :isLast="false"
             :pt="{
               dot: isDarkMode
                 ? 'bg-green-400 border-gray-800'
                 : 'bg-green-500 border-white',
-              line: isDarkMode ? 'bg-green-400' : 'bg-green-500',
+              connector: isDarkMode ? 'bg-green-400' : 'bg-green-500',
             }"
           >
             <div class="timeline-title">开发阶段</div>
             <div class="timeline-date">2023-02-15</div>
           </TimelineItem>
           <TimelineItem
+            :position="2"
+            :isLast="true"
             :pt="{
               dot: isDarkMode
                 ? 'bg-amber-400 border-gray-800'
                 : 'bg-amber-500 border-white',
-              line: isDarkMode ? 'bg-amber-400' : 'bg-amber-500',
+              connector: isDarkMode ? 'bg-amber-400' : 'bg-amber-500',
             }"
           >
             <div class="timeline-title">测试阶段</div>
@@ -283,6 +297,8 @@ if (typeof window !== 'undefined') {
           }"
         >
           <TimelineItem
+            :position="0"
+            :isLast="false"
             unstyled
             :pt="{
               root: 'mb-8 relative',
@@ -292,7 +308,7 @@ if (typeof window !== 'undefined') {
               content: isDarkMode
                 ? 'bg-gray-800 p-4 rounded-md shadow-md border border-gray-700'
                 : 'bg-white p-4 rounded-md shadow-md border border-gray-100',
-              line: isDarkMode
+              connector: isDarkMode
                 ? 'absolute top-6 bottom-0 -left-9 w-0.5 bg-gray-600'
                 : 'absolute top-6 bottom-0 -left-9 w-0.5 bg-gray-300',
             }"
@@ -301,6 +317,8 @@ if (typeof window !== 'undefined') {
             <div class="timeline-date">2023-01-01</div>
           </TimelineItem>
           <TimelineItem
+            :position="1"
+            :isLast="false"
             unstyled
             :pt="{
               root: 'mb-8 relative',
@@ -310,7 +328,7 @@ if (typeof window !== 'undefined') {
               content: isDarkMode
                 ? 'bg-gray-800 p-4 rounded-md shadow-md border border-gray-700'
                 : 'bg-white p-4 rounded-md shadow-md border border-gray-100',
-              line: isDarkMode
+              connector: isDarkMode
                 ? 'absolute top-6 bottom-0 -left-9 w-0.5 bg-gray-600'
                 : 'absolute top-6 bottom-0 -left-9 w-0.5 bg-gray-300',
             }"
@@ -319,6 +337,8 @@ if (typeof window !== 'undefined') {
             <div class="timeline-date">2023-02-15</div>
           </TimelineItem>
           <TimelineItem
+            :position="2"
+            :isLast="true"
             unstyled
             :pt="{
               root: 'mb-8 relative',
@@ -332,6 +352,31 @@ if (typeof window !== 'undefined') {
           >
             <div class="timeline-title">测试阶段</div>
             <div class="timeline-date">2023-03-20</div>
+          </TimelineItem>
+        </Timeline>
+      </div>
+    </section>
+
+    <!-- 水平方向 -->
+    <section class="example-section">
+      <h2 class="example-title">水平方向</h2>
+      <div class="example-container">
+        <Timeline orientation="horizontal">
+          <TimelineItem :position="0" :isLast="false">
+            <div class="timeline-title">创建项目</div>
+            <div class="timeline-date">2023-01-01</div>
+          </TimelineItem>
+          <TimelineItem :position="1" :isLast="false">
+            <div class="timeline-title">开发阶段</div>
+            <div class="timeline-date">2023-02-15</div>
+          </TimelineItem>
+          <TimelineItem :position="2" :isLast="false">
+            <div class="timeline-title">测试阶段</div>
+            <div class="timeline-date">2023-03-20</div>
+          </TimelineItem>
+          <TimelineItem :position="3" :isLast="true">
+            <div class="timeline-title">发布阶段</div>
+            <div class="timeline-date">2023-04-10</div>
           </TimelineItem>
         </Timeline>
       </div>
