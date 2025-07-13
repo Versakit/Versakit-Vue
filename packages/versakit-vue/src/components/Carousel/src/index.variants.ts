@@ -26,11 +26,15 @@ export const carouselStyle = tv({
 })
 
 export const carouselContainerStyle = tv({
-  base: 'flex will-change-transform',
+  base: 'flex will-change-transform transition-transform duration-300 ease-in-out',
+  variants: {},
+  defaultVariants: {},
 })
 
 export const carouselItemStyle = tv({
-  base: 'flex-none w-full h-full relative',
+  base: 'flex-shrink-0 w-full h-full relative',
+  variants: {},
+  defaultVariants: {},
 })
 
 export const carouselNavigationStyle = tv({

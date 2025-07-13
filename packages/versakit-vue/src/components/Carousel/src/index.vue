@@ -16,24 +16,39 @@
         role="region"
         aria-roledescription="carousel"
       >
-        <slot
-          v-for="(_, index) in slidesCount"
-          :key="index"
-          :name="`item-${index}`"
-          :active="activeIndex === index"
-          :index="index"
-        >
+        <!-- 具名插槽渲染 -->
+        <template v-if="hasNamedSlots">
           <div
+            v-for="index in slidesCount"
+            :key="index"
             :class="itemClasses"
-            v-if="$slots[`item-${index}`]"
+            role="group"
+            aria-roledescription="slide"
+            :aria-label="`幻灯片 ${index} / ${slidesCount}`"
+            :aria-hidden="activeIndex !== index - 1"
+          >
+            <slot
+              :name="`item-${index - 1}`"
+              :active="activeIndex === index - 1"
+              :index="index - 1"
+            />
+          </div>
+        </template>
+
+        <!-- 默认插槽子元素渲染 -->
+        <template v-else>
+          <div
+            v-for="(child, index) in defaultSlotChildren"
+            :key="index"
+            :class="itemClasses"
             role="group"
             aria-roledescription="slide"
             :aria-label="`幻灯片 ${index + 1} / ${slidesCount}`"
             :aria-hidden="activeIndex !== index"
           >
-            <slot :name="`item-${index}`" />
+            <component :is="child" />
           </div>
-        </slot>
+        </template>
       </div>
     </div>
 
@@ -107,7 +122,17 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, useSlots, ref, watch } from 'vue'
+import {
+  computed,
+  onMounted,
+  useSlots,
+  ref,
+  watch,
+  nextTick,
+  Comment,
+  type VNode,
+  type Slots,
+} from 'vue'
 import {
   carouselStyle,
   carouselContainerStyle,
@@ -137,13 +162,13 @@ const props = withDefaults(defineProps<CarouselProps>(), {
   unstyled: false,
 })
 
-const slots = useSlots()
+const slots = useSlots() as Slots & { default?: () => VNode[] }
 const slidesCount = ref(0)
+const defaultSlotChildren = ref<VNode[]>([])
 
 const {
   _ref,
   activeIndex,
-  isTransitioning,
   setSlideCount,
   goToSlide,
   next,
@@ -154,32 +179,75 @@ const {
   handleTouchCancel,
 } = useCarousel(props, emit)
 
-// 计算轮播图中的幻灯片数量
-onMounted(() => {
-  // 计算幻灯片数量（查找以item-开头的插槽）
-  let count = 0
+// 判断是否有具名插槽
+const hasNamedSlots = computed(() => {
   for (const key in slots) {
     if (key.startsWith('item-')) {
-      count++
+      return true
     }
   }
-  slidesCount.value = count
-  setSlideCount(count)
+  return false
+})
+
+// 计算轮播图中的幻灯片数量
+const calculateSlidesCount = () => {
+  // 优先检查具名插槽（item-开头的插槽）
+  const namedSlotKeys = Object.keys(slots).filter((key) =>
+    key.startsWith('item-'),
+  )
+
+  if (namedSlotKeys.length > 0) {
+    // 按索引排序，确保正确的顺序
+    const sortedKeys = namedSlotKeys.sort((a, b) => {
+      const indexA = parseInt(a.replace('item-', ''), 10)
+      const indexB = parseInt(b.replace('item-', ''), 10)
+      return indexA - indexB
+    })
+
+    // 找到最大索引，确定幻灯片数量
+    const maxIndex = Math.max(
+      ...sortedKeys.map((key) => parseInt(key.replace('item-', ''), 10)),
+    )
+    slidesCount.value = maxIndex + 1
+    defaultSlotChildren.value = []
+  } else {
+    // 否则检查默认插槽的子元素
+    const defaultSlot = slots.default?.()
+    if (defaultSlot && Array.isArray(defaultSlot)) {
+      // 过滤掉注释节点和空白文本节点
+      const validChildren = defaultSlot.filter(
+        (vnode) =>
+          vnode.type !== Comment &&
+          !(
+            typeof vnode.type === 'symbol' &&
+            typeof vnode.children === 'string' &&
+            vnode.children.trim() === ''
+          ),
+      )
+      defaultSlotChildren.value = validChildren
+      slidesCount.value = validChildren.length
+    } else {
+      slidesCount.value = 0
+      defaultSlotChildren.value = []
+    }
+  }
+
+  setSlideCount(slidesCount.value)
+}
+
+onMounted(() => {
+  nextTick(() => {
+    calculateSlidesCount()
+  })
 })
 
 // 监听插槽变化
 watch(
-  () => slots,
+  () => [slots, slots.default?.()],
   () => {
-    // 重新计算幻灯片数量
-    let count = 0
-    for (const key in slots) {
-      if (key.startsWith('item-')) {
-        count++
-      }
-    }
-    slidesCount.value = count
-    setSlideCount(count)
+    nextTick(() => {
+      calculateSlidesCount()
+    })
   },
   { deep: true },
 )
@@ -207,8 +275,7 @@ const containerClasses = computed(() => {
 const containerStyle = computed(() => {
   return {
     transform: `translateX(-${activeIndex.value * 100}%)`,
-    width: `${slidesCount.value * 100}%`, // 确保容器宽度正确
-    transition: isTransitioning.value ? 'transform 300ms ease-in-out' : 'none',
+    width: '100%',
   }
 })
 
@@ -219,6 +286,8 @@ const itemClasses = computed(() => {
         class: props.pt?.item,
       })
 })
+
+// 移除itemStyle，现在通过CSS类设置宽度
 
 const navigationClasses = computed(() => {
   return props.unstyled
