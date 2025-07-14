@@ -41,6 +41,11 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
     { text: 'Drawer 抽屉', link: '/components/drawer/', category: 'feedback' },
     { text: 'Input 输入框', link: '/components/input/', category: 'form' },
     { text: 'Kbd 键盘', link: '/components/kbd/', category: 'other' },
+    {
+      text: 'Link 链接',
+      link: '/components/link/',
+      category: 'navigation',
+    },
     { text: 'Modal 模态框', link: '/components/modal/', category: 'feedback' },
     {
       text: 'InputOtp 验证码输入',
@@ -130,9 +135,9 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
       category: 'navigation',
     },
     {
-      text: 'Carousel 轮播图',
-      link: '/components/carousel/',
-      category: 'navigation',
+      text: 'Image 图片',
+      link: '/components/image/',
+      category: 'data',
     },
     {
       text: 'Swap 调换',
@@ -147,11 +152,6 @@ export const getComponentsSidebar = (): DefaultTheme.Sidebar => {
     {
       text: 'Splitter 分割器',
       link: '/components/splitter/',
-      category: 'layout',
-    },
-    {
-      text: 'Timeline 时间轴',
-      link: '/components/timeline/',
       category: 'layout',
     },
   ]

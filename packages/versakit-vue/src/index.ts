@@ -31,14 +31,14 @@ import { Panel } from './components/Panel'
 import { Paginator } from './components/Paginator'
 import { Progress } from './components/Progress'
 import { Breadcrumb, BreadcrumbItem } from './components/Breadcrumb'
-import { Timeline, TimelineItem } from './components/Timeline'
 import { Splitter, SplitterPanel } from './components/Splitter'
 import { RangeCalendar } from './components/RangeCalendar'
 import { Accordion, AccordionItem } from './components/Accordion'
 import { InputTag } from './components/InputTag'
 import { Dropdown, DropdownItem, DropdownDivider } from './components/Dropdown'
-import { Carousel } from './components/Carousel'
 import { Swap } from './components/Swap'
+import { Image } from './components/Image'
+import { Link } from './components/Link'
 // 引入样式
 import './style/index.css'
 
@@ -79,8 +79,6 @@ const components: Component[] = [
   Progress,
   Breadcrumb,
   BreadcrumbItem,
-  Timeline,
-  TimelineItem,
   Splitter,
   SplitterPanel,
   RangeCalendar,
@@ -90,8 +88,9 @@ const components: Component[] = [
   Dropdown,
   DropdownItem,
   DropdownDivider,
-  Carousel,
   Swap,
+  Image,
+  Link,
 ]
 
 const Versakit = {
@@ -141,8 +140,6 @@ export {
   Progress,
   Breadcrumb,
   BreadcrumbItem,
-  Timeline,
-  TimelineItem,
   Splitter,
   SplitterPanel,
   RangeCalendar,
@@ -152,6 +149,7 @@ export {
   Dropdown,
   DropdownItem,
   DropdownDivider,
-  Carousel,
   Swap,
+  Image,
+  Link,
 }

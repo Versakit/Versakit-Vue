@@ -127,11 +127,21 @@ const componentsData = [
     category: 'form',
   },
   {
-    name: 'Carousel',
-    path: '/Versakit-Vue/components/carousel/',
-    description: '用于显示轮播图的组件，通常以轮播图形式呈现。',
-    letter: 'C',
+    name: 'Image',
+    path: '/Versakit-Vue/components/image/',
+    description:
+      '增强的图片显示组件，支持模糊加载、缩放功能和骨架屏等特性，提供更好的用户体验。',
+    letter: 'I',
     color: 'rgba(241, 196, 15, 0.2)',
+    category: 'data',
+  },
+  {
+    name: 'Link',
+    path: '/Versakit-Vue/components/link/',
+    description:
+      '用于创建可点击的文本链接，支持多种样式变体、尺寸和图标位置，可用于导航或触发操作。',
+    letter: 'L',
+    color: 'rgba(41, 128, 185, 0.2)',
     category: 'navigation',
   },
   {
@@ -171,14 +181,6 @@ const componentsData = [
     path: '/Versakit-Vue/components/splitter/',
     description: '用于分割容器区域的组件，通常以分割线形式呈现。',
     letter: 'S',
-    color: 'rgba(241, 196, 15, 0.2)',
-    category: 'layout',
-  },
-  {
-    name: 'Timeline',
-    path: '/Versakit-Vue/components/timeline/',
-    description: '用于显示时间轴的组件，通常以时间轴形式呈现。',
-    letter: 'T',
     color: 'rgba(241, 196, 15, 0.2)',
     category: 'layout',
   },
