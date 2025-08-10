@@ -1,19 +1,19 @@
 <div align="center">
-  <a href="https://versakit.github.io/Versakit/">
+  <a href="https://versakit.github.io/Versakit-Vue/">
     <img src="./logo.svg" width="160" />
   </a>
   <h1>Versakit</h1>
   <p>A modern, highly customizable Vue3 component library</p>
   <p>
-    <a href="https://versakit.github.io/Versakit/">Documentation</a> | 
-    <a href="https://versakit.github.io/Versakit/storybook/">Storybook</a> | 
+    <a href="https://versakit.github.io/Versakit-Vue/">Documentation</a> | 
+    <a href="https://versakit.github.io/Versakit-Vue/storybook/">Storybook</a> | 
     <a href="./README.zh-CN.md">中文</a>
   </p>
   <p>
     <img src="https://img.shields.io/badge/vue-v3.2.0%2B-%2342b883" alt="vue">
     <img src="https://img.shields.io/badge/typescript-%5E5.0.0-%233178c6" alt="typescript">
     <img src="https://img.shields.io/badge/tailwindcss-v3.3.0-%2338bdf8" alt="tailwindcss">
-    <img src="https://img.shields.io/npm/l/@versakit/ui.svg" alt="license">
+    <img src="https://img.shields.io/npm/l/@versakit/vue.svg" alt="license">
   </p>
 </div>
 
@@ -79,13 +79,13 @@ import '@versakit/vue/style'
 
 ## 🔍 Online Documentation
 
-Check out our [online documentation](https://versakit.github.io/Versakit/) for more detailed information on component usage, examples, and API references.
+Check out our [online documentation](https://versakit.github.io/Versakit-Vue/) for more detailed information on component usage, examples, and API references.
 
 ## 💻 Local Development
 
 ```bash
 # Clone the repository
-git clone https://github.com/lenran659/versakit-ui.git
+git clone https://github.com/Versakit/Versakit-Vue.git
 
 # Install dependencies
 pnpm install
@@ -106,9 +106,9 @@ Versakit is licensed under the [MIT License](./LICENSE).
 
 ## 🔗 Related Links
 
-- [GitHub Repository](https://github.com/lenran659/versakit-ui)
+- [GitHub Repository](https://github.com/Versakit/Versakit-Vue)
 - [Gitee Mirror](https://gitee.com/dragon_water/versakit-ui)
-- [Issue Feedback](https://github.com/lenran659/versakit-ui/issues)
+- [Issue Feedback](https://github.com/Versakit/Versakit-Vue/issues)
 - [Changelog](./CHANGELOG.md)
 
 ## 🤝 Thanks to the Contributors for Their Efforts
