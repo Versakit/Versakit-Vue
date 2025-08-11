@@ -1,19 +1,19 @@
 <div align="center">
-  <a href="https://versakit.github.io/Versakit/">
+  <a href="https://versakit.github.io/Versakit-Vue/">
     <img src="./logo.svg" width="160" />
   </a>
   <h1>Versakit</h1>
   <p>一个现代化、高度可定制的Vue3组件库</p>
   <p>
-    <a href="https://versakit.github.io/Versakit/">文档</a> | 
-    <a href="https://versakit.github.io/Versakit/storybook/">Storybook</a> | 
+    <a href="https://versakit.github.io/Versakit-Vue/">文档</a> | 
+    <a href="https://versakit.github.io/Versakit-Vue/storybook/">Storybook</a> | 
     <a href="./README.md">English</a>
   </p>
   <p>
     <img src="https://img.shields.io/badge/vue-v3.2.0%2B-%2342b883" alt="vue">
     <img src="https://img.shields.io/badge/typescript-%5E5.0.0-%233178c6" alt="typescript">
     <img src="https://img.shields.io/badge/tailwindcss-v3.3.0-%2338bdf8" alt="tailwindcss">
-    <img src="https://img.shields.io/npm/l/@versakit/ui.svg" alt="license">
+    <img src="https://img.shields.io/npm/l/@versakit/vue.svg" alt="license">
   </p>
 </div>
 
@@ -79,13 +79,13 @@ import '@versakit/vue/style'
 
 ## 🔍 在线文档
 
-查看我们的[在线文档](https://versakit.github.io/Versakit/)，了解更多关于组件使用的详细信息、示例和API参考。
+查看我们的[在线文档](https://versakit.github.io/Versakit-Vue/)，了解更多关于组件使用的详细信息、示例和API参考。
 
 ## 💻 本地开发
 
 ```bash
 # 克隆仓库
-git clone https://github.com/lenran659/versakit-ui.git
+git clone https://github.com/Versakit/Versakit-Vue.git
 
 # 安装依赖
 pnpm install
@@ -106,9 +106,9 @@ Versakit 使用 [MIT 许可证](./LICENSE)。
 
 ## 🔗 相关链接
 
-- [GitHub仓库](https://github.com/lenran659/versakit-ui)
+- [GitHub仓库](https://github.com/Versakit/Versakit-Vue)
 - [Gitee镜像](https://gitee.com/dragon_water/versakit-ui)
-- [问题反馈](https://github.com/lenran659/versakit-ui/issues)
+- [问题反馈](https://github.com/Versakit/Versakit-Vue/issues)
 - [更新日志](./CHANGELOG.md)
 
 ## 🤝 感谢贡献者们做出的努力
