@@ -41,8 +41,7 @@
       "prettier --write"
     ]
   },
-  "dependencies": {
-    "eslint": "8",
+  "peerDependencies": {
     "vue": "^3.5.12"
   },
   "devDependencies": {
@@ -60,6 +59,7 @@
     "@vue/tsconfig": "^0.5.1",
     "commitizen": "^4.3.1",
     "cz-conventional-changelog": "^3.3.0",
+    "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-node": "^11.1.0",
