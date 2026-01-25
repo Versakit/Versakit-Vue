@@ -14,6 +14,7 @@
     <img src="https://img.shields.io/badge/typescript-%5E5.0.0-%233178c6" alt="typescript">
     <img src="https://img.shields.io/badge/tailwindcss-v3.3.0-%2338bdf8" alt="tailwindcss">
     <img src="https://img.shields.io/npm/l/@versakit/vue.svg" alt="license">
+    <img src="https://github.com/Versakit/Versakit-Vue/actions/workflows/test.yml/badge.svg" alt="tests">
   </p>
 </div>
 

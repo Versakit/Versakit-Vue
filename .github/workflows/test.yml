@@ -1,0 +1,67 @@
+# 此工作流程用于自动运行测试
+# 当推送到 main 分支、创建 PR 或手动触发时运行
+
+name: Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  # 允许从 Actions 选项卡手动运行此工作流程
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      # 检出代码到工作目录
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 设置 pnpm 包管理器
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      # 设置 Node.js 环境
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      # 安装项目依赖
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # 运行测试
+      - name: Run tests
+        run: pnpm test
+
+      # 生成测试覆盖率报告
+      - name: Generate coverage report
+        run: pnpm test:coverage
+
+      # 上传覆盖率报告到 Codecov（可选）
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          files: ./coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+          fail_ci_if_error: false
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      # 上传覆盖率报告作为构建产物
+      - name: Upload coverage artifacts
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-report
+          path: coverage/
+          retention-days: 30
