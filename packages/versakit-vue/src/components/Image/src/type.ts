@@ -88,9 +88,7 @@ export type ImagePT = {
 export const ImageEmits = {
   load: (evt: Event) => evt instanceof Event,
   error: (evt: Event) => evt instanceof Event,
-  zoom: () => {
-    return true
-  },
+  zoom: (isZoomed: boolean) => typeof isZoomed === 'boolean',
 }
 
 export type ImageEmits = typeof ImageEmits
