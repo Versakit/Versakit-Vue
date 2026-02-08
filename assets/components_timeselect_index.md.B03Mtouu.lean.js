@@ -1,0 +1,121 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/chunks/index.Ba8Jn872.js","assets/chunks/theme.deiFc2AJ.js","assets/chunks/framework.UiYS8jYT.js"])))=>i.map(i=>d[i]);
+import{p as h,D as v,v as u,al as p,C as o,c as b,o as f,j as a,G as e,a5 as l,a0 as T,a as _,a3 as g,k as d,w as c,am as k}from"./chunks/framework.UiYS8jYT.js";import{O as y,E as x}from"./chunks/index.DtJc6mnf.js";const S=`<template>
+  <div class="space-y-8">
+    <!-- 基础用法 -->
+    <section>
+      <h3 class="text-lg font-medium mb-4">基础用法</h3>
+      <div class="max-w-sm">
+        <TimeSelect v-model="selectedTime" />
+      </div>
+      <div class="mt-2">当前选择的时间: {{ selectedTime || '未选择' }}</div>
+    </section>
+
+    <!-- 自定义时间范围和步长 -->
+    <section>
+      <h3 class="text-lg font-medium mb-4">自定义时间范围和步长</h3>
+      <div class="max-w-sm">
+        <TimeSelect
+          v-model="customRangeTime"
+          start="09:00"
+          end="18:00"
+          :step="15"
+        />
+      </div>
+      <div class="mt-2">
+        <div>当前选择的时间: {{ customRangeTime || '未选择' }}</div>
+        <div>时间范围: 09:00 至 18:00，步长: 15分钟</div>
+      </div>
+    </section>
+
+    <!-- 12小时制 -->
+    <section>
+      <h3 class="text-lg font-medium mb-4">12小时制</h3>
+      <div class="max-w-sm">
+        <TimeSelect v-model="time12h" format="12h" />
+      </div>
+      <div class="mt-2">当前选择的时间: {{ time12h || '未选择' }}</div>
+    </section>
+
+    <!-- 自定义选项 -->
+    <section>
+      <h3 class="text-lg font-medium mb-4">自定义选项</h3>
+      <div class="max-w-sm">
+        <TimeSelect v-model="customOptionsTime" :options="customOptions" />
+      </div>
+      <div class="mt-2">
+        <div>当前选择的时间: {{ customOptionsTime || '未选择' }}</div>
+        <div>自定义选项: {{ customOptions.join(', ') }}</div>
+      </div>
+    </section>
+
+    <!-- 禁用状态 -->
+    <section>
+      <h3 class="text-lg font-medium mb-4">禁用状态</h3>
+      <div class="flex flex-wrap gap-8">
+        <div>
+          <div class="max-w-sm">
+            <TimeSelect v-model="disabledTime" disabled />
+          </div>
+          <div class="mt-2">禁用状态</div>
+        </div>
+        <div>
+          <div class="max-w-sm">
+            <TimeSelect v-model="readonlyTime" readonly />
+          </div>
+          <div class="mt-2">只读状态</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 不可清空 -->
+    <section>
+      <h3 class="text-lg font-medium mb-4">不可清空</h3>
+      <div class="max-w-sm">
+        <TimeSelect v-model="nonClearableTime" :clearable="false" />
+      </div>
+      <div class="mt-2">
+        <div>当前选择的时间: {{ nonClearableTime || '未选择' }}</div>
+      </div>
+    </section>
+
+    <!-- 自定义占位文本 -->
+    <section>
+      <h3 class="text-lg font-medium mb-4">自定义占位文本</h3>
+      <div class="max-w-sm">
+        <TimeSelect v-model="placeholderTime" placeholder="请选择预约时间" />
+      </div>
+      <div class="mt-2">
+        <div>当前选择的时间: {{ placeholderTime || '未选择' }}</div>
+      </div>
+    </section>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { ref } from 'vue'
+import { TimeSelect } from '@versakit/vue'
+
+// 基础用法
+const selectedTime = ref('12:30')
+
+// 自定义时间范围和步长
+const customRangeTime = ref('09:00')
+
+// 12小时制
+const time12h = ref('02:30 PM')
+
+// 自定义选项
+const customOptionsTime = ref('09:00')
+const customOptions = ['09:00', '12:00', '15:00', '18:00']
+
+// 禁用状态
+const disabledTime = ref('12:30')
+const readonlyTime = ref('12:30')
+
+// 不可清空
+const nonClearableTime = ref('12:30')
+
+// 自定义占位文本
+const placeholderTime = ref('')
+<\/script>
+`,w=JSON.parse('{"title":"TimeSelect 时间选择","description":"","frontmatter":{},"headers":[],"relativePath":"components/timeselect/index.md","filePath":"components/timeselect/index.md"}'),V={name:"components/timeselect/index.md"},B=Object.assign(V,{setup(W){const i=h(!0),n=v();return u(async()=>{n.value=(await p(async()=>{const{default:s}=await import("./chunks/index.Ba8Jn872.js");return{default:s}},__vite__mapDeps([0,1,2]))).default}),(s,t)=>{const r=o("Link"),m=o("ClientOnly");return f(),b("div",null,[t[1]||(t[1]=a("h1",{id:"timeselect-时间选择",tabindex:"-1"},[_("TimeSelect 时间选择 "),a("a",{class:"header-anchor",href:"#timeselect-时间选择","aria-label":'Permalink to "TimeSelect 时间选择"'},"​")],-1)),t[2]||(t[2]=a("p",null,"TimeSelect 时间选择器用于从预定义的时间列表中选择时间，适用于需要限制用户只能选择特定时间点的场景。",-1)),e(r,{link:"https://versakit.github.io/Versakit-Vue/storybook/?path=/story/%E7%BB%84%E4%BB%B6-timeselect-%E6%97%B6%E9%97%B4%E9%80%89%E6%8B%A9--basic"}),t[3]||(t[3]=l("",3)),T(e(d(y),null,null,512),[[g,i.value]]),e(m,null,{default:c(()=>[e(d(x),{title:"",description:"",locale:"",select:"vue",order:"vue,react,html",github:"",gitlab:"",theme:"",lightTheme:"",darkTheme:"",stackblitz:"%7B%22show%22%3Afalse%7D",codesandbox:"%7B%22show%22%3Afalse%7D",codeplayer:"%7B%22show%22%3Afalse%7D",files:"%7B%22vue%22%3A%7B%7D%2C%22react%22%3A%7B%7D%2C%22html%22%3A%7B%7D%7D",scope:"",visible:!0,onMount:t[0]||(t[0]=()=>{i.value=!1}),vueCode:d(S)},k({_:2},[n.value?{name:"vue",fn:c(()=>[e(d(n))]),key:"0"}:void 0]),1032,["vueCode"])]),_:1}),t[4]||(t[4]=l("",7))])}}});export{w as __pageData,B as default};
