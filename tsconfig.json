@@ -15,8 +15,7 @@
     "jsx": "preserve",
     // https://cn.vuejs.org/guide/extras/render-function#jsx-type-inference
     "jsxImportSource": "vue",
-    "types": ["node", "vite/client"],
     "lib": ["esnext", "dom"]
   },
-  "exclude": ["**/node_modules/**", "**/demo/**", "**/example/**"]
+  "exclude": ["**/node_modules/**", "**/demo/**", "**/example/**", "vitest.setup.ts"]
 }
