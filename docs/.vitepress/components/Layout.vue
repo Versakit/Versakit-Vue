@@ -5,6 +5,19 @@ import { nextTick, provide } from 'vue'
 
 const { isDark } = useData()
 
+interface ViewTransition {
+  ready: Promise<void>
+  finished: Promise<void>
+  updateCallbackDone: Promise<void>
+  skipTransition(): void
+}
+
+declare global {
+  interface Document {
+    startViewTransition(callback?: () => void | Promise<void>): ViewTransition
+  }
+}
+
 const enableTransitions = () =>
   'startViewTransition' in document &&
   window.matchMedia('(prefers-reduced-motion: no-preference)').matches
@@ -15,24 +28,55 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
     return
   }
 
+  const wasDark = isDark.value
+
   const clipPath = [
     `circle(0px at ${x}px ${y}px)`,
     `circle(${Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y))}px at ${x}px ${y}px)`,
   ]
 
-  await document.startViewTransition(async () => {
+  const transition = document.startViewTransition(async () => {
     isDark.value = !isDark.value
     await nextTick()
-  }).ready
+  })
 
-  document.documentElement.animate(
-    { clipPath: isDark.value ? clipPath.reverse() : clipPath },
-    {
-      duration: 300,
-      easing: 'ease-in',
-      pseudoElement: `::view-transition-${isDark.value ? 'old' : 'new'}(root)`,
-    },
-  )
+  await transition.ready
+
+  // 根据切换方向选择正确的伪元素和动画方向
+  // 进入暗色模式：old（亮色）缩小消失，new（暗色）在下方显示
+  // 进入亮色模式：new（亮色）放大显示，old（暗色）在下方
+  let animation: Animation
+
+  if (wasDark) {
+    // 从暗色切换到亮色：new（亮色）从小圆放大
+    animation = document.documentElement.animate(
+      {
+        clipPath: [clipPath[0], clipPath[1]],
+      },
+      {
+        duration: 300,
+        easing: 'ease-in',
+        pseudoElement: '::view-transition-new(root)',
+        fill: 'forwards',
+      },
+    )
+  } else {
+    // 从亮色切换到暗色：old（亮色）从大圆缩小，露出下方的 new（暗色）
+    animation = document.documentElement.animate(
+      {
+        clipPath: [clipPath[1], clipPath[0]],
+      },
+      {
+        duration: 300,
+        easing: 'ease-in',
+        pseudoElement: '::view-transition-old(root)',
+        fill: 'forwards',
+      },
+    )
+  }
+
+  // 等待动画和视图过渡都完成
+  await Promise.all([animation.finished, transition.finished])
 })
 </script>
 
@@ -46,6 +90,7 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
 ::view-transition-new(root) {
   animation: none;
   mix-blend-mode: normal;
+  isolation: isolate;
 }
 
 ::view-transition-old(root),
@@ -56,6 +101,12 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
 ::view-transition-new(root),
 .dark::view-transition-old(root) {
   z-index: 9999;
+}
+
+/* 确保视图过渡容器正确显示 */
+::view-transition-group(root) {
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in;
 }
 
 /* 全局主题配置 */
