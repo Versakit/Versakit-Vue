@@ -29,7 +29,9 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      '@': fileURLToPath(new URL('./packages/versakit-vue/src', import.meta.url)),
+      '@': fileURLToPath(
+        new URL('./packages/versakit-vue/src', import.meta.url),
+      ),
     },
   },
 })
