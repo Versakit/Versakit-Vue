@@ -2,8 +2,8 @@
 layout: home
 ---
 
-<MainPage />
+<HomePage />
 
 <script setup>
-import MainPage from '/.vitepress/components/mainPage.vue'
+import HomePage from '/.vitepress/components/HomePage/index.vue'
 </script>

@@ -5,14 +5,13 @@ import 'virtual:group-icons.css'
 import { Versakit } from '@versakit/vue'
 import '@versakit/vue/style'
 
-// 引入组件
-import Link from '../components/LinkComponent.vue'
+import StorybookLink from '../components/StorybookLink.vue'
 
 export default {
   ...Theme,
   Layout: MyLayout,
   enhanceApp({ app }) {
     app.use(Versakit)
-    app.component('Link', Link)
+    app.component('Link', StorybookLink)
   },
 }

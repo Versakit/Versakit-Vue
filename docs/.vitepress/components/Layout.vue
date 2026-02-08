@@ -197,6 +197,12 @@ provide('toggle-appearance', async ({ clientX: x, clientY: y }: MouseEvent) => {
   max-width: 100%;
 }
 
+.VPHome .container {
+  min-width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
 /* 全局动画过渡 */
 * {
   transition:

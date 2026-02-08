@@ -16,6 +16,7 @@ export default defineConfig({
   description: 'VersaKit is a UI library for Vue 3',
   ignoreDeadLinks: true,
   themeConfig: {
+    logo: '/logo.svg',
     nav: getNav(),
     sidebar: {
       '/guide/': getGuideSidebar(),

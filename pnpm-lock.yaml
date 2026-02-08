@@ -129,6 +129,9 @@ importers:
       '@versakit/vue':
         specifier: workspace:*
         version: link:../packages/versakit-vue
+      ogl:
+        specifier: ^1.0.11
+        version: 1.0.11
       postcss:
         specifier: ^8.5.6
         version: 8.5.6
@@ -6473,6 +6476,10 @@ packages:
       define-properties: 1.2.1
       es-object-atoms: 1.1.1
     dev: true
+
+  /ogl@1.0.11:
+    resolution: {integrity: sha512-kUpC154AFfxi16pmZUK4jk3J+8zxwTWGPo03EoYA8QPbzikHoaC82n6pNTbd+oEaJonaE8aPWBlX7ad9zrqLsA==}
+    dev: false
 
   /once@1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
