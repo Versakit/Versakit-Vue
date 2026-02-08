@@ -40,6 +40,7 @@ import { Swap } from './components/Swap'
 import { Image } from './components/Image'
 import { Link } from './components/Link'
 import { Carousel } from './components/Carousel'
+import { Timeline, TimelineItem } from './components/Timeline'
 // 引入样式
 import './style/index.css'
 
@@ -93,6 +94,8 @@ const components: Component[] = [
   Image,
   Link,
   Carousel,
+  Timeline,
+  TimelineItem,
 ]
 
 const Versakit = {
@@ -155,4 +158,6 @@ export {
   Image,
   Link,
   Carousel,
+  Timeline,
+  TimelineItem,
 }
