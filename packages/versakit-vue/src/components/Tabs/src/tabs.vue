@@ -57,7 +57,10 @@ const slots = useSlots()
 
 // 从插槽中提取TabItem信息
 const tabItems = computed(() => {
-  const defaultSlot = slots.default?.({ active: activeTab.value }) || []
+  if (!slots.default) return []
+  // Call slot function during render context by accessing it in template
+  // For computed, we need to access VNodes differently
+  const defaultSlot = slots.default() || []
   // 用于检测重复的name
   const nameSet = new Set<string | number>()
   // 用于存储处理后的标签项

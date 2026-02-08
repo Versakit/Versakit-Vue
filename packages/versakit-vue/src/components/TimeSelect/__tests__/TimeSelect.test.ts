@@ -31,7 +31,7 @@ describe('TimeSelect', () => {
 
   it('handles step prop', () => {
     const wrapper = mount(TimeSelect, {
-      props: { step: '00:15' },
+      props: { step: 15 },
     })
     expect(wrapper.exists()).toBe(true)
   })

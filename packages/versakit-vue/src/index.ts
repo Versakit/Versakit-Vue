@@ -39,6 +39,7 @@ import { Dropdown, DropdownItem, DropdownDivider } from './components/Dropdown'
 import { Swap } from './components/Swap'
 import { Image } from './components/Image'
 import { Link } from './components/Link'
+import { Carousel } from './components/Carousel'
 // 引入样式
 import './style/index.css'
 
@@ -91,6 +92,7 @@ const components: Component[] = [
   Swap,
   Image,
   Link,
+  Carousel,
 ]
 
 const Versakit = {
@@ -152,4 +154,5 @@ export {
   Swap,
   Image,
   Link,
+  Carousel,
 }

@@ -41,7 +41,7 @@ describe('Skeleton', () => {
 
   it('renders without animation', () => {
     const wrapper = mount(Skeleton, {
-      props: { animation: false },
+      props: { animation: 'none' },
     })
     expect(wrapper.exists()).toBe(true)
   })
