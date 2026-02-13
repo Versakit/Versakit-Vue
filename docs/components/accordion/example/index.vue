@@ -263,8 +263,6 @@
 
 <script setup>
 import { ref } from 'vue'
-import { Accordion, AccordionItem } from '@versakit/vue'
-
 // 默认展开状态
 const singleExpanded = ref('item-2')
 const multiExpanded = ref(['item-1', 'item-3'])

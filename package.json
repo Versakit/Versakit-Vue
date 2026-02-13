@@ -14,6 +14,7 @@
     "storybook:build": "turbo run build --filter=storybook",
     "site:build": "turbo run build --filter=docs --filter=storybook",
     "docs:dev": "turbo run dev --filter=docs",
+    "play:dev": "turbo run dev --filter=play",
     "storybook": "turbo run storybook --filter=storybook",
     "test": "turbo run test",
     "test:watch": "turbo run test:watch",

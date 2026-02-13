@@ -4,19 +4,20 @@
   "author": "Jannik",
   "private": false,
   "type": "module",
-  "types": "./dist/index.d.ts",
+  "types": "./dist/src/index.d.ts",
   "main": "./dist/esm/index.esm.js",
   "style": "./dist/esm/vue.css",
   "unpkg": "./dist/umd/index.umd.js",
   "module": "./dist/esm/index.esm.js",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
+      "types": "./dist/src/index.d.ts",
       "import": "./dist/esm/index.esm.js",
       "require": "./dist/umd/index.umd.js",
       "default": "./dist/esm/index.esm.js"
     },
     "./style": {
+      "types": "./dist/types/style.d.ts",
       "import": "./dist/umd/vue.css",
       "require": "./dist/umd/vue.css",
       "default": "./dist/umd/vue.css"

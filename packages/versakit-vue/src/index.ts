@@ -1,4 +1,4 @@
-import type { App, Component } from 'vue'
+import type { Component } from 'vue'
 import { InputOtp } from './components/InputOtp'
 import { Modal } from './components/Modal'
 import { Avatar } from './components/Avatar'
@@ -99,7 +99,7 @@ const components: Component[] = [
 ]
 
 const Versakit = {
-  install: (app: App) => {
+  install: (app: any) => {
     for (const c in components) {
       app.component(components[c]?.name || c, components[c])
     }
