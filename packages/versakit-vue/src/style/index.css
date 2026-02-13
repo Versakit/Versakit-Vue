@@ -1,3 +1,8 @@
-@import 'tailwindcss';
+@layer theme, utilities;
+
+@import 'tailwindcss/theme' layer(theme);
+@import 'tailwindcss/utilities' layer(utilities) source(none);
+
+@source '../components/**/*.{vue,ts}';
 
 @custom-variant dark (&:where(.dark, .dark *));
