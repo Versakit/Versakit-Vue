@@ -6,6 +6,7 @@
 
 <script setup lang="ts">
 import { computed, provide } from 'vue'
+import type { CSSProperties } from 'vue'
 import { timelineStyle } from './index.variants'
 import type { TimelineProps } from './type'
 import { TimelineEmits } from './type'
@@ -37,9 +38,9 @@ const classes = computed(() => {
       })
 })
 
-const styles = computed(() => {
+const styles = computed((): CSSProperties => {
   if (props.reverse) {
-    return { flexDirection: 'column-reverse' }
+    return { flexDirection: 'column-reverse' as CSSProperties['flexDirection'] }
   }
   return {}
 })

@@ -15,6 +15,7 @@ dist-ssr
 coverage
 *.local
 **/cache/
+storybook-static
 
 /cypress/videos/
 /cypress/screenshots/

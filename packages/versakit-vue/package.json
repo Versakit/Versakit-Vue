@@ -17,9 +17,9 @@
       "default": "./dist/esm/index.esm.js"
     },
     "./style": {
-      "import": "./dist/esm/vue.css",
+      "import": "./dist/umd/vue.css",
       "require": "./dist/umd/vue.css",
-      "default": "./dist/esm/vue.css"
+      "default": "./dist/umd/vue.css"
     }
   },
   "homepage": "https://versakit.github.io/Versakit-Vue/",
@@ -48,6 +48,7 @@
   "scripts": {
     "build-only": "run-p type-check \"build-only {@}\" --",
     "build": "vite build",
+    "build:watch": "vite build --watch",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint --ext .ts,.vue .",
     "lint:fix": "eslint --ext .ts,.vue . --fix",

@@ -1,4 +1,3 @@
-// styles/alert.ts
 import { tv } from 'tailwind-variants'
 
 export const alertStyle = tv({
