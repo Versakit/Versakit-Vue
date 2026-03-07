@@ -1,12 +1,20 @@
+import type { Ref } from 'vue'
+
 export type CheckboxSize = 'small' | 'default' | 'large'
 export type CheckboxColor = 'blue' | 'green' | 'red' | 'yellow' | 'purple'
+export type CheckboxDirection = 'horizontal' | 'vertical'
 
 export interface CheckboxProps {
   /**
    * 复选框状态值
    * @default false
    */
-  modelValue?: boolean
+  modelValue?: boolean | string | number | any[]
+
+  /**
+   * 复选框的值（用于 CheckboxGroup）
+   */
+  value?: string | number | boolean
 
   /**
    * 是否禁用
@@ -41,6 +49,26 @@ export interface CheckboxProps {
    * 传递模板样式
    */
   pt?: CheckboxPT
+}
+
+export interface CheckboxGroupProps {
+  modelValue?: (string | number | boolean)[]
+  disabled?: boolean
+  size?: CheckboxSize
+  color?: CheckboxColor
+  direction?: CheckboxDirection
+  min?: number
+  max?: number
+}
+
+export interface CheckboxGroupContext {
+  modelValue: Ref<(string | number | boolean)[]>
+  disabled: Ref<boolean>
+  size: Ref<CheckboxSize>
+  color: Ref<CheckboxColor>
+  min: Ref<number | undefined>
+  max: Ref<number | undefined>
+  changeEvent: (val: any) => void
 }
 
 export type CheckboxPT = {

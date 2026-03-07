@@ -16,7 +16,7 @@ import { Button } from './components/Button'
 import { Card } from './components/Card'
 import { Divider } from './components/Divider'
 import { Textarea } from './components/Textarea'
-import { Checkbox } from './components/Checkbox'
+import { Checkbox, CheckboxGroup } from './components/Checkbox'
 import { Input } from './components/Input'
 import { Select } from './components/Select'
 import { Rate } from './components/Rate'
@@ -43,6 +43,7 @@ import { Carousel } from './components/Carousel'
 import { Timeline, TimelineItem } from './components/Timeline'
 import { Toast, ToastContainer } from './components/Toast'
 import { Steps, StepItem } from './components/Steps'
+import { Radio, RadioGroup } from './components/Radio'
 // 引入样式
 import './style/index.css'
 
@@ -66,6 +67,7 @@ const components: Component[] = [
   Textarea,
   Select,
   Checkbox,
+  CheckboxGroup,
   Input,
   Rate,
   Calendar,
@@ -99,6 +101,10 @@ const components: Component[] = [
   Timeline,
   TimelineItem,
   ToastContainer,
+  Steps,
+  StepItem,
+  Radio,
+  RadioGroup,
 ]
 
 const Versakit = {
@@ -131,6 +137,7 @@ export {
   Textarea,
   Select,
   Checkbox,
+  CheckboxGroup,
   Input,
   Rate,
   Calendar,
@@ -167,4 +174,6 @@ export {
   ToastContainer,
   Steps,
   StepItem,
+  Radio,
+  RadioGroup,
 }

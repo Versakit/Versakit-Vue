@@ -1,58 +1,84 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
-import Checkbox from '../src/index.vue'
+import { Checkbox, CheckboxGroup } from '../index'
 
 describe('Checkbox', () => {
-  it('renders properly', () => {
-    const wrapper = mount(Checkbox)
-    expect(wrapper.find('input[type="checkbox"]').exists()).toBe(true)
-  })
-
-  it('handles v-model', async () => {
+  it('should render correctly', () => {
     const wrapper = mount(Checkbox, {
       props: {
-        modelValue: true,
-        'onUpdate:modelValue': (e: boolean) => wrapper.setProps({ modelValue: e }),
+        label: 'Option 1',
       },
     })
-    expect(wrapper.find('input').element.checked).toBe(true)
+    expect(wrapper.text()).toContain('Option 1')
   })
 
-  it('toggles checked state', async () => {
-    const wrapper = mount(Checkbox)
-    const input = wrapper.find('input')
-    await input.trigger('click')
-    expect(wrapper.emitted('update:modelValue')).toBeTruthy()
-  })
-
-  it('handles disabled state', () => {
+  it('should update modelValue when clicked', async () => {
     const wrapper = mount(Checkbox, {
-      props: { disabled: true },
+      props: {
+        modelValue: false,
+        label: 'Option 1',
+      },
     })
-    expect(wrapper.find('input').attributes('disabled')).toBeDefined()
+
+    await wrapper.trigger('click')
+    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([true])
   })
 
-  it('renders with label', () => {
+  it('should not update when disabled', async () => {
     const wrapper = mount(Checkbox, {
-      slots: { default: 'Accept terms' },
+      props: {
+        modelValue: false,
+        label: 'Option 1',
+        disabled: true,
+      },
     })
-    expect(wrapper.text()).toContain('Accept terms')
+
+    await wrapper.trigger('click')
+    expect(wrapper.emitted('update:modelValue')).toBeFalsy()
+  })
+})
+
+describe('CheckboxGroup', () => {
+  it('should render slots', () => {
+    const wrapper = mount(CheckboxGroup, {
+      slots: {
+        default: `
+          <Checkbox value="Option 1" label="Option 1" />
+          <Checkbox value="Option 2" label="Option 2" />
+        `,
+      },
+      global: {
+        components: { Checkbox },
+      },
+    })
+
+    expect(wrapper.findAllComponents(Checkbox).length).toBe(2)
   })
 
-  it('handles indeterminate state', () => {
-    const wrapper = mount(Checkbox, {
-      props: { indeterminate: true },
+  it('should update modelValue via group', async () => {
+    const wrapper = mount(CheckboxGroup, {
+      props: {
+        modelValue: [],
+      },
+      slots: {
+        default: `
+          <Checkbox value="Option 1" label="Option 1" />
+          <Checkbox value="Option 2" label="Option 2" />
+        `,
+      },
+      global: {
+        components: { Checkbox },
+      },
     })
-    expect(wrapper.exists()).toBe(true)
-  })
 
-  it('renders with different sizes', () => {
-    const sizes = ['sm', 'md', 'lg'] as const
-    sizes.forEach((size) => {
-      const wrapper = mount(Checkbox, {
-        props: { size },
-      })
-      expect(wrapper.exists()).toBe(true)
-    })
+    const checkboxes = wrapper.findAllComponents(Checkbox)
+
+    // Simulate click on first checkbox
+    await checkboxes[0].trigger('click')
+
+    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([['Option 1']])
+
+    // Simulate click on second checkbox (requires updating props manually in test or re-mounting with new props if we were testing parent component, but here we just check emit)
+    // Since we can't easily update props of wrapper in this setup without a parent component, we just check the emit.
   })
 })
