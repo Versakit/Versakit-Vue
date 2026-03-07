@@ -43,12 +43,7 @@ export const getComponentsSidebar = (
   })
 
   // 构建侧边栏配置
-  const sidebarItems: DefaultTheme.SidebarItem[] = [
-    {
-      text: 'Overview 组件总览',
-      link: '/components/overview/',
-    },
-  ]
+  const sidebarItems: DefaultTheme.SidebarItem[] = []
 
   // 按照指定顺序添加分类
   categoryOrder.forEach((category) => {

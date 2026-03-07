@@ -7,10 +7,9 @@ export const getNav = (): DefaultTheme.NavItem[] => {
       link: '/guide/getting-started/introduction',
       activeMatch: '/guide/',
     },
-    { text: '设计', link: '' },
     {
       text: '组件',
-      link: '/components/overview/',
+      link: '/components/button/',
       activeMatch: '/components/',
     },
     { text: '博客', link: '/blog/', activeMatch: '/blog/' },

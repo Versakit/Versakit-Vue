@@ -6,11 +6,11 @@
 
 ---
 
-## 🎯 测试质量的核心原则
+## 测试质量的核心原则
 
 ### 1. 测试行为，而非实现
 
-**❌ 错误示例** - 测试实现细节：
+** 错误示例** - 测试实现细节：
 ```typescript
 it('has correct data structure', () => {
   const wrapper = mount(Counter)
@@ -19,7 +19,7 @@ it('has correct data structure', () => {
 })
 ```
 
-**✅ 正确示例** - 测试用户可见的行为：
+** 正确示例** - 测试用户可见的行为：
 ```typescript
 it('displays initial count of 0', () => {
   const wrapper = mount(Counter)
@@ -35,7 +35,7 @@ it('increments count when button is clicked', async () => {
 
 ### 2. 测试真实的用户场景
 
-**❌ 错误示例** - 只测试组件存在：
+** 错误示例** - 只测试组件存在：
 ```typescript
 it('renders with different variants', () => {
   const variants = ['primary', 'secondary', 'danger']
@@ -46,7 +46,7 @@ it('renders with different variants', () => {
 })
 ```
 
-**✅ 正确示例** - 验证实际的视觉效果：
+** 正确示例** - 验证实际的视觉效果：
 ```typescript
 it('applies correct styles for primary variant', () => {
   const wrapper = mount(Button, { 
@@ -71,7 +71,7 @@ it('applies correct styles for danger variant', () => {
 
 ### 3. 验证边界条件和错误情况
 
-**✅ 好的测试覆盖边界情况**：
+** 好的测试覆盖边界情况**：
 ```typescript
 describe('Input validation', () => {
   it('handles empty input', async () => {
@@ -105,7 +105,7 @@ describe('Input validation', () => {
 
 ---
 
-## 🔍 测试质量检查清单
+## 测试质量检查清单
 
 ### 基础检查
 
@@ -167,7 +167,7 @@ describe('Input validation', () => {
 
 ---
 
-## 🛠️ 测试质量改进方法
+## 测试质量改进方法
 
 ### 方法 1: 突变测试（Mutation Testing）
 
@@ -285,7 +285,7 @@ it('clears input when clear button is clicked', async () => {
 
 ---
 
-## 📊 测试质量指标
+## 测试质量指标
 
 ### 1. 代码覆盖率
 
@@ -298,13 +298,13 @@ pnpm test:coverage
 **注意**: 高覆盖率不等于高质量！
 
 ```typescript
-// ❌ 100% 覆盖率但质量低
+//  100% 覆盖率但质量低
 it('component exists', () => {
   const wrapper = mount(Button)
   expect(wrapper.exists()).toBe(true)  // 覆盖了所有代码，但没验证任何行为
 })
 
-// ✅ 同样的覆盖率但质量高
+//  同样的覆盖率但质量高
 it('renders button with correct text', () => {
   const wrapper = mount(Button, { slots: { default: 'Click me' } })
   expect(wrapper.find('button').text()).toBe('Click me')
@@ -335,7 +335,7 @@ expect(wrapper.emitted('click')?.[0]).toEqual([expectedValue])
 
 ### 3. 测试可读性
 
-**❌ 难以理解的测试**：
+** 难以理解的测试**：
 ```typescript
 it('test 1', () => {
   const w = mount(C, { props: { v: 'p' } })
@@ -343,7 +343,7 @@ it('test 1', () => {
 })
 ```
 
-**✅ 清晰的测试**：
+** 清晰的测试**：
 ```typescript
 it('displays the variant name in the button text', () => {
   const wrapper = mount(Button, { 
@@ -356,7 +356,7 @@ it('displays the variant name in the button text', () => {
 
 ---
 
-## 🔧 实用工具和技巧
+## 实用工具和技巧
 
 ### 1. 使用 data-testid 提高测试稳定性
 
@@ -438,7 +438,7 @@ it('displays error message when API fails', async () => {
 
 ---
 
-## 📝 测试审查清单
+## 测试审查清单
 
 在提交测试代码前，检查以下项目：
 
@@ -469,7 +469,7 @@ it('displays error message when API fails', async () => {
 
 ---
 
-## 🎓 学习资源
+## 学习资源
 
 ### 推荐阅读
 - [Vue Test Utils 官方文档](https://test-utils.vuejs.org/)
@@ -482,7 +482,7 @@ it('displays error message when API fails', async () => {
 
 ---
 
-## 🚀 持续改进
+## 持续改进
 
 ### 定期审查测试质量
 
