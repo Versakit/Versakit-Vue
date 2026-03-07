@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { copyFile, mkdir } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -86,5 +87,9 @@ export default defineConfig({
         comments: false,
       },
     },
+  },
+  test: {
+    environment: 'jsdom',
+    globals: true,
   },
 })
