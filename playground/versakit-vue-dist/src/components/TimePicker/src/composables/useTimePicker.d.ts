@@ -1,0 +1,28 @@
+import { SetupContext } from 'vue';
+import { TimePickerProps, ITimePickerEmits } from '../type';
+export declare const useTimePicker: (props: TimePickerProps, emit: SetupContext<ITimePickerEmits>["emit"]) => {
+    isOpen: import('vue').Ref<boolean, boolean>;
+    inputRef: import('vue').Ref<HTMLInputElement | null, HTMLInputElement | null>;
+    dropdownRef: import('vue').Ref<HTMLDivElement | null, HTMLDivElement | null>;
+    hourRef: import('vue').Ref<HTMLDivElement | null, HTMLDivElement | null>;
+    minuteRef: import('vue').Ref<HTMLDivElement | null, HTMLDivElement | null>;
+    secondRef: import('vue').Ref<HTMLDivElement | null, HTMLDivElement | null>;
+    ampmRef: import('vue').Ref<HTMLDivElement | null, HTMLDivElement | null>;
+    formattedValue: import('vue').ComputedRef<string>;
+    hourList: import('vue').ComputedRef<number[]>;
+    minuteList: import('vue').ComputedRef<number[]>;
+    secondList: import('vue').ComputedRef<number[]>;
+    selectedHour: import('vue').Ref<number, number>;
+    selectedMinute: import('vue').Ref<number, number>;
+    selectedSecond: import('vue').Ref<number, number>;
+    selectedAmPm: import('vue').Ref<string, string>;
+    toggleDropdown: () => void;
+    closeDropdown: () => void;
+    selectHour: (hour: number) => void;
+    selectMinute: (minute: number) => void;
+    selectSecond: (second: number) => void;
+    selectAmPm: (value: "am" | "pm") => void;
+    handleClear: (e: MouseEvent) => void;
+    handleFocus: (e: FocusEvent) => void;
+    handleBlur: (e: FocusEvent) => void;
+};

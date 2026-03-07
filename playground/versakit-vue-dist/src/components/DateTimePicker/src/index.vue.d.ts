@@ -1,0 +1,30 @@
+import { DateTimePickerProps } from './type';
+declare const _default: import('vue').DefineComponent<DateTimePickerProps, {}, {}, {}, {}, import('vue').ComponentOptionsMixin, import('vue').ComponentOptionsMixin, {
+    blur: (e: FocusEvent) => void;
+    change: (date: Date | null) => void;
+    focus: (e: FocusEvent) => void;
+    "update:modelValue": (date: Date | null) => void;
+    clear: () => void;
+}, string, import('vue').PublicProps, Readonly<DateTimePickerProps> & Readonly<{
+    onBlur?: ((e: FocusEvent) => any) | undefined;
+    onChange?: ((date: Date | null) => any) | undefined;
+    onFocus?: ((e: FocusEvent) => any) | undefined;
+    "onUpdate:modelValue"?: ((date: Date | null) => any) | undefined;
+    onClear?: (() => any) | undefined;
+}>, {
+    unstyled: boolean;
+    disabled: boolean;
+    placeholder: string;
+    readonly: boolean;
+    clearable: boolean;
+    firstDayOfWeek: 0 | 1 | 2 | 3 | 4 | 5 | 6;
+    hourStep: number;
+    minuteStep: number;
+    secondStep: number;
+    showSeconds: boolean;
+    timeFormat: "12h" | "24h";
+}, {}, {}, {}, string, import('vue').ComponentProvideOptions, false, {
+    inputRef: HTMLInputElement;
+    dropdownRef: HTMLDivElement;
+}, HTMLDivElement>;
+export default _default;
