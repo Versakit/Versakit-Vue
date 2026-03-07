@@ -53,6 +53,10 @@ jobs:
       - name: Build Storybook
         run: pnpm run --filter storybook storybook:build
 
+      # 构建 Playground
+      - name: Build Playground
+        run: pnpm run --filter monaco-editor-sandbox build
+
       # 创建合并目录
       - name: Create merged directory
         run: |
@@ -60,6 +64,10 @@ jobs:
           cp -r docs/.vitepress/dist/* dist/
           mkdir -p dist/storybook
           cp -r storybook/storybook-static/* dist/storybook/
+          mkdir -p dist/playground
+          cp -r monaco-editor/dist/* dist/playground/
+          mkdir -p dist/playground/versakit-vue-dist
+          cp -r packages/versakit-vue/dist/* dist/playground/versakit-vue-dist/
 
       # 将构建后的文档和 Storybook 部署到 GitHub Pages
       - name: Deploy to GitHub Pages

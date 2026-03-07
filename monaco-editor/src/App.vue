@@ -8,8 +8,8 @@ const { importMap: builtinImportMap } = useVueImportMap({
     'https://cdn.jsdelivr.net/npm/@vue/runtime-dom@3.5.25/dist/runtime-dom.esm-browser.js',
 })
 
-const localVersakitUrl = '/versakit-vue-dist/esm/index.esm.js'
-const localVersakitStyle = '/versakit-vue-dist/esm/vue.css'
+const localVersakitUrl = './versakit-vue-dist/esm/index.esm.js'
+const localVersakitStyle = './versakit-vue-dist/esm/vue.css'
 
 const importMap = ref<ImportMap>({
   imports: {
