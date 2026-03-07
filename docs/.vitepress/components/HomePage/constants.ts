@@ -1,4 +1,4 @@
-import type { Feature, ComponentItem } from './types'
+import type { Feature, ComponentItem, Contributor } from './types'
 
 export const features: Feature[] = [
   {
@@ -66,5 +66,63 @@ export const featuredComponents: ComponentItem[] = [
     name: 'Alert',
     description: '警告提示组件',
     path: '/Versakit-Vue/components/alert/',
+  },
+]
+
+export const contributors: Contributor[] = [
+  {
+    name: 'lenran659',
+    avatar: 'https://avatars.githubusercontent.com/u/74483049?v=4',
+    github: 'https://github.com/lenran659',
+  },
+  {
+    name: 'Dream-2022',
+    avatar: 'https://avatars.githubusercontent.com/u/131731035?v=4',
+    github: 'https://github.com/Dream-2022',
+  },
+  {
+    name: 'ZRMYDYCG',
+    avatar: 'https://avatars.githubusercontent.com/u/116160870?v=4',
+    github: 'https://github.com/ZRMYDYCG',
+  },
+  {
+    name: 'ZHuuO',
+    avatar: 'https://avatars.githubusercontent.com/u/128499037?v=4',
+    github: 'https://github.com/ZHuuO',
+  },
+  {
+    name: 'Simonmie',
+    avatar: 'https://avatars.githubusercontent.com/u/122306263?v=4',
+    github: 'https://github.com/Simonmie',
+  },
+  {
+    name: 'abining',
+    avatar: 'https://avatars.githubusercontent.com/u/86543671?v=4',
+    github: 'https://github.com/abining',
+  },
+  {
+    name: 'dhj-l',
+    avatar: 'https://avatars.githubusercontent.com/u/126545033?v=4',
+    github: 'https://github.com/dhj-l',
+  },
+  {
+    name: 'yyz945947732',
+    avatar: 'https://avatars.githubusercontent.com/u/47586954?v=4',
+    github: 'https://github.com/yyz945947732',
+  },
+  {
+    name: 'StriveToLearnCode',
+    avatar: 'https://avatars.githubusercontent.com/u/184910937?v=4',
+    github: 'https://github.com/StriveToLearnCode',
+  },
+  {
+    name: 'yuguaa',
+    avatar: 'https://avatars.githubusercontent.com/u/58333667?v=4',
+    github: 'https://github.com/yuguaa',
+  },
+  {
+    name: 'xiaotanqingjiao',
+    avatar: 'https://avatars.githubusercontent.com/u/85224021?v=4',
+    github: 'https://github.com/xiaotanqingjiao',
   },
 ]
