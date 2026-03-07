@@ -8,11 +8,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [
-        "dist/**",
-        ".vitepress/dist/**",
-        "storybook-static/**"
-      ],
+      "outputs": ["dist/**", ".vitepress/dist/**", "storybook-static/**"],
       "inputs": [
         "src/**",
         "stories/**",
@@ -28,7 +24,6 @@
       "persistent": true
     },
     "test": {
-      "dependsOn": ["build"],
       "inputs": ["src/**/*.tsx", "src/**/*.ts", "test/**/*.ts", "test/**/*.tsx"]
     },
     "test:watch": {
