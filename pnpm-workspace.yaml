@@ -3,6 +3,7 @@ packages:
   - storybook
   - docs
   - play
+  - monaco-editor
 onlyBuiltDependencies:
   - '@parcel/watcher'
   - esbuild
