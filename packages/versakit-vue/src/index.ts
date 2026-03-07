@@ -42,6 +42,7 @@ import { Link } from './components/Link'
 import { Carousel } from './components/Carousel'
 import { Timeline, TimelineItem } from './components/Timeline'
 import { Toast, ToastContainer } from './components/Toast'
+import { Steps, StepItem } from './components/Steps'
 // 引入样式
 import './style/index.css'
 
@@ -164,4 +165,6 @@ export {
   TimelineItem,
   Toast,
   ToastContainer,
+  Steps,
+  StepItem,
 }
