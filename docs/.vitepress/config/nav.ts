@@ -15,7 +15,13 @@ export const getNav = (): DefaultTheme.NavItem[] => {
     { text: '博客', link: '/blog/', activeMatch: '/blog/' },
     {
       text: '生态',
-      items: [{ text: 'Pilot', link: 'https://versakit.github.io/Pilot/' }],
+      items: [
+        { text: 'Pilot', link: 'https://versakit.github.io/Pilot/' },
+        {
+          text: 'Playground',
+          link: 'https://versakit.github.io/Versakit-Vue/playground/',
+        },
+      ],
     },
   ]
 }
