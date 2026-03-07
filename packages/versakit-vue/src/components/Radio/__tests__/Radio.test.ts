@@ -75,7 +75,8 @@ describe('RadioGroup', () => {
     const radios = wrapper.findAllComponents(Radio)
 
     // Initial state
-    expect(radios[0].props('modelValue')).toBeUndefined() // Radio inside group ignores its own modelValue prop usually
+    // Vue defaults boolean-compatible props to false if missing
+    expect(radios[0].props('modelValue')).toBe(false)
 
     // Simulate click on second radio
     await radios[1].find('input').trigger('change')

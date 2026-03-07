@@ -36,6 +36,9 @@ describe('Steps', () => {
       },
     })
 
+    // Wait for StepItems to register themselves
+    await wrapper.vm.$nextTick()
+
     const stepItems = wrapper.findAllComponents(StepItem)
     await stepItems[1].trigger('click')
 
@@ -78,6 +81,9 @@ describe('Steps', () => {
         components: { StepItem },
       },
     })
+
+    // Wait for StepItems to register themselves
+    await wrapper.vm.$nextTick()
 
     const stepItems = wrapper.findAllComponents(StepItem)
 

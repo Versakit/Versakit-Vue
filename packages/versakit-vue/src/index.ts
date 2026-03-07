@@ -44,6 +44,7 @@ import { Timeline, TimelineItem } from './components/Timeline'
 import { Toast, ToastContainer } from './components/Toast'
 import { Steps, StepItem } from './components/Steps'
 import { Radio, RadioGroup } from './components/Radio'
+import { Table } from './components/Table'
 // 引入样式
 import './style/index.css'
 
@@ -105,6 +106,7 @@ const components: Component[] = [
   StepItem,
   Radio,
   RadioGroup,
+  Table,
 ]
 
 const Versakit = {
@@ -176,4 +178,5 @@ export {
   StepItem,
   Radio,
   RadioGroup,
+  Table,
 }
