@@ -41,6 +41,7 @@ import { Image } from './components/Image'
 import { Link } from './components/Link'
 import { Carousel } from './components/Carousel'
 import { Timeline, TimelineItem } from './components/Timeline'
+import { Toast, ToastContainer } from './components/Toast'
 // 引入样式
 import './style/index.css'
 
@@ -96,6 +97,7 @@ const components: Component[] = [
   Carousel,
   Timeline,
   TimelineItem,
+  ToastContainer,
 ]
 
 const Versakit = {
@@ -160,4 +162,6 @@ export {
   Carousel,
   Timeline,
   TimelineItem,
+  Toast,
+  ToastContainer,
 }
