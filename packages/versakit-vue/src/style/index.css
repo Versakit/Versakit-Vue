@@ -6,3 +6,24 @@
 @source '../components/**/*.{vue,ts}';
 
 @custom-variant dark (&:where(.dark, .dark *));
+
+@layer utilities {
+  :where(
+      button,
+      [role='button'],
+      [type='button'],
+      [type='submit'],
+      [type='reset'],
+      input,
+      textarea,
+      select,
+      [role='combobox'],
+      summary,
+      [tabindex]
+    ):is(:focus, :focus-visible) {
+    outline: none !important;
+    box-shadow: none !important;
+    --tw-ring-shadow: 0 0 #0000 !important;
+    --tw-ring-offset-shadow: 0 0 #0000 !important;
+  }
+}
