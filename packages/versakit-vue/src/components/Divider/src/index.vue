@@ -60,7 +60,9 @@ const rootClass = computed(() => {
 })
 
 const labelClass = computed(() => {
-  return props.unstyled ? props.pt?.label || '' : 'px-2 text-gray-500'
+  return props.unstyled
+    ? props.pt?.label || ''
+    : 'shrink-0 whitespace-nowrap px-2 text-gray-500'
 })
 
 const customStyle = computed(() => {

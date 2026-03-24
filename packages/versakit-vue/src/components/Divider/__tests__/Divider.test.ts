@@ -35,4 +35,12 @@ describe('Divider', () => {
       expect(wrapper.exists()).toBe(true)
     })
   })
+
+  it('keeps label from shrinking and wrapping', () => {
+    const wrapper = mount(Divider, {
+      slots: { default: 'Long Label Text' },
+    })
+    expect(wrapper.html()).toContain('shrink-0')
+    expect(wrapper.html()).toContain('whitespace-nowrap')
+  })
 })
