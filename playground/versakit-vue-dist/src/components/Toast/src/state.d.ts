@@ -6,7 +6,7 @@ export declare const toasts: import('vue').Ref<{
     type?: import('./type').ToastType | undefined;
     duration?: number | undefined;
     position?: import('./type').ToastPosition | undefined;
-    onClose?: (() => void) | undefined;
+    onClose?: ((id: string) => void) | undefined;
 }[], ToastInstance[] | {
     visible: boolean;
     id: string;
@@ -14,7 +14,7 @@ export declare const toasts: import('vue').Ref<{
     type?: import('./type').ToastType | undefined;
     duration?: number | undefined;
     position?: import('./type').ToastPosition | undefined;
-    onClose?: (() => void) | undefined;
+    onClose?: ((id: string) => void) | undefined;
 }[]>;
 export declare const add: (options: ToastOptions) => string;
 export declare const remove: (id: string) => void;
