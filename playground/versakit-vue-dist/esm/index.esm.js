@@ -5840,7 +5840,7 @@ const Br = R({
       });
     }), o = h(() => {
       var n;
-      return a.unstyled ? ((n = a.pt) == null ? void 0 : n.label) || "" : "px-2 text-gray-500";
+      return a.unstyled ? ((n = a.pt) == null ? void 0 : n.label) || "" : "shrink-0 whitespace-nowrap px-2 text-gray-500";
     }), f = h(() => !a.unstyled && a.color ? {
       borderColor: a.color,
       "--tw-border-opacity": 1,
