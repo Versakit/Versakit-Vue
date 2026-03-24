@@ -157,6 +157,7 @@ export const componentsMetadata: ComponentMetadata[] = [
     link: '/components/timeline/',
     category: 'data',
   },
+  { text: 'Table 表格', link: '/components/table/', category: 'data' },
 
   // 导航组件
   {
