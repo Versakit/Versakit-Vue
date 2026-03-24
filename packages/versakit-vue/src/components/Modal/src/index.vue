@@ -11,6 +11,7 @@ import {
   modalCloseButton,
 } from './index.variants'
 import { watch, onMounted, nextTick, computed, useSlots } from 'vue'
+import type { Slots } from 'vue'
 
 defineOptions({
   name: 'Modal',
@@ -30,7 +31,7 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
-const slots = useSlots()
+const slots: Slots = useSlots()
 
 // 使用 useModal 组合式函数
 const { isOpen, open, close, modalRef, overlayRef, onOverlayClick } = useModal({
@@ -75,8 +76,8 @@ const closeModal = () => {
 }
 
 // 判断是否有各个插槽
-const hasHeader = computed(() => !!props.title || !!slots.header)
-const hasFooter = computed(() => !!slots.footer)
+const hasHeader = computed((): boolean => !!props.title || !!slots.header)
+const hasFooter = computed((): boolean => !!slots.footer)
 
 // 计算样式
 const overlayClass = computed(() => {
@@ -136,63 +137,85 @@ const closeButtonClass = computed(() => {
 </script>
 
 <template>
-  <!-- 使用 Teleport 将模态框传送到 body -->
   <Teleport to="body">
-    <!-- 只有当 isOpen 为 true 时才渲染模态框 -->
-    <div
-      v-if="isOpen"
-      :class="overlayClass"
-      ref="overlayRef"
-      @click="onOverlayClick"
-    >
+    <Transition name="vk-modal" appear>
       <div
-        :class="contentClass"
-        ref="modalRef"
-        role="dialog"
-        aria-modal="true"
-        tabindex="-1"
+        v-if="isOpen"
+        :class="overlayClass"
+        ref="overlayRef"
+        @click="onOverlayClick"
       >
-        <!-- 模态框头部 -->
-        <div v-if="hasHeader" :class="headerClass">
-          <slot name="header">
-            <h3 :class="titleClass">{{ props.title }}</h3>
-          </slot>
-
-          <button
-            v-if="!hideCloseButton"
-            :class="closeButtonClass"
-            @click="closeModal"
-            aria-label="关闭"
-          >
-            <slot name="close-icon">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="20"
-                height="20"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <line x1="18" y1="6" x2="6" y2="18"></line>
-                <line x1="6" y1="6" x2="18" y2="18"></line>
-              </svg>
+        <div
+          :class="[contentClass, 'vk-modal-dialog']"
+          ref="modalRef"
+          role="dialog"
+          aria-modal="true"
+          tabindex="-1"
+        >
+          <div v-if="hasHeader" :class="headerClass">
+            <slot name="header">
+              <h3 :class="titleClass">{{ props.title }}</h3>
             </slot>
-          </button>
-        </div>
 
-        <!-- 模态框内容 -->
-        <div :class="bodyClass">
-          <slot />
-        </div>
+            <button
+              v-if="!hideCloseButton"
+              :class="closeButtonClass"
+              @click="closeModal"
+              aria-label="关闭"
+            >
+              <slot name="close-icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </slot>
+            </button>
+          </div>
 
-        <!-- 模态框底部 -->
-        <div v-if="hasFooter" :class="footerClass">
-          <slot name="footer" />
+          <div :class="bodyClass">
+            <slot />
+          </div>
+
+          <div v-if="hasFooter" :class="footerClass">
+            <slot name="footer" />
+          </div>
         </div>
       </div>
-    </div>
+    </Transition>
   </Teleport>
 </template>
+
+<style scoped>
+.vk-modal-enter-active,
+.vk-modal-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.vk-modal-enter-active .vk-modal-dialog,
+.vk-modal-leave-active .vk-modal-dialog {
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.vk-modal-enter-from,
+.vk-modal-leave-to {
+  opacity: 0;
+}
+
+.vk-modal-enter-from .vk-modal-dialog,
+.vk-modal-leave-to .vk-modal-dialog {
+  transform: translateY(8px) scale(0.96);
+  opacity: 0;
+}
+</style>

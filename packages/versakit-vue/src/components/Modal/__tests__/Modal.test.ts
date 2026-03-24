@@ -56,7 +56,9 @@ describe('Modal', () => {
       attachTo: document.body,
     })
     await flushPromises()
-    expect(document.body.querySelector('button[aria-label="关闭"]')).toBeTruthy()
+    expect(
+      document.body.querySelector('button[aria-label="关闭"]'),
+    ).toBeTruthy()
     wrapper.unmount()
   })
 
@@ -67,7 +69,9 @@ describe('Modal', () => {
       attachTo: document.body,
     })
     await flushPromises()
-    const closeButton = document.body.querySelector('button[aria-label="关闭"]') as HTMLElement
+    const closeButton = document.body.querySelector(
+      'button[aria-label="关闭"]',
+    ) as HTMLElement
     if (closeButton) {
       closeButton.click()
       await flushPromises()
