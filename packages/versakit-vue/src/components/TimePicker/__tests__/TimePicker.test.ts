@@ -72,4 +72,11 @@ describe('TimePicker', () => {
     })
     expect(wrapper.exists()).toBe(true)
   })
+
+  it('contains dark mode classes', () => {
+    const wrapper = mount(TimePicker)
+    const inputClass = wrapper.find('input').attributes('class') || ''
+    expect(inputClass).toContain('dark:bg-gray-900')
+    expect(inputClass).toContain('dark:text-gray-100')
+  })
 })
