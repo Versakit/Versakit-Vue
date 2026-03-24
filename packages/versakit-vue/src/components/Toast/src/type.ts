@@ -14,7 +14,7 @@ export interface ToastProps {
   type?: ToastType
   duration?: number
   position?: ToastPosition
-  onClose?: () => void
+  onClose?: (id: string) => void
 }
 
 export type ToastOptions = Omit<ToastProps, 'id'>

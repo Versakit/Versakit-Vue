@@ -107,7 +107,7 @@ const handleManualClose = () => {
 const handleClose = () => {
   emit('close', props.id)
   if (props.onClose) {
-    props.onClose()
+    props.onClose(props.id)
   }
 }
 
