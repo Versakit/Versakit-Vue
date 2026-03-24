@@ -135,6 +135,11 @@ export const componentsMetadata: ComponentMetadata[] = [
     link: '/components/tooltip/',
     category: 'feedback',
   },
+  {
+    text: 'Toast 轻提示',
+    link: '/components/toast/',
+    category: 'feedback',
+  },
 
   // 数据展示
   { text: 'Avatar 头像', link: '/components/avatar/', category: 'data' },

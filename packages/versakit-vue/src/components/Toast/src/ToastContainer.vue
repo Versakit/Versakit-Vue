@@ -20,7 +20,7 @@
             v-for="toast in getToastsByPosition(pos)"
             :key="toast.id"
             v-bind="toast"
-            @close="handleClose(toast.id)"
+            @close="handleClose"
           />
         </TransitionGroup>
       </div>
