@@ -150,7 +150,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import {
   paginatorStyle,
   paginatorListStyle,
@@ -184,9 +184,21 @@ const props = withDefaults(defineProps<PaginatorProps>(), {
 const emit = defineEmits(PaginatorEmits)
 
 // 当前页码
+const innerPage = ref(props.modelValue)
+
+watch(
+  () => props.modelValue,
+  (value) => {
+    if (value !== innerPage.value) {
+      innerPage.value = value
+    }
+  },
+)
+
 const currentPage = computed({
-  get: () => props.modelValue,
+  get: () => innerPage.value,
   set: (value) => {
+    innerPage.value = value
     emit('update:modelValue', value)
     emit('change', value)
   },
@@ -201,7 +213,7 @@ const isDisabled = computed(() => props.disabled)
 // 计算显示的页码
 const displayedPages = computed(() => {
   const totalPages = props.totalPages
-  const currentPage = props.modelValue
+  const currentPage = innerPage.value
   const visibleCount = props.visiblePageCount
 
   if (totalPages <= visibleCount) {

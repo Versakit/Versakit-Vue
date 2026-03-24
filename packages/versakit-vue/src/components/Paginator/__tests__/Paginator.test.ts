@@ -39,8 +39,12 @@ describe('Paginator', () => {
         modelValue: 1,
       },
     })
-    // Just check the component renders
-    expect(wrapper.exists()).toBe(true)
+    await wrapper
+      .findAll('button')
+      .find((button) => button.text() === '2')
+      ?.trigger('click')
+    expect(wrapper.emitted('update:modelValue')?.[0]).toEqual([2])
+    expect(wrapper.find('button[aria-current="page"]').text()).toBe('2')
   })
 
   it('handles disabled state', () => {
@@ -84,5 +88,16 @@ describe('Paginator', () => {
       })
       expect(wrapper.exists()).toBe(true)
     })
+  })
+
+  it('contains dark mode classes', () => {
+    const wrapper = mount(Paginator, {
+      props: {
+        totalPages: 10,
+        modelValue: 1,
+      },
+    })
+    expect(wrapper.html()).toContain('dark:border-gray-700')
+    expect(wrapper.html()).toContain('dark:bg-gray-900')
   })
 })

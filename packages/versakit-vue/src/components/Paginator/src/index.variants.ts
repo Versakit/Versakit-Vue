@@ -25,9 +25,11 @@ export const paginatorButtonStyle = tv({
   base: 'flex items-center justify-center transition-colors focus:outline-none',
   variants: {
     variant: {
-      default: 'bg-white border border-gray-300 hover:bg-gray-100',
-      outline: 'bg-transparent border border-gray-300 hover:bg-gray-100',
-      text: 'bg-transparent hover:bg-gray-100',
+      default:
+        'border border-gray-300 bg-white text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:hover:bg-gray-800',
+      outline:
+        'border border-gray-300 bg-transparent text-gray-700 hover:bg-gray-100 dark:border-gray-700 dark:text-gray-200 dark:hover:bg-gray-800',
+      text: 'bg-transparent text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800',
     },
     size: {
       sm: 'h-7 w-7 text-xs',
@@ -40,7 +42,7 @@ export const paginatorButtonStyle = tv({
       circle: 'rounded-full',
     },
     active: {
-      true: 'bg-blue-500 text-white border-blue-500 hover:bg-blue-600',
+      true: 'border-blue-500 bg-blue-500 text-white hover:bg-blue-600 dark:border-blue-500 dark:bg-blue-600 dark:text-white dark:hover:bg-blue-500',
       false: '',
     },
     disabled: {
@@ -58,7 +60,7 @@ export const paginatorButtonStyle = tv({
 })
 
 export const paginatorEllipsisStyle = tv({
-  base: 'flex items-center justify-center',
+  base: 'flex items-center justify-center text-gray-500 dark:text-gray-400',
   variants: {
     size: {
       sm: 'h-7 w-7 text-xs',
@@ -72,11 +74,11 @@ export const paginatorEllipsisStyle = tv({
 })
 
 export const paginatorJumperStyle = tv({
-  base: 'flex items-center ml-4',
+  base: 'ml-4 flex items-center text-gray-700 dark:text-gray-300',
 })
 
 export const paginatorJumperInputStyle = tv({
-  base: 'w-12 h-full text-center border border-gray-300 rounded-md mx-1 focus:outline-none focus:ring-1 focus:ring-blue-500 focus:border-blue-500',
+  base: 'mx-1 h-full w-12 rounded-md border border-gray-300 bg-white text-center text-gray-700 focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200 dark:focus:border-blue-400 dark:focus:ring-blue-400',
   variants: {
     size: {
       sm: 'h-7 text-xs',
@@ -90,7 +92,7 @@ export const paginatorJumperInputStyle = tv({
 })
 
 export const paginatorJumperButtonStyle = tv({
-  base: 'ml-2 px-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none',
+  base: 'ml-2 rounded-md bg-blue-500 px-3 text-white hover:bg-blue-600 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-500',
   variants: {
     size: {
       sm: 'h-7 text-xs',
