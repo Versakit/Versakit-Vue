@@ -72,4 +72,11 @@ describe('DatePicker', () => {
     await wrapper.find('input').trigger('click')
     expect(wrapper.exists()).toBe(true)
   })
+
+  it('contains dark mode classes', () => {
+    const wrapper = mount(DatePicker)
+    const inputClass = wrapper.find('input').attributes('class') || ''
+    expect(inputClass).toContain('dark:bg-gray-900')
+    expect(inputClass).toContain('dark:text-gray-100')
+  })
 })

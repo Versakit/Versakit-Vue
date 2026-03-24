@@ -20,7 +20,9 @@ describe('DateTimePicker', () => {
     const wrapper = mount(DateTimePicker, {
       props: { placeholder: 'Select date and time' },
     })
-    expect(wrapper.find('input').attributes('placeholder')).toBe('Select date and time')
+    expect(wrapper.find('input').attributes('placeholder')).toBe(
+      'Select date and time',
+    )
   })
 
   it('handles disabled state', () => {
@@ -48,5 +50,12 @@ describe('DateTimePicker', () => {
       })
       expect(wrapper.exists()).toBe(true)
     })
+  })
+
+  it('contains dark mode classes', () => {
+    const wrapper = mount(DateTimePicker)
+    const inputClass = wrapper.find('input').attributes('class') || ''
+    expect(inputClass).toContain('dark:bg-gray-900')
+    expect(inputClass).toContain('dark:text-gray-100')
   })
 })

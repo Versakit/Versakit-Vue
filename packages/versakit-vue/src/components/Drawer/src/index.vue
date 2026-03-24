@@ -186,73 +186,117 @@ const closeDrawer = () => {
 const hasHeader = computed<boolean>(() => !!props.title || !!slots.header)
 // 是否有底部插槽
 const hasFooter = computed<boolean>(() => !!slots.footer)
+const drawerTransitionName = computed(() => `vk-drawer-${props.placement}`)
 </script>
 
 <template>
   <Teleport to="body">
-    <!-- 遮罩层 -->
-    <div
-      v-if="showOverlay && isOpen"
-      :class="overlayClass"
-      ref="overlayRef"
-      @click="onOverlayClick"
-      role="presentation"
-      aria-hidden="true"
-    ></div>
+    <Transition name="vk-drawer-overlay" appear>
+      <div
+        v-if="showOverlay && isOpen"
+        :class="overlayClass"
+        ref="overlayRef"
+        @click="onOverlayClick"
+        role="presentation"
+        aria-hidden="true"
+      ></div>
+    </Transition>
 
-    <!-- 抽屉容器 -->
-    <div
-      :class="containerClass"
-      :style="containerStyle"
-      ref="drawerRef"
-      role="dialog"
-      aria-modal="true"
-      :aria-hidden="!isOpen"
-      :aria-labelledby="title ? 'drawer-title' : undefined"
-    >
-      <!-- 抽屉头部 -->
-      <div v-if="hasHeader" :class="headerClass">
-        <slot name="header">
-          <h2 v-if="title" :class="titleClass" id="drawer-title">
-            {{ title }}
-          </h2>
-        </slot>
-
-        <button
-          v-if="!hideCloseButton"
-          :class="closeButtonClass"
-          @click="closeDrawer"
-          aria-label="关闭"
-          type="button"
-        >
-          <slot name="close-icon">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <line x1="18" y1="6" x2="6" y2="18"></line>
-              <line x1="6" y1="6" x2="18" y2="18"></line>
-            </svg>
+    <Transition :name="drawerTransitionName" appear>
+      <div
+        v-if="isOpen"
+        :class="[containerClass, 'vk-drawer-panel']"
+        :style="containerStyle"
+        ref="drawerRef"
+        role="dialog"
+        aria-modal="true"
+        :aria-hidden="!isOpen"
+        :aria-labelledby="title ? 'drawer-title' : undefined"
+      >
+        <div v-if="hasHeader" :class="headerClass">
+          <slot name="header">
+            <h2 v-if="title" :class="titleClass" id="drawer-title">
+              {{ title }}
+            </h2>
           </slot>
-        </button>
-      </div>
 
-      <!-- 抽屉内容 -->
-      <div :class="bodyClass">
-        <slot></slot>
-      </div>
+          <button
+            v-if="!hideCloseButton"
+            :class="closeButtonClass"
+            @click="closeDrawer"
+            aria-label="关闭"
+            type="button"
+          >
+            <slot name="close-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </slot>
+          </button>
+        </div>
 
-      <!-- 抽屉底部 -->
-      <div v-if="hasFooter" :class="footerClass">
-        <slot name="footer"></slot>
+        <div :class="bodyClass">
+          <slot></slot>
+        </div>
+
+        <div v-if="hasFooter" :class="footerClass">
+          <slot name="footer"></slot>
+        </div>
       </div>
-    </div>
+    </Transition>
   </Teleport>
 </template>
+
+<style scoped>
+.vk-drawer-overlay-enter-active,
+.vk-drawer-overlay-leave-active {
+  transition: opacity 0.2s ease;
+}
+
+.vk-drawer-overlay-enter-from,
+.vk-drawer-overlay-leave-to {
+  opacity: 0;
+}
+
+.vk-drawer-left-enter-active,
+.vk-drawer-left-leave-active,
+.vk-drawer-right-enter-active,
+.vk-drawer-right-leave-active,
+.vk-drawer-top-enter-active,
+.vk-drawer-top-leave-active,
+.vk-drawer-bottom-enter-active,
+.vk-drawer-bottom-leave-active {
+  transition: transform 0.25s ease;
+}
+
+.vk-drawer-left-enter-from,
+.vk-drawer-left-leave-to {
+  transform: translateX(-100%);
+}
+
+.vk-drawer-right-enter-from,
+.vk-drawer-right-leave-to {
+  transform: translateX(100%);
+}
+
+.vk-drawer-top-enter-from,
+.vk-drawer-top-leave-to {
+  transform: translateY(-100%);
+}
+
+.vk-drawer-bottom-enter-from,
+.vk-drawer-bottom-leave-to {
+  transform: translateY(100%);
+}
+</style>
