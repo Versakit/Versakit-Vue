@@ -117,6 +117,10 @@ describe('TimelineItem', () => {
       },
     })
     expect(wrapper.props('dotColor')).toBe('#ff0000')
+    const dot = wrapper.find('.timeline-dot > div')
+    expect(dot.attributes('style')).toContain(
+      'background-color: rgb(255, 0, 0)',
+    )
   })
 
   it('handles lineColor prop', () => {
@@ -145,5 +149,40 @@ describe('TimelineItem', () => {
       },
     })
     expect(wrapper.exists()).toBe(true)
+  })
+
+  it('renders dot and connector with semantic classes', () => {
+    const wrapper = mount(TimelineItem, {
+      props: {
+        position: 0,
+        isLast: false,
+      },
+      slots: {
+        default: '<div>Item content</div>',
+      },
+    })
+    expect(wrapper.find('.timeline-dot').exists()).toBe(true)
+    expect(wrapper.find('.timeline-connector').exists()).toBe(true)
+  })
+
+  it('applies horizontal layout classes correctly', () => {
+    const wrapper = mount(TimelineItem, {
+      props: {
+        position: 0,
+        isLast: false,
+      },
+      slots: {
+        default: '<div>Item content</div>',
+      },
+      global: {
+        provide: {
+          timelineOrientation: 'horizontal',
+          timelineAlign: 'left',
+        },
+      },
+    })
+    expect(wrapper.classes()).toContain('flex-1')
+    expect(wrapper.find('.timeline-dot').classes()).toContain('mt-0')
+    expect(wrapper.find('.timeline-connector').classes()).toContain('left-1/2')
   })
 })
