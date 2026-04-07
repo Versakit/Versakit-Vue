@@ -35,16 +35,16 @@ export const switchStyle = tv({
     },
     size: {
       small: {
-        root: 'w-8 h-4',
-        thumb: 'w-3 h-3 top-0.5',
+        root: 'w-8 h-5',
+        thumb: 'w-3 h-3 top-1 left-1',
       },
       default: {
         root: 'w-10 h-6',
-        thumb: 'w-4 h-4 top-1',
+        thumb: 'w-4 h-4 top-1 left-1',
       },
       large: {
         root: 'w-12 h-7',
-        thumb: 'w-5 h-5 top-1',
+        thumb: 'w-5 h-5 top-1 left-1',
       },
     },
     color: {
