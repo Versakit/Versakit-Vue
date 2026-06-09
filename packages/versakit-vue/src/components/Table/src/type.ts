@@ -3,6 +3,8 @@ export interface TableColumn {
   title: string
   width?: string | number
   align?: 'left' | 'center' | 'right'
+  sortable?: boolean
+  icon?: string
 }
 
 export interface TableProps {
@@ -12,4 +14,10 @@ export interface TableProps {
   border?: boolean
   dense?: boolean
   emptyText?: string
+  searchable?: boolean
+  searchPlaceholder?: string
+  pagination?: boolean
+  pageSize?: number
+  initialPage?: number
+  exportable?: boolean
 }
