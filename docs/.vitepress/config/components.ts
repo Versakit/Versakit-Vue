@@ -210,6 +210,11 @@ export const componentsMetadata: ComponentMetadata[] = [
   // 其他组件
   { text: 'Kbd 键盘', link: '/components/kbd/', category: 'other' },
   { text: 'Carousel 轮播', link: '/components/carousel/', category: 'other' },
+  {
+    text: 'Runhorselight 跑马灯',
+    link: '/components/runhorselight/',
+    category: 'other',
+  },
 ]
 
 /**

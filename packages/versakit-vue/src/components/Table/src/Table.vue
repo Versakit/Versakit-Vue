@@ -291,7 +291,7 @@ const downloadCsv = () => {
 }
 </script>
 
-<style lang="less" scoped>
+<style scoped>
 .searchable {
   margin-bottom: 1rem;
 }
