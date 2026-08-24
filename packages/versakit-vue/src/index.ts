@@ -40,6 +40,7 @@ import { Swap } from './components/Swap'
 import { Image } from './components/Image'
 import { Link } from './components/Link'
 import { Carousel } from './components/Carousel'
+import { Runhorselight } from './components/Runhorselight'
 import { Timeline, TimelineItem } from './components/Timeline'
 import { Toast, ToastContainer } from './components/Toast'
 import { Steps, StepItem } from './components/Steps'
@@ -99,6 +100,7 @@ const components: Component[] = [
   Image,
   Link,
   Carousel,
+  Runhorselight,
   Timeline,
   TimelineItem,
   ToastContainer,
@@ -170,6 +172,7 @@ export {
   Image,
   Link,
   Carousel,
+  Runhorselight,
   Timeline,
   TimelineItem,
   Toast,

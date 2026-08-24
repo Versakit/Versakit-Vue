@@ -73,4 +73,24 @@ describe('Table', () => {
       wrapper.find('table').element.parentElement?.parentElement?.className,
     ).toContain('border')
   })
+
+  it('should render a search input and filter data', async () => {
+    const wrapper = mount(Table, {
+      props: {
+        columns,
+        data,
+        searchable: true,
+        searchPlaceholder: 'Filter rows',
+      },
+    })
+
+    const input = wrapper.find('input[type="text"]')
+    expect(input.exists()).toBe(true)
+    expect(input.attributes('placeholder')).toBe('Filter rows')
+
+    await input.setValue('John')
+
+    expect(wrapper.text()).toContain('John')
+    expect(wrapper.text()).not.toContain('Jane')
+  })
 })
