@@ -1,4 +1,4 @@
-import { TableProps } from './type';
+import { TableColumn, TableProps } from './type';
 declare function __VLS_template(): {
     attrs: Partial<{}>;
     slots: Partial<Record<string, (_: {
@@ -16,8 +16,14 @@ declare const __VLS_component: import('vue').DefineComponent<TableProps, {}, {},
     border: boolean;
     stripe: boolean;
     dense: boolean;
-    columns: import('./type').TableColumn[];
+    columns: TableColumn[];
     emptyText: string;
+    searchable: boolean;
+    searchPlaceholder: string;
+    pagination: boolean;
+    pageSize: number;
+    initialPage: number;
+    exportable: boolean;
 }, {}, {}, {}, string, import('vue').ComponentProvideOptions, false, {}, HTMLDivElement>;
 declare const _default: __VLS_WithTemplateSlots<typeof __VLS_component, __VLS_TemplateResult["slots"]>;
 export default _default;

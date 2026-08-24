@@ -39,6 +39,7 @@ import { Swap } from './components/Swap';
 import { Image } from './components/Image';
 import { Link } from './components/Link';
 import { Carousel } from './components/Carousel';
+import { Runhorselight } from './components/Runhorselight';
 import { Timeline, TimelineItem } from './components/Timeline';
 import { Toast, ToastContainer } from './components/Toast';
 import { Steps, StepItem } from './components/Steps';
@@ -48,4 +49,4 @@ declare const Versakit: {
     install: (app: any) => void;
 };
 export { Versakit };
-export { InputOtp, Modal, Avatar, Badge, Switch, Drawer, Segmented, Slider, Popover, Tooltip, Chip, Alert, Kbd, Button, Card, Divider, Textarea, Select, Checkbox, CheckboxGroup, Input, Rate, Calendar, TimePicker, DatePicker, DateTimePicker, TimeSelect, Skeleton, SkeletonText, SkeletonAvatar, Tabs, TabItem, Panel, Paginator, Progress, Breadcrumb, BreadcrumbItem, Splitter, SplitterPanel, RangeCalendar, Accordion, AccordionItem, InputTag, Dropdown, DropdownItem, DropdownDivider, Swap, Image, Link, Carousel, Timeline, TimelineItem, Toast, ToastContainer, Steps, StepItem, Radio, RadioGroup, Table, };
+export { InputOtp, Modal, Avatar, Badge, Switch, Drawer, Segmented, Slider, Popover, Tooltip, Chip, Alert, Kbd, Button, Card, Divider, Textarea, Select, Checkbox, CheckboxGroup, Input, Rate, Calendar, TimePicker, DatePicker, DateTimePicker, TimeSelect, Skeleton, SkeletonText, SkeletonAvatar, Tabs, TabItem, Panel, Paginator, Progress, Breadcrumb, BreadcrumbItem, Splitter, SplitterPanel, RangeCalendar, Accordion, AccordionItem, InputTag, Dropdown, DropdownItem, DropdownDivider, Swap, Image, Link, Carousel, Runhorselight, Timeline, TimelineItem, Toast, ToastContainer, Steps, StepItem, Radio, RadioGroup, Table, };
