@@ -1,12 +1,14 @@
 import { CarouselProps } from './type';
 declare function __VLS_template(): {
     attrs: Partial<{}>;
-    slots: Partial<Record<`item-${number}`, (_: {}) => any>> & {
+    slots: Partial<Record<string, (_: {}) => any>> & {
         'prev-icon'?(_: {}): any;
         'next-icon'?(_: {}): any;
     };
     refs: {
         rootRef: HTMLDivElement;
+        containerRef: HTMLDivElement;
+        trackRef: HTMLDivElement;
     };
     rootEl: HTMLDivElement;
 };
@@ -15,6 +17,8 @@ declare const __VLS_component: import('vue').DefineComponent<CarouselProps, {
     next: () => void;
     prev: () => void;
     goToSlide: (index: number) => void;
+    startAutoplay: () => void;
+    stopAutoplay: () => void;
 }, {}, {}, {}, import('vue').ComponentOptionsMixin, import('vue').ComponentOptionsMixin, {
     change: (currentIndex: number, prevIndex: number) => void;
     "update:active-index": (index: number) => void;
@@ -34,8 +38,12 @@ declare const __VLS_component: import('vue').DefineComponent<CarouselProps, {
     keyboardNavigation: boolean;
     touchSwipe: boolean;
     initialIndex: number;
+    pauseOnHover: boolean;
+    transitionDuration: number;
 }, {}, {}, {}, string, import('vue').ComponentProvideOptions, false, {
     rootRef: HTMLDivElement;
+    containerRef: HTMLDivElement;
+    trackRef: HTMLDivElement;
 }, HTMLDivElement>;
 declare const _default: __VLS_WithTemplateSlots<typeof __VLS_component, __VLS_TemplateResult["slots"]>;
 export default _default;

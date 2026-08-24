@@ -42,11 +42,11 @@ declare const __VLS_component: import('vue').DefineComponent<RunhorselightProps,
     direction: import('./type').RunhorselightDirection;
     backgroundColor: string;
     loop: boolean;
+    pauseOnHover: boolean;
     items: import('./type').RunhorselightItem[];
     textColor: string;
     borderRadius: string;
     gap: string;
-    pauseOnHover: boolean;
     autofill: boolean;
 }, {}, {}, {}, string, import('vue').ComponentProvideOptions, false, {
     viewportRef: HTMLDivElement;

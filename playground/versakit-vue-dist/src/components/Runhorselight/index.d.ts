@@ -6,11 +6,11 @@ export declare const Runhorselight: import('@versakit/shared').SFCWithInstall<{
         direction: import('.').RunhorselightDirection;
         backgroundColor: string;
         loop: boolean;
+        pauseOnHover: boolean;
         items: import('.').RunhorselightItem[];
         textColor: string;
         borderRadius: string;
         gap: string;
-        pauseOnHover: boolean;
         autofill: boolean;
     }, false, {}, {}, import('vue').GlobalComponents, import('vue').GlobalDirectives, string, {
         viewportRef: HTMLDivElement;
@@ -30,11 +30,11 @@ export declare const Runhorselight: import('@versakit/shared').SFCWithInstall<{
         direction: import('.').RunhorselightDirection;
         backgroundColor: string;
         loop: boolean;
+        pauseOnHover: boolean;
         items: import('.').RunhorselightItem[];
         textColor: string;
         borderRadius: string;
         gap: string;
-        pauseOnHover: boolean;
         autofill: boolean;
     }>;
     __isFragment?: never;
@@ -47,11 +47,11 @@ export declare const Runhorselight: import('@versakit/shared').SFCWithInstall<{
     direction: import('.').RunhorselightDirection;
     backgroundColor: string;
     loop: boolean;
+    pauseOnHover: boolean;
     items: import('.').RunhorselightItem[];
     textColor: string;
     borderRadius: string;
     gap: string;
-    pauseOnHover: boolean;
     autofill: boolean;
 }, {}, string, {}, import('vue').GlobalComponents, import('vue').GlobalDirectives, string, import('vue').ComponentProvideOptions> & import('vue').VNodeProps & import('vue').AllowedComponentProps & import('vue').ComponentCustomProps & (new () => {
     $slots: {

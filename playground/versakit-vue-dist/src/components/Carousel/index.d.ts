@@ -6,6 +6,8 @@ export declare const Carousel: import('@versakit/shared').SFCWithInstall<{
         next: () => void;
         prev: () => void;
         goToSlide: (index: number) => void;
+        startAutoplay: () => void;
+        stopAutoplay: () => void;
     }, {}, {}, {}, import('vue').ComponentOptionsMixin, import('vue').ComponentOptionsMixin, {
         change: (currentIndex: number, prevIndex: number) => void;
         "update:active-index": (index: number) => void;
@@ -22,8 +24,12 @@ export declare const Carousel: import('@versakit/shared').SFCWithInstall<{
         keyboardNavigation: boolean;
         touchSwipe: boolean;
         initialIndex: number;
+        pauseOnHover: boolean;
+        transitionDuration: number;
     }, false, {}, {}, import('vue').GlobalComponents, import('vue').GlobalDirectives, string, {
         rootRef: HTMLDivElement;
+        containerRef: HTMLDivElement;
+        trackRef: HTMLDivElement;
     }, HTMLDivElement, import('vue').ComponentProvideOptions, {
         P: {};
         B: {};
@@ -38,6 +44,8 @@ export declare const Carousel: import('@versakit/shared').SFCWithInstall<{
         next: () => void;
         prev: () => void;
         goToSlide: (index: number) => void;
+        startAutoplay: () => void;
+        stopAutoplay: () => void;
     }, {}, {}, {}, {
         size: import('.').CarouselSize;
         unstyled: boolean;
@@ -51,6 +59,8 @@ export declare const Carousel: import('@versakit/shared').SFCWithInstall<{
         keyboardNavigation: boolean;
         touchSwipe: boolean;
         initialIndex: number;
+        pauseOnHover: boolean;
+        transitionDuration: number;
     }>;
     __isFragment?: never;
     __isTeleport?: never;
@@ -62,6 +72,8 @@ export declare const Carousel: import('@versakit/shared').SFCWithInstall<{
     next: () => void;
     prev: () => void;
     goToSlide: (index: number) => void;
+    startAutoplay: () => void;
+    stopAutoplay: () => void;
 }, {}, {}, {}, import('vue').ComponentOptionsMixin, import('vue').ComponentOptionsMixin, {
     change: (currentIndex: number, prevIndex: number) => void;
     "update:active-index": (index: number) => void;
@@ -78,8 +90,10 @@ export declare const Carousel: import('@versakit/shared').SFCWithInstall<{
     keyboardNavigation: boolean;
     touchSwipe: boolean;
     initialIndex: number;
+    pauseOnHover: boolean;
+    transitionDuration: number;
 }, {}, string, {}, import('vue').GlobalComponents, import('vue').GlobalDirectives, string, import('vue').ComponentProvideOptions> & import('vue').VNodeProps & import('vue').AllowedComponentProps & import('vue').ComponentCustomProps & (new () => {
-    $slots: Partial<Record<`item-${number}`, (_: {}) => any>> & {
+    $slots: Partial<Record<string, (_: {}) => any>> & {
         'prev-icon'?(_: {}): any;
         'next-icon'?(_: {}): any;
     };
