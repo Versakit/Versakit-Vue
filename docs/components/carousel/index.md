@@ -31,6 +31,8 @@ import { Carousel } from '@versakit/vue'
 | touchSwipe         | `boolean`                             | `true`      | 是否启用触摸滑动         |
 | disabled           | `boolean`                             | `false`     | 是否禁用轮播图           |
 | initialIndex       | `number`                              | `0`         | 初始激活的幻灯片索引     |
+| pauseOnHover       | `boolean`                             | `true`      | 鼠标悬停时暂停自动播放   |
+| transitionDuration | `number`                              | `500`       | 过渡动画持续时间（毫秒） |
 | unstyled           | `boolean`                             | `false`     | 是否使用无样式模式       |
 | pt                 | `CarouselPT`                          | -           | 自定义样式传递           |
 
@@ -51,11 +53,13 @@ import { Carousel } from '@versakit/vue'
 
 ### 方法
 
-| 方法名    | 参数                      | 返回值 | 说明                   |
-| --------- | ------------------------- | ------ | ---------------------- |
-| next      | -                         | `void` | 切换到下一张幻灯片     |
-| prev      | -                         | `void` | 切换到上一张幻灯片     |
-| goToSlide | `(index: number) => void` | `void` | 切换到指定索引的幻灯片 |
+| 方法名        | 参数                      | 返回值 | 说明                   |
+| ------------- | ---------------------- | ------ | ---------------------- |
+| next          | -                         | `void` | 切换到下一张幻灯片     |
+| prev          | -                         | `void` | 切换到上一张幻灯片     |
+| goToSlide     | `(index: number) => void` | `void` | 切换到指定索引的幻灯片 |
+| startAutoplay | -                         | `void` | 开始自动播放           |
+| stopAutoplay  | -                         | `void` | 停止自动播放           |
 
 ### 样式传递
 
@@ -65,6 +69,7 @@ import { Carousel } from '@versakit/vue'
 type CarouselPT = {
 	root?: string
 	container?: string
+	track?: string
 	item?: string
 	navigation?: string
 	prevButton?: string

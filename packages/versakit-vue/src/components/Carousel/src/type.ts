@@ -47,6 +47,14 @@ export type CarouselProps = {
    */
   initialIndex?: number
   /**
+   * 鼠标悬停时暂停自动播放
+   */
+  pauseOnHover?: boolean
+  /**
+   * 过渡动画持续时间（毫秒）
+   */
+  transitionDuration?: number
+  /**
    * 是否使用无样式模式
    */
   unstyled?: boolean
@@ -59,6 +67,7 @@ export type CarouselProps = {
 export type CarouselPT = {
   root?: string
   container?: string
+  track?: string
   item?: string
   navigation?: string
   prevButton?: string
